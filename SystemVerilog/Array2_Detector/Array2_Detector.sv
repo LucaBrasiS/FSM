@@ -54,7 +54,7 @@ module Array2_Detector (
             S_IDLE: if (in) nsb = SB1; else nsb = S_IDLE;
             SB1:    if (!in)nsb = SB2; else nsb = SB1;
             SB2:    if (in) nsb = SB3; else nsb = S_IDLE;
-            SB3:    if (in) nsb = SB1; else nsb = S_IDLE;
+            SB3:    if (in) nsb = SB1; else nsb = SB2; // "1010" sonrası "10" öneki korunur
             default: nsb = S_IDLE;
         endcase
     end

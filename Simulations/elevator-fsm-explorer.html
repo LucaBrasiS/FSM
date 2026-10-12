@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -217,10 +217,10 @@ svg{width:100%;height:100%}
 
       <div class="shaft-stage" id="shaftStage">
         <div class="stations-lane">
-          <div class="station-box s3" id="sbox3"><span class="station-name">KAT 3</span><span class="station-desc">Çatı Katı</span><span class="station-obs">📦 ENGEL!</span></div>
-          <div class="station-box s2" id="sbox2"><span class="station-name">KAT 2</span><span class="station-desc">Ofis Katı</span><span class="station-obs">📦 ENGEL!</span></div>
-          <div class="station-box s1" id="sbox1"><span class="station-name">KAT 1</span><span class="station-desc">Giriş Katı</span><span class="station-obs">📦 ENGEL!</span></div>
-          <div class="station-box s0" id="sbox0"><span class="station-name">KAT 0</span><span class="station-desc">Zemin</span><span class="station-obs">📦 ENGEL!</span></div>
+          <div class="station-box s3" id="sbox3"><span class="station-name">KAT 3</span><span class="station-desc">Çatı Katı</span><span class="station-obs">ENGEL!</span></div>
+          <div class="station-box s2" id="sbox2"><span class="station-name">KAT 2</span><span class="station-desc">Ofis Katı</span><span class="station-obs">ENGEL!</span></div>
+          <div class="station-box s1" id="sbox1"><span class="station-name">KAT 1</span><span class="station-desc">Giriş Katı</span><span class="station-obs">ENGEL!</span></div>
+          <div class="station-box s0" id="sbox0"><span class="station-name">KAT 0</span><span class="station-desc">Zemin</span><span class="station-obs">ENGEL!</span></div>
         </div>
 
         <div class="shaft-core">
@@ -246,8 +246,8 @@ svg{width:100%;height:100%}
               <span id="cabDirTxt" style="color:var(--accent)">■ DURUYOR</span>
             </div>
             <div class="cabin-room" id="cabinRoom">
-              <span class="passenger">🧍</span>
-              <span class="obs-inside" id="obsEmoji">📦</span>
+              <span class="passenger"><svg width="20" height="30" viewBox="0 0 20 30"><circle cx="10" cy="6" r="5" fill="#FDE68A"/><path d="M3 28V16a7 7 0 0 1 14 0v12z" fill="#38BDF8"/></svg></span>
+              <span class="obs-inside" id="obsEmoji"><svg width="22" height="22" viewBox="0 0 22 22"><rect x="2" y="5" width="18" height="14" rx="2" fill="#B45309" stroke="#FCD34D" stroke-width="1.5"/><path d="M2 10h18M11 5v14" stroke="#FCD34D" stroke-width="1.2"/></svg></span>
               <div class="laser-barrier"></div>
               <div class="door-leaf l"></div>
               <div class="door-leaf r"></div>
@@ -265,7 +265,7 @@ svg{width:100%;height:100%}
           <button class="fbtn" id="b3" onclick="toggleReq(3)"><span style="color:var(--f3)">Kat 3</span><small>Çatı</small></button>
         </div>
         <div class="toggle-group">
-          <label style="color:var(--rose)"><input type="checkbox" id="chkObs" onchange="toggleSensor()"> <b>door_sensor:</b> Kapıda Engel Var (📦)</label>
+          <label style="color:var(--rose)"><input type="checkbox" id="chkObs" onchange="toggleSensor()"> <b>door_sensor:</b> Kapıda Engel Var</label>
           <label><input type="checkbox" id="chkEmg" onchange="toggleEmg()"> <b>emergency:</b> Acil Fren</label>
         </div>
       </div>
@@ -273,7 +273,7 @@ svg{width:100%;height:100%}
 
     <div class="right-col">
       <div class="toolbar">
-        <button class="tbtn" onclick="resetSim()" title="En Başa Dön">⏮ Başa</button>
+        <button class="tbtn" onclick="resetSim()" title="En Başa Dön">Başa</button>
         <button class="tbtn" onclick="stepBack()" title="1 Saat Çevrimi Geri Git">◀ Geri Adım</button>
         <button class="tbtn play" id="playBtn" onclick="togglePlay()">▶ Başlat</button>
         <button class="tbtn" onclick="stepForward()" title="1 Saat Çevrimi İleri Git">İleri Adım ▶</button>
@@ -353,11 +353,11 @@ const EL_EN = {
  'Klavye: ◀ Sol / Sağ ▶ ile saat adımı': 'Keyboard: ◀ Left / Right ▶ to step the clock',
  'Fiziksel Kuyu & Kat İstasyonları': 'Physical Shaft & Floor Stations',
  'KAT 3': 'FLOOR 3', 'KAT 2': 'FLOOR 2', 'KAT 1': 'FLOOR 1', 'KAT 0': 'FLOOR 0',
- 'Çatı Katı': 'Roof', 'Ofis Katı': 'Office', 'Giriş Katı': 'Lobby', 'Zemin': 'Ground', '📦 ENGEL!': '📦 BLOCKED!',
+ 'Çatı Katı': 'Roof', 'Ofis Katı': 'Office', 'Giriş Katı': 'Lobby', 'Zemin': 'Ground', 'ENGEL!': 'BLOCKED!',
  'Kat Çağrı Butonları (floor_req[3:0])': 'Floor Call Buttons (floor_req[3:0])',
  'Kat 0': 'Floor 0', 'Kat 1': 'Floor 1', 'Kat 2': 'Floor 2', 'Kat 3': 'Floor 3', 'Giriş': 'Lobby', 'Ofis': 'Office', 'Çatı': 'Roof',
- 'Kapıda Engel Var (📦)': 'Obstacle at Door (📦)', 'Acil Fren': 'Emergency Brake',
- '⏮ Başa': '⏮ Start', '◀ Geri Adım': '◀ Step Back', '▶ Başlat': '▶ Run', '❚❚ Duraklat': '❚❚ Pause', 'İleri Adım ▶': 'Step Forward ▶',
+ 'Kapıda Engel Var': 'Obstacle at Door', 'Acil Fren': 'Emergency Brake',
+ 'Başa': 'Start', '◀ Geri Adım': '◀ Step Back', '▶ Başlat': '▶ Run', '❚❚ Duraklat': '❚❚ Pause', 'İleri Adım ▶': 'Step Forward ▶',
  'Hız:': 'Speed:', 'Yavaş (800ms)': 'Slow (800ms)', 'Hızlı (120ms)': 'Fast (120ms)',
  'Döngü (clk):': 'Cycle (clk):', '| Sayaç:': '| Counter:',
  'Canlı Zaman Dalga Formu (RTL Waveform - Son 16 Çevrim)': 'Live Timing Waveform (RTL - Last 16 Cycles)',
@@ -367,7 +367,7 @@ const EL_EN = {
  'Mevcut Kat:': 'Current Floor:', 'Kapı:': 'Door:', 'Sensör:': 'Sensor:',
  'KAT ': 'FLOOR ', 'Kat ': 'Floor ',
  '▲ YUKARI': '▲ UP', '▼ AŞAĞI': '▼ DOWN', '◉ SEVİYELEME': '◉ LEVELING', '■ DURUYOR': '■ STOPPED',
- 'AÇIK': 'OPEN', 'KAPANIYOR': 'CLOSING', 'KAPALI': 'CLOSED', 'ENGEL (📦) VAR!': 'OBSTACLE (📦)!', 'ACİL STOP': 'EMERGENCY STOP'
+ 'AÇIK': 'OPEN', 'KAPANIYOR': 'CLOSING', 'KAPALI': 'CLOSED', 'ENGEL VAR!': 'OBSTACLE!', 'ACİL STOP': 'EMERGENCY STOP'
 };
 const INFO_EN = {
  S_IDLE: { t: 'S_IDLE (Waiting)', d: 'The car is parked with the motors locked. The req_reg register is scanned for new floor calls.' },
@@ -376,8 +376,8 @@ const INFO_EN = {
  S_DECEL: { t: 'S_DECEL (Leveling & Brake)', d: 'Target floor reached! The brake engages and the car is leveled with the landing.' },
  S_DOOR_OPEN: { t: 'S_DOOR_OPEN (Door Opening)', d: 'Brake confirmed; the door mechanism opens the panels.' },
  S_DOOR_WAIT: { t: 'S_DOOR_WAIT (Boarding)', d: 'Door fully open. timer_cnt counts the boarding time.' },
- S_DOOR_CLOS: { t: 'S_DOOR_CLOS (Door Closing)', d: 'The door is closing. If the obstacle sensor (📦) fires, it jumps to S_OBSTACLE immediately!' },
- S_OBSTACLE: { t: 'S_OBSTACLE (Obstacle Detected!)', d: 'An obstacle (📦) broke the light curtain! The door reopens immediately to prevent trapping.' },
+ S_DOOR_CLOS: { t: 'S_DOOR_CLOS (Door Closing)', d: 'The door is closing. If the obstacle sensor fires, it jumps to S_OBSTACLE immediately!' },
+ S_OBSTACLE: { t: 'S_OBSTACLE (Obstacle Detected!)', d: 'An obstacle broke the light curtain! The door reopens immediately to prevent trapping.' },
  S_EMERGENCY: { t: 'S_EMERGENCY (Emergency Brake!)', d: 'Emergency stop triggered! All motion stopped, alarm active.' }
 };
 function T(s){ return LANG === 'en' ? (EL_EN[s] || s) : s; }
@@ -632,12 +632,12 @@ const info = {
   },
   S_DOOR_CLOS: {
     t: "S_DOOR_CLOS (Kapı Kapanıyor)",
-    d: "Kapı kapanıyor. Engel sensörü (📦) tetiklenirse derhal S_OBSTACLE'a sıçrar!",
+    d: "Kapı kapanıyor. Engel sensörü tetiklenirse derhal S_OBSTACLE'a sıçrar!",
     rtl: "door_open = 1'b0; if(door_sensor) state_d = S_OBSTACLE;"
   },
   S_OBSTACLE: {
     t: "S_OBSTACLE (Engel Algılandı!)",
-    d: "Lazer perdesinde bir engel (📦) tespit edildi! Sıkışmayı önlemek için kapı derhal geri açılıyor.",
+    d: "Lazer perdesinde bir engel tespit edildi! Sıkışmayı önlemek için kapı derhal geri açılıyor.",
     rtl: "alarm = 1'b1; door_open = 1'b1; state_d = S_DOOR_OPEN;"
   },
   S_EMERGENCY: {
@@ -680,7 +680,7 @@ function updateUI(){
   const isDoorOpen = (state === 'S_DOOR_OPEN' || state === 'S_DOOR_WAIT' || state === 'S_OBSTACLE');
   document.getElementById('cabinRoom').classList.toggle('doors-open', isDoorOpen);
   document.getElementById('lblDoor').textContent = T(isDoorOpen ? 'AÇIK' : (state === 'S_DOOR_CLOS' ? 'KAPANIYOR' : 'KAPALI'));
-  document.getElementById('lblSens').textContent = T(doorSensor ? 'ENGEL (📦) VAR!' : (emergency ? 'ACİL STOP' : 'NORMAL'));
+  document.getElementById('lblSens').textContent = T(doorSensor ? 'ENGEL VAR!' : (emergency ? 'ACİL STOP' : 'NORMAL'));
   document.getElementById('lblSens').style.color = (doorSensor || emergency) ? 'var(--rose)' : 'var(--green)';
 
   const floorPos = [1.5, 26, 50.5, 75];
@@ -890,7 +890,7 @@ updateUI();
 #exNote{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:198;background:#0F172A;color:#fff;border-radius:999px;padding:9px 18px;
   font:700 13px system-ui,sans-serif;box-shadow:0 10px 26px -8px rgba(0,0,0,.5);display:none;max-width:70vw;text-align:center}
 </style>
-<button id="exBtn">💡 FSM Açıklamaları</button>
+<button id="exBtn">FSM Açıklamaları</button>
 <div id="exNote"></div>
 <aside id="exPanel"><div class="eh"><b>FSM nasıl çalışıyor?</b><button onclick="exToggle(false)">✕</button></div><div class="eb" id="exBody"></div></aside>
 <script>
@@ -930,7 +930,7 @@ updateUI();
   window.EX_TR = EX;
   window.exRender = function(src){
   const en = window.exLang === 'en';
-  document.getElementById('exBtn').textContent = en ? '💡 FSM Explanations' : '💡 FSM Açıklamaları';
+  document.getElementById('exBtn').textContent = en ? 'FSM Explanations' : 'FSM Açıklamaları';
   document.querySelector('#exPanel .eh b').textContent = en ? 'How does the FSM work?' : 'FSM nasıl çalışıyor?';
   stop(); note('');
   const body = document.getElementById('exBody');
@@ -1009,5 +1009,6 @@ window.EX_EN = {
   window.setLanguage = function(l){ sl(l); window.exLang = l; document.documentElement.lang = l; exRender(l === 'en' ? EX_EN : EX_TR); };
 })();
 </script>
+<script>setLanguage('en');</script>
 </body>
 </html>

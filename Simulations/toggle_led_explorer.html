@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -342,9 +342,9 @@ body {
     </div>
 
     <div class="toolbar-actions">
-      <button class="btn-act theory" id="btnOpenTheory" onclick="toggleTheoryModal(true)">💡 Theory & Logic</button>
+      <button class="btn-act theory" id="btnOpenTheory" onclick="toggleTheoryModal(true)">Theory & Logic</button>
       <button class="btn-act play" id="btnPlay" onclick="toggleAutoClock()">▶ Auto Run</button>
-      <button class="btn-act danger" onclick="resetAll()">⏮ Hardware RST</button>
+      <button class="btn-act danger" onclick="resetAll()">Hardware RST</button>
     </div>
   </div>
 
@@ -494,7 +494,7 @@ body {
   <div class="theory-card">
     <div class="theory-head">
       <div style="display:flex;align-items:center;gap:8px">
-        <span style="font-size:1.15rem">💡</span>
+
         <h3 style="margin:0;font-size:.95rem;font-weight:800;color:var(--text-main)" id="modalTitle">Circuit Theory & Hardware Principles</h3>
       </div>
       <button class="btn-act" onclick="toggleTheoryModal(false)">✕ Close</button>
@@ -549,7 +549,7 @@ let currentLang = 'en';
 const I18N = {
   en: {
     subtitle: "RTL Clock Divider & FPGA Blinker Explorer",
-    btnOpenTheory: "💡 Theory & Logic",
+    btnOpenTheory: "Theory & Logic",
     lblClkControl: "Clock Edge Generation",
     txtStepClk: "posedge clk",
     txtStepSub: "Trigger 1 Clock Cycle",
@@ -580,7 +580,7 @@ const I18N = {
   },
   tr: {
     subtitle: "RTL Saat Bölücü & FPGA LED Flaşörü Gezgini",
-    btnOpenTheory: "💡 Devre Mantığı",
+    btnOpenTheory: "Devre Mantığı",
     lblClkControl: "Saat Darbesi Üretimi",
     txtStepClk: "posedge clk",
     txtStepSub: "1 Saat Çevrimi İlerlet",
@@ -911,7 +911,7 @@ resetAll();
 #exNote{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:198;background:#0F172A;color:#fff;border-radius:999px;padding:9px 18px;
   font:700 13px system-ui,sans-serif;box-shadow:0 10px 26px -8px rgba(0,0,0,.5);display:none;max-width:70vw;text-align:center}
 </style>
-<button id="exBtn">💡 FSM Açıklamaları</button>
+<button id="exBtn">FSM Açıklamaları</button>
 <div id="exNote"></div>
 <aside id="exPanel"><div class="eh"><b>FSM nasıl çalışıyor?</b><button onclick="exToggle(false)">✕</button></div><div class="eb" id="exBody"></div></aside>
 <script>
@@ -947,7 +947,7 @@ resetAll();
   window.EX_TR = EX;
   window.exRender = function(src){
   const en = window.exLang === 'en';
-  document.getElementById('exBtn').textContent = en ? '💡 FSM Explanations' : '💡 FSM Açıklamaları';
+  document.getElementById('exBtn').textContent = en ? 'FSM Explanations' : 'FSM Açıklamaları';
   document.querySelector('#exPanel .eh b').textContent = en ? 'How does the FSM work?' : 'FSM nasıl çalışıyor?';
   stop(); note('');
   const body = document.getElementById('exBody');
@@ -1022,5 +1022,6 @@ window.EX_EN = {
   window.setLanguage = function(l){ sl(l); window.exLang = l; document.documentElement.lang = l; exRender(l === 'en' ? EX_EN : EX_TR); };
 })();
 </script>
+<script>setLanguage('en');</script>
 </body>
 </html>

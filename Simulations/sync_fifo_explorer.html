@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -333,9 +333,9 @@ body {
     </div>
 
     <div class="toolbar-actions">
-      <button class="btn-act theory" onclick="toggleTheoryModal(true)" id="btnTheory">💡 FIFO Logic & Theory</button>
+      <button class="btn-act theory" onclick="toggleTheoryModal(true)" id="btnTheory">FIFO Logic & Theory</button>
       <button class="btn-act play" id="btnPlay" onclick="toggleAutoClock()">▶ Auto Run</button>
-      <button class="btn-act danger" onclick="resetAll()">⏮ Hardware RST</button>
+      <button class="btn-act danger" onclick="resetAll()">Hardware RST</button>
     </div>
   </div>
 
@@ -369,7 +369,7 @@ body {
         <div class="din-input-box">
           <span style="font-family:var(--font-mono);font-weight:800;color:var(--accent-wr)">0x</span>
           <input type="text" class="din-input" id="inHexVal" value="A1" maxlength="2">
-          <button class="din-gen-btn" onclick="genRandomHex()" id="btnRnd">🎲 Rnd</button>
+          <button class="din-gen-btn" onclick="genRandomHex()" id="btnRnd">Rnd</button>
         </div>
       </div>
 
@@ -501,7 +501,7 @@ body {
   <div class="theory-card">
     <div class="theory-head">
       <div style="display:flex;align-items:center;gap:8px">
-        <span style="font-size:1.15rem">💡</span>
+
         <h3 style="margin:0;font-size:.95rem;font-weight:800;color:var(--text-main)" id="modalTitle">Synchronous FIFO Architecture & Principles</h3>
       </div>
       <button class="btn-act" onclick="toggleTheoryModal(false)">✕ Close</button>
@@ -548,7 +548,7 @@ let currentLang = 'en';
 const I18N = {
   en: {
     subtitle: "Circular Buffer & RTL Waveform Explorer",
-    btnTheory: "💡 FIFO Logic & Theory",
+    btnTheory: "FIFO Logic & Theory",
     lblPortActions: "Port Control",
     subPush: "Write Data In",
     subPop: "Read Data Out",
@@ -574,7 +574,7 @@ const I18N = {
   },
   tr: {
     subtitle: "Dairesel Bellek & RTL Dalga Formu Gezgini",
-    btnTheory: "💡 FIFO Mimarisi & Teori",
+    btnTheory: "FIFO Mimarisi & Teori",
     lblPortActions: "Port Kontrolü",
     subPush: "Veri Yaz (Push)",
     subPop: "Veri Oku (Pop)",
@@ -972,7 +972,7 @@ resetAll();
 #exNote{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:198;background:#0F172A;color:#fff;border-radius:999px;padding:9px 18px;
   font:700 13px system-ui,sans-serif;box-shadow:0 10px 26px -8px rgba(0,0,0,.5);display:none;max-width:70vw;text-align:center}
 </style>
-<button id="exBtn">💡 FSM Açıklamaları</button>
+<button id="exBtn">FSM Açıklamaları</button>
 <div id="exNote"></div>
 <aside id="exPanel"><div class="eh"><b>FSM nasıl çalışıyor?</b><button onclick="exToggle(false)">✕</button></div><div class="eb" id="exBody"></div></aside>
 <script>
@@ -1010,7 +1010,7 @@ resetAll();
   window.EX_TR = EX;
   window.exRender = function(src){
   const en = window.exLang === 'en';
-  document.getElementById('exBtn').textContent = en ? '💡 FSM Explanations' : '💡 FSM Açıklamaları';
+  document.getElementById('exBtn').textContent = en ? 'FSM Explanations' : 'FSM Açıklamaları';
   document.querySelector('#exPanel .eh b').textContent = en ? 'How does the FSM work?' : 'FSM nasıl çalışıyor?';
   stop(); note('');
   const body = document.getElementById('exBody');
@@ -1087,5 +1087,6 @@ window.EX_EN = {
   window.setLanguage = function(l){ sl(l); window.exLang = l; document.documentElement.lang = l; exRender(l === 'en' ? EX_EN : EX_TR); };
 })();
 </script>
+<script>setLanguage('en');</script>
 </body>
 </html>

@@ -1,39 +1,42 @@
-# FSM Tasarımları ve Etkileşimli Simülasyonlar
+# FSM Designs in Verilog and SystemVerilog
 
-Bu klasörde beş sonlu durum makinesi (FSM) tasarımı bulunur. Her tasarımın Verilog ve SystemVerilog kaynak kodu ile tarayıcıda çalışan etkileşimli bir simülasyonu vardır.
+This repository contains five finite state machine designs, each written in both Verilog and SystemVerilog and verified in Xilinx Vivado. Every design also has a browser-based simulation that shows the state diagram, the inputs and outputs, and a timing waveform as the clock advances.
 
-## Klasör yapısı
+## Designs
 
-```
-FSM/
-├── VERİLOG/          Verilog kaynak kodları ve testbench dosyaları
-├── System Verilog/   SystemVerilog kaynak kodları ve testbench dosyaları
-└── Simulations/      Tarayıcıda açılan etkileşimli simülasyonlar (.html)
-```
-
-Kaynak kodlar `.txt` uzantılıdır. Vivado'da kullanmak için Verilog dosyalarını `.v`, SystemVerilog dosyalarını `.sv` uzantısıyla kaydedin.
-
-## Tasarımlar
-
-| Tasarım | Ne yapar? | Simülasyon |
+| Design | Description | Simulation |
 |---|---|---|
-| **Lock_Door** | Seri girilen 3 bitlik şifreyi kontrol eden kilit | `lock_door_fsm.html` |
-| **Array2_Detector** | Giriş akışında `1101` ve `1011` dizilerini yakalar; 1–8 bitlik özel dizi desteği | `array2_detector.html` |
-| **Elevator_FSM** | 4 katlı asansör denetleyicisi (9 durumlu Moore makinesi) | `elevator-fsm-explorer.html` |
-| **FIFO** | 8 derinlikli, 8 bit senkron FIFO | `sync_fifo_explorer.html` |
-| **Toggle_LED** | Sayaçla saat bölme; LED belirli aralıkla yanıp söner | `toggle_led_explorer.html` |
+| Lock_Door | 3-bit serial password lock, one-hot encoded | [lock_door_fsm.html](https://lucabrasis.github.io/FSM/Simulations/lock_door_fsm.html) |
+| Array2_Detector | Detects the sequences 1101 and 1011 in a serial bit stream, including overlapping matches | [array2_detector.html](https://lucabrasis.github.io/FSM/Simulations/array2_detector.html) |
+| Elevator Controller | 4-floor elevator, 9-state Moore machine with door sensor and emergency stop | [elevator-fsm-explorer.html](https://lucabrasis.github.io/FSM/Simulations/elevator-fsm-explorer.html) |
+| FIFO | Synchronous FIFO, 8 entries of 8 bits, with full and empty flags | [sync_fifo_explorer.html](https://lucabrasis.github.io/FSM/Simulations/sync_fifo_explorer.html) |
+| Toggle_LED | Counter-based clock divider driving a blinking LED | [toggle_led_explorer.html](https://lucabrasis.github.io/FSM/Simulations/toggle_led_explorer.html) |
 
-## Simülasyonları kullanma
+## Verification
 
-Kurulum gerekmez. `Simulations` klasöründeki `.html` dosyasını bir tarayıcıda açmanız yeterlidir.
+Each module has its own testbench. In addition, `SystemVerilog/ALL_TB.sv` runs all five modules in a single simulation and covers both passing and failing cases: a correct and a wrong password, sequence hits and misses, FIFO overflow and underflow, an obstacle at the elevator door and an emergency stop.
 
-- **Girişler:** Düğmelerle FSM'e giriş verin ya da saat darbesini adım adım ilerletin.
-- **Durum diyagramı:** Aktif durum ve son geçiş vurgulanır.
-- **Dalga formu:** Son çevrimlerin sinyalleri RTL dalga formu olarak gösterilir.
-- **💡 FSM Açıklamaları:** Sağ alttaki düğme, FSM mantığını anlatan paneli açar. Her başlıktaki başarılı ve başarısız senaryolar tek tıkla adım adım oynatılır.
-- **Dil:** Sayfalar Türkçe açılır; sağ üstteki **EN** düğmesiyle İngilizceye geçilir.
+Behavioral simulation of `ALL_TB` in Vivado:
 
-## Araçlar
+![Vivado waveform](vivado_sim/RESULT.png)
 
-- Xilinx Vivado 2025.2 (sentez ve simülasyon)
-- Herhangi bir güncel tarayıcı (etkileşimli simülasyonlar)
+Console output of the same run:
+
+![Vivado console output](vivado_sim/Results_Sum.png)
+
+## Browser simulations
+
+The files in `Simulations/` run in any modern browser without installation. You can drive the inputs, step the clock one edge at a time or let it run, and follow the active state on the diagram. The explanations panel replays successful and failing scenarios for each design. The interface is available in Turkish and English.
+
+## Repository layout
+
+```
+Verilog/          Verilog-2001 modules and testbenches
+SystemVerilog/    SystemVerilog modules, testbenches and ALL_TB.sv
+Simulations/      Browser-based simulations
+vivado_sim/       Vivado simulation screenshots
+```
+
+## Tools
+
+Xilinx Vivado 2025.2 (xsim) for simulation. The browser simulations are plain HTML and JavaScript.

@@ -26,22 +26,20 @@ module Lock_Door_tb;
         rst = 1;
         in  = 0;
 
+        // Girişler saatin düşen kenarında (20, 30, 40 ns) değişir;
+        // bitler 25, 35, 45 ns yükselen kenarlarında syc_in = 0, 1, 2 hücrelerine yazılır.
         #20;
-        rst = 0; // Reset kaldırıldı, kasa aktif!
-
-        // Hedef şifremiz "101". Sırayla bitleri verelim:
-        #10 in = 1'b1; // 1. hane (Doğru)
+        rst = 0;       // Reset kaldırıldı, kasa aktif!
+        in  = 1'b1;    // 1. hane (Doğru)
         #10 in = 1'b0; // 2. hane (Doğru)
-        #10 in = 1'b1; // 3. hane (Doğru -> Kilit açılmalı!)
+        #10 in = 1'b1; // 3. hane (Doğru -> 65 ns'de unlocked = 1)
 
-        #30;
-
-        // Yanlış şifre denemesi ("000")
-        #10 in = 1'b0;
+        // Kilit açıldıktan sonraki çerçeve (55-75 ns) değerlendirilmez; 85 ns'den itibaren yeni çerçeve
+        #40 in = 1'b0; // Yanlış şifre denemesi ("000")
         #10 in = 1'b0;
         #10 in = 1'b0;
 
-        #40;
+        #60;
         $finish;
     end
 
