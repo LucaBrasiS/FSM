@@ -18,11 +18,11 @@ Each module has its own testbench. In addition, `SystemVerilog/ALL_TB.sv` runs a
 
 Behavioral simulation of `ALL_TB` in Vivado:
 
-![Vivado waveform](vivado_sim/RESULT.png)
+![Vivado waveform](vivado_sim.png/RESULT.png)
 
 Console output of the same run:
 
-![Vivado console output](vivado_sim/Results_Sum.png)
+![Vivado console output](vivado_sim.png/Results_Sum.png)
 
 ## Browser simulations
 
@@ -34,7 +34,7 @@ The files in `Simulations/` run in any modern browser without installation. You 
 Verilog/          Verilog-2001 modules and testbenches
 SystemVerilog/    SystemVerilog modules, testbenches and ALL_TB.sv
 Simulations/      Browser-based simulations
-vivado_sim/       Vivado simulation screenshots
+vivado_sim.png/   Vivado simulation screenshots
 ```
 
 ## Tools
