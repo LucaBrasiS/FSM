@@ -1,0 +1,76 @@
+`timescale 1ns / 1ps
+
+module Array2_Detector (
+    input  logic clk,
+    input  logic rst,
+    input  logic in,
+    output logic seq_a_detected,
+    output logic seq_b_detected
+);
+
+    // SystemVerilog'un en güzel özelliği: Durumları (States) isimleriyle 'enum' olarak tanımlayabilmek!
+    typedef enum logic [2:0] {
+        S_IDLE = 3'b000,
+        SA1    = 3'b001, 
+        SA2    = 3'b010, 
+        SA3    = 3'b011,
+        SB1    = 3'b100, 
+        SB2    = 3'b101, 
+        SB3    = 3'b110
+    } state_t;
+
+    state_t csa, nsa; // Dizi A için şimdiki ve sonraki durum
+    state_t csb, nsb; // Dizi B için şimdiki ve sonraki durum
+
+    // 1. Adım: Sıralı Mantık (Sequential Logic) - Durum Hafızası
+    // always_ff, saat (clock) kullanan flip-flop'lar için özel olarak tasarlanmıştır.
+    always_ff @(posedge clk or posedge rst) begin
+        if (rst) begin
+            csa <= S_IDLE;
+            csb <= S_IDLE;
+        end else begin
+            csa <= nsa;
+            csb <= nsb;
+        end
+    end
+
+    // 2. Adım: Kombinasyonel Mantık (Combinational Logic) - Sonraki Durum
+    // always_comb, içerideki değişkenleri otomatik algılar, eksik atama yapmanızı önler.
+    always_comb begin
+        nsa = csa;
+        nsb = csb;
+
+        // Dizi A (1101) Arama Mantığı
+        case (csa)
+            S_IDLE: if (in) nsa = SA1; else nsa = S_IDLE;
+            SA1:    if (in) nsa = SA2; else nsa = S_IDLE;
+            SA2:    if (!in)nsa = SA3; else nsa = SA2;
+            SA3:    if (in) nsa = SA1; else nsa = S_IDLE;
+            default: nsa = S_IDLE;
+        endcase
+
+        // Dizi B (1011) Arama Mantığı
+        case (csb)
+            S_IDLE: if (in) nsb = SB1; else nsb = S_IDLE;
+            SB1:    if (!in)nsb = SB2; else nsb = SB1;
+            SB2:    if (in) nsb = SB3; else nsb = S_IDLE;
+            SB3:    if (in) nsb = SB1; else nsb = S_IDLE;
+            default: nsb = S_IDLE;
+        endcase
+    end
+
+    // 3. Adım: Çıkış Üretimi (Mealy Tipi Algılama)
+    always_ff @(posedge clk or posedge rst) begin
+        if (rst) begin
+            seq_a_detected <= 1'b0;
+            seq_b_detected <= 1'b0;
+        end else begin
+            // A Dizisi (1101) tamamlandı mı?
+            seq_a_detected <= (csa == SA3 && in == 1'b1);
+            
+            // B Dizisi (1011) tamamlandı mı?
+            seq_b_detected <= (csb == SB3 && in == 1'b1);
+        end
+    end
+
+endmodule

@@ -1,0 +1,1026 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toggle_LED — RTL Clock Divider & FPGA Blinker Explorer</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap">
+<style>
+:root {
+  --bg-main: #F1F5F9;
+  --card-bg: #FFFFFF;
+  --card-sub: #F8FAFC;
+  --border: #E2E8F0;
+  --border-strong: #CBD5E1;
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --text-faint: #94A3B8;
+
+  --accent-led: #10B981;
+  --accent-led-glow: rgba(16, 185, 129, 0.5);
+  --accent-led-off: #334155;
+
+  --sky: #0284C7;
+  --sky-bg: #E0F2FE;
+  --purple: #7C3AED;
+  --purple-bg: #EDE9FE;
+  --amber: #D97706;
+  --amber-bg: #FEF3C7;
+
+  --shadow-sm: 0 2px 8px rgba(148, 163, 184, 0.12);
+  --shadow-md: 0 8px 24px -4px rgba(100, 116, 139, 0.12);
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 14px;
+  gap: 8px;
+}
+
+/* Üst Navigasyon */
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 6px 14px;
+  box-shadow: var(--shadow-sm);
+  flex: none;
+  height: 44px;
+}
+.brand { display: flex; align-items: baseline; gap: 8px; }
+.brand h1 { font-size: 1.15rem; font-weight: 800; color: var(--text-main); }
+.brand span { font-size: .76rem; color: var(--text-muted); font-weight: 600; }
+
+.tab-group {
+  display: flex;
+  background: var(--card-sub);
+  border: 1.5px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 2px;
+  gap: 3px;
+}
+.lang-btn {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-muted);
+  transition: all .15s;
+}
+.lang-btn.active { background: #0F172A; color: #FFFFFF; }
+
+.toolbar-actions { display: flex; align-items: center; gap: 6px; }
+.btn-act {
+  font-size: .74rem; font-weight: 700; padding: 5px 12px; border-radius: 6px;
+  border: 1px solid var(--border-strong); background: var(--card-bg); cursor: pointer;
+  transition: all .15s;
+}
+.btn-act:hover { background: #F1F5F9; }
+.btn-act.play { background: var(--purple); color: #FFF; border-color: var(--purple); font-weight: 800; }
+.btn-act.theory { background: var(--amber-bg); color: #B45309; border-color: #FCD34D; font-weight: 800; }
+.btn-act.danger { color: #DC2626; border-color: #FECACA; }
+.btn-act.danger:hover { background: #FEF2F2; }
+
+/* 3 Kolonlu Grid */
+.main-grid {
+  display: grid;
+  grid-template-columns: 290px 1fr 340px;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.card-head {
+  font-size: .82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-main);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* SOL */
+.left-col { display: flex; flex-direction: column; gap: 8px; min-height: 0; }
+.step-clk-btn {
+  width: 100%; border-radius: 10px; border: 2px solid #DDD6FE;
+  cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; background: linear-gradient(135deg, #FAF5FF, #EDE9FE);
+  color: var(--purple); transition: transform .1s, box-shadow .15s;
+}
+.step-clk-btn:active { transform: scale(0.97); }
+.step-clk-btn .icon { font-size: 1.8rem; font-weight: 900; }
+.step-clk-btn .text { display: flex; flex-direction: column; align-items: flex-end; font-size: .82rem; font-weight: 800; }
+.step-clk-btn .text small { font-size: .66rem; font-weight: 600; opacity: .8; }
+
+.rst-toggle-btn {
+  width: 100%; border-radius: 8px; border: 1.5px solid var(--border);
+  background: var(--card-sub); color: var(--text-muted); padding: 8px;
+  font-family: var(--font-mono); font-size: .78rem; font-weight: 800;
+  cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  transition: all .15s;
+}
+.rst-toggle-btn.active {
+  background: #FEE2E2; border-color: #EF4444; color: #DC2626;
+}
+
+.param-select-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px;
+}
+.p-btn {
+  font-family: var(--font-mono); font-size: .74rem; font-weight: 800;
+  padding: 6px 0; border-radius: 6px; border: 1.5px solid var(--border);
+  background: var(--card-sub); cursor: pointer; text-align: center; color: var(--text-muted);
+  transition: all .15s;
+}
+.p-btn.active {
+  background: var(--purple); color: #FFF; border-color: var(--purple);
+}
+
+.speed-group {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px;
+  background: var(--card-sub); padding: 2px; border-radius: 6px; border: 1px solid var(--border);
+}
+.spd-btn {
+  font-size: .66rem; font-weight: 700; padding: 4px 0; border: none; border-radius: 5px;
+  background: transparent; color: var(--text-muted); cursor: pointer; text-align: center;
+}
+.spd-btn.active { background: #FFF; color: var(--purple); font-weight: 800; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+
+/* ORTA */
+.center-col { display: flex; flex-direction: column; gap: 8px; min-height: 0; }
+.rtl-stage {
+  flex: 1; background: #FFF; border-radius: 12px; border: 1px solid var(--border);
+  padding: 8px 12px; display: flex; flex-direction: column; gap: 4px; min-height: 0;
+}
+.diag-svg-box { flex: 1; width: 100%; height: 100%; position: relative; }
+.diag-svg-box svg { width: 100%; height: 100%; }
+
+/* BÜYÜTÜLMÜŞ & HİZALANMIŞ DALGA FORMU ALANI */
+.wf-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  height: 215px; /* 100% ölçekte 4 sinyalin tam sığması için optimize edildi */
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.wf-container {
+  display: grid;
+  grid-template-columns: 155px 1fr;
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+}
+.wf-probes {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2px 0;
+}
+.probe-badge {
+  background: var(--card-sub);
+  border: 1.5px solid var(--border-strong);
+  border-radius: 6px;
+  padding: 4px 8px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  font-weight: 800;
+  box-shadow: 0 1px 2px rgba(0,0,0,.03);
+}
+.probe-badge.clk-sig { border-left: 4px solid var(--sky); }
+.probe-badge.rst-sig { border-left: 4px solid #EF4444; }
+.probe-badge.cnt-sig { border-left: 4px solid var(--purple); }
+.probe-badge.led-sig { border-left: 4px solid var(--accent-led); }
+.probe-val {
+  font-size: .84rem;
+  font-weight: 900;
+  background: #FFF;
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+.probe-badge.led-sig.on { background: #D1FAE5; border-color: var(--accent-led); }
+
+/* SAĞ */
+.right-col { display: flex; flex-direction: column; gap: 8px; min-height: 0; }
+.fpga-board {
+  flex: 1; background: #064E3B; border-radius: 14px; border: 3px solid #047857;
+  padding: 14px; display: flex; flex-direction: column; gap: 10px; position: relative;
+  box-shadow: inset 0 0 35px rgba(0,0,0,0.65), 0 10px 25px rgba(6,78,59,0.3);
+  overflow: hidden;
+}
+.pcb-trace {
+  position: absolute; border: 1.5px solid rgba(52, 211, 153, 0.25); pointer-events: none;
+}
+.fpga-chip {
+  background: #0F172A; border: 2px solid #334155; border-radius: 8px;
+  padding: 12px 10px; display: flex; flex-direction: column; align-items: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.7); position: relative;
+}
+.chip-brand { font-family: var(--font-mono); font-size: .68rem; font-weight: 900; color: #94A3B8; letter-spacing: .08em; }
+.chip-num { font-family: var(--font-mono); font-size: .62rem; color: #64748B; }
+
+.led-fixture {
+  background: rgba(15, 23, 42, 0.85); border: 2px solid #1E293B; border-radius: 12px;
+  padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px;
+  margin-top: auto; margin-bottom: auto; box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+}
+.hardware-led {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #475569, #0F172A);
+  border: 4px solid #1E293B; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  transition: all .15s ease; position: relative;
+}
+.hardware-led.lit {
+  background: radial-gradient(circle at 35% 35%, #6EE7B7, #10B981 60%, #047857);
+  border-color: #34D399;
+  box-shadow: 0 0 25px #10B981, 0 0 50px rgba(16, 185, 129, 0.6);
+}
+.led-state-banner {
+  font-family: var(--font-mono); font-size: 1.05rem; font-weight: 900;
+  color: #94A3B8; letter-spacing: .06em;
+}
+.led-state-banner.lit { color: #34D399; text-shadow: 0 0 10px rgba(52, 211, 153, 0.6); }
+
+.fpga-footer {
+  background: rgba(15, 23, 42, 0.8); border: 1px solid #1E293B; border-radius: 8px;
+  padding: 8px 10px; font-family: var(--font-mono); font-size: .7rem; color: #A7F3D0;
+  display: flex; justify-content: space-between;
+}
+
+/* TEORİ MODALI */
+.theory-modal-overlay {
+  position: fixed; inset: 0; background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(4px);
+  z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px;
+}
+.theory-modal-overlay.open { display: flex; }
+.theory-card {
+  background: #FFF; border: 2px solid var(--border-strong); border-radius: 16px;
+  width: 100%; max-width: 720px; box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+  display: flex; flex-direction: column; overflow: hidden; animation: popIn .2s ease-out;
+}
+@keyframes popIn { from{transform:scale(0.96); opacity:0;} to{transform:scale(1); opacity:1;} }
+
+.theory-head {
+  background: var(--card-sub); border-bottom: 1px solid var(--border);
+  padding: 12px 18px; display: flex; justify-content: space-between; align-items: center;
+}
+.theory-body {
+  padding: 16px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  max-height: 80vh; overflow-y: auto;
+}
+.theory-item {
+  background: var(--card-sub); border: 1.5px solid var(--border); border-radius: 10px;
+  padding: 12px 14px; display: flex; flex-direction: column; gap: 5px;
+}
+.theory-item.highlight { border-color: #FCD34D; background: #FFFBEB; }
+.theory-item-title {
+  font-size: .84rem; font-weight: 800; display: flex; align-items: center; gap: 6px;
+}
+.theory-item-text {
+  font-size: .76rem; color: var(--text-muted); line-height: 1.45; margin: 0;
+}
+.theory-code {
+  font-family: var(--font-mono); font-size: .7rem; font-weight: 700;
+  background: #0F172A; color: #38BDF8; padding: 3px 6px; border-radius: 4px;
+  margin-top: 4px; display: inline-block;
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="top-nav">
+    <div class="brand">
+      <h1>Toggle_LED</h1>
+      <span id="txtSubtitle">RTL Clock Divider & FPGA Blinker Explorer</span>
+    </div>
+
+    <div class="tab-group">
+      <button class="lang-btn active" id="langEn" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" id="langTr" onclick="setLanguage('tr')">TR</button>
+    </div>
+
+    <div class="toolbar-actions">
+      <button class="btn-act theory" id="btnOpenTheory" onclick="toggleTheoryModal(true)">💡 Theory & Logic</button>
+      <button class="btn-act play" id="btnPlay" onclick="toggleAutoClock()">▶ Auto Run</button>
+      <button class="btn-act danger" onclick="resetAll()">⏮ Hardware RST</button>
+    </div>
+  </div>
+
+  <div class="main-grid">
+    <!-- SOL -->
+    <div class="left-col">
+      <div class="card">
+        <div class="card-head">
+          <span id="lblClkControl">Clock Edge Generation</span>
+          <span style="font-family:var(--font-mono);color:var(--purple);font-weight:800" id="lblClkCount">CLK: 0</span>
+        </div>
+        <button class="step-clk-btn" onclick="stepClock()">
+          <span class="icon">⤤</span>
+          <span class="text">
+            <span id="txtStepClk">posedge clk</span>
+            <small id="txtStepSub">Trigger 1 Clock Cycle</small>
+          </span>
+        </button>
+        <button class="rst-toggle-btn" id="btnRstToggle" onclick="toggleReset()">
+          <span id="txtRstLabel">Sync Reset (rst):</span>
+          <span id="txtRstVal">0 (INACTIVE)</span>
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span>HALF_PERIOD</span>
+          <span style="font-family:var(--font-mono);color:var(--sky);font-weight:800" id="lblClogWidth">[$clog2 = 2 bit]</span>
+        </div>
+        <div class="param-select-grid">
+          <button class="p-btn active" onclick="setHalfPeriod(4, this)">4</button>
+          <button class="p-btn" onclick="setHalfPeriod(8, this)">8</button>
+          <button class="p-btn" onclick="setHalfPeriod(16, this)">16</button>
+          <button class="p-btn" onclick="setHalfPeriod(32, this)">32</button>
+        </div>
+        <div style="font-size:.68rem;color:var(--text-muted);line-height:1.4">
+          <span id="txtParamExpl">Toggle happens every <b>HALF_PERIOD</b> cycles. Bit width of <b>cnt</b> register:</span>
+          <b style="color:var(--purple);font-family:var(--font-mono)" id="txtRegDef">reg [1:0] cnt;</b>
+        </div>
+      </div>
+
+      <div class="card" style="flex:1;justify-content:space-between">
+        <div class="card-head"><span id="lblSpeedControls">Auto-Clock Speed</span></div>
+        <div class="speed-group">
+          <button class="spd-btn" id="spdSlow" onclick="setSpeed(700, 'spdSlow')">Slow</button>
+          <button class="spd-btn active" id="spdMed" onclick="setSpeed(350, 'spdMed')">Normal</button>
+          <button class="spd-btn" id="spdFast" onclick="setSpeed(120, 'spdFast')">Fast</button>
+        </div>
+
+        <div style="background:var(--card-sub);border:1px solid var(--border);border-radius:8px;padding:8px;font-family:var(--font-mono);font-size:.72rem;display:flex;flex-direction:column;gap:4px">
+          <div style="display:flex;justify-content:space-between">
+            <span style="color:var(--text-muted)">cnt value:</span>
+            <b style="color:var(--purple)" id="txtCntVal">0 / 3</b>
+          </div>
+          <div style="display:flex;justify-content:space-between">
+            <span style="color:var(--text-muted)">cnt == HP - 1:</span>
+            <b style="color:var(--amber)" id="txtCompMatch">FALSE</b>
+          </div>
+          <div style="display:flex;justify-content:space-between">
+            <span style="color:var(--text-muted)">Total Toggles:</span>
+            <b style="color:var(--accent-led)" id="txtToggleCount">0</b>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORTA -->
+    <div class="center-col">
+      <div class="rtl-stage">
+        <div class="card-head">
+          <span style="color:var(--purple)" id="lblRtlArchTitle">RTL HARDWARE ARCHITECTURE</span>
+          <span style="font-family:var(--font-mono);font-size:.76rem;color:var(--text-muted)">IEEE 1364-2001 Verilog</span>
+        </div>
+        <div class="diag-svg-box">
+          <svg viewBox="0 0 540 185" id="svgRtl"></svg>
+        </div>
+      </div>
+
+      <!-- DALGA FORMU KARTI (HİZALANMIŞ & BÜYÜTÜLMÜŞ) -->
+      <div class="wf-card">
+        <div class="card-head" style="font-size:.76rem">
+          <span id="lblWfHeader">RTL TIMING WAVEFORM (LAST 16 CYCLES)</span>
+          <span style="font-family:var(--font-mono);font-size:.68rem;color:var(--text-faint)">1 CLK GRID</span>
+        </div>
+        <div class="wf-container">
+          <div class="wf-probes">
+            <div class="probe-badge clk-sig">
+              <span>clk</span>
+              <span class="probe-val" id="probeClkVal">0</span>
+            </div>
+            <div class="probe-badge rst-sig">
+              <span>rst</span>
+              <span class="probe-val" id="probeRstVal">0</span>
+            </div>
+            <div class="probe-badge cnt-sig">
+              <span>cnt == HP-1</span>
+              <span class="probe-val" id="probeCntVal">0</span>
+            </div>
+            <div class="probe-badge led-sig" id="probeLedBadge">
+              <span>led</span>
+              <span class="probe-val" id="probeLedVal">0</span>
+            </div>
+          </div>
+          <div style="flex:1;width:100%;height:100%">
+            <svg id="wfSvg" viewBox="0 0 520 136" preserveAspectRatio="none" style="width:100%;height:100%"></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAĞ -->
+    <div class="right-col">
+      <div class="fpga-board">
+        <div class="pcb-trace" style="top:25px;left:10px;width:70px;height:50px;border-right:none;border-bottom:none"></div>
+        <div class="pcb-trace" style="bottom:30px;right:15px;width:80px;height:60px;border-left:none;border-top:none"></div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;z-index:2">
+          <span style="font-family:var(--font-mono);font-weight:900;font-size:.78rem;color:#6EE7B7">FPGA TRAINER BOARD</span>
+          <span style="font-family:var(--font-mono);font-size:.64rem;color:#34D399;border:1px solid #059669;padding:1px 5px;border-radius:4px">LIVE HW</span>
+        </div>
+
+        <div class="fpga-chip">
+          <span class="chip-brand">FPGA CORE</span>
+          <span class="chip-num">XC7A35T-FTG256</span>
+          <div style="font-family:var(--font-mono);font-size:.65rem;color:#38BDF8;margin-top:4px">
+            PIN T8 ➔ LED_0
+          </div>
+        </div>
+
+        <div class="led-fixture">
+          <div class="hardware-led" id="hwLed"></div>
+          <div class="led-state-banner" id="hwLedBanner">LED: OFF (0)</div>
+          <span style="font-family:var(--font-mono);font-size:.66rem;color:#64748B" id="hwLedSub">Logic Level: 1'b0</span>
+        </div>
+
+        <div class="fpga-footer">
+          <span>Duty Cycle: <b>50%</b></span>
+          <span>Blink: <b id="hwBlinkStatus">IDLE</b></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DEVRE MANTIĞI MODALI -->
+<div class="theory-modal-overlay" id="theoryModal">
+  <div class="theory-card">
+    <div class="theory-head">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:1.15rem">💡</span>
+        <h3 style="margin:0;font-size:.95rem;font-weight:800;color:var(--text-main)" id="modalTitle">Circuit Theory & Hardware Principles</h3>
+      </div>
+      <button class="btn-act" onclick="toggleTheoryModal(false)">✕ Close</button>
+    </div>
+    <div class="theory-body">
+      <div class="theory-item">
+        <div class="theory-item-title" style="color:var(--sky)">
+          <span>1.</span> <span id="th1Title">Why Do We Count? (Clock Division)</span>
+        </div>
+        <p class="theory-item-text" id="th1Text">
+          FPGA system clocks run at 50 MHz or 100 MHz (millions of cycles/sec). Directly driving an LED would toggle it imperceptibly fast, making it appear constantly dim. Counting divides the high frequency down to human eye limits (e.g. 1 Hz - 2 Hz).
+        </p>
+        <span class="theory-code">f_out = f_clk / (2 * HALF_PERIOD)</span>
+      </div>
+
+      <div class="theory-item">
+        <div class="theory-item-title" style="color:var(--purple)">
+          <span>2.</span> <span id="th2Title">Counter Step (cnt Logic)</span>
+        </div>
+        <p class="theory-item-text" id="th2Text">
+          On every rising clock edge (posedge clk), if synchronous reset is low, the counter increments sequentially by one.
+        </p>
+        <span class="theory-code">cnt &lt;= cnt + 1'b1;</span>
+      </div>
+
+      <div class="theory-item highlight">
+        <div class="theory-item-title" style="color:var(--amber)">
+          <span>3.</span> <span id="th3Title">Toggle Trigger (Inversion)</span>
+        </div>
+        <p class="theory-item-text" id="th3Text">
+          When the counter reaches the threshold (cnt == HALF_PERIOD - 1), it resets to zero and toggles the T-Flip-Flop output state (0 ➔ 1 or 1 ➔ 0).
+        </p>
+        <span class="theory-code">cnt &lt;= 0; led &lt;= ~led;</span>
+      </div>
+
+      <div class="theory-item">
+        <div class="theory-item-title" style="color:var(--accent-led)">
+          <span>4.</span> <span id="th4Title">Register Width ($clog2)</span>
+        </div>
+        <p class="theory-item-text" id="th4Text">
+          Verilog's built-in $clog2(HALF_PERIOD) function calculates the minimal number of bits needed for the counter without hardcoding magic numbers.
+        </p>
+        <span class="theory-code">reg [$clog2(HALF_PERIOD)-1:0] cnt;</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentLang = 'en';
+
+const I18N = {
+  en: {
+    subtitle: "RTL Clock Divider & FPGA Blinker Explorer",
+    btnOpenTheory: "💡 Theory & Logic",
+    lblClkControl: "Clock Edge Generation",
+    txtStepClk: "posedge clk",
+    txtStepSub: "Trigger 1 Clock Cycle",
+    txtRstLabel: "Sync Reset (rst):",
+    txtRstInactive: "0 (INACTIVE)",
+    txtRstActive: "1 (ACTIVE)",
+    txtParamExpl: "Toggle happens every <b>HALF_PERIOD</b> cycles. Bit width of <b>cnt</b> register:",
+    lblSpeedControls: "Auto-Clock Speed",
+    lblRtlArchTitle: "RTL HARDWARE ARCHITECTURE",
+    lblWfHeader: "RTL TIMING WAVEFORM (LAST 16 CYCLES)",
+    btnPlayRun: "▶ Auto Run",
+    btnPlayPause: "❚❚ Pause",
+    ledOn: "LED: ON (1)",
+    ledOff: "LED: OFF (0)",
+    levelHigh: "Logic Level: 1'b1",
+    levelLow: "Logic Level: 1'b0",
+    blinkActive: "TOGGLING",
+    blinkIdle: "IDLE",
+    modalTitle: "Circuit Theory & Hardware Principles",
+    th1Title: "Why Do We Count? (Clock Division)",
+    th1Text: "FPGA system clocks run at 50 MHz or 100 MHz (millions of cycles/sec). Directly driving an LED would toggle it imperceptibly fast, making it appear constantly dim. Counting divides the high frequency down to human eye limits (e.g. 1 Hz - 2 Hz).",
+    th2Title: "Counter Step (cnt Logic)",
+    th2Text: "On every rising clock edge (posedge clk), if synchronous reset is low, the counter increments sequentially by one.",
+    th3Title: "Toggle Trigger (Inversion)",
+    th3Text: "When the counter reaches the threshold (cnt == HALF_PERIOD - 1), it resets to zero and toggles the T-Flip-Flop output state (0 ➔ 1 or 1 ➔ 0).",
+    th4Title: "Register Width ($clog2)",
+    th4Text: "Verilog's built-in $clog2(HALF_PERIOD) function calculates the minimal number of bits needed for the counter without hardcoding magic numbers."
+  },
+  tr: {
+    subtitle: "RTL Saat Bölücü & FPGA LED Flaşörü Gezgini",
+    btnOpenTheory: "💡 Devre Mantığı",
+    lblClkControl: "Saat Darbesi Üretimi",
+    txtStepClk: "posedge clk",
+    txtStepSub: "1 Saat Çevrimi İlerlet",
+    txtRstLabel: "Senkron Reset (rst):",
+    txtRstInactive: "0 (PASİF)",
+    txtRstActive: "1 (AKTİF)",
+    txtParamExpl: "LED her <b>HALF_PERIOD</b> çevrimde bir terslenir. <b>cnt</b> sayacının bit genişliği:",
+    lblSpeedControls: "Otomatik Saat Hızı",
+    lblRtlArchTitle: "RTL DONANIM MİMARİSİ",
+    lblWfHeader: "RTL ZAMAN DALGA FORMU (SON 16 ÇEVRİM)",
+    btnPlayRun: "▶ Otomatik Çalıştır",
+    btnPlayPause: "❚❚ Duraklat",
+    ledOn: "LED: AÇIK (1)",
+    ledOff: "LED: KAPALI (0)",
+    levelHigh: "Lojik Seviye: 1'b1",
+    levelLow: "Lojik Seviye: 1'b0",
+    blinkActive: "YANIP SÖNÜYOR",
+    blinkIdle: "DURUYOR",
+    modalTitle: "Devre Mantığı & Donanım İlkeleri",
+    th1Title: "Neden Sayıyoruz? (Frekans Bölme)",
+    th1Text: "FPGA ana saati çok hızlıdır (50/100 MHz, saniyede 50-100 milyon darbe). LED doğrudan bağlanırsa saniyede milyonlarca kez yanıp söner ve göz bunu sürekli kısık yanıyor gibi algılar. Sayaçla frekansı bölerek gözün görebileceği hızlara indiriyoruz.",
+    th2Title: "Sayaç Mantığı (cnt)",
+    th2Text: "Her saat vuruşunda (posedge clk), eğer senkron reset pasifse sayaç ardışık olarak 1 artırılır: cnt <= cnt + 1'b1.",
+    th3Title: "Tersleme (Toggle) Anı",
+    th3Text: "Sayaç belirlenen sınıra ulaştığında (cnt == HALF_PERIOD - 1), sıfırlanır ve T-Flip-Flop çıkışını tersler: led <= ~led (0 ise 1, 1 ise 0).",
+    th4Title: "Kayıtçı Genişliği ($clog2)",
+    th4Text: "Verilog içerisindeki $clog2(HALF_PERIOD) fonksiyonu, sayacın taşmadan sayabilmesi için gereken en az bit sayısını (örneğin 4 için 2 bit) otomatik hesaplar."
+  }
+};
+
+let halfPeriod = 4;
+let cnt = 0;
+let led = 0;
+let rst = 0;
+let clkCycle = 0;
+let toggleCount = 0;
+
+let isRunning = false;
+let autoTimer = null;
+let currentSpeed = 350;
+
+const hist = [];
+
+function toggleTheoryModal(open){
+  document.getElementById('theoryModal').classList.toggle('open', open);
+}
+
+function setLanguage(lang){
+  currentLang = lang;
+  document.getElementById('langEn').classList.toggle('active', lang === 'en');
+  document.getElementById('langTr').classList.toggle('active', lang === 'tr');
+
+  const d = I18N[lang];
+  document.getElementById('txtSubtitle').textContent = d.subtitle;
+  document.getElementById('btnOpenTheory').textContent = d.btnOpenTheory;
+  document.getElementById('lblClkControl').textContent = d.lblClkControl;
+  document.getElementById('txtStepClk').textContent = d.txtStepClk;
+  document.getElementById('txtStepSub').textContent = d.txtStepSub;
+  document.getElementById('txtRstLabel').textContent = d.txtRstLabel;
+  document.getElementById('txtParamExpl').innerHTML = d.txtParamExpl;
+  document.getElementById('lblSpeedControls').textContent = d.lblSpeedControls;
+  document.getElementById('lblRtlArchTitle').textContent = d.lblRtlArchTitle;
+  document.getElementById('lblWfHeader').textContent = d.lblWfHeader;
+  document.getElementById('btnPlay').textContent = isRunning ? d.btnPlayPause : d.btnPlayRun;
+
+  document.getElementById('modalTitle').textContent = d.modalTitle;
+  document.getElementById('th1Title').textContent = d.th1Title;
+  document.getElementById('th1Text').textContent = d.th1Text;
+  document.getElementById('th2Title').textContent = d.th2Title;
+  document.getElementById('th2Text').textContent = d.th2Text;
+  document.getElementById('th3Title').textContent = d.th3Title;
+  document.getElementById('th3Text').textContent = d.th3Text;
+  document.getElementById('th4Title').textContent = d.th4Title;
+  document.getElementById('th4Text').textContent = d.th4Text;
+
+  updateUI();
+}
+
+function setHalfPeriod(hp, btn){
+  halfPeriod = hp;
+  document.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const bitWidth = Math.ceil(Math.log2(halfPeriod));
+  document.getElementById('lblClogWidth').textContent = `[$clog2 = ${bitWidth} bit]`;
+  document.getElementById('txtRegDef').textContent = `reg [${bitWidth-1}:0] cnt;`;
+
+  resetAll();
+}
+
+function setSpeed(ms, id){
+  currentSpeed = ms;
+  ['spdSlow','spdMed','spdFast'].forEach(b => document.getElementById(b).classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(isRunning){
+    clearInterval(autoTimer);
+    autoTimer = setInterval(stepClock, currentSpeed);
+  }
+}
+
+function toggleReset(){
+  rst = rst === 1 ? 0 : 1;
+  const d = I18N[currentLang];
+  const btn = document.getElementById('btnRstToggle');
+  btn.classList.toggle('active', rst === 1);
+  document.getElementById('txtRstLabel').textContent = d.txtRstLabel;
+  document.getElementById('txtRstVal').textContent = rst ? d.txtRstActive : d.txtRstInactive;
+  updateUI();
+}
+
+function stepClock(){
+  clkCycle++;
+
+  if (rst) {
+    cnt = 0;
+    led = 0;
+  } else if (cnt === halfPeriod - 1) {
+    cnt = 0;
+    led = led === 1 ? 0 : 1;
+    toggleCount++;
+  } else {
+    cnt++;
+  }
+
+  hist.push({
+    clk: clkCycle,
+    rst: rst,
+    cnt: cnt,
+    led: led,
+    match: (cnt === halfPeriod - 1) ? 1 : 0
+  });
+
+  if(hist.length > 16) hist.shift();
+  updateUI();
+}
+
+function toggleAutoClock(){
+  isRunning = !isRunning;
+  const btn = document.getElementById('btnPlay');
+  const d = I18N[currentLang];
+  if(isRunning){
+    btn.textContent = d.btnPlayPause;
+    btn.style.background = 'var(--amber)';
+    btn.style.borderColor = 'var(--amber)';
+    autoTimer = setInterval(stepClock, currentSpeed);
+  } else {
+    btn.textContent = d.btnPlayRun;
+    btn.style.background = 'var(--purple)';
+    btn.style.borderColor = 'var(--purple)';
+    clearInterval(autoTimer);
+  }
+}
+
+function resetAll(){
+  if(isRunning) toggleAutoClock();
+  clkCycle = 0;
+  cnt = 0;
+  led = 0;
+  rst = 0;
+  toggleCount = 0;
+  hist.length = 0;
+
+  document.getElementById('btnRstToggle').classList.remove('active');
+  document.getElementById('txtRstVal').textContent = I18N[currentLang].txtRstInactive;
+
+  drawRtlSvg();
+  updateUI();
+}
+
+function updateUI(){
+  const d = I18N[currentLang];
+  document.getElementById('lblClkCount').textContent = 'CLK: ' + clkCycle;
+  document.getElementById('txtCntVal').textContent = `${cnt} / ${halfPeriod - 1}`;
+  
+  const isMatch = (cnt === halfPeriod - 1);
+  const matchEl = document.getElementById('txtCompMatch');
+  matchEl.textContent = isMatch ? 'TRUE (EQUAL)' : 'FALSE';
+  matchEl.style.color = isMatch ? 'var(--accent-led)' : 'var(--text-muted)';
+
+  document.getElementById('txtToggleCount').textContent = toggleCount;
+
+  // Sinyal Prob Değerleri
+  document.getElementById('probeClkVal').textContent = clkCycle % 2;
+  document.getElementById('probeRstVal').textContent = rst;
+  document.getElementById('probeCntVal').textContent = (cnt === halfPeriod - 1) ? 1 : 0;
+  document.getElementById('probeLedVal').textContent = led;
+  document.getElementById('probeLedBadge').classList.toggle('on', led === 1);
+
+  // Fiziksel Donanım LED
+  const hwLed = document.getElementById('hwLed');
+  const hwLedBanner = document.getElementById('hwLedBanner');
+  const hwLedSub = document.getElementById('hwLedSub');
+  const hwBlink = document.getElementById('hwBlinkStatus');
+
+  if(led === 1){
+    hwLed.classList.add('lit');
+    hwLedBanner.className = 'led-state-banner lit';
+    hwLedBanner.textContent = d.ledOn;
+    hwLedSub.textContent = d.levelHigh;
+  } else {
+    hwLed.classList.remove('lit');
+    hwLedBanner.className = 'led-state-banner';
+    hwLedBanner.textContent = d.ledOff;
+    hwLedSub.textContent = d.levelLow;
+  }
+  hwBlink.textContent = isRunning ? d.blinkActive : d.blinkIdle;
+  hwBlink.style.color = isRunning ? '#34D399' : '#94A3B8';
+
+  drawRtlSvg();
+  drawWaveform();
+}
+
+function drawRtlSvg(){
+  const svg = document.getElementById('svgRtl');
+  svg.innerHTML = '';
+
+  const isMatch = (cnt === halfPeriod - 1);
+  const compColor = isMatch ? 'var(--accent-led)' : '#94A3B8';
+  const tffColor = (led === 1) ? 'var(--accent-led)' : '#64748B';
+
+  svg.innerHTML = `
+    <defs>
+      <marker id="arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 2 L 8 5 L 0 8 z" fill="#94A3B8"/></marker>
+      <marker id="arr-g" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 2 L 8 5 L 0 8 z" fill="var(--accent-led)"/></marker>
+    </defs>
+
+    <rect x="25" y="30" width="130" height="85" rx="8" fill="#F8FAFC" stroke="var(--purple)" stroke-width="2.5"/>
+    <text x="90" y="50" font-family="var(--font-mono)" font-size="11" font-weight="800" text-anchor="middle" fill="var(--purple)">REG [cnt]</text>
+    <text x="90" y="77" font-family="var(--font-mono)" font-size="16" font-weight="900" text-anchor="middle" fill="#0F172A">${cnt}</text>
+    <text x="90" y="100" font-family="var(--font-sans)" font-size="9" font-weight="700" text-anchor="middle" fill="var(--text-muted)">cnt <= cnt + 1'b1</text>
+
+    <rect x="215" y="30" width="125" height="85" rx="8" fill="#F8FAFC" stroke="${compColor}" stroke-width="${isMatch ? 3 : 2}"/>
+    <text x="277" y="50" font-family="var(--font-mono)" font-size="10" font-weight="800" text-anchor="middle" fill="${compColor}">COMPARATOR (==)</text>
+    <text x="277" y="75" font-family="var(--font-mono)" font-size="12" font-weight="800" text-anchor="middle" fill="#334155">${cnt} == ${halfPeriod - 1}</text>
+    <text x="277" y="100" font-family="var(--font-mono)" font-size="11" font-weight="900" text-anchor="middle" fill="${compColor}">${isMatch ? 'MATCH! (1)' : '0'}</text>
+
+    <rect x="390" y="30" width="125" height="85" rx="8" fill="#F8FAFC" stroke="${tffColor}" stroke-width="${led === 1 ? 3 : 2}"/>
+    <text x="452" y="50" font-family="var(--font-mono)" font-size="10" font-weight="800" text-anchor="middle" fill="${tffColor}">T-FF / INVERT</text>
+    <text x="452" y="77" font-family="var(--font-mono)" font-size="16" font-weight="900" text-anchor="middle" fill="${tffColor}">LED = ${led}</text>
+    <text x="452" y="100" font-family="var(--font-sans)" font-size="9" font-weight="700" text-anchor="middle" fill="var(--text-muted)">led <= ~led</text>
+
+    <line x1="155" y1="72" x2="215" y2="72" stroke="#94A3B8" stroke-width="2" marker-end="url(#arr)"/>
+    <line x1="340" y1="72" x2="390" y2="72" stroke="${isMatch ? 'var(--accent-led)' : '#94A3B8'}" stroke-width="${isMatch ? 3 : 2}" marker-end="url(${isMatch ? '#arr-g' : '#arr'})"/>
+    <line x1="515" y1="72" x2="535" y2="72" stroke="${tffColor}" stroke-width="2.5"/>
+
+    <text x="270" y="145" font-family="var(--font-mono)" font-size="9.5" font-weight="700" text-anchor="middle" fill="var(--text-muted)">
+      Output Frequency: f_clk / (2 * HALF_PERIOD)  |  50% Duty Cycle Square Wave
+    </text>
+  `;
+}
+
+function drawWaveform(){
+  const svg = document.getElementById('wfSvg');
+  svg.innerHTML = '';
+  if(hist.length === 0) return;
+
+  const N = hist.length;
+  const W = 520, H = 136;
+  const colW = W / Math.max(16, N);
+
+  for(let i = 0; i <= Math.max(16, N); i++){
+    const gx = i * colW;
+    const l = document.createElementNS('http://www.w3.org/2000/svg','line');
+    l.setAttribute('x1', gx); l.setAttribute('y1', 4);
+    l.setAttribute('x2', gx); l.setAttribute('y2', H - 4);
+    l.setAttribute('stroke', '#E2E8F0');
+    svg.appendChild(l);
+  }
+
+  // 4 Proba tam paralel oturan 4 kanal (clk, rst, match/cnt, led)
+  const sigs = [
+    {clk: true, val: h => h.clk % 2, y1: 6,   y0: 24,  c: '#0284C7', fill: '#E0F2FE'},
+    {val: h => h.rst,     y1: 38,  y0: 56,  c: '#EF4444', fill: '#FEE2E2'},
+    {val: h => h.match,   y1: 70,  y0: 88,  c: '#7C3AED', fill: '#EDE9FE'},
+    {val: h => h.led,     y1: 102, y0: 120, c: '#10B981', fill: '#D1FAE5'}
+  ];
+
+  sigs.forEach(s => {
+    let pts = [];
+    hist.forEach((h, i) => {
+      const x = i * colW;
+      if (s.clk) { pts.push(`${x},${s.y0}`, `${x},${s.y1}`, `${x + colW / 2},${s.y1}`, `${x + colW / 2},${s.y0}`, `${x + colW},${s.y0}`); return; } // her çevrim tam bir saat periyodu
+      const y = s.val(h) ? s.y1 : s.y0;
+      pts.push(`${x},${y}`);
+      pts.push(`${x + colW},${y}`);
+
+      if(s.val(h)){
+        const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        r.setAttribute('x', x); r.setAttribute('y', s.y1);
+        r.setAttribute('width', colW); r.setAttribute('height', s.y0 - s.y1);
+        r.setAttribute('fill', s.fill);
+        svg.appendChild(r);
+      }
+    });
+
+    const poly = document.createElementNS('http://www.w3.org/2000/svg','polyline');
+    poly.setAttribute('points', pts.join(' '));
+    poly.setAttribute('fill', 'none');
+    poly.setAttribute('stroke', s.c);
+    poly.setAttribute('stroke-width', '2.4');
+    svg.appendChild(poly);
+  });
+}
+
+setLanguage('tr');
+resetAll();
+</script>
+
+<style>
+#exBtn{position:fixed;right:18px;bottom:18px;z-index:200;border:0;border-radius:999px;padding:12px 18px;font:800 14px system-ui,sans-serif;color:#fff;cursor:pointer;
+  background:linear-gradient(135deg,#8B5CF6,#EC4899);box-shadow:0 10px 26px -8px rgba(139,92,246,.7)}
+#exPanel{position:fixed;top:0;right:0;height:100vh;width:430px;max-width:92vw;z-index:199;background:#fff;color:#0F172A;box-shadow:-18px 0 40px rgba(15,23,42,.25);
+  transform:translateX(105%);transition:transform .3s ease;display:flex;flex-direction:column;font-family:system-ui,sans-serif}
+#exPanel.open{transform:none}
+#exPanel .eh{padding:16px 18px;background:linear-gradient(135deg,#8B5CF6,#EC4899);color:#fff;display:flex;justify-content:space-between;align-items:center}
+#exPanel .eh b{font-size:16px}
+#exPanel .eh button{border:0;background:rgba(255,255,255,.25);color:#fff;border-radius:999px;padding:4px 11px;cursor:pointer;font-weight:800}
+#exPanel .eb{overflow:auto;padding:12px 14px 80px}
+#exPanel .intro{font-size:13px;line-height:1.55;color:#475569;margin:2px 2px 12px}
+.exc{border:1px solid #E2E8F0;border-radius:14px;padding:12px 14px;margin-bottom:10px;background:#FAFAFF}
+.exc h4{margin:0 0 6px;font-size:14px}
+.exc p{margin:0 0 9px;font-size:12.8px;line-height:1.55;color:#334155}
+.exc code{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:#EEF2FF;color:#4338CA;padding:1px 5px;border-radius:5px}
+.exc .row{display:flex;gap:6px;flex-wrap:wrap}
+.exc .go{border:0;border-radius:999px;padding:6px 12px;font-weight:800;font-size:12px;cursor:pointer;color:#fff}
+.exc .go.ok{background:#10B981}.exc .go.bad{background:#EF4444}.exc .go.info{background:#6366F1}
+.exc.run{outline:2px solid #8B5CF6;background:#F5F3FF}
+#exNote{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:198;background:#0F172A;color:#fff;border-radius:999px;padding:9px 18px;
+  font:700 13px system-ui,sans-serif;box-shadow:0 10px 26px -8px rgba(0,0,0,.5);display:none;max-width:70vw;text-align:center}
+</style>
+<button id="exBtn">💡 FSM Açıklamaları</button>
+<div id="exNote"></div>
+<aside id="exPanel"><div class="eh"><b>FSM nasıl çalışıyor?</b><button onclick="exToggle(false)">✕</button></div><div class="eb" id="exBody"></div></aside>
+<script>
+(function(){
+  const EX = {
+ speed: 420,
+ intro: 'Bu tasarım iki durumlu bir makinedir: LED <b>sönük</b> ya da <b>yanık</b>. Durum değişimini bir sayaç tetikler: <code>cnt</code> her saat darbesinde artar ve <code>HALF_PERIOD-1</code>\'e ulaştığında LED terslenir.',
+ cards: [
+  { t: '1. Sayma ve tersleme', p: 'Karşılaştırıcı <code>cnt == HALF_PERIOD-1</code> olduğunda 1 olur; o saat darbesinde sayaç sıfırlanır ve <code>led &lt;= ~led</code> ile LED durum değiştirir. LED periyodu <code>2 × HALF_PERIOD</code> çevrimdir.',
+    b: [['Başarılı: LED yanıp söner', 'ok', () => [() => resetAll(), 'Sayaç sayıyor', ...Array(12).fill(() => stepClock()), 'LED iki kez terslendi']]] },
+  { t: '2. Reset aktifken', p: 'Senkron reset 1 olduğu sürece her saat darbesinde sayaç ve LED sıfırda tutulur; LED hiç yanmaz.',
+    b: [['Başarısız: rst = 1', 'bad', () => [() => resetAll(), ...Array(3).fill(() => stepClock()), () => toggleReset(), 'rst = 1: sayaç sıfırda kalıyor', ...Array(6).fill(() => stepClock()), () => toggleReset(), 'rst = 0: sayma yeniden başladı', ...Array(5).fill(() => stepClock())]]] },
+  { t: '3. HALF_PERIOD ile hız', p: 'HALF_PERIOD büyüdükçe LED daha yavaş yanıp söner ve sayacın bit genişliği <code>$clog2</code> ile artar.',
+    b: [['HALF_PERIOD = 8', 'info', () => [() => setHalfPeriod(8, document.querySelectorAll('.p-btn')[1]), 'Daha yavaş yanıp sönme', ...Array(18).fill(() => stepClock())]]] }
+ ]
+};
+  let tm = null, runEl = null;
+  window.exToggle = o => document.getElementById('exPanel').classList.toggle('open', o);
+  document.getElementById('exBtn').onclick = () => exToggle(!document.getElementById('exPanel').classList.contains('open'));
+  const note = t => { const n = document.getElementById('exNote'); n.style.display = t ? 'block' : 'none'; n.textContent = t || ''; };
+  function stop(){ clearTimeout(tm); tm = null; if (runEl) runEl.classList.remove('run'); runEl = null; }
+  function play(steps, el){
+    stop(); runEl = el; el.classList.add('run');
+    let k = 0;
+    const next = () => {
+      if (k >= steps.length) { setTimeout(() => note(''), 2500); stop(); return; }
+      const s = steps[k++];
+      if (typeof s === 'string') note(s); else s();
+      tm = setTimeout(next, typeof s === 'string' ? 200 : EX.speed);
+    };
+    next();
+  }
+  window.EX_TR = EX;
+  window.exRender = function(src){
+  const en = window.exLang === 'en';
+  document.getElementById('exBtn').textContent = en ? '💡 FSM Explanations' : '💡 FSM Açıklamaları';
+  document.querySelector('#exPanel .eh b').textContent = en ? 'How does the FSM work?' : 'FSM nasıl çalışıyor?';
+  stop(); note('');
+  const body = document.getElementById('exBody');
+  body.innerHTML = '<p class="intro">' + src.intro + '</p>';
+  src.cards.forEach(c => {
+    const d = document.createElement('div'); d.className = 'exc';
+    d.innerHTML = '<h4>' + c.t + '</h4><p>' + c.p + '</p><div class="row"></div>';
+    c.b.forEach(([lbl, kind, steps]) => {
+      const b = document.createElement('button'); b.className = 'go ' + kind; b.textContent = '▶ ' + lbl;
+      b.onclick = () => play(steps(), d);
+      d.querySelector('.row').appendChild(b);
+    });
+    body.appendChild(d);
+  });
+  if (window.exColorize) exColorize();
+  };
+  exRender(EX);
+})();
+</script>
+
+
+<style>
+.exc{border-left:5px solid var(--exk,#8B5CF6)}
+.exc:nth-of-type(5n+1){--exk:#8B5CF6}.exc:nth-of-type(5n+2){--exk:#0EA5E9}.exc:nth-of-type(5n+3){--exk:#F59E0B}
+.exc:nth-of-type(5n+4){--exk:#10B981}.exc:nth-of-type(5n+5){--exk:#EC4899}
+.exc h4{color:var(--exk)}
+.exc code.k-st{background:#EDE9FE;color:#6D28D9}
+.exc code.k-in{background:#E0F2FE;color:#0369A1}
+.exc code.k-out{background:#D1FAE5;color:#047857}
+.exc code.k-rg{background:#FEF3C7;color:#B45309}
+.exc code.k-bit{background:#FCE7F3;color:#BE185D}
+.exleg{display:flex;flex-wrap:wrap;gap:6px;margin:0 2px 14px}
+.exleg span{font:700 11.5px system-ui,sans-serif;padding:3px 10px;border-radius:999px}
+</style>
+<script>
+window.exColorize = function(){
+  const IN = /^(in|din|wr_en|rd_en|wr|rd|floor_req|door_sensor|emergency|rst|rst_n|clk)\b/;
+  const OUT = /^(unlocked|unl|alarm|dout|empty|full|led|motor_up|motor_down|door_open|seq_\w+|out)\b/;
+  const RG = /^(cnt|count|w_ptr|r_ptr|timer_cnt|req_reg|HALF_PERIOD|state_q|\$clog2)\b/;
+  const body = document.getElementById('exBody');
+  body.querySelectorAll('code').forEach(c => {
+    const t = c.textContent.trim();
+    const k = /^S(_[A-Z_]+|\d|[AB]\d)/.test(t) ? 'k-st' : IN.test(t) ? 'k-in' : OUT.test(t) ? 'k-out' : RG.test(t) ? 'k-rg' : /^[01 →\-]+$/.test(t) ? 'k-bit' : '';
+    if (k) c.classList.add(k);
+  });
+  const leg = document.createElement('div');
+  leg.className = 'exleg';
+  const L = window.exLang === 'en' ? ['State', 'Input', 'Output', 'Register / counter', 'Bit sequence'] : ['Durum', 'Giriş', 'Çıkış', 'Kayıtçı / sayaç', 'Bit dizisi'];
+  leg.innerHTML = '<span style="background:#EDE9FE;color:#6D28D9">' + L[0] + '</span><span style="background:#E0F2FE;color:#0369A1">' + L[1] + '</span>' +
+    '<span style="background:#D1FAE5;color:#047857">' + L[2] + '</span><span style="background:#FEF3C7;color:#B45309">' + L[3] + '</span><span style="background:#FCE7F3;color:#BE185D">' + L[4] + '</span>';
+  body.insertBefore(leg, body.children[1] || null);
+};
+exColorize();
+</script>
+
+<script>
+window.exLang = 'tr';
+window.EX_EN = {
+ speed: 420,
+ intro: 'This design is a two-state machine: the LED is <b>off</b> or <b>on</b>. A counter triggers the state change: <code>cnt</code> increments on every clock edge and the LED toggles when it reaches <code>HALF_PERIOD-1</code>.',
+ cards: [
+  { t: '1. Counting and toggling', p: 'The comparator is 1 when <code>cnt == HALF_PERIOD-1</code>; on that clock edge the counter resets and <code>led &lt;= ~led</code> toggles the LED. The LED period is <code>2 × HALF_PERIOD</code> cycles.',
+    b: [['Success: LED blinks', 'ok', () => [() => resetAll(), 'Counter running', ...Array(12).fill(() => stepClock()), 'LED toggled twice']]] },
+  { t: '2. While reset is active', p: 'As long as the synchronous reset is 1, the counter and the LED are held at zero on every clock edge; the LED never turns on.',
+    b: [['Fail: rst = 1', 'bad', () => [() => resetAll(), ...Array(3).fill(() => stepClock()), () => toggleReset(), 'rst = 1: counter held at zero', ...Array(6).fill(() => stepClock()), () => toggleReset(), 'rst = 0: counting again', ...Array(5).fill(() => stepClock())]]] },
+  { t: '3. Speed via HALF_PERIOD', p: 'A larger HALF_PERIOD makes the LED blink slower, and the counter width grows with <code>$clog2</code>.',
+    b: [['HALF_PERIOD = 8', 'info', () => [() => setHalfPeriod(8, document.querySelectorAll('.p-btn')[1]), 'Slower blinking', ...Array(18).fill(() => stepClock())]]] }
+ ]
+};
+(function(){
+  const sl = window.setLanguage;
+  window.setLanguage = function(l){ sl(l); window.exLang = l; document.documentElement.lang = l; exRender(l === 'en' ? EX_EN : EX_TR); };
+})();
+</script>
+</body>
+</html>

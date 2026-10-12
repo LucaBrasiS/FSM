@@ -1,0 +1,82 @@
+`timescale 1ns / 1ps
+
+module Array2_Detector(
+    input wire clk,
+    input wire rst,
+    input wire in,
+    output reg seq_a_detected,
+    output reg seq_b_detected
+);
+
+    // 1101 (Seq A) ve 1011 (Seq B) dizilerini yakalamak için durum tanımları
+    localparam [3:0] 
+        S_IDLE = 4'b0000,
+        // Dizi A (1101) için durumlar
+        SA1    = 4'b0001, // '1' geldi
+        SA2    = 4'b0010, // '11' geldi
+        SA3    = 4'b0011, // '110' geldi
+        // Dizi B (1011) için durumlar
+        SB1    = 4'b0100, // '1' geldi
+        SB2    = 4'b0101, // '10' geldi
+        SB3    = 4'b0110; // '101' geldi
+
+    reg [3:0] csa, nsa; // Dizi A için şimdiki ve sonraki durum
+    reg [3:0] csb, nsb; // Dizi B için şimdiki ve sonraki durum
+
+    // 1. Adım: Durum hafızası (State Register)
+    always @(posedge clk) begin
+        if (rst) begin
+            csa <= S_IDLE;
+            csb <= S_IDLE;
+        end else begin
+            csa <= nsa;
+            csb <= nsb;
+        end
+    end
+
+    // 2. Adım: Sonraki durum mantığı (Next State Logic - Kombinasyonel)
+    // seqA: 1101 |||| seqB: 1011
+    always @(*) begin
+        nsa = csa;
+        nsb = csb;
+
+        // Dizi A (1101) FSM Mantığı
+        case (csa)
+            S_IDLE: if (in) nsa = SA1; else nsa = S_IDLE;
+            SA1:    if (in) nsa = SA2; else nsa = S_IDLE;
+            SA2:    if (!in)nsa = SA3; else nsa = SA2;
+            SA3:    if (in) nsa = SA1; else nsa = S_IDLE; // 1101 tamamlanınca veya yeni akışa göre
+            default: nsa = S_IDLE;
+        endcase
+
+        // Dizi B (1011) FSM Mantığı
+        case (csb)
+            S_IDLE: if (in) nsa = SB1; else nsb = S_IDLE; // Düzeltme: nsb olmalı
+            SB1:    if (!in)nsb = SB2; else nsb = SB1;
+            SB2:    if (in) nsb = SB3; else nsb = S_IDLE;
+            SB3:    if (in) nsb = SB1; else nsb = S_IDLE;
+            default: nsb = S_IDLE;
+        endcase
+    end
+
+    // 3. Adım: Çıkış mantığı (Mealy Tipi Çıkış - Girişe ve Duruma bağlı)
+    always @(posedge clk) begin
+        if (rst) begin
+            seq_a_detected <= 1'b0;
+            seq_b_detected <= 1'b0;
+        end else begin
+            // A Dizisi (1101) yakalandı mı?
+            if (csa == SA3 && in == 1'b1) 
+                seq_a_detected <= 1'b1;
+            else 
+                seq_a_detected <= 1'b0;
+
+            // B Dizisi (1011) yakalandı mı?
+            if (csb == SB3 && in == 1'b1) 
+                seq_b_detected <= 1'b1;
+            else 
+                seq_b_detected <= 1'b0;
+        end
+    end
+
+endmodule

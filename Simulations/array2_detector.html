@@ -1,0 +1,1352 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Array_Detector — Parametric & Dual-Sequence FSM Explorer</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap">
+<style>
+:root {
+  --bg-main: #F4F7FB;
+  --card-bg: #FFFFFF;
+  --card-sub: #F8FAFC;
+  --border: #E2E8F0;
+  --border-strong: #CBD5E1;
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --text-faint: #94A3B8;
+
+  --accent-a: #D97706;
+  --accent-a-bg: #FEF3C7;
+  --accent-a-glow: rgba(217, 119, 6, 0.35);
+
+  --accent-b: #059669;
+  --accent-b-bg: #D1FAE5;
+  --accent-b-glow: rgba(5, 150, 105, 0.35);
+
+  --sky: #0284C7;
+  --sky-bg: #E0F2FE;
+  --purple: #7C3AED;
+  --purple-bg: #EDE9FE;
+
+  --shadow-sm: 0 2px 8px rgba(148, 163, 184, 0.12);
+  --shadow-md: 0 8px 24px -4px rgba(100, 116, 139, 0.12);
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 14px;
+  gap: 8px;
+}
+
+/* Header & Nav */
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 6px 14px;
+  box-shadow: var(--shadow-sm);
+  flex: none;
+  height: 44px;
+}
+.brand { display: flex; align-items: baseline; gap: 8px; }
+.brand h1 { font-size: 1.15rem; font-weight: 800; color: var(--text-main); }
+.brand span { font-size: .76rem; color: var(--text-muted); font-weight: 600; }
+
+.tab-group {
+  display: flex;
+  background: var(--card-sub);
+  border: 1.5px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 2px;
+  gap: 3px;
+}
+.tab-btn {
+  font-family: var(--font-sans);
+  font-size: .74rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-muted);
+  transition: all .15s;
+}
+.tab-btn.active {
+  background: var(--purple);
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(124, 58, 237, 0.3);
+}
+
+.mode-btn {
+  font-family: var(--font-sans);
+  font-size: .74rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-muted);
+  transition: all .15s;
+}
+.mode-btn.active {
+  background: var(--sky);
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+}
+
+.lang-btn {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-muted);
+  transition: all .15s;
+}
+.lang-btn.active {
+  background: #0F172A;
+  color: #FFFFFF;
+}
+
+.toolbar-actions { display: flex; align-items: center; gap: 6px; }
+.btn-reset {
+  font-size: .74rem; font-weight: 700; padding: 5px 11px; border-radius: 6px;
+  border: 1px solid var(--border-strong); background: var(--card-bg); cursor: pointer;
+  transition: all .15s;
+}
+.btn-reset:hover { background: #F1F5F9; }
+.btn-reset.danger { color: #DC2626; border-color: #FECACA; }
+.btn-reset.danger:hover { background: #FEF2F2; }
+
+/* Main Grid */
+.main-grid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Left Panel */
+.left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+}
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.card-head {
+  font-size: .84rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-main);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Big 0 and 1 Buttons */
+.bit-actions-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.bit-btn-row {
+  width: 100%;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  transition: transform .1s, box-shadow .15s, border-color .15s;
+  box-shadow: 0 2px 5px rgba(0,0,0,.04);
+}
+.bit-btn-row:active { transform: scale(0.97); }
+.bit-btn-row .val {
+  font-family: var(--font-mono);
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.bit-btn-row .desc {
+  font-size: .84rem;
+  font-weight: 800;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.bit-btn-row .desc small {
+  font-size: .68rem;
+  font-weight: 600;
+  opacity: .8;
+}
+
+.btn-zero-wide {
+  background: linear-gradient(135deg, #F0F9FF, #E0F2FE);
+  color: var(--sky);
+  border-color: #BAE6FD;
+}
+.btn-zero-wide:hover {
+  border-color: var(--sky);
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.18);
+}
+.btn-one-wide {
+  background: linear-gradient(135deg, #FAF5FF, #EDE9FE);
+  color: var(--purple);
+  border-color: #DDD6FE;
+}
+.btn-one-wide:hover {
+  border-color: var(--purple);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.18);
+}
+
+/* Custom 1-8 Bit Config Box */
+.custom-config-box {
+  background: var(--card-sub);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.len-pills { display: flex; gap: 3px; justify-content: space-between; }
+.len-pill {
+  flex: 1; text-align: center; font-family: var(--font-mono); font-size: .74rem; font-weight: 800;
+  padding: 4px 0; border-radius: 5px; border: 1px solid var(--border); background: #FFF;
+  cursor: pointer; color: var(--text-muted); transition: all .15s;
+}
+.len-pill.active { background: var(--purple); color: #FFF; border-color: var(--purple); }
+
+.pattern-editor { display: flex; gap: 5px; justify-content: center; margin-top: 3px; }
+.pat-bit-btn {
+  width: 34px; height: 38px; border-radius: 8px; border: 2px solid var(--border-strong);
+  background: #FFF; font-family: var(--font-mono); font-size: 1.25rem; font-weight: 800;
+  color: var(--text-main); cursor: pointer; transition: all .15s;
+}
+.pat-bit-btn:hover { border-color: var(--purple); background: var(--purple-bg); color: var(--purple); }
+
+/* Shifting Window */
+.window-box {
+  background: var(--card-sub); border: 2px dashed var(--border-strong);
+  border-radius: 10px; padding: 8px; display: flex; justify-content: center;
+  align-items: center; min-height: 52px;
+}
+.window-slots { display: flex; gap: 6px; }
+.slot {
+  width: 36px; height: 40px; border-radius: 8px; background: #FFF;
+  border: 2px solid var(--border-strong); display: flex; align-items: center;
+  justify-content: center; font-family: var(--font-mono); font-size: 1.3rem; font-weight: 800;
+}
+.slot.newest { border-color: var(--purple); background: var(--purple-bg); color: var(--purple); }
+
+/* Detect Banners */
+.banners-wrap { display: flex; flex-direction: column; gap: 6px; }
+.detect-banner {
+  padding: 8px 12px; border-radius: 10px; font-family: var(--font-mono); font-size: .8rem;
+  font-weight: 800; display: flex; flex-direction: column; gap: 4px;
+  background: var(--card-sub); border: 1.5px solid var(--border); color: var(--text-muted);
+  transition: all .2s;
+}
+.banner-top, .banner-bottom { display: flex; justify-content: space-between; align-items: center; }
+.hit-counter-pill {
+  font-family: var(--font-sans); font-size: .7rem; font-weight: 800;
+  padding: 2px 7px; border-radius: 5px; background: #FFFFFF; border: 1px solid var(--border-strong);
+}
+.detect-banner.active-a {
+  background: var(--accent-a-bg); border-color: var(--accent-a); color: var(--accent-a);
+  box-shadow: 0 3px 12px rgba(217, 119, 6, 0.25);
+}
+.detect-banner.active-a .hit-counter-pill { background: #B45309; color: #FFF; border-color: #B45309; }
+
+.detect-banner.active-b {
+  background: var(--accent-b-bg); border-color: var(--accent-b); color: var(--accent-b);
+  box-shadow: 0 3px 12px rgba(5, 150, 105, 0.25);
+}
+.detect-banner.active-b .hit-counter-pill { background: #047857; color: #FFF; border-color: #047857; }
+
+/* Speed Controls */
+.speed-group {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px;
+  background: var(--card-sub); padding: 3px; border-radius: 8px; border: 1px solid var(--border);
+}
+.spd-btn {
+  font-size: .66rem; font-weight: 700; padding: 4px 0; border: none; border-radius: 6px;
+  background: transparent; color: var(--text-muted); cursor: pointer; text-align: center;
+}
+.spd-btn.active { background: #FFF; color: var(--purple); font-weight: 800; }
+
+/* Right Panel: Diagrams Area */
+.right-col { display: flex; flex-direction: column; gap: 8px; min-height: 0; }
+
+.diagrams-container {
+  flex: 1.85; min-height: 0; display: grid; gap: 8px;
+}
+.diagrams-container.mode-dual {
+  grid-template-columns: 1fr 1fr;
+}
+.diagrams-container.mode-custom {
+  grid-template-columns: 1fr;
+}
+
+.diagram-card {
+  background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;
+  padding: 10px 14px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;
+  gap: 6px; position: relative; min-height: 0;
+}
+.diag-svg-box { flex: 1; width: 100%; height: 100%; position: relative; }
+.diag-svg-box svg { width: 100%; height: 100%; }
+
+/* SVG Nodes & Edges */
+.node-outer-glow { fill: none; stroke: transparent; stroke-width: 8; transition: stroke .2s; }
+.state-node {
+  fill: #FFFFFF; stroke: #94A3B8; stroke-width: 2.2;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.06)); transition: all .2s;
+}
+.node-active-a .node-outer-glow { stroke: var(--accent-a-glow); }
+.node-active-a .state-node {
+  fill: #FFFBEB; stroke: var(--accent-a); stroke-width: 3.5;
+  filter: drop-shadow(0 4px 12px rgba(217, 119, 6, 0.4));
+}
+.node-active-b .node-outer-glow { stroke: var(--accent-b-glow); }
+.node-active-b .state-node {
+  fill: #ECFDF5; stroke: var(--accent-b); stroke-width: 3.5;
+  filter: drop-shadow(0 4px 12px rgba(5, 150, 105, 0.4));
+}
+.node-title { font-family: var(--font-mono); font-size: 13px; font-weight: 800; text-anchor: middle; dominant-baseline: central; fill: var(--text-main); }
+.node-out-sub { font-family: var(--font-mono); font-size: 9.5px; font-weight: 800; text-anchor: middle; dominant-baseline: central; fill: var(--text-muted); }
+.node-out-sub.one { fill: #B45309; font-weight: 900; }
+
+.trans-edge { fill: none; stroke: #94A3B8; stroke-width: 1.7; stroke-linecap: round; transition: stroke .2s, stroke-width .2s; }
+.trans-edge.highlight-a { stroke: var(--accent-a); stroke-width: 3.2; }
+.trans-edge.highlight-b { stroke: var(--accent-b); stroke-width: 3.2; }
+
+.trans-label {
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 800; fill: #475569;
+  text-anchor: middle; dominant-baseline: central; paint-order: stroke fill; stroke: #FFF; stroke-width: 4px;
+}
+.trans-label.hit-a { fill: var(--accent-a); font-size: 12px; stroke: #FEF3C7; }
+.trans-label.hit-b { fill: var(--accent-b); font-size: 12px; stroke: #D1FAE5; }
+
+/* Logic Analyzer Waveform Card */
+.wf-card {
+  background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;
+  padding: 8px 12px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;
+  flex: 1.1; min-height: 135px;
+}
+.wf-container {
+  flex: 1; display: grid; grid-template-columns: 145px 1fr; gap: 8px; min-height: 0;
+}
+.wf-probes {
+  display: flex; flex-direction: column; justify-content: space-around; padding: 2px 0;
+}
+.probe-badge {
+  background: var(--card-sub); border: 1px solid var(--border-strong);
+  border-radius: 8px; padding: 4px 8px; display: flex; align-items: center;
+  justify-content: space-between; font-family: var(--font-mono); box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+.probe-badge.in-sig { border-left: 4px solid var(--purple); }
+.probe-badge.deta-sig { border-left: 4px solid var(--accent-a); }
+.probe-badge.detb-sig { border-left: 4px solid var(--accent-b); }
+
+.probe-meta { display: flex; flex-direction: column; }
+.probe-name { font-size: .72rem; font-weight: 800; color: var(--text-main); }
+.probe-type { font-size: .56rem; font-weight: 600; color: var(--text-faint); }
+.probe-val {
+  font-size: .82rem; font-weight: 900; padding: 2px 7px; border-radius: 5px;
+  background: #FFF; border: 1px solid var(--border);
+}
+.probe-badge.in-sig .probe-val { color: var(--purple); }
+.probe-badge.deta-sig .probe-val { color: var(--accent-a); }
+.probe-badge.detb-sig .probe-val { color: var(--accent-b); }
+.probe-badge.hit-active-a { background: var(--accent-a-bg); border-color: var(--accent-a); }
+.probe-badge.hit-active-b { background: var(--accent-b-bg); border-color: var(--accent-b); }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="top-nav">
+    <div class="brand">
+      <h1>Array_Detector</h1>
+      <span id="txtSubtitle">Parametric & Dual FSM Explorer</span>
+    </div>
+
+    <!-- Mode Tabs: Dual vs Custom -->
+    <div class="tab-group">
+      <button class="tab-btn active" id="tabDual" onclick="switchMainTab('dual')">⚡ Dual Seq (1101 & 1011)</button>
+      <button class="tab-btn" id="tabCustom" onclick="switchMainTab('custom')">🎯 Custom (1-8 Bit)</button>
+    </div>
+
+    <!-- Model Switcher: Mealy vs Moore -->
+    <div class="tab-group">
+      <button class="mode-btn active" id="btnMealy" onclick="switchFSMModel('mealy')">Mealy</button>
+      <button class="mode-btn" id="btnMoore" onclick="switchFSMModel('moore')">Moore</button>
+    </div>
+
+    <!-- Language Selector: EN / TR -->
+    <div class="tab-group">
+      <button class="lang-btn active" id="langEn" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" id="langTr" onclick="setLanguage('tr')">TR</button>
+    </div>
+
+    <div class="toolbar-actions">
+      <button class="btn-reset danger" id="btnResetCnt" onclick="resetCounters()">🔄 Reset Hits</button>
+      <button class="btn-reset" id="btnResetAll" onclick="resetAll()">⏮ Reset All</button>
+    </div>
+  </div>
+
+  <div class="main-grid">
+    <!-- LEFT: Inputs & Controls -->
+    <div class="left-col">
+      <!-- 1. Big Input Buttons -->
+      <div class="card">
+        <div class="card-head">
+          <span id="lblInputHeader">Clock & Serial Input</span>
+          <span style="font-family:var(--font-mono);color:var(--purple);font-weight:800" id="lblClk">CLK: 0</span>
+        </div>
+        <div class="bit-actions-vertical">
+          <button class="bit-btn-row btn-zero-wide" onclick="feedBit(0)">
+            <span class="val">0</span>
+            <span class="desc">
+              <span id="txtBtnZeroMain">Send Logic '0'</span>
+              <small id="txtBtnZeroSub">Low Level</small>
+            </span>
+          </button>
+          <button class="bit-btn-row btn-one-wide" onclick="feedBit(1)">
+            <span class="val">1</span>
+            <span class="desc">
+              <span id="txtBtnOneMain">Send Logic '1'</span>
+              <small id="txtBtnOneSub">High Level</small>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Custom N-bit Config (Custom mode only) -->
+      <div class="card" id="customConfigCard" style="display:none">
+        <div class="card-head">
+          <span id="lblTargetBitLength">Target Bit Length</span>
+          <span style="font-family:var(--font-mono);color:var(--purple);font-weight:800" id="lblLen">4 Bit</span>
+        </div>
+        <div class="custom-config-box">
+          <div class="len-pills">
+            <div class="len-pill" onclick="setLength(1)">1</div>
+            <div class="len-pill" onclick="setLength(2)">2</div>
+            <div class="len-pill" onclick="setLength(3)">3</div>
+            <div class="len-pill active" onclick="setLength(4)">4</div>
+            <div class="len-pill" onclick="setLength(5)">5</div>
+            <div class="len-pill" onclick="setLength(6)">6</div>
+            <div class="len-pill" onclick="setLength(7)">7</div>
+            <div class="len-pill" onclick="setLength(8)">8</div>
+          </div>
+          <div style="font-size:.66rem;font-weight:700;color:var(--text-faint);text-align:center;margin-top:2px" id="lblClickToToggle">
+            Click on bits to toggle:
+          </div>
+          <div class="pattern-editor" id="patEditor"></div>
+        </div>
+      </div>
+
+      <!-- 3. Shifting Input Window, Banners & Counters -->
+      <div class="card" style="flex:1;justify-content:space-between">
+        <div class="card-head">
+          <span id="lblShiftingWindow">Shifting Input Window</span>
+          <span style="font-size:.66rem;color:var(--text-faint)" id="lblNewestRight">NEWEST ➔ RIGHT</span>
+        </div>
+        
+        <div class="window-box">
+          <div class="window-slots" id="winSlots"></div>
+        </div>
+
+        <div class="banners-wrap" id="bannersWrap">
+          <!-- Banner A -->
+          <div class="detect-banner" id="banA">
+            <div class="banner-top">
+              <span id="txtTitleA">Seq A: <b>1 1 0 1</b></span>
+              <span id="txtStatusA">Waiting...</span>
+            </div>
+            <div class="banner-bottom">
+              <span id="lblTotalHitsA">Total Hits:</span>
+              <span class="hit-counter-pill" id="cntA">0</span>
+            </div>
+          </div>
+
+          <!-- Banner B (Dual mode only) -->
+          <div class="detect-banner" id="banB">
+            <div class="banner-top">
+              <span>Seq B: <b>1 0 1 1</b></span>
+              <span id="txtStatusB">Waiting...</span>
+            </div>
+            <div class="banner-bottom">
+              <span id="lblTotalHitsB">Total Hits:</span>
+              <span class="hit-counter-pill" id="cntB">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Speed & Macro Actions -->
+        <div class="speed-group">
+          <button class="spd-btn" id="spdSlow" onclick="setSpeed(1120, 'spdSlow')">1/4x</button>
+          <button class="spd-btn" id="spdMed" onclick="setSpeed(560, 'spdMed')">1/2x</button>
+          <button class="spd-btn active" id="spdFast" onclick="setSpeed(280, 'spdFast')">1x</button>
+        </div>
+
+        <div id="testActionBtns" style="display:flex;gap:6px">
+          <button class="btn-reset" style="flex:1;font-weight:800" onclick="runMacroSeq([1,1,0,1])" id="btnRunA">▶ Send 1101</button>
+          <button class="btn-reset" style="flex:1;font-weight:800" onclick="runMacroSeq([1,0,1,1])" id="btnRunB">▶ Send 1011</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: FSM Diagrams & Logic Analyzer Waveform -->
+    <div class="right-col">
+      <div class="diagrams-container mode-dual" id="diagContainer">
+        <!-- Sequence A Diagram -->
+        <div class="diagram-card" id="cardDiagA">
+          <div class="card-head">
+            <span style="color:var(--accent-a)" id="headDiagA">SEQ A FSM (1101) — MEALY</span>
+            <span style="font-family:var(--font-mono);font-size:.84rem;font-weight:800" id="txtStateA">S0</span>
+          </div>
+          <div class="diag-svg-box">
+            <svg viewBox="0 0 540 280" id="svgFsmA"></svg>
+          </div>
+        </div>
+
+        <!-- Sequence B Diagram (Dual mode only) -->
+        <div class="diagram-card" id="cardDiagB">
+          <div class="card-head">
+            <span style="color:var(--accent-b)" id="headDiagB">SEQ B FSM (1011) — MEALY</span>
+            <span style="font-family:var(--font-mono);font-size:.84rem;font-weight:800" id="txtStateB">S0</span>
+          </div>
+          <div class="diag-svg-box">
+            <svg viewBox="0 0 540 280" id="svgFsmB"></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logic Analyzer RTL Waveform -->
+      <div class="wf-card">
+        <div class="card-head">
+          <span id="lblWfHeader">RTL TIMING WAVEFORM (LAST 16 CYCLES)</span>
+          <span style="font-family:var(--font-mono);font-size:.68rem;color:var(--text-faint)">GRID: 1 CLK CYCLE</span>
+        </div>
+        
+        <div class="wf-container">
+          <div class="wf-probes">
+            <div class="probe-badge in-sig">
+              <div class="probe-meta">
+                <span class="probe-name">IN_SERIAL</span>
+                <span class="probe-type">wire [0:0]</span>
+              </div>
+              <span class="probe-val" id="probeInVal">0</span>
+            </div>
+
+            <div class="probe-badge deta-sig" id="probeDetABadge">
+              <div class="probe-meta">
+                <span class="probe-name" id="probeDetAName">SEQ_A_DET</span>
+                <span class="probe-type">logic [0:0]</span>
+              </div>
+              <span class="probe-val" id="probeDetAVal">0</span>
+            </div>
+
+            <div class="probe-badge detb-sig" id="probeDetBBadge">
+              <div class="probe-meta">
+                <span class="probe-name">SEQ_B_DET</span>
+                <span class="probe-type">logic [0:0]</span>
+              </div>
+              <span class="probe-val" id="probeDetBVal">0</span>
+            </div>
+          </div>
+
+          <div style="flex:1;width:100%;height:100%">
+            <svg id="wfSvg" viewBox="0 0 650 90" preserveAspectRatio="none" style="width:100%;height:100%"></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Multilingual Dictionary (EN / TR) - Initial: EN
+let currentLang = 'en';
+
+const I18N = {
+  en: {
+    subtitle: "Parametric & Dual FSM Explorer",
+    tabDual: "⚡ Dual Seq (1101 & 1011)",
+    tabCustom: "🎯 Custom (1-8 Bit)",
+    btnResetCnt: "🔄 Reset Hits",
+    btnResetAll: "⏮ Reset All",
+    lblInputHeader: "Clock & Serial Input",
+    txtBtnZeroMain: "Send Logic '0'",
+    txtBtnZeroSub: "Low Level",
+    txtBtnOneMain: "Send Logic '1'",
+    txtBtnOneSub: "High Level",
+    lblTargetBitLength: "Target Bit Length",
+    lblClickToToggle: "Click on bits to toggle:",
+    lblShiftingWindow: "Shifting Input Window",
+    lblNewestRight: "NEWEST ➔ RIGHT",
+    lblTotalHits: "Total Hits:",
+    waiting: "Waiting...",
+    detected: "DETECTED! (1)",
+    hitUnit: "hits",
+    btnRunA: "▶ Send 1101",
+    btnRunB: "▶ Send 1011",
+    btnRunAuto: "▶ Auto Send Target",
+    lblWfHeader: "RTL TIMING WAVEFORM (LAST 16 CYCLES)",
+    seqAHead: "SEQ A FSM (1101)",
+    seqBHead: "SEQ B FSM (1011)",
+    customFsmHead: "CUSTOM FSM DIAGRAM",
+    targetPrefix: "Target: "
+  },
+  tr: {
+    subtitle: "Parametrik & Çift Dizi FSM Gezgini",
+    tabDual: "⚡ Klasik Çift Dizi (1101 & 1011)",
+    tabCustom: "🎯 Özel Dizi (1-8 Bit)",
+    btnResetCnt: "🔄 Sayaçları Sıfırla",
+    btnResetAll: "⏮ Başa Dön",
+    lblInputHeader: "Saat & Giriş Biti",
+    txtBtnZeroMain: "Lojik '0' Gönder",
+    txtBtnZeroSub: "Düşük Seviye (Low)",
+    txtBtnOneMain: "Lojik '1' Gönder",
+    txtBtnOneSub: "Yüksek Seviye (High)",
+    lblTargetBitLength: "Hedef Bit Uzunluğu",
+    lblClickToToggle: "Değiştirmek için bitin üzerine tıklayın:",
+    lblShiftingWindow: "Kayan Giriş Penceresi",
+    lblNewestRight: "EN YENİ ➔ SAĞDA",
+    lblTotalHits: "Toplam Yakalanma:",
+    waiting: "Bekliyor...",
+    detected: "YAKALANDI! (1)",
+    hitUnit: "kez",
+    btnRunA: "▶ 1101 Gönder",
+    btnRunB: "▶ 1011 Gönder",
+    btnRunAuto: "▶ Hedef Diziyi Otomatik Gönder",
+    lblWfHeader: "RTL ZAMAN DALGA FORMU (SON 16 ÇEVRİM)",
+    seqAHead: "DİZİ A FSM (1101)",
+    seqBHead: "DİZİ B FSM (1011)",
+    customFsmHead: "ÖZEL FSM DİYAGRAMI",
+    targetPrefix: "Hedef: "
+  }
+};
+
+let activeTab = 'dual'; // 'dual' or 'custom'
+let currentModel = 'mealy'; // 'mealy' or 'moore'
+let bitLength = 4;
+let targetPattern = [1, 1, 0, 1];
+const patternA = [1, 1, 0, 1];
+const patternB = [1, 0, 1, 1];
+
+let clk = 0;
+let lastBit = 0;
+let curStateA = 0, nextStateA = 0;
+let curStateB = 0, nextStateB = 0;
+let lastEdgeA = '', lastEdgeB = '';
+let isDetA = 0, isDetB = 0;
+let hitCountA = 0, hitCountB = 0;
+let currentSpeed = 280;
+
+let win = [];
+const hist = [];
+let dfaA = {}, dfaB = {};
+
+function setLanguage(lang){
+  currentLang = lang;
+  document.getElementById('langEn').classList.toggle('active', lang === 'en');
+  document.getElementById('langTr').classList.toggle('active', lang === 'tr');
+
+  const dict = I18N[lang];
+  document.getElementById('txtSubtitle').textContent = dict.subtitle;
+  document.getElementById('tabDual').textContent = dict.tabDual;
+  document.getElementById('tabCustom').textContent = dict.tabCustom;
+  document.getElementById('btnResetCnt').textContent = dict.btnResetCnt;
+  document.getElementById('btnResetAll').textContent = dict.btnResetAll;
+  document.getElementById('lblInputHeader').textContent = dict.lblInputHeader;
+  document.getElementById('txtBtnZeroMain').textContent = dict.txtBtnZeroMain;
+  document.getElementById('txtBtnZeroSub').textContent = dict.txtBtnZeroSub;
+  document.getElementById('txtBtnOneMain').textContent = dict.txtBtnOneMain;
+  document.getElementById('txtBtnOneSub').textContent = dict.txtBtnOneSub;
+  document.getElementById('lblTargetBitLength').textContent = dict.lblTargetBitLength;
+  document.getElementById('lblClickToToggle').textContent = dict.lblClickToToggle;
+  document.getElementById('lblShiftingWindow').textContent = dict.lblShiftingWindow;
+  document.getElementById('lblNewestRight').textContent = dict.lblNewestRight;
+  document.getElementById('lblTotalHitsA').textContent = dict.lblTotalHits;
+  document.getElementById('lblTotalHitsB').textContent = dict.lblTotalHits;
+  document.getElementById('lblWfHeader').textContent = dict.lblWfHeader;
+  const ra = document.getElementById('btnRunA'), rb = document.getElementById('btnRunB');
+  if (ra) ra.textContent = dict.btnRunA;
+  if (rb) rb.textContent = dict.btnRunB;
+
+  updateHeaders();
+  updateUI();
+}
+
+function updateHeaders(){
+  const dict = I18N[currentLang];
+  const modelTxt = currentModel.toUpperCase();
+
+  if(activeTab === 'dual'){
+    document.getElementById('headDiagA').textContent = `${dict.seqAHead} — ${modelTxt}`;
+    document.getElementById('headDiagB').textContent = `${dict.seqBHead} — ${modelTxt}`;
+    document.getElementById('txtTitleA').innerHTML = 'Seq A: <b>1 1 0 1</b>';
+  } else {
+    document.getElementById('headDiagA').textContent = `${dict.customFsmHead} — ${modelTxt}`;
+    document.getElementById('txtTitleA').innerHTML = `${dict.targetPrefix}<b>${targetPattern.join(' ')}</b>`;
+  }
+}
+
+function switchMainTab(t){
+  activeTab = t;
+  document.getElementById('tabDual').classList.toggle('active', t === 'dual');
+  document.getElementById('tabCustom').classList.toggle('active', t === 'custom');
+
+  const diagCont = document.getElementById('diagContainer');
+  const cardB = document.getElementById('cardDiagB');
+  const banB = document.getElementById('banB');
+  const probeB = document.getElementById('probeDetBBadge');
+  const customCard = document.getElementById('customConfigCard');
+  const testBtns = document.getElementById('testActionBtns');
+  const dict = I18N[currentLang];
+
+  if(t === 'dual'){
+    diagCont.className = 'diagrams-container mode-dual';
+    cardB.style.display = 'flex';
+    banB.style.display = 'flex';
+    probeB.style.display = 'flex';
+    customCard.style.display = 'none';
+    document.getElementById('probeDetAName').textContent = 'SEQ_A_DET';
+    testBtns.innerHTML = `
+      <button class="btn-reset" style="flex:1;font-weight:800" onclick="runMacroSeq([1,1,0,1])" id="btnRunA">${dict.btnRunA}</button>
+      <button class="btn-reset" style="flex:1;font-weight:800" onclick="runMacroSeq([1,0,1,1])" id="btnRunB">${dict.btnRunB}</button>
+    `;
+  } else {
+    diagCont.className = 'diagrams-container mode-custom';
+    cardB.style.display = 'none';
+    banB.style.display = 'none';
+    probeB.style.display = 'none';
+    customCard.style.display = 'flex';
+    document.getElementById('probeDetAName').textContent = 'DETECT_FLAG';
+    testBtns.innerHTML = `
+      <button class="btn-reset" style="width:100%;font-weight:800" onclick="runMacroSeq(targetPattern)">${dict.btnRunAuto}</button>
+    `;
+  }
+
+  updateHeaders();
+  resetAll();
+}
+
+function switchFSMModel(m){
+  currentModel = m;
+  document.getElementById('btnMealy').classList.toggle('active', m === 'mealy');
+  document.getElementById('btnMoore').classList.toggle('active', m === 'moore');
+  updateHeaders();
+  resetAll();
+}
+
+function setLength(len){
+  bitLength = len;
+  document.getElementById('lblLen').textContent = len + ' Bit';
+  document.querySelectorAll('.len-pill').forEach((p, idx) => {
+    p.classList.toggle('active', (idx + 1) === len);
+  });
+  while(targetPattern.length < len) targetPattern.push(1);
+  if(targetPattern.length > len) targetPattern = targetPattern.slice(0, len);
+  renderPatternEditor();
+  resetAll();
+}
+
+function renderPatternEditor(){
+  const box = document.getElementById('patEditor');
+  box.innerHTML = '';
+  targetPattern.forEach((b, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'pat-bit-btn';
+    btn.textContent = b;
+    btn.onclick = () => {
+      targetPattern[idx] = targetPattern[idx] === 1 ? 0 : 1;
+      btn.textContent = targetPattern[idx];
+      resetAll();
+    };
+    box.appendChild(btn);
+  });
+}
+
+function setSpeed(ms, btnId){
+  currentSpeed = ms;
+  ['spdSlow','spdMed','spdFast'].forEach(id => {
+    document.getElementById(id).classList.toggle('active', id === btnId);
+  });
+}
+
+function generateDFA(pat){
+  const d = {};
+  const L = pat.length;
+  const numStates = (currentModel === 'mealy') ? L : (L + 1);
+
+  for(let s = 0; s < numStates; s++){
+    d[s] = {};
+    for(let b = 0; b <= 1; b++){
+      if(currentModel === 'mealy'){
+        if(s < L - 1){
+          if(b === pat[s]) d[s][b] = { next: s + 1, out: 0 };
+          else {
+            const cand = pat.slice(0, s).concat([b]);
+            d[s][b] = { next: getLongestBorder(cand, pat), out: 0 };
+          }
+        } else {
+          if(b === pat[s]){
+            const cand = pat.slice(0, s).concat([b]);
+            d[s][b] = { next: getLongestBorder(cand, pat), out: 1 };
+          } else {
+            const cand = pat.slice(0, s).concat([b]);
+            d[s][b] = { next: getLongestBorder(cand, pat), out: 0 };
+          }
+        }
+      } else {
+        if(s < L){
+          if(b === pat[s]) d[s][b] = { next: s + 1, out: (s + 1 === L ? 1 : 0) };
+          else {
+            const cand = pat.slice(0, s).concat([b]);
+            d[s][b] = { next: getLongestBorder(cand, pat), out: 0 };
+          }
+        } else {
+          const cand = pat.concat([b]);
+          const nst = getLongestBorder(cand, pat);
+          d[s][b] = { next: nst, out: (nst === L ? 1 : 0) };
+        }
+      }
+    }
+  }
+  return d;
+}
+
+function getLongestBorder(cand, pat){
+  const L = pat.length;
+  for(let len = Math.min(cand.length - 1, L); len > 0; len--){
+    const candSuffix = cand.slice(cand.length - len);
+    const patPrefix = pat.slice(0, len);
+    if(arraysEqual(candSuffix, patPrefix)) return len;
+  }
+  return 0;
+}
+
+function arraysEqual(a, b){
+  if(a.length !== b.length) return false;
+  for(let i = 0; i < a.length; i++) if(a[i] !== b[i]) return false;
+  return true;
+}
+
+function feedBit(bit){
+  clk++;
+  lastBit = bit;
+
+  win.shift();
+  win.push(bit);
+
+  if(activeTab === 'dual'){
+    const trA = dfaA[curStateA][bit];
+    nextStateA = trA.next;
+    isDetA = trA.out;
+    lastEdgeA = `ea_${curStateA}_${nextStateA}_b${bit}`;
+    if(isDetA) hitCountA++;
+    curStateA = nextStateA;
+
+    const trB = dfaB[curStateB][bit];
+    nextStateB = trB.next;
+    isDetB = trB.out;
+    lastEdgeB = `eb_${curStateB}_${nextStateB}_b${bit}`;
+    if(isDetB) hitCountB++;
+    curStateB = nextStateB;
+
+    hist.push({ clk, in: lastBit, outA: isDetA, outB: isDetB });
+  } else {
+    const trA = dfaA[curStateA][bit];
+    nextStateA = trA.next;
+    isDetA = trA.out;
+    lastEdgeA = `ea_${curStateA}_${nextStateA}_b${bit}`;
+    if(isDetA) hitCountA++;
+    curStateA = nextStateA;
+
+    hist.push({ clk, in: lastBit, outA: isDetA, outB: 0 });
+  }
+
+  if(hist.length > 16) hist.shift();
+  updateUI();
+}
+
+function renderSVGDiagram(svgId, pat, prefix, dfaObj, isAccentB){
+  const svg = document.getElementById(svgId);
+  if(!svg) return;
+  svg.innerHTML = '';
+
+  const L = pat.length;
+  const numStates = (currentModel === 'mealy') ? L : (L + 1);
+
+  const startX = (numStates > 5) ? 45 : 65;
+  const endX = (numStates > 5) ? 495 : 475;
+  const stepX = (numStates > 1) ? (endX - startX) / (numStates - 1) : 0;
+  const yCenter = 125;
+  const r = (numStates > 6) ? 22 : 26;
+
+  const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
+  const arrColor = isAccentB ? 'var(--accent-b)' : 'var(--accent-a)';
+  defs.innerHTML = `
+    <marker id="arr-def-${prefix}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#94A3B8"/></marker>
+    <marker id="arr-act-${prefix}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="${arrColor}"/></marker>
+  `;
+  svg.appendChild(defs);
+
+  for(let i = 0; i < numStates; i++){
+    const cx = startX + i * stepX;
+    const isMooreLast = (currentModel === 'moore' && i === L);
+
+    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.id = `grp_${prefix}_${i}`;
+    g.innerHTML = `
+      <circle cx="${cx}" cy="${yCenter}" r="${r + 7}" class="node-outer-glow"/>
+      <circle cx="${cx}" cy="${yCenter}" r="${r}" class="state-node"/>
+      <text x="${cx}" y="${currentModel === 'moore' ? yCenter - 4 : yCenter}" class="node-title" font-size="${r * 0.55}">S${i}</text>
+      ${currentModel === 'moore' ? `<text x="${cx}" y="${yCenter + r * 0.45}" class="node-out-sub ${isMooreLast ? 'one' : ''}">out:${isMooreLast ? 1 : 0}</text>` : ''}
+    `;
+    svg.appendChild(g);
+  }
+
+  for(let s = 0; s < numStates; s++){
+    for(let b = 0; b <= 1; b++){
+      const tr = dfaObj[s][b];
+      const target = tr.next;
+      const x1 = startX + s * stepX;
+      const x2 = startX + target * stepX;
+      const edgeId = `${prefix}_${s}_${target}_b${b}`;
+      const lblId = `lbl_${prefix}_${s}_${target}_b${b}`;
+
+      let pathD = '';
+      let lblX = 0, lblY = 0;
+      const other = dfaObj[s][1 - b];
+      if (b === 1 && other.next === target) continue;            // b=0 ile birleştirildi
+      let labelText = (currentModel === 'mealy') ? `${b}/${tr.out}` : `${b}`;
+      if (b === 0 && other.next === target) labelText = (currentModel === 'mealy') ? `0/${tr.out}, 1/${other.out}` : '0,1';
+
+      if(s === target){
+        pathD = `M ${x1 - r * 0.5},${yCenter - r * 0.8} C ${x1 - r * 1.5},${yCenter - r * 2.2} ${x1 + r * 1.5},${yCenter - r * 2.2} ${x1 + r * 0.5},${yCenter - r * 0.8}`;
+        lblX = x1; lblY = yCenter - r * 1.8;
+      } else if(target === s + 1){
+        const bend = 32 + Math.abs(x2 - x1) * 0.14;
+        pathD = `M ${x1 + r * 0.6},${yCenter - r * 0.7} C ${x1 + stepX * 0.3},${yCenter - bend} ${x2 - stepX * 0.3},${yCenter - bend} ${x2 - r * 0.6},${yCenter - r * 0.7}`;
+        lblX = (x1 + x2) / 2; lblY = yCenter - bend * 0.85;
+      } else {
+        const bend = 28 + Math.abs(x1 - x2) * 0.22;
+        pathD = `M ${x1 - r * 0.5},${yCenter + r * 0.8} C ${x1 - Math.abs(x1-x2)*0.2},${yCenter + bend} ${x2 + Math.abs(x1-x2)*0.2},${yCenter + bend} ${x2 + r * 0.5},${yCenter + r * 0.8}`;
+        lblX = (x1 + x2) / 2; lblY = yCenter + bend * 0.85;
+      }
+
+      const p = document.createElementNS('http://www.w3.org/2000/svg','path');
+      p.setAttribute('d', pathD);
+      p.setAttribute('class', 'trans-edge');
+      p.setAttribute('id', edgeId);
+      p.setAttribute('marker-end', `url(#arr-def-${prefix})`);
+      svg.appendChild(p);
+
+      const txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+      txt.setAttribute('x', lblX);
+      txt.setAttribute('y', lblY);
+      txt.setAttribute('class', 'trans-label');
+      txt.setAttribute('id', lblId);
+      txt.textContent = labelText;
+      svg.appendChild(txt);
+    }
+  }
+}
+
+function updateUI(){
+  const dict = I18N[currentLang];
+  document.getElementById('lblClk').textContent = 'CLK: ' + clk;
+  document.getElementById('txtStateA').textContent = 'S' + curStateA;
+  document.getElementById('cntA').textContent = `${hitCountA} ${dict.hitUnit}`;
+
+  document.getElementById('probeInVal').textContent = lastBit;
+  document.getElementById('probeDetAVal').textContent = isDetA;
+  document.getElementById('probeDetABadge').classList.toggle('hit-active-a', isDetA === 1);
+
+  if(activeTab === 'dual'){
+    document.getElementById('txtStateB').textContent = 'S' + curStateB;
+    document.getElementById('cntB').textContent = `${hitCountB} ${dict.hitUnit}`;
+    document.getElementById('probeDetBVal').textContent = isDetB;
+    document.getElementById('probeDetBBadge').classList.toggle('hit-active-b', isDetB === 1);
+  }
+
+  const slotContainer = document.getElementById('winSlots');
+  slotContainer.innerHTML = '';
+  win.forEach((bitVal, idx) => {
+    const el = document.createElement('div');
+    el.className = 'slot' + (idx === win.length - 1 ? ' newest' : '');
+    el.textContent = bitVal;
+    slotContainer.appendChild(el);
+  });
+
+  const banA = document.getElementById('banA');
+  banA.className = 'detect-banner' + (isDetA ? ' active-a' : '');
+  document.getElementById('txtStatusA').textContent = isDetA ? dict.detected : dict.waiting;
+
+  if(activeTab === 'dual'){
+    const banB = document.getElementById('banB');
+    banB.className = 'detect-banner' + (isDetB ? ' active-b' : '');
+    document.getElementById('txtStatusB').textContent = isDetB ? dict.detected : dict.waiting;
+  }
+
+  const numStatesA = (currentModel === 'mealy') ? (activeTab==='dual'?4:targetPattern.length) : ((activeTab==='dual'?4:targetPattern.length) + 1);
+  for(let i = 0; i < numStatesA; i++){
+    const el = document.getElementById(`grp_ea_${i}`);
+    if(el) el.className.baseVal = (i === curStateA ? 'node-active-a' : '');
+  }
+
+  if(activeTab === 'dual'){
+    const numStatesB = (currentModel === 'mealy') ? 4 : 5;
+    for(let i = 0; i < numStatesB; i++){
+      const el = document.getElementById(`grp_eb_${i}`);
+      if(el) el.className.baseVal = (i === curStateB ? 'node-active-b' : '');
+    }
+  }
+
+  document.querySelectorAll('#svgFsmA .trans-edge').forEach(e => {
+    e.classList.remove('highlight-a');
+    e.setAttribute('marker-end', 'url(#arr-def-ea)');
+  });
+  document.querySelectorAll('#svgFsmA .trans-label').forEach(l => l.classList.remove('hit-a'));
+
+  if(lastEdgeA){
+    const edge = document.getElementById(lastEdgeA) || document.getElementById(lastEdgeA.replace(/_b1$/, '_b0'));
+    const lbl = document.getElementById('lbl_' + lastEdgeA) || document.getElementById('lbl_' + lastEdgeA.replace(/_b1$/, '_b0'));
+    if(edge){ edge.classList.add('highlight-a'); edge.setAttribute('marker-end', 'url(#arr-act-ea)'); }
+    if(lbl){ lbl.classList.add('hit-a'); }
+  }
+
+  if(activeTab === 'dual'){
+    document.querySelectorAll('#svgFsmB .trans-edge').forEach(e => {
+      e.classList.remove('highlight-b');
+      e.setAttribute('marker-end', 'url(#arr-def-eb)');
+    });
+    document.querySelectorAll('#svgFsmB .trans-label').forEach(l => l.classList.remove('hit-b'));
+
+    if(lastEdgeB){
+      const edge = document.getElementById(lastEdgeB) || document.getElementById(lastEdgeB.replace(/_b1$/, '_b0'));
+      const lbl = document.getElementById('lbl_' + lastEdgeB) || document.getElementById('lbl_' + lastEdgeB.replace(/_b1$/, '_b0'));
+      if(edge){ edge.classList.add('highlight-b'); edge.setAttribute('marker-end', 'url(#arr-act-eb)'); }
+      if(lbl){ lbl.classList.add('hit-b'); }
+    }
+  }
+
+  drawWaveform();
+}
+
+function drawWaveform(){
+  const svg = document.getElementById('wfSvg');
+  svg.innerHTML = '';
+  if(hist.length === 0) return;
+
+  const N = hist.length;
+  const W = 650, H = 90;
+  const colW = W / Math.max(16, N);
+
+  for(let i = 0; i <= Math.max(16, N); i++){
+    const gx = i * colW;
+    const l = document.createElementNS('http://www.w3.org/2000/svg','line');
+    l.setAttribute('x1', gx); l.setAttribute('y1', 4);
+    l.setAttribute('x2', gx); l.setAttribute('y2', H - 4);
+    l.setAttribute('stroke', '#E2E8F0');
+    svg.appendChild(l);
+  }
+
+  let sigs = [];
+  if(activeTab === 'dual'){
+    sigs = [
+      {val: h => h.in, y1: 6, y0: 24, c: '#7C3AED', fill: '#EDE9FE'},
+      {val: h => h.outA, y1: 34, y0: 52, c: '#D97706', fill: '#FEF3C7'},
+      {val: h => h.outB, y1: 62, y0: 80, c: '#059669', fill: '#D1FAE5'}
+    ];
+  } else {
+    sigs = [
+      {val: h => h.in, y1: 12, y0: 38, c: '#7C3AED', fill: '#EDE9FE'},
+      {val: h => h.outA, y1: 52, y0: 78, c: '#D97706', fill: '#FEF3C7'}
+    ];
+  }
+
+  sigs.forEach(s => {
+    let pts = [];
+    hist.forEach((h, i) => {
+      const x = i * colW;
+      const y = s.val(h) ? s.y1 : s.y0;
+      pts.push(`${x},${y}`);
+      pts.push(`${x + colW},${y}`);
+
+      if(s.val(h)){
+        const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        r.setAttribute('x', x); r.setAttribute('y', s.y1);
+        r.setAttribute('width', colW); r.setAttribute('height', s.y0 - s.y1);
+        r.setAttribute('fill', s.fill);
+        svg.appendChild(r);
+      }
+    });
+
+    const poly = document.createElementNS('http://www.w3.org/2000/svg','polyline');
+    poly.setAttribute('points', pts.join(' '));
+    poly.setAttribute('fill', 'none');
+    poly.setAttribute('stroke', s.c);
+    poly.setAttribute('stroke-width', '2.4');
+    svg.appendChild(poly);
+  });
+}
+
+function runMacroSeq(arr){
+  let i = 0;
+  const timer = setInterval(() => {
+    feedBit(arr[i]);
+    i++;
+    if(i >= arr.length) clearInterval(timer);
+  }, currentSpeed);
+}
+
+function resetCounters(){
+  hitCountA = 0;
+  hitCountB = 0;
+  updateUI();
+}
+
+function resetAll(){
+  clk = 0; lastBit = 0;
+  curStateA = 0; nextStateA = 0;
+  curStateB = 0; nextStateB = 0;
+  lastEdgeA = ''; lastEdgeB = '';
+  isDetA = 0; isDetB = 0;
+  hitCountA = 0; hitCountB = 0;
+
+  const currentLen = (activeTab === 'dual') ? 4 : targetPattern.length;
+  win = new Array(currentLen).fill('-');
+  hist.length = 0;
+
+  if(activeTab === 'dual'){
+    dfaA = generateDFA(patternA);
+    dfaB = generateDFA(patternB);
+    renderSVGDiagram('svgFsmA', patternA, 'ea', dfaA, false);
+    renderSVGDiagram('svgFsmB', patternB, 'eb', dfaB, true);
+  } else {
+    dfaA = generateDFA(targetPattern);
+    renderSVGDiagram('svgFsmA', targetPattern, 'ea', dfaA, false);
+  }
+
+  updateUI();
+}
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === '0') feedBit(0);
+  if(e.key === '1') feedBit(1);
+});
+
+renderPatternEditor();
+setLanguage('tr');
+resetAll();
+</script>
+
+<style>
+#exBtn{position:fixed;right:18px;bottom:18px;z-index:200;border:0;border-radius:999px;padding:12px 18px;font:800 14px system-ui,sans-serif;color:#fff;cursor:pointer;
+  background:linear-gradient(135deg,#8B5CF6,#EC4899);box-shadow:0 10px 26px -8px rgba(139,92,246,.7)}
+#exPanel{position:fixed;top:0;right:0;height:100vh;width:430px;max-width:92vw;z-index:199;background:#fff;color:#0F172A;box-shadow:-18px 0 40px rgba(15,23,42,.25);
+  transform:translateX(105%);transition:transform .3s ease;display:flex;flex-direction:column;font-family:system-ui,sans-serif}
+#exPanel.open{transform:none}
+#exPanel .eh{padding:16px 18px;background:linear-gradient(135deg,#8B5CF6,#EC4899);color:#fff;display:flex;justify-content:space-between;align-items:center}
+#exPanel .eh b{font-size:16px}
+#exPanel .eh button{border:0;background:rgba(255,255,255,.25);color:#fff;border-radius:999px;padding:4px 11px;cursor:pointer;font-weight:800}
+#exPanel .eb{overflow:auto;padding:12px 14px 80px}
+#exPanel .intro{font-size:13px;line-height:1.55;color:#475569;margin:2px 2px 12px}
+.exc{border:1px solid #E2E8F0;border-radius:14px;padding:12px 14px;margin-bottom:10px;background:#FAFAFF}
+.exc h4{margin:0 0 6px;font-size:14px}
+.exc p{margin:0 0 9px;font-size:12.8px;line-height:1.55;color:#334155}
+.exc code{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:#EEF2FF;color:#4338CA;padding:1px 5px;border-radius:5px}
+.exc .row{display:flex;gap:6px;flex-wrap:wrap}
+.exc .go{border:0;border-radius:999px;padding:6px 12px;font-weight:800;font-size:12px;cursor:pointer;color:#fff}
+.exc .go.ok{background:#10B981}.exc .go.bad{background:#EF4444}.exc .go.info{background:#6366F1}
+.exc.run{outline:2px solid #8B5CF6;background:#F5F3FF}
+#exNote{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:198;background:#0F172A;color:#fff;border-radius:999px;padding:9px 18px;
+  font:700 13px system-ui,sans-serif;box-shadow:0 10px 26px -8px rgba(0,0,0,.5);display:none;max-width:70vw;text-align:center}
+</style>
+
+<script>
+function exCustom(){ if (activeTab !== 'custom') switchMainTab('custom'); else resetAll(); return targetPattern.slice(); }
+function exSetPattern(arr){
+  if (activeTab !== 'custom') switchMainTab('custom');
+  setLength(arr.length);
+  targetPattern = arr.slice();
+  renderPatternEditor(); updateHeaders(); resetAll();
+}
+</script>
+<button id="exBtn">💡 FSM Açıklamaları</button>
+<div id="exNote"></div>
+<aside id="exPanel"><div class="eh"><b>FSM nasıl çalışıyor?</b><button onclick="exToggle(false)">✕</button></div><div class="eb" id="exBody"></div></aside>
+<script>
+(function(){
+  const EX = {
+ speed: 600,
+ intro: 'İki ayrı durum makinesi aynı seri girişi dinler: A <code>1101</code>, B <code>1011</code> dizisini arar. Her durum, o ana kadar doğru gelen önek kadar ilerlemeyi temsil eder. Senaryoları oynatıp diyagramdaki aktif durumu ve kayan pencereyi izle.',
+ cards: [
+  { t: '1. Dizi A: 1101', p: 'Her doğru bit makineyi bir durum ileri taşır (<code>S0 → S1 → S2 → S3</code>). Son bit de doğruysa çıkış 1 olur. Yanlış bitte makine sıfıra değil, o ana kadar görülen bitlerle uyuşan en uzun öneke döner.',
+    b: [['Başarılı: 1101', 'ok', () => [() => { switchMainTab('dual'); }, 'A dizisi gönderiliyor', () => feedBit(1), () => feedBit(1), () => feedBit(0), () => feedBit(1), 'A yakalandı']],
+        ['Başarısız: 1100', 'bad', () => [() => { switchMainTab('dual'); }, () => feedBit(1), () => feedBit(1), () => feedBit(0), () => feedBit(0), 'Son bit yanlış: yakalanmadı']]] },
+  { t: '2. Dizi B: 1011', p: 'B makinesi aynı anda kendi dizisini arar. <code>1</code> geldikten sonra tekrar <code>1</code> gelirse makine <code>S1</code>\'de kalır, çünkü "11"in son biti yine dizinin başıdır.',
+    b: [['Başarılı: 1011', 'ok', () => [() => { switchMainTab('dual'); }, () => feedBit(1), () => feedBit(0), () => feedBit(1), () => feedBit(1), 'B yakalandı']],
+        ['Başarısız: 1010', 'bad', () => [() => { switchMainTab('dual'); }, () => feedBit(1), () => feedBit(0), () => feedBit(1), () => feedBit(0), 'Yakalanmadı']]] },
+  { t: '3. Örtüşen diziler', p: 'Dizi bulunduktan sonra makine başa dönmez: dizinin sonu yeni bir dizinin başı olabilir. <code>1101101</code> girişinde A dizisi iki kez yakalanır.',
+    b: [['1101101', 'info', () => [() => { switchMainTab('dual'); }, ...[1,1,0,1,1,0,1].map(b => () => feedBit(b)), 'A iki kez yakalandı']]] },
+  { t: '4. Mealy ve Moore', p: '<b>Mealy</b>\'de çıkış son bit gelirken geçiş üzerinde üretilir (4 durum). <b>Moore</b>\'da bunun için ayrı bir "bulundu" durumu gerekir (5 durum) ve çıkış o durumdayken 1 olur.',
+    b: [['Moore ile 1101', 'info', () => [() => { switchFSMModel('moore'); }, () => feedBit(1), () => feedBit(1), () => feedBit(0), () => feedBit(1), 'Moore: S4 durumunda çıkış 1']]] },
+  { t: '5. Özel dizi (1–8 bit)', p: 'Üstteki <b>Özel</b> sekmesinde sol panelden uzunluğu (1–8) ve bitleri seç; durum makinesi bu diziye göre otomatik üretilir. Aşağıdaki senaryolar <b>senin kurduğun diziyi</b> kullanır: başarılıda dizinin kendisi, başarısızda son biti ters çevrilmiş hâli gönderilir.',
+    b: [['Başarılı: hedef dizi', 'ok', () => { const t = exCustom(); return ['Hedef: ' + t.join(''), ...t.map(x => () => feedBit(x)), 'Dizi yakalandı']; }],
+        ['Başarısız: son bit ters', 'bad', () => { const t = exCustom(), w = t.slice(); w[w.length - 1] ^= 1; return ['Gönderilen: ' + w.join(''), ...w.map(x => () => feedBit(x)), 'Son bit yanlış: yakalanmadı']; }],
+        ['Arka arkaya iki kez', 'info', () => { const t = exCustom(); return ['İki kez: ' + t.join('') + ' ' + t.join(''), ...t.concat(t).map(x => () => feedBit(x))]; }]] },
+  { t: '6. Uzunluk ve durum sayısı', p: 'N bitlik dizi için <b>Mealy</b> makinesi N durumla, <b>Moore</b> makinesi N+1 durumla kurulur; Moore\'daki fazladan durum "dizi bulundu" çıkışını tutar. Yanlış bit geldiğinde makine, son gelen bitlerle uyuşan en uzun öneke geri döner (KMP mantığı).',
+    b: [['8 bit örnek: 10110011', 'info', () => [() => { exSetPattern([1,0,1,1,0,0,1,1]); }, '8 bitlik dizi: 8 durum (Mealy)', ...[1,0,1,1,0,0,1,1].map(x => () => feedBit(x)), 'Yakalandı']],
+        ['3 bit örnek: 101 (Moore)', 'info', () => [() => { switchFSMModel('moore'); exSetPattern([1,0,1]); }, '3 bit, Moore: 4 durum', ...[1,0,1,0,1].map(x => () => feedBit(x)), 'Örtüşmeyle iki kez yakalandı']]] }
+ ]
+};
+  let tm = null, runEl = null;
+  window.exToggle = o => document.getElementById('exPanel').classList.toggle('open', o);
+  document.getElementById('exBtn').onclick = () => exToggle(!document.getElementById('exPanel').classList.contains('open'));
+  const note = t => { const n = document.getElementById('exNote'); n.style.display = t ? 'block' : 'none'; n.textContent = t || ''; };
+  function stop(){ clearTimeout(tm); tm = null; if (runEl) runEl.classList.remove('run'); runEl = null; }
+  function play(steps, el){
+    stop(); runEl = el; el.classList.add('run');
+    let k = 0;
+    const next = () => {
+      if (k >= steps.length) { setTimeout(() => note(''), 2500); stop(); return; }
+      const s = steps[k++];
+      if (typeof s === 'string') note(s); else s();
+      tm = setTimeout(next, typeof s === 'string' ? 200 : EX.speed);
+    };
+    next();
+  }
+  window.EX_TR = EX;
+  window.exRender = function(src){
+  const en = window.exLang === 'en';
+  document.getElementById('exBtn').textContent = en ? '💡 FSM Explanations' : '💡 FSM Açıklamaları';
+  document.querySelector('#exPanel .eh b').textContent = en ? 'How does the FSM work?' : 'FSM nasıl çalışıyor?';
+  stop(); note('');
+  const body = document.getElementById('exBody');
+  body.innerHTML = '<p class="intro">' + src.intro + '</p>';
+  src.cards.forEach(c => {
+    const d = document.createElement('div'); d.className = 'exc';
+    d.innerHTML = '<h4>' + c.t + '</h4><p>' + c.p + '</p><div class="row"></div>';
+    c.b.forEach(([lbl, kind, steps]) => {
+      const b = document.createElement('button'); b.className = 'go ' + kind; b.textContent = '▶ ' + lbl;
+      b.onclick = () => play(steps(), d);
+      d.querySelector('.row').appendChild(b);
+    });
+    body.appendChild(d);
+  });
+  if (window.exColorize) exColorize();
+  };
+  exRender(EX);
+})();
+</script>
+
+
+<style>
+.exc{border-left:5px solid var(--exk,#8B5CF6)}
+.exc:nth-of-type(5n+1){--exk:#8B5CF6}.exc:nth-of-type(5n+2){--exk:#0EA5E9}.exc:nth-of-type(5n+3){--exk:#F59E0B}
+.exc:nth-of-type(5n+4){--exk:#10B981}.exc:nth-of-type(5n+5){--exk:#EC4899}
+.exc h4{color:var(--exk)}
+.exc code.k-st{background:#EDE9FE;color:#6D28D9}
+.exc code.k-in{background:#E0F2FE;color:#0369A1}
+.exc code.k-out{background:#D1FAE5;color:#047857}
+.exc code.k-rg{background:#FEF3C7;color:#B45309}
+.exc code.k-bit{background:#FCE7F3;color:#BE185D}
+.exleg{display:flex;flex-wrap:wrap;gap:6px;margin:0 2px 14px}
+.exleg span{font:700 11.5px system-ui,sans-serif;padding:3px 10px;border-radius:999px}
+</style>
+<script>
+window.exColorize = function(){
+  const IN = /^(in|din|wr_en|rd_en|wr|rd|floor_req|door_sensor|emergency|rst|rst_n|clk)\b/;
+  const OUT = /^(unlocked|unl|alarm|dout|empty|full|led|motor_up|motor_down|door_open|seq_\w+|out)\b/;
+  const RG = /^(cnt|count|w_ptr|r_ptr|timer_cnt|req_reg|HALF_PERIOD|state_q|\$clog2)\b/;
+  const body = document.getElementById('exBody');
+  body.querySelectorAll('code').forEach(c => {
+    const t = c.textContent.trim();
+    const k = /^S(_[A-Z_]+|\d|[AB]\d)/.test(t) ? 'k-st' : IN.test(t) ? 'k-in' : OUT.test(t) ? 'k-out' : RG.test(t) ? 'k-rg' : /^[01 →\-]+$/.test(t) ? 'k-bit' : '';
+    if (k) c.classList.add(k);
+  });
+  const leg = document.createElement('div');
+  leg.className = 'exleg';
+  const L = window.exLang === 'en' ? ['State', 'Input', 'Output', 'Register / counter', 'Bit sequence'] : ['Durum', 'Giriş', 'Çıkış', 'Kayıtçı / sayaç', 'Bit dizisi'];
+  leg.innerHTML = '<span style="background:#EDE9FE;color:#6D28D9">' + L[0] + '</span><span style="background:#E0F2FE;color:#0369A1">' + L[1] + '</span>' +
+    '<span style="background:#D1FAE5;color:#047857">' + L[2] + '</span><span style="background:#FEF3C7;color:#B45309">' + L[3] + '</span><span style="background:#FCE7F3;color:#BE185D">' + L[4] + '</span>';
+  body.insertBefore(leg, body.children[1] || null);
+};
+exColorize();
+</script>
+
+<script>
+window.exLang = 'tr';
+window.EX_EN = {
+ speed: 600,
+ intro: 'Two separate state machines listen to the same serial input: A searches for <code>1101</code>, B for <code>1011</code>. Each state represents how much of the sequence has matched so far. Play the scenarios and watch the active state and the shifting window.',
+ cards: [
+  { t: '1. Sequence A: 1101', p: 'Every correct bit moves the machine one state forward (<code>S0 → S1 → S2 → S3</code>). If the last bit is also correct, the output becomes 1. On a wrong bit the machine does not reset to zero; it falls back to the longest prefix that still matches the recent bits.',
+    b: [['Success: 1101', 'ok', () => [() => { switchMainTab('dual'); }, 'Sending sequence A', () => feedBit(1), () => feedBit(1), () => feedBit(0), () => feedBit(1), 'A detected']],
+        ['Fail: 1100', 'bad', () => [() => { switchMainTab('dual'); }, () => feedBit(1), () => feedBit(1), () => feedBit(0), () => feedBit(0), 'Last bit wrong: not detected']]] },
+  { t: '2. Sequence B: 1011', p: 'Machine B searches for its own sequence at the same time. If another <code>1</code> follows a <code>1</code>, it stays in <code>S1</code>, because the last bit of "11" is again the start of the sequence.',
+    b: [['Success: 1011', 'ok', () => [() => { switchMainTab('dual'); }, () => feedBit(1), () => feedBit(0), () => feedBit(1), () => feedBit(1), 'B detected']],
+        ['Fail: 1010', 'bad', () => [() => { switchMainTab('dual'); }, () => feedBit(1), () => feedBit(0), () => feedBit(1), () => feedBit(0), 'Not detected']]] },
+  { t: '3. Overlapping sequences', p: 'After a detection the machine does not restart: the end of one sequence can be the start of the next. With the input <code>1101101</code>, sequence A is detected twice.',
+    b: [['1101101', 'info', () => [() => { switchMainTab('dual'); }, ...[1,1,0,1,1,0,1].map(b => () => feedBit(b)), 'A detected twice']]] },
+  { t: '4. Mealy vs Moore', p: 'In <b>Mealy</b> the output is produced on the transition while the last bit arrives (4 states). <b>Moore</b> needs a separate "found" state (5 states) and the output is 1 while in that state.',
+    b: [['1101 with Moore', 'info', () => [() => { switchFSMModel('moore'); }, () => feedBit(1), () => feedBit(1), () => feedBit(0), () => feedBit(1), 'Moore: output 1 in S4']]] },
+  { t: '5. Custom sequence (1–8 bit)', p: 'In the <b>Custom</b> tab pick the length (1–8) and the bits in the left panel; the state machine is generated for that sequence. These scenarios use <b>your sequence</b>: success sends the sequence itself, fail sends it with the last bit flipped.',
+    b: [['Success: target sequence', 'ok', () => { const t = exCustom(); return ['Target: ' + t.join(''), ...t.map(x => () => feedBit(x)), 'Sequence detected']; }],
+        ['Fail: last bit flipped', 'bad', () => { const t = exCustom(), w = t.slice(); w[w.length - 1] ^= 1; return ['Sent: ' + w.join(''), ...w.map(x => () => feedBit(x)), 'Last bit wrong: not detected']; }],
+        ['Twice in a row', 'info', () => { const t = exCustom(); return ['Twice: ' + t.join('') + ' ' + t.join(''), ...t.concat(t).map(x => () => feedBit(x))]; }]] },
+  { t: '6. Length and number of states', p: 'For an N-bit sequence the <b>Mealy</b> machine uses N states and the <b>Moore</b> machine N+1; the extra Moore state holds the "found" output. On a wrong bit the machine returns to the longest prefix that matches the latest bits (KMP logic).',
+    b: [['8-bit example: 10110011', 'info', () => [() => { exSetPattern([1,0,1,1,0,0,1,1]); }, '8-bit sequence: 8 states (Mealy)', ...[1,0,1,1,0,0,1,1].map(x => () => feedBit(x)), 'Detected']],
+        ['3-bit example: 101 (Moore)', 'info', () => [() => { switchFSMModel('moore'); exSetPattern([1,0,1]); }, '3 bits, Moore: 4 states', ...[1,0,1,0,1].map(x => () => feedBit(x)), 'Detected twice thanks to overlap']]] }
+ ]
+};
+(function(){
+  const sl = window.setLanguage;
+  window.setLanguage = function(l){ sl(l); window.exLang = l; document.documentElement.lang = l; exRender(l === 'en' ? EX_EN : EX_TR); };
+})();
+</script>
+</body>
+</html>

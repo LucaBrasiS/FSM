@@ -1,0 +1,1091 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sync_FIFO — Hardware Circular Buffer & RTL Waveform Explorer</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap">
+<style>
+:root {
+  --bg-main: #F1F5F9;
+  --card-bg: #FFFFFF;
+  --card-sub: #F8FAFC;
+  --border: #E2E8F0;
+  --border-strong: #CBD5E1;
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --text-faint: #94A3B8;
+
+  --accent-wr: #0284C7;
+  --accent-wr-bg: #E0F2FE;
+  --accent-rd: #10B981;
+  --accent-rd-bg: #D1FAE5;
+  --accent-full: #EF4444;
+  --accent-full-bg: #FEE2E2;
+  --accent-empty: #F59E0B;
+  --accent-empty-bg: #FEF3C7;
+
+  --purple: #7C3AED;
+  --purple-bg: #EDE9FE;
+
+  --shadow-sm: 0 2px 8px rgba(148, 163, 184, 0.12);
+  --shadow-md: 0 8px 24px -4px rgba(100, 116, 139, 0.12);
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 14px;
+  gap: 8px;
+}
+
+/* Üst Navigasyon */
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 6px 14px;
+  box-shadow: var(--shadow-sm);
+  flex: none;
+  height: 44px;
+}
+.brand { display: flex; align-items: baseline; gap: 8px; }
+.brand h1 { font-size: 1.15rem; font-weight: 800; color: var(--text-main); }
+.brand span { font-size: .76rem; color: var(--text-muted); font-weight: 600; }
+
+.tab-group {
+  display: flex;
+  background: var(--card-sub);
+  border: 1.5px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 2px;
+  gap: 3px;
+}
+.lang-btn {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-muted);
+  transition: all .15s;
+}
+.lang-btn.active { background: #0F172A; color: #FFFFFF; }
+
+.toolbar-actions { display: flex; align-items: center; gap: 6px; }
+.btn-act {
+  font-size: .74rem; font-weight: 700; padding: 5px 12px; border-radius: 6px;
+  border: 1px solid var(--border-strong); background: var(--card-bg); cursor: pointer;
+  transition: all .15s;
+}
+.btn-act:hover { background: #F1F5F9; }
+.btn-act.play { background: var(--purple); color: #FFF; border-color: var(--purple); font-weight: 800; }
+.btn-act.theory { background: #FEF3C7; color: #B45309; border-color: #FDE68A; font-weight: 800; }
+.btn-act.danger { color: #DC2626; border-color: #FECACA; }
+.btn-act.danger:hover { background: #FEF2F2; }
+
+/* 3 Kolonlu Ana Grid */
+.main-grid {
+  display: grid;
+  grid-template-columns: 310px 1fr 340px;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.card-head {
+  font-size: .82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-main);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* SOL: Kontroller & Veri Girişi */
+.left-col { display: flex; flex-direction: column; gap: 8px; min-height: 0; }
+
+.ctrl-btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.btn-fifo-action {
+  border-radius: 10px; border: 2px solid transparent; cursor: pointer;
+  padding: 12px 10px; display: flex; flex-direction: column; align-items: center;
+  gap: 2px; transition: transform .1s, box-shadow .15s;
+}
+.btn-fifo-action:active { transform: scale(0.96); }
+.btn-fifo-action .title { font-family: var(--font-mono); font-size: 1.15rem; font-weight: 900; }
+.btn-fifo-action small { font-size: .66rem; font-weight: 700; }
+
+.btn-wr { background: linear-gradient(135deg, #F0F9FF, #E0F2FE); color: var(--accent-wr); border-color: #BAE6FD; }
+.btn-wr:hover { border-color: var(--accent-wr); box-shadow: 0 4px 12px rgba(2,132,199,.15); }
+.btn-rd { background: linear-gradient(135deg, #ECFDF5, #D1FAE5); color: var(--accent-rd); border-color: #A7F3D0; }
+.btn-rd:hover { border-color: var(--accent-rd); box-shadow: 0 4px 12px rgba(16,185,129,.15); }
+
+.din-input-box {
+  background: var(--card-sub); border: 1.5px solid var(--border-strong);
+  border-radius: 8px; padding: 8px; display: flex; align-items: center;
+  justify-content: space-between; gap: 6px;
+}
+.din-input {
+  width: 90px; font-family: var(--font-mono); font-size: 1.1rem; font-weight: 800;
+  padding: 4px 8px; border-radius: 6px; border: 1.5px solid var(--border-strong);
+  background: #FFF; text-align: center; color: var(--text-main);
+}
+.din-gen-btn {
+  font-family: var(--font-sans); font-size: .72rem; font-weight: 700;
+  padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border-strong);
+  background: #FFF; cursor: pointer;
+}
+.din-gen-btn:hover { background: #F1F5F9; }
+
+.macro-btn-group { display: flex; flex-direction: column; gap: 5px; }
+.btn-macro {
+  font-size: .74rem; font-weight: 700; padding: 7px 10px; border-radius: 6px;
+  border: 1px solid var(--border-strong); background: var(--card-sub); cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center; transition: all .15s;
+}
+.btn-macro:hover { background: #F1F5F9; border-color: #94A3B8; }
+
+.speed-group {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px;
+  background: var(--card-sub); padding: 2px; border-radius: 6px; border: 1px solid var(--border);
+}
+.spd-btn {
+  font-size: .66rem; font-weight: 700; padding: 4px 0; border: none; border-radius: 5px;
+  background: transparent; color: var(--text-muted); cursor: pointer; text-align: center;
+}
+.spd-btn.active { background: #FFF; color: var(--purple); font-weight: 800; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+
+/* ORTA: Dairesel Bellek Çarkı & RTL Waveform */
+.center-col { display: flex; flex-direction: column; gap: 8px; min-height: 0; }
+.circ-stage {
+  flex: 1; background: #FFF; border-radius: 12px; border: 1px solid var(--border);
+  padding: 10px 14px; display: flex; flex-direction: column; gap: 4px; min-height: 0;
+}
+.circ-svg-box { flex: 1; width: 100%; height: 100%; position: relative; }
+.circ-svg-box svg { width: 100%; height: 100%; }
+
+/* Vivado Waveform Kartı */
+.wf-card {
+  background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;
+  padding: 10px 14px; height: 215px; flex: none; display: flex; flex-direction: column; gap: 8px;
+}
+.wf-container {
+  display: grid; grid-template-columns: 155px 1fr; gap: 10px; flex: 1; min-height: 0;
+}
+.wf-probes {
+  display: flex; flex-direction: column; justify-content: space-between; padding: 2px 0;
+}
+.probe-badge {
+  background: var(--card-sub); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; padding: 3px 8px; height: 26px; display: flex; align-items: center;
+  justify-content: space-between; font-family: var(--font-mono); font-size: .72rem; font-weight: 800;
+}
+.probe-badge.clk-sig { border-left: 4px solid var(--purple); }
+.probe-badge.wr-sig  { border-left: 4px solid var(--accent-wr); }
+.probe-badge.rd-sig  { border-left: 4px solid var(--accent-rd); }
+.probe-badge.fl-sig  { border-left: 4px solid var(--accent-full); }
+.probe-badge.em-sig  { border-left: 4px solid var(--accent-empty); }
+.probe-val {
+  font-size: .78rem; font-weight: 900; background: #FFF; padding: 1px 6px;
+  border-radius: 4px; border: 1px solid var(--border);
+}
+
+/* SAĞ: Hardware Pipeline Stream & Status Gauge */
+.right-col { display: flex; flex-direction: column; gap: 8px; min-height: 0; }
+.pipe-viewport {
+  flex: 1; background: #0B111E; border-radius: 12px; border: 2px solid #1E293B;
+  display: flex; flex-direction: column; padding: 14px; gap: 10px; position: relative;
+  box-shadow: inset 0 0 35px rgba(0,0,0,0.85); overflow: hidden;
+}
+
+/* Doluluk Göstergesi (Depth Gauge) */
+.depth-gauge-card {
+  background: rgba(15, 23, 42, 0.85); border: 1.5px solid #1E293B; border-radius: 10px;
+  padding: 10px 12px; display: flex; flex-direction: column; gap: 6px;
+}
+.gauge-top { display: flex; justify-content: space-between; align-items: baseline; }
+.gauge-pct { font-family: var(--font-mono); font-size: 1.25rem; font-weight: 900; color: #38BDF8; }
+.gauge-bar-track {
+  width: 100%; height: 10px; background: #1E293B; border-radius: 5px; overflow: hidden;
+}
+.gauge-bar-fill {
+  height: 100%; width: 0%; background: linear-gradient(90deg, #10B981, #38BDF8);
+  transition: width .25s ease, background .25s ease;
+}
+.gauge-bar-fill.warning { background: linear-gradient(90deg, #F59E0B, #EF4444); }
+
+/* Donanım Veri Borusu (Hardware Stream Pipe) */
+.stream-pipe {
+  flex: 1; background: #070D18; border: 2px solid #1E293B; border-radius: 10px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 10px; gap: 8px; position: relative;
+}
+.pipe-slot-list {
+  display: flex; flex-direction: column-reverse; gap: 5px; width: 100%;
+}
+.pipe-slot {
+  height: 28px; background: #131E32; border: 1.5px solid #283953; border-radius: 6px;
+  display: flex; align-items: center; justify-content: space-between; padding: 0 10px;
+  font-family: var(--font-mono); font-size: .78rem; font-weight: 800; color: #94A3B8;
+  transition: all .2s;
+}
+.pipe-slot.occupied {
+  background: #022C22; border-color: #059669; color: #34D399;
+  box-shadow: inset 0 0 8px rgba(16,185,129,.25);
+}
+
+.hw-flag-banners { display: flex; gap: 6px; }
+.flag-banner {
+  flex: 1; padding: 6px; border-radius: 6px; text-align: center;
+  font-family: var(--font-mono); font-size: .74rem; font-weight: 900;
+  border: 1.5px solid transparent; background: #1E293B; color: #64748B;
+}
+.flag-banner.active-full {
+  background: #450A0A; border-color: #DC2626; color: #F87171;
+  animation: blinkAlert .4s infinite alternate;
+}
+.flag-banner.active-empty {
+  background: #451A03; border-color: #D97706; color: #FBBF24;
+}
+@keyframes blinkAlert { from{opacity:0.6;} to{opacity:1;} }
+
+.pipe-footer {
+  background: rgba(15, 23, 42, 0.7); border: 1px solid #1E293B; border-radius: 8px;
+  padding: 6px 10px; font-family: var(--font-mono); font-size: .68rem; color: #94A3B8;
+  display: flex; justify-content: space-between;
+}
+
+/* Teori Modalı */
+.theory-modal-overlay {
+  position: fixed; inset: 0; background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(4px);
+  z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px;
+}
+.theory-modal-overlay.open { display: flex; }
+.theory-card {
+  background: #FFF; border: 2px solid var(--border-strong); border-radius: 16px;
+  width: 100%; max-width: 720px; box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+  display: flex; flex-direction: column; overflow: hidden; animation: popIn .2s ease-out;
+}
+@keyframes popIn { from{transform:scale(0.96); opacity:0;} to{transform:scale(1); opacity:1;} }
+.theory-head {
+  background: var(--card-sub); border-bottom: 1px solid var(--border);
+  padding: 12px 18px; display: flex; justify-content: space-between; align-items: center;
+}
+.theory-body {
+  padding: 16px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  max-height: 80vh; overflow-y: auto;
+}
+.theory-item {
+  background: var(--card-sub); border: 1.5px solid var(--border); border-radius: 10px;
+  padding: 12px 14px; display: flex; flex-direction: column; gap: 5px;
+}
+.theory-code {
+  font-family: var(--font-mono); font-size: .7rem; font-weight: 700;
+  background: #0F172A; color: #38BDF8; padding: 3px 6px; border-radius: 4px;
+  margin-top: 4px; display: inline-block;
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="top-nav">
+    <div class="brand">
+      <h1>Sync_FIFO</h1>
+      <span id="txtSubtitle">Circular Buffer & RTL Waveform Explorer</span>
+    </div>
+
+    <!-- Dil Seçimi -->
+    <div class="tab-group">
+      <button class="lang-btn active" id="langEn" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" id="langTr" onclick="setLanguage('tr')">TR</button>
+    </div>
+
+    <div class="toolbar-actions">
+      <button class="btn-act theory" onclick="toggleTheoryModal(true)" id="btnTheory">💡 FIFO Logic & Theory</button>
+      <button class="btn-act play" id="btnPlay" onclick="toggleAutoClock()">▶ Auto Run</button>
+      <button class="btn-act danger" onclick="resetAll()">⏮ Hardware RST</button>
+    </div>
+  </div>
+
+  <div class="main-grid">
+    <!-- SOL: Kontroller -->
+    <div class="left-col">
+      <!-- 1. Yazma & Okuma Tetikleme -->
+      <div class="card">
+        <div class="card-head">
+          <span id="lblPortActions">Port Control</span>
+          <span style="font-family:var(--font-mono);color:var(--purple);font-weight:800" id="lblClkCount">CLK: 0</span>
+        </div>
+        <div class="ctrl-btn-grid">
+          <button class="btn-fifo-action btn-wr" onclick="execPush()">
+            <span class="title">PUSH (wr)</span>
+            <small id="subPush">Write Data In</small>
+          </button>
+          <button class="btn-fifo-action btn-rd" onclick="execPop()">
+            <span class="title">POP (rd)</span>
+            <small id="subPop">Read Data Out</small>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Giriş Verisi (din) -->
+      <div class="card">
+        <div class="card-head">
+          <span id="lblDataInput">Input Bus (din[7:0])</span>
+          <span style="font-size:.65rem;color:var(--text-faint)">HEX BYTE</span>
+        </div>
+        <div class="din-input-box">
+          <span style="font-family:var(--font-mono);font-weight:800;color:var(--accent-wr)">0x</span>
+          <input type="text" class="din-input" id="inHexVal" value="A1" maxlength="2">
+          <button class="din-gen-btn" onclick="genRandomHex()" id="btnRnd">🎲 Rnd</button>
+        </div>
+      </div>
+
+      <!-- 3. Hızlı Test Senaryoları (Macros) -->
+      <div class="card">
+        <div class="card-head"><span id="lblTestMacros">Quick Test Patterns</span></div>
+        <div class="macro-btn-group">
+          <button class="btn-macro" onclick="macroBurstWrite()">
+            <span id="txtBurstWr">Burst Fill (Write 8)</span>
+            <span style="color:var(--accent-wr)">➔ Full</span>
+          </button>
+          <button class="btn-macro" onclick="macroBurstRead()">
+            <span id="txtBurstRd">Drain Buffer (Read 8)</span>
+            <span style="color:var(--accent-rd)">➔ Empty</span>
+          </button>
+          <button class="btn-macro" onclick="macroSimultaneous()">
+            <span id="txtSimultaneous">Simultaneous (wr & rd)</span>
+            <span style="color:var(--purple)">Steady</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 4. Hız & Durum -->
+      <div class="card" style="margin-top:auto">
+        <div class="card-head"><span id="lblSpeed">Auto Clock Rate</span></div>
+        <div class="speed-group">
+          <button class="spd-btn" id="spdSlow" onclick="setSpeed(750, 'spdSlow')">Slow</button>
+          <button class="spd-btn active" id="spdMed" onclick="setSpeed(350, 'spdMed')">Normal</button>
+          <button class="spd-btn" id="spdFast" onclick="setSpeed(120, 'spdFast')">Fast</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORTA: Dairesel Çark & RTL Dalga Formu -->
+    <div class="center-col">
+      <div class="circ-stage">
+        <div class="card-head">
+          <span style="color:var(--purple)" id="lblCircTitle">CIRCULAR RAM ARRAY (DEPTH = 8)</span>
+          <span style="font-family:var(--font-mono);font-size:.76rem;color:var(--text-muted)">w_ptr vs r_ptr</span>
+        </div>
+        <div class="circ-svg-box">
+          <svg viewBox="0 0 540 260" id="svgCirc"></svg>
+        </div>
+      </div>
+
+      <!-- Vivado Dalga Formu -->
+      <div class="wf-card">
+        <div class="card-head">
+          <span id="lblWfHeader">RTL TIMING WAVEFORM (LAST 16 CYCLES)</span>
+          <span style="font-family:var(--font-mono);font-size:.68rem;color:var(--text-faint)">1 CLK GRID</span>
+        </div>
+        <div class="wf-container">
+          <div class="wf-probes">
+            <div class="probe-badge clk-sig">
+              <span>clk</span>
+              <span class="probe-val" id="probeClk">0</span>
+            </div>
+            <div class="probe-badge wr-sig">
+              <span>wr_en [din]</span>
+              <span class="probe-val" id="probeWr">0</span>
+            </div>
+            <div class="probe-badge rd-sig">
+              <span>rd_en [dout]</span>
+              <span class="probe-val" id="probeRd">0</span>
+            </div>
+            <div class="probe-badge fl-sig">
+              <span>full</span>
+              <span class="probe-val" id="probeFull">0</span>
+            </div>
+            <div class="probe-badge em-sig">
+              <span>empty</span>
+              <span class="probe-val" id="probeEmpty">1</span>
+            </div>
+          </div>
+          <div style="flex:1;width:100%;height:100%">
+            <svg id="wfSvg" viewBox="0 0 520 136" preserveAspectRatio="none" style="width:100%;height:100%"></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAĞ: Hardware Pipeline Stream & Status Viewport -->
+    <div class="right-col">
+      <div class="pipe-viewport">
+        <div class="card-head" style="color:#F8FAFC">
+          <span id="lblPipeHeader">Stream Pipeline View</span>
+          <span style="font-size:.65rem;color:#38BDF8">REAL-TIME HW</span>
+        </div>
+
+        <!-- Doluluk Barı -->
+        <div class="depth-gauge-card">
+          <div class="gauge-top">
+            <span style="font-size:.7rem;font-weight:700;color:#94A3B8" id="lblOccupancy">OCCUPANCY:</span>
+            <span class="gauge-pct" id="txtCountDisplay">0 / 8 (0%)</span>
+          </div>
+          <div class="gauge-bar-track">
+            <div class="gauge-bar-fill" id="barFill"></div>
+          </div>
+        </div>
+
+        <!-- Donanım Veri Borusu (Hardware Stream Pipe) -->
+        <div class="stream-pipe">
+          <div style="font-family:var(--font-mono);font-size:.64rem;color:#64748B;letter-spacing:.06em">
+            OUTPUT STACK (FIFO ORDER)
+          </div>
+          <div class="pipe-slot-list" id="pipeSlots"></div>
+          <div style="font-family:var(--font-mono);font-size:.64rem;color:#64748B;letter-spacing:.06em">
+            INPUT PORT (din)
+          </div>
+        </div>
+
+        <!-- Durum Bayrakları -->
+        <div class="hw-flag-banners">
+          <div class="flag-banner" id="bannerEmpty">EMPTY</div>
+          <div class="flag-banner" id="bannerFull">FULL</div>
+        </div>
+
+        <div class="pipe-footer">
+          <span>dout: <b id="hwDoutTxt" style="color:#34D399">0x00</b></span>
+          <span>Status: <b id="hwStatusTxt" style="color:#38BDF8">READY</b></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEORİ MODALI -->
+<div class="theory-modal-overlay" id="theoryModal">
+  <div class="theory-card">
+    <div class="theory-head">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:1.15rem">💡</span>
+        <h3 style="margin:0;font-size:.95rem;font-weight:800;color:var(--text-main)" id="modalTitle">Synchronous FIFO Architecture & Principles</h3>
+      </div>
+      <button class="btn-act" onclick="toggleTheoryModal(false)">✕ Close</button>
+    </div>
+    <div class="theory-body">
+      <div class="theory-item">
+        <div style="font-size:.84rem;font-weight:800;color:var(--accent-wr)" id="th1Title">1. Circular Pointer Arithmetic</div>
+        <p style="font-size:.76rem;color:var(--text-muted);line-height:1.45" id="th1Text">
+          A FIFO does not physically shift all data registers like a shift register. Instead, it utilizes two modular pointers: Write Pointer (w_ptr) for push and Read Pointer (r_ptr) for pop.
+        </p>
+        <span class="theory-code">w_ptr &lt;= (w_ptr + 1'b1) % DEPTH;</span>
+      </div>
+
+      <div class="theory-item">
+        <div style="font-size:.84rem;font-weight:800;color:var(--accent-rd)" id="th2Title">2. Full vs Empty Disambiguation</div>
+        <p style="font-size:.76rem;color:var(--text-muted);line-height:1.45" id="th2Text">
+          When w_ptr == r_ptr, the buffer is either completely full or completely empty. Tracking an auxiliary occupancy counter (count) eliminates ambiguity.
+        </p>
+        <span class="theory-code">empty = (count == 0); full = (count == DEPTH);</span>
+      </div>
+
+      <div class="theory-item">
+        <div style="font-size:.84rem;font-weight:800;color:var(--accent-full)" id="th3Title">3. Overflow & Underflow Protection</div>
+        <p style="font-size:.76rem;color:var(--text-muted);line-height:1.45" id="th3Text">
+          Writing into a full FIFO corrupts unread data (overflow), while reading from an empty buffer pulls garbage logic levels (underflow). Hardware guards ignore invalid requests.
+        </p>
+        <span class="theory-code">if (wr_en && full) overflow &lt;= 1'b1;</span>
+      </div>
+
+      <div class="theory-item">
+        <div style="font-size:.84rem;font-weight:800;color:var(--purple)" id="th4Title">4. Simultaneous Push & Pop</div>
+        <p style="font-size:.76rem;color:var(--text-muted);line-height:1.45" id="th4Text">
+          In high-throughput FPGA pipelines, reading and writing can occur on the exact same clock edge. Both pointers advance synchronously while the occupancy counter remains stable.
+        </p>
+        <span class="theory-code">mem[w_ptr] &lt;= din; dout &lt;= mem[r_ptr];</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentLang = 'en';
+
+const I18N = {
+  en: {
+    subtitle: "Circular Buffer & RTL Waveform Explorer",
+    btnTheory: "💡 FIFO Logic & Theory",
+    lblPortActions: "Port Control",
+    subPush: "Write Data In",
+    subPop: "Read Data Out",
+    lblDataInput: "Input Bus (din[7:0])",
+    lblTestMacros: "Quick Test Patterns",
+    txtBurstWr: "Burst Fill (Write 8)",
+    txtBurstRd: "Drain Buffer (Read 8)",
+    txtSimultaneous: "Simultaneous (wr & rd)",
+    lblSpeed: "Auto Clock Rate",
+    lblCircTitle: "CIRCULAR RAM ARRAY (DEPTH = 8)",
+    lblWfHeader: "RTL TIMING WAVEFORM (LAST 16 CYCLES)",
+    lblPipeHeader: "Stream Pipeline View",
+    lblOccupancy: "OCCUPANCY:",
+    modalTitle: "Synchronous FIFO Architecture & Principles",
+    th1Title: "1. Circular Pointer Arithmetic",
+    th1Text: "A FIFO does not physically shift all data registers like a shift register. Instead, it utilizes two modular pointers: Write Pointer (w_ptr) for push and Read Pointer (r_ptr) for pop.",
+    th2Title: "2. Full vs Empty Disambiguation",
+    th2Text: "When w_ptr == r_ptr, the buffer is either completely full or completely empty. Tracking an auxiliary occupancy counter (count) eliminates ambiguity.",
+    th3Title: "3. Overflow & Underflow Protection",
+    th3Text: "Writing into a full FIFO corrupts unread data (overflow), while reading from an empty buffer pulls garbage logic levels (underflow). Hardware guards ignore invalid requests.",
+    th4Title: "4. Simultaneous Push & Pop",
+    th4Text: "In high-throughput FPGA pipelines, reading and writing can occur on the exact same clock edge. Both pointers advance synchronously while the occupancy counter remains stable."
+  },
+  tr: {
+    subtitle: "Dairesel Bellek & RTL Dalga Formu Gezgini",
+    btnTheory: "💡 FIFO Mimarisi & Teori",
+    lblPortActions: "Port Kontrolü",
+    subPush: "Veri Yaz (Push)",
+    subPop: "Veri Oku (Pop)",
+    lblDataInput: "Giriş Veriyolu (din[7:0])",
+    lblTestMacros: "Hızlı Test Senaryoları",
+    txtBurstWr: "Seri Doldur (8 Yaz)",
+    txtBurstRd: "Tamamen Boşalt (8 Oku)",
+    txtSimultaneous: "Eşzamanlı (Yaz & Oku)",
+    lblSpeed: "Otomatik Saat Hızı",
+    lblCircTitle: "DAİRESEL RAM BELLEK DİZİSİ (DERİNLİK = 8)",
+    lblWfHeader: "RTL ZAMAN DALGA FORMU (SON 16 ÇEVRİM)",
+    lblPipeHeader: "Veri Akış Borusu (Pipeline)",
+    lblOccupancy: "DOLULUK:",
+    modalTitle: "Senkron FIFO Mimarisi ve Çalışma İlkeleri",
+    th1Title: "1. Dairesel İşaretçi Aritmetiği",
+    th1Text: "FIFO'lar verileri kaydırmalı kaydedici gibi fiziksel olarak kaydırmaz. Bunun yerine yazma işaretçisi (w_ptr) ve okuma işaretçisi (r_ptr) dairesel olarak RAM üzerinde döner.",
+    th2Title: "2. Dolu ve Boş Ayrımı (Full vs Empty)",
+    th2Text: "w_ptr == r_ptr olduğunda FIFO tamamen boş da olabilir, dolu da. Doluluk sayacı (count) eklenerek bu çakışma kesin olarak çözülür.",
+    th3Title: "3. Taşma ve Yetersizlik Koruması",
+    th3Text: "Dolu FIFO'ya yazmak veriyi bozar (overflow), boş FIFO'dan okumak çöp değer çeker (underflow). Donanımsal koruma bu istekleri reddeder.",
+    th4Title: "4. Eşzamanlı Okuma ve Yazma",
+    th4Text: "FPGA hatlarında aynı saat vuruşunda hem yazma hem okuma gerçekleşebilir. İki işaretçi de birer adım ilerler ve doluluk sayacı sabit kalır."
+  }
+};
+
+const FIFO_DEPTH = 8;
+let ram = new Array(FIFO_DEPTH).fill(null);
+let w_ptr = 0;
+let r_ptr = 0;
+let count = 0;
+let dout = '00';
+let clkCycle = 0;
+
+let lastWr = 0;
+let lastRd = 0;
+let lastDin = 'A1';
+
+let isRunning = false;
+let autoTimer = null;
+let currentSpeed = 350;
+
+const hist = [];
+
+function setLanguage(lang){
+  currentLang = lang;
+  document.getElementById('langEn').classList.toggle('active', lang === 'en');
+  document.getElementById('langTr').classList.toggle('active', lang === 'tr');
+
+  const d = I18N[lang];
+  document.getElementById('txtSubtitle').textContent = d.subtitle;
+  document.getElementById('btnTheory').textContent = d.btnTheory;
+  document.getElementById('lblPortActions').textContent = d.lblPortActions;
+  document.getElementById('subPush').textContent = d.subPush;
+  document.getElementById('subPop').textContent = d.subPop;
+  document.getElementById('lblDataInput').textContent = d.lblDataInput;
+  document.getElementById('lblTestMacros').textContent = d.lblTestMacros;
+  document.getElementById('txtBurstWr').textContent = d.txtBurstWr;
+  document.getElementById('txtBurstRd').textContent = d.txtBurstRd;
+  document.getElementById('txtSimultaneous').textContent = d.txtSimultaneous;
+  document.getElementById('lblSpeed').textContent = d.lblSpeed;
+  document.getElementById('lblCircTitle').textContent = d.lblCircTitle;
+  document.getElementById('lblWfHeader').textContent = d.lblWfHeader;
+  document.getElementById('lblPipeHeader').textContent = d.lblPipeHeader;
+  document.getElementById('lblOccupancy').textContent = d.lblOccupancy;
+
+  document.getElementById('modalTitle').textContent = d.modalTitle;
+  document.getElementById('th1Title').textContent = d.th1Title;
+  document.getElementById('th1Text').textContent = d.th1Text;
+  document.getElementById('th2Title').textContent = d.th2Title;
+  document.getElementById('th2Text').textContent = d.th2Text;
+  document.getElementById('th3Title').textContent = d.th3Title;
+  document.getElementById('th3Text').textContent = d.th3Text;
+  document.getElementById('th4Title').textContent = d.th4Title;
+  document.getElementById('th4Text').textContent = d.th4Text;
+
+  updateUI();
+}
+
+function toggleTheoryModal(open){
+  document.getElementById('theoryModal').classList.toggle('open', open);
+}
+
+function genRandomHex(){
+  const hex = Math.floor(Math.random() * 256).toString(16).toUpperCase().padStart(2, '0');
+  document.getElementById('inHexVal').value = hex;
+}
+
+function execPush(){
+  let hexVal = document.getElementById('inHexVal').value.toUpperCase().replace(/[^0-9A-F]/g, '').slice(-2).padStart(2, '0');
+  document.getElementById('inHexVal').value = hexVal;
+  stepClock(1, 0, hexVal);
+  genRandomHex();
+}
+
+function execPop(){
+  stepClock(0, 1, '00');
+}
+
+function stepClock(wr, rd, dinHex){
+  clkCycle++;
+  lastWr = wr;
+  lastRd = rd;
+  lastDin = dinHex;
+
+  const isFull = (count === FIFO_DEPTH);
+  const isEmpty = (count === 0);
+
+  // Eşzamanlı RTL Saat Döngüsü Mantığı
+  if(wr && !isFull && rd && !isEmpty){
+    dout = ram[r_ptr];
+    ram[r_ptr] = null; // okunan hücre boşalır
+    ram[w_ptr] = dinHex;
+    w_ptr = (w_ptr + 1) % FIFO_DEPTH;
+    r_ptr = (r_ptr + 1) % FIFO_DEPTH;
+  } else if(wr && !isFull){
+    ram[w_ptr] = dinHex;
+    w_ptr = (w_ptr + 1) % FIFO_DEPTH;
+    count++;
+  } else if(rd && !isEmpty){
+    dout = ram[r_ptr];
+    ram[r_ptr] = null; // Okunan hücre görsel olarak temizlenir
+    r_ptr = (r_ptr + 1) % FIFO_DEPTH;
+    count--;
+  }
+
+  hist.push({
+    clk: clkCycle,
+    wr: wr,
+    rd: rd,
+    full: (count === FIFO_DEPTH) ? 1 : 0,
+    empty: (count === 0) ? 1 : 0
+  });
+
+  if(hist.length > 16) hist.shift();
+  updateUI();
+}
+
+function updateUI(){
+  document.getElementById('lblClkCount').textContent = 'CLK: ' + clkCycle;
+
+  const isFull = (count === FIFO_DEPTH);
+  const isEmpty = (count === 0);
+
+  // Dalga Formu Probları
+  document.getElementById('probeClk').textContent = clkCycle % 2;
+  document.getElementById('probeWr').textContent = lastWr ? `0x${lastDin}` : '0';
+  document.getElementById('probeRd').textContent = lastRd ? `0x${dout}` : '0';
+  document.getElementById('probeFull').textContent = isFull ? 1 : 0;
+  document.getElementById('probeEmpty').textContent = isEmpty ? 1 : 0;
+
+  // Donanım Borusu & Doluluk Çubuğu
+  const pct = Math.round((count / FIFO_DEPTH) * 100);
+  document.getElementById('txtCountDisplay').textContent = `${count} / ${FIFO_DEPTH} (${pct}%)`;
+  const bar = document.getElementById('barFill');
+  bar.style.width = pct + '%';
+  bar.className = 'gauge-bar-fill' + (pct >= 85 ? ' warning' : '');
+
+  document.getElementById('bannerEmpty').className = 'flag-banner' + (isEmpty ? ' active-empty' : '');
+  document.getElementById('bannerFull').className = 'flag-banner' + (isFull ? ' active-full' : '');
+  document.getElementById('hwDoutTxt').textContent = `0x${dout}`;
+
+  // Stream Pipe Slot Listesi
+  const pipeBox = document.getElementById('pipeSlots');
+  pipeBox.innerHTML = '';
+  for(let i = 0; i < FIFO_DEPTH; i++){
+    const slotEl = document.createElement('div');
+    const val = ram[i];
+    slotEl.className = 'pipe-slot' + (val !== null ? ' occupied' : '');
+    slotEl.innerHTML = `<span>RAM[${i}]</span><span>${val ? '0x' + val : '--'}</span>`;
+    pipeBox.appendChild(slotEl);
+  }
+
+  drawCircularSvg();
+  drawWaveform();
+}
+
+// Dairesel Bellek Çarkı SVG Çizimi
+function drawCircularSvg(){
+  const svg = document.getElementById('svgCirc');
+  svg.innerHTML = '';
+
+  const cx = 270, cy = 130, R = 85;
+  const numSlots = FIFO_DEPTH;
+
+  // Orta Doluluk Metni
+  svg.innerHTML += `
+    <circle cx="${cx}" cy="${cy}" r="38" fill="#F8FAFC" stroke="var(--border-strong)" stroke-width="2"/>
+    <text x="${cx}" y="${cy - 6}" font-family="var(--font-mono)" font-size="12" font-weight="900" text-anchor="middle" fill="var(--text-main)">COUNT: ${count}</text>
+    <text x="${cx}" y="${cy + 10}" font-family="var(--font-mono)" font-size="10" font-weight="700" text-anchor="middle" fill="var(--text-muted)">w:${w_ptr} r:${r_ptr}</text>
+  `;
+
+  for(let i = 0; i < numSlots; i++){
+    const angle = (i * (360 / numSlots) - 90) * (Math.PI / 180);
+    const x = cx + R * Math.cos(angle);
+    const y = cy + R * Math.sin(angle);
+
+    const val = ram[i];
+    const isOccupied = (val !== null);
+    const isW = (i === w_ptr);
+    const isR = (i === r_ptr);
+
+    let strokeC = '#CBD5E1';
+    let fillC = '#FFFFFF';
+    if(isOccupied){ strokeC = '#10B981'; fillC = '#ECFDF5'; }
+
+    // Slot Dairesi
+    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.innerHTML = `
+      <circle cx="${x}" cy="${y}" r="22" fill="${fillC}" stroke="${strokeC}" stroke-width="${isOccupied ? 2.5 : 1.8}"/>
+      <text x="${x}" y="${y - 3}" font-family="var(--font-mono)" font-size="9" font-weight="800" text-anchor="middle" fill="#64748B">[${i}]</text>
+      <text x="${x}" y="${y + 9}" font-family="var(--font-mono)" font-size="11" font-weight="900" text-anchor="middle" fill="${isOccupied ? '#065F46' : '#94A3B8'}">${val ? val : '--'}</text>
+    `;
+    svg.appendChild(g);
+
+    // w_ptr (Yazma İşaretçisi - Mavi Ok)
+    if(isW){
+      const pwX = cx + (R + 32) * Math.cos(angle);
+      const pwY = cy + (R + 32) * Math.sin(angle);
+      const wTxt = document.createElementNS('http://www.w3.org/2000/svg','text');
+      wTxt.setAttribute('x', pwX); wTxt.setAttribute('y', pwY + 4);
+      wTxt.setAttribute('font-family', 'var(--font-mono)'); wTxt.setAttribute('font-size', '10');
+      wTxt.setAttribute('font-weight', '900'); wTxt.setAttribute('fill', 'var(--accent-wr)');
+      wTxt.setAttribute('text-anchor', 'middle');
+      wTxt.textContent = '▲ W_PTR';
+      svg.appendChild(wTxt);
+    }
+
+    // r_ptr (Okuma İşaretçisi - Yeşil Ok)
+    if(isR){
+      const prX = cx + (R - 36) * Math.cos(angle);
+      const prY = cy + (R - 36) * Math.sin(angle);
+      const rTxt = document.createElementNS('http://www.w3.org/2000/svg','text');
+      rTxt.setAttribute('x', prX); rTxt.setAttribute('y', prY + 4);
+      rTxt.setAttribute('font-family', 'var(--font-mono)'); rTxt.setAttribute('font-size', '10');
+      rTxt.setAttribute('font-weight', '900'); rTxt.setAttribute('fill', 'var(--accent-rd)');
+      rTxt.setAttribute('text-anchor', 'middle');
+      rTxt.textContent = '▼ R_PTR';
+      svg.appendChild(rTxt);
+    }
+  }
+}
+
+// Waveform Çizimi
+function drawWaveform(){
+  const svg = document.getElementById('wfSvg');
+  svg.innerHTML = '';
+  if(hist.length === 0) return;
+
+  const N = hist.length;
+  const W = 520, H = 136;
+  const colW = W / Math.max(16, N);
+
+  for(let i = 0; i <= Math.max(16, N); i++){
+    const gx = i * colW;
+    const l = document.createElementNS('http://www.w3.org/2000/svg','line');
+    l.setAttribute('x1', gx); l.setAttribute('y1', 4);
+    l.setAttribute('x2', gx); l.setAttribute('y2', H - 4);
+    l.setAttribute('stroke', '#E2E8F0');
+    svg.appendChild(l);
+  }
+
+  const sigs = [
+    {clk: true, val: h => h.clk % 2, y1: 6,  y0: 22, c: '#7C3AED', fill: '#EDE9FE'},
+    {val: h => h.wr,      y1: 32, y0: 48, c: '#0284C7', fill: '#E0F2FE'},
+    {val: h => h.rd,      y1: 58, y0: 74, c: '#10B981', fill: '#D1FAE5'},
+    {val: h => h.full,    y1: 84, y0: 100, c: '#EF4444', fill: '#FEE2E2'},
+    {val: h => h.empty,   y1: 110, y0: 126, c: '#F59E0B', fill: '#FEF3C7'}
+  ];
+
+  sigs.forEach(s => {
+    let pts = [];
+    hist.forEach((h, i) => {
+      const x = i * colW;
+      if (s.clk) { pts.push(`${x},${s.y0}`, `${x},${s.y1}`, `${x + colW / 2},${s.y1}`, `${x + colW / 2},${s.y0}`, `${x + colW},${s.y0}`); return; } // her çevrim tam bir saat periyodu
+      const y = s.val(h) ? s.y1 : s.y0;
+      pts.push(`${x},${y}`);
+      pts.push(`${x + colW},${y}`);
+
+      if(s.val(h)){
+        const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        r.setAttribute('x', x); r.setAttribute('y', s.y1);
+        r.setAttribute('width', colW); r.setAttribute('height', s.y0 - s.y1);
+        r.setAttribute('fill', s.fill);
+        svg.appendChild(r);
+      }
+    });
+
+    const poly = document.createElementNS('http://www.w3.org/2000/svg','polyline');
+    poly.setAttribute('points', pts.join(' '));
+    poly.setAttribute('fill', 'none');
+    poly.setAttribute('stroke', s.c);
+    poly.setAttribute('stroke-width', '2.2');
+    svg.appendChild(poly);
+  });
+}
+
+// Makro Test Dizileri
+function macroBurstWrite(){
+  let c = 0;
+  const timer = setInterval(() => {
+    execPush();
+    c++;
+    if(c >= 8) clearInterval(timer);
+  }, currentSpeed);
+}
+
+function macroBurstRead(){
+  let c = 0;
+  const timer = setInterval(() => {
+    execPop();
+    c++;
+    if(c >= 8) clearInterval(timer);
+  }, currentSpeed);
+}
+
+function macroSimultaneous(){
+  let c = 0;
+  const timer = setInterval(() => {
+    const hex = Math.floor(Math.random() * 256).toString(16).toUpperCase().padStart(2, '0');
+    stepClock(1, 1, hex);
+    c++;
+    if(c >= 6) clearInterval(timer);
+  }, currentSpeed);
+}
+
+function toggleAutoClock(){
+  isRunning = !isRunning;
+  const btn = document.getElementById('btnPlay');
+  if(isRunning){
+    btn.textContent = '❚❚ Pause';
+    btn.style.background = '#F59E0B';
+    autoTimer = setInterval(() => {
+      // Rastgele PUSH veya POP çalıştır
+      if(count === 0) execPush();
+      else if(count === FIFO_DEPTH) execPop();
+      else {
+        Math.random() > 0.45 ? execPush() : execPop();
+      }
+    }, currentSpeed);
+  } else {
+    btn.textContent = '▶ Auto Run';
+    btn.style.background = 'var(--purple)';
+    clearInterval(autoTimer);
+  }
+}
+
+function setSpeed(ms, id){
+  currentSpeed = ms;
+  ['spdSlow','spdMed','spdFast'].forEach(b => document.getElementById(b).classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(isRunning){
+    clearInterval(autoTimer);
+    toggleAutoClock();
+    toggleAutoClock();
+  }
+}
+
+function resetAll(){
+  if(isRunning) toggleAutoClock();
+  ram = new Array(FIFO_DEPTH).fill(null);
+  w_ptr = 0;
+  r_ptr = 0;
+  count = 0;
+  dout = '00';
+  clkCycle = 0;
+  lastWr = 0;
+  lastRd = 0;
+  hist.length = 0;
+  updateUI();
+}
+
+setLanguage('tr');
+resetAll();
+</script>
+
+<style>
+#exBtn{position:fixed;right:18px;bottom:18px;z-index:200;border:0;border-radius:999px;padding:12px 18px;font:800 14px system-ui,sans-serif;color:#fff;cursor:pointer;
+  background:linear-gradient(135deg,#8B5CF6,#EC4899);box-shadow:0 10px 26px -8px rgba(139,92,246,.7)}
+#exPanel{position:fixed;top:0;right:0;height:100vh;width:430px;max-width:92vw;z-index:199;background:#fff;color:#0F172A;box-shadow:-18px 0 40px rgba(15,23,42,.25);
+  transform:translateX(105%);transition:transform .3s ease;display:flex;flex-direction:column;font-family:system-ui,sans-serif}
+#exPanel.open{transform:none}
+#exPanel .eh{padding:16px 18px;background:linear-gradient(135deg,#8B5CF6,#EC4899);color:#fff;display:flex;justify-content:space-between;align-items:center}
+#exPanel .eh b{font-size:16px}
+#exPanel .eh button{border:0;background:rgba(255,255,255,.25);color:#fff;border-radius:999px;padding:4px 11px;cursor:pointer;font-weight:800}
+#exPanel .eb{overflow:auto;padding:12px 14px 80px}
+#exPanel .intro{font-size:13px;line-height:1.55;color:#475569;margin:2px 2px 12px}
+.exc{border:1px solid #E2E8F0;border-radius:14px;padding:12px 14px;margin-bottom:10px;background:#FAFAFF}
+.exc h4{margin:0 0 6px;font-size:14px}
+.exc p{margin:0 0 9px;font-size:12.8px;line-height:1.55;color:#334155}
+.exc code{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:#EEF2FF;color:#4338CA;padding:1px 5px;border-radius:5px}
+.exc .row{display:flex;gap:6px;flex-wrap:wrap}
+.exc .go{border:0;border-radius:999px;padding:6px 12px;font-weight:800;font-size:12px;cursor:pointer;color:#fff}
+.exc .go.ok{background:#10B981}.exc .go.bad{background:#EF4444}.exc .go.info{background:#6366F1}
+.exc.run{outline:2px solid #8B5CF6;background:#F5F3FF}
+#exNote{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:198;background:#0F172A;color:#fff;border-radius:999px;padding:9px 18px;
+  font:700 13px system-ui,sans-serif;box-shadow:0 10px 26px -8px rgba(0,0,0,.5);display:none;max-width:70vw;text-align:center}
+</style>
+<button id="exBtn">💡 FSM Açıklamaları</button>
+<div id="exNote"></div>
+<aside id="exPanel"><div class="eh"><b>FSM nasıl çalışıyor?</b><button onclick="exToggle(false)">✕</button></div><div class="eb" id="exBody"></div></aside>
+<script>
+(function(){
+  const EX = {
+ speed: 550,
+ intro: 'FIFO (ilk giren ilk çıkar) bir durum makinesi gibi iki işaretçiyle yönetilir: <code>w_ptr</code> yazılacak, <code>r_ptr</code> okunacak hücreyi gösterir. <code>count</code> doluluğu tutar; <code>empty</code> ve <code>full</code> bayrakları bundan türetilir.',
+ cards: [
+  { t: '1. Yazma ve okuma sırası', p: 'Yazılan veriler okunurken aynı sırayla çıkar. Her yazmada <code>w_ptr</code>, her okumada <code>r_ptr</code> bir ilerler ve 7\'den sonra 0\'a döner.',
+    b: [['Başarılı: 3 yaz, 3 oku', 'ok', () => [() => resetAll(), 'Yazılıyor', () => execPush(), () => execPush(), () => execPush(), 'Okunuyor: aynı sırayla çıkacak', () => execPop(), () => execPop(), () => execPop()]]] },
+  { t: '2. Dolu FIFO\'ya yazma', p: '<code>count == 8</code> olduğunda <code>full = 1</code> olur ve yeni yazma isteği reddedilir; okunmamış veri korunur.',
+    b: [['Başarısız: 9. yazma', 'bad', () => [() => resetAll(), ...Array(8).fill(() => execPush()), 'FIFO dolu: 9. yazma reddedilecek', () => execPush()]]] },
+  { t: '3. Boş FIFO\'dan okuma', p: '<code>count == 0</code> iken <code>empty = 1</code>; okuma isteği yok sayılır ve <code>dout</code> değişmez.',
+    b: [['Başarısız: boşken okuma', 'bad', () => [() => resetAll(), () => execPush(), () => execPop(), 'FIFO boş: okuma reddedilecek', () => execPop()]]] },
+  { t: '4. Eşzamanlı yazma ve okuma', p: 'Aynı saat darbesinde hem yazma hem okuma olursa iki işaretçi birlikte ilerler, <code>count</code> değişmez.',
+    b: [['Yaz + oku', 'ok', () => [() => resetAll(), () => execPush(), () => execPush(), 'Aynı anda yaz + oku', () => stepClock(1, 1, 'C1'), () => stepClock(1, 1, 'C2'), () => stepClock(1, 1, 'C3')]]] }
+ ]
+};
+  let tm = null, runEl = null;
+  window.exToggle = o => document.getElementById('exPanel').classList.toggle('open', o);
+  document.getElementById('exBtn').onclick = () => exToggle(!document.getElementById('exPanel').classList.contains('open'));
+  const note = t => { const n = document.getElementById('exNote'); n.style.display = t ? 'block' : 'none'; n.textContent = t || ''; };
+  function stop(){ clearTimeout(tm); tm = null; if (runEl) runEl.classList.remove('run'); runEl = null; }
+  function play(steps, el){
+    stop(); runEl = el; el.classList.add('run');
+    let k = 0;
+    const next = () => {
+      if (k >= steps.length) { setTimeout(() => note(''), 2500); stop(); return; }
+      const s = steps[k++];
+      if (typeof s === 'string') note(s); else s();
+      tm = setTimeout(next, typeof s === 'string' ? 200 : EX.speed);
+    };
+    next();
+  }
+  window.EX_TR = EX;
+  window.exRender = function(src){
+  const en = window.exLang === 'en';
+  document.getElementById('exBtn').textContent = en ? '💡 FSM Explanations' : '💡 FSM Açıklamaları';
+  document.querySelector('#exPanel .eh b').textContent = en ? 'How does the FSM work?' : 'FSM nasıl çalışıyor?';
+  stop(); note('');
+  const body = document.getElementById('exBody');
+  body.innerHTML = '<p class="intro">' + src.intro + '</p>';
+  src.cards.forEach(c => {
+    const d = document.createElement('div'); d.className = 'exc';
+    d.innerHTML = '<h4>' + c.t + '</h4><p>' + c.p + '</p><div class="row"></div>';
+    c.b.forEach(([lbl, kind, steps]) => {
+      const b = document.createElement('button'); b.className = 'go ' + kind; b.textContent = '▶ ' + lbl;
+      b.onclick = () => play(steps(), d);
+      d.querySelector('.row').appendChild(b);
+    });
+    body.appendChild(d);
+  });
+  if (window.exColorize) exColorize();
+  };
+  exRender(EX);
+})();
+</script>
+
+
+<style>
+.exc{border-left:5px solid var(--exk,#8B5CF6)}
+.exc:nth-of-type(5n+1){--exk:#8B5CF6}.exc:nth-of-type(5n+2){--exk:#0EA5E9}.exc:nth-of-type(5n+3){--exk:#F59E0B}
+.exc:nth-of-type(5n+4){--exk:#10B981}.exc:nth-of-type(5n+5){--exk:#EC4899}
+.exc h4{color:var(--exk)}
+.exc code.k-st{background:#EDE9FE;color:#6D28D9}
+.exc code.k-in{background:#E0F2FE;color:#0369A1}
+.exc code.k-out{background:#D1FAE5;color:#047857}
+.exc code.k-rg{background:#FEF3C7;color:#B45309}
+.exc code.k-bit{background:#FCE7F3;color:#BE185D}
+.exleg{display:flex;flex-wrap:wrap;gap:6px;margin:0 2px 14px}
+.exleg span{font:700 11.5px system-ui,sans-serif;padding:3px 10px;border-radius:999px}
+</style>
+<script>
+window.exColorize = function(){
+  const IN = /^(in|din|wr_en|rd_en|wr|rd|floor_req|door_sensor|emergency|rst|rst_n|clk)\b/;
+  const OUT = /^(unlocked|unl|alarm|dout|empty|full|led|motor_up|motor_down|door_open|seq_\w+|out)\b/;
+  const RG = /^(cnt|count|w_ptr|r_ptr|timer_cnt|req_reg|HALF_PERIOD|state_q|\$clog2)\b/;
+  const body = document.getElementById('exBody');
+  body.querySelectorAll('code').forEach(c => {
+    const t = c.textContent.trim();
+    const k = /^S(_[A-Z_]+|\d|[AB]\d)/.test(t) ? 'k-st' : IN.test(t) ? 'k-in' : OUT.test(t) ? 'k-out' : RG.test(t) ? 'k-rg' : /^[01 →\-]+$/.test(t) ? 'k-bit' : '';
+    if (k) c.classList.add(k);
+  });
+  const leg = document.createElement('div');
+  leg.className = 'exleg';
+  const L = window.exLang === 'en' ? ['State', 'Input', 'Output', 'Register / counter', 'Bit sequence'] : ['Durum', 'Giriş', 'Çıkış', 'Kayıtçı / sayaç', 'Bit dizisi'];
+  leg.innerHTML = '<span style="background:#EDE9FE;color:#6D28D9">' + L[0] + '</span><span style="background:#E0F2FE;color:#0369A1">' + L[1] + '</span>' +
+    '<span style="background:#D1FAE5;color:#047857">' + L[2] + '</span><span style="background:#FEF3C7;color:#B45309">' + L[3] + '</span><span style="background:#FCE7F3;color:#BE185D">' + L[4] + '</span>';
+  body.insertBefore(leg, body.children[1] || null);
+};
+exColorize();
+</script>
+
+<script>
+window.exLang = 'tr';
+window.EX_EN = {
+ speed: 550,
+ intro: 'A FIFO (first in, first out) is controlled by two pointers: <code>w_ptr</code> points to the cell to write, <code>r_ptr</code> to the cell to read. <code>count</code> holds the fill level; the <code>empty</code> and <code>full</code> flags are derived from it.',
+ cards: [
+  { t: '1. Write and read order', p: 'Written data come out in the same order. Each write advances <code>w_ptr</code>, each read advances <code>r_ptr</code>, and both wrap from 7 to 0.',
+    b: [['Success: 3 writes, 3 reads', 'ok', () => [() => resetAll(), 'Writing', () => execPush(), () => execPush(), () => execPush(), 'Reading: same order', () => execPop(), () => execPop(), () => execPop()]]] },
+  { t: '2. Writing to a full FIFO', p: 'When <code>count == 8</code>, <code>full = 1</code> and a new write request is rejected; unread data is preserved.',
+    b: [['Fail: 9th write', 'bad', () => [() => resetAll(), ...Array(8).fill(() => execPush()), 'FIFO full: the 9th write will be rejected', () => execPush()]]] },
+  { t: '3. Reading an empty FIFO', p: 'While <code>count == 0</code>, <code>empty = 1</code>; a read request is ignored and <code>dout</code> does not change.',
+    b: [['Fail: read while empty', 'bad', () => [() => resetAll(), () => execPush(), () => execPop(), 'FIFO empty: the read will be rejected', () => execPop()]]] },
+  { t: '4. Simultaneous write and read', p: 'If a write and a read happen on the same clock edge, both pointers advance together and <code>count</code> stays the same.',
+    b: [['Write + read', 'ok', () => [() => resetAll(), () => execPush(), () => execPush(), 'Write + read together', () => stepClock(1, 1, 'C1'), () => stepClock(1, 1, 'C2'), () => stepClock(1, 1, 'C3')]]] }
+ ]
+};
+(function(){
+  const sl = window.setLanguage;
+  window.setLanguage = function(l){ sl(l); window.exLang = l; document.documentElement.lang = l; exRender(l === 'en' ? EX_EN : EX_TR); };
+})();
+</script>
+</body>
+</html>

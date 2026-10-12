@@ -1,0 +1,1128 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lock_Door — Hardware Emulation & FSM Explorer</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap">
+<style>
+:root {
+  --bg-main: #F1F5F9;
+  --card-bg: #FFFFFF;
+  --card-sub: #F8FAFC;
+  --border: #E2E8F0;
+  --border-strong: #CBD5E1;
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --text-faint: #94A3B8;
+
+  --accent-unlocked: #10B981;
+  --accent-unlocked-bg: #D1FAE5;
+  --accent-locked: #EF4444;
+  --accent-locked-bg: #FEE2E2;
+
+  --accent-a: #D97706;
+  --accent-a-bg: #FEF3C7;
+  --accent-a-glow: rgba(217, 119, 6, 0.35);
+
+  --sky: #0284C7;
+  --sky-bg: #E0F2FE;
+  --purple: #7C3AED;
+  --purple-bg: #EDE9FE;
+
+  --shadow-sm: 0 2px 8px rgba(148, 163, 184, 0.12);
+  --shadow-md: 0 8px 24px -4px rgba(100, 116, 139, 0.12);
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 14px;
+  gap: 8px;
+}
+
+/* Üst Navigasyon */
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 6px 14px;
+  box-shadow: var(--shadow-sm);
+  flex: none;
+  height: 44px;
+}
+.brand { display: flex; align-items: baseline; gap: 8px; }
+.brand h1 { font-size: 1.15rem; font-weight: 800; color: var(--text-main); }
+.brand span { font-size: .76rem; color: var(--text-muted); font-weight: 600; }
+
+.tab-group {
+  display: flex;
+  background: var(--card-sub);
+  border: 1.5px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 2px;
+  gap: 3px;
+}
+.mode-btn {
+  font-family: var(--font-sans);
+  font-size: .74rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-muted);
+  transition: all .15s;
+}
+.mode-btn.active {
+  background: var(--sky);
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+}
+
+.lang-btn {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-muted);
+  transition: all .15s;
+}
+.lang-btn.active { background: #0F172A; color: #FFFFFF; }
+
+.toolbar-actions { display: flex; align-items: center; gap: 6px; }
+.btn-reset {
+  font-size: .74rem; font-weight: 700; padding: 5px 11px; border-radius: 6px;
+  border: 1px solid var(--border-strong); background: var(--card-bg); cursor: pointer;
+  transition: all .15s;
+}
+.btn-reset:hover { background: #F1F5F9; }
+.btn-reset.danger { color: #DC2626; border-color: #FECACA; }
+.btn-reset.danger:hover { background: #FEF2F2; }
+
+/* 3 Sütunlu Ana Izgara: Kapı Paneli 420px Olarak Genişletildi */
+.main-grid {
+  display: grid;
+  grid-template-columns: 275px 1fr 420px;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Kart Stilleri */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.card-head {
+  font-size: .82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-main);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* SOL: Girişler & Şifre */
+.left-col { display: flex; flex-direction: column; gap: 8px; min-height: 0; }
+.bit-actions-vertical { display: flex; flex-direction: column; gap: 6px; }
+.bit-btn-row {
+  width: 100%; border-radius: 10px; border: 2px solid transparent;
+  cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px; transition: transform .1s, box-shadow .15s;
+}
+.bit-btn-row:active { transform: scale(0.97); }
+.bit-btn-row .val { font-family: var(--font-mono); font-size: 1.8rem; font-weight: 800; line-height: 1; }
+.bit-btn-row .desc { font-size: .78rem; font-weight: 800; display: flex; flex-direction: column; align-items: flex-end; }
+.btn-zero-wide { background: linear-gradient(135deg, #F0F9FF, #E0F2FE); color: var(--sky); border-color: #BAE6FD; }
+.btn-one-wide  { background: linear-gradient(135deg, #FAF5FF, #EDE9FE); color: var(--purple); border-color: #DDD6FE; }
+
+.secret-box { background: var(--card-sub); border: 1px solid var(--border-strong); border-radius: 8px; padding: 6px; }
+.secret-pills { display: flex; gap: 6px; justify-content: center; }
+.secret-btn {
+  width: 36px; height: 36px; border-radius: 6px; border: 2px solid var(--border-strong);
+  background: #FFF; font-family: var(--font-mono); font-size: 1.2rem; font-weight: 800;
+  color: var(--text-main); cursor: pointer; transition: all .15s;
+}
+.secret-btn:hover { border-color: var(--purple); background: var(--purple-bg); color: var(--purple); }
+
+.speed-group {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px;
+  background: var(--card-sub); padding: 2px; border-radius: 6px; border: 1px solid var(--border);
+}
+.spd-btn { font-size: .66rem; font-weight: 700; padding: 4px 0; border: none; border-radius: 5px; background: transparent; color: var(--text-muted); cursor: pointer; text-align: center; }
+.spd-btn.active { background: #FFF; color: var(--purple); font-weight: 800; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+
+/* ORTA: FSM & Waveform */
+.center-col { display: flex; flex-direction: column; gap: 8px; min-height: 0; }
+.diag-svg-box { flex: 1; width: 100%; height: 100%; position: relative; }
+.diag-svg-box svg { width: 100%; height: 100%; }
+
+.node-outer-glow { fill: none; stroke: transparent; stroke-width: 8; transition: stroke .2s; }
+.state-node { fill: #FFFFFF; stroke: #94A3B8; stroke-width: 2.2; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.06)); transition: all .2s; }
+.node-active-a .node-outer-glow { stroke: var(--accent-a-glow); }
+.node-active-a .state-node { fill: #FFFBEB; stroke: var(--accent-a); stroke-width: 3.5; }
+.node-active-unlocked .node-outer-glow { stroke: rgba(16, 185, 129, 0.45); }
+.node-active-unlocked .state-node { fill: #ECFDF5; stroke: var(--accent-unlocked); stroke-width: 3.5; }
+.node-active-error .node-outer-glow { stroke: rgba(239, 68, 68, 0.45); }
+.node-active-error .state-node { fill: #FEF2F2; stroke: var(--accent-locked); stroke-width: 3.5; }
+
+.node-title { font-family: var(--font-mono); font-size: 13px; font-weight: 800; text-anchor: middle; dominant-baseline: central; fill: var(--text-main); }
+.node-out-sub { font-family: var(--font-mono); font-size: 9px; font-weight: 800; text-anchor: middle; dominant-baseline: central; fill: var(--text-muted); }
+.node-out-sub.one { fill: #047857; font-weight: 900; }
+
+.trans-edge { fill: none; stroke: #94A3B8; stroke-width: 1.7; stroke-linecap: round; transition: stroke .2s, stroke-width .2s; }
+.trans-edge.highlight-a   { stroke: var(--accent-a); stroke-width: 3.2; }
+.trans-edge.highlight-err { stroke: var(--accent-locked); stroke-width: 3.2; }
+.trans-edge.highlight-ok  { stroke: var(--accent-unlocked); stroke-width: 3.2; }
+
+.trans-label {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 800; fill: #475569;
+  text-anchor: middle; dominant-baseline: central; paint-order: stroke fill; stroke: #FFF; stroke-width: 4px;
+}
+.trans-label.hit-a   { fill: var(--accent-a); font-size: 11.5px; stroke: #FEF3C7; }
+.trans-label.hit-err { fill: var(--accent-locked); font-size: 11.5px; stroke: #FEE2E2; }
+.trans-label.hit-ok  { fill: var(--accent-unlocked); font-size: 11.5px; stroke: #D1FAE5; }
+
+.wf-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 6px 12px; height: 125px; flex: none; }
+.wf-container { display: grid; grid-template-columns: 125px 1fr; gap: 6px; height: calc(100% - 20px); }
+.wf-probes { display: flex; flex-direction: column; justify-content: space-around; }
+.probe-badge {
+  background: var(--card-sub); border: 1px solid var(--border-strong);
+  border-radius: 6px; padding: 2px 6px; display: flex; align-items: center;
+  justify-content: space-between; font-family: var(--font-mono); font-size: .68rem;
+}
+.probe-badge.in-sig  { border-left: 3px solid var(--purple); }
+.probe-badge.unl-sig { border-left: 3px solid var(--accent-unlocked); }
+.probe-badge.alm-sig { border-left: 3px solid var(--accent-locked); }
+.probe-val { font-weight: 900; background: #FFF; padding: 1px 4px; border-radius: 3px; border: 1px solid var(--border); }
+.probe-badge.unl-sig.hit-unl { background: var(--accent-unlocked-bg); }
+.probe-badge.alm-sig.hit-alm { background: var(--accent-locked-bg); }
+
+/* SAĞ PANEL: Genişletilmiş Fiziksel Kapı & Elektronik Kilit */
+.right-col { display: flex; flex-direction: column; gap: 8px; min-height: 0; }
+
+.door-viewport {
+  flex: 1; background: #0B111E; border-radius: 12px; border: 2px solid #1E293B;
+  display: flex; flex-direction: column; padding: 14px; position: relative;
+  overflow: hidden; box-shadow: inset 0 0 30px rgba(0,0,0,0.85);
+}
+
+.door-frame {
+  flex: 1; position: relative; background: #1E293B; border-radius: 10px;
+  border: 5px solid #334155; overflow: hidden; perspective: 1100px;
+  display: flex; box-shadow: 0 12px 35px rgba(0,0,0,0.6);
+}
+
+.door-leaf {
+  width: 100%; height: 100%; background: linear-gradient(135deg, #1E2638, #0F172A);
+  border-right: 6px solid #090D16; position: relative; transform-origin: left center;
+  transition: transform .6s cubic-bezier(.4,0,.2,1); display: flex; flex-direction: column;
+  justify-content: center; align-items: center; padding: 16px;
+}
+.door-leaf.open { transform: rotateY(-38deg); box-shadow: 20px 0 45px rgba(0,0,0,0.75); }
+
+/* Mekanik Sürgü (Deadbolt) */
+.strike-plate {
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+  width: 18px; height: 64px; background: #475569; border-left: 2px solid #64748B;
+  z-index: 5;
+}
+.deadbolt {
+  position: absolute; right: -2px; top: 50%; transform: translateY(-50%);
+  width: 24px; height: 20px; background: linear-gradient(90deg, #CBD5E1, #94A3B8);
+  border: 1px solid #475569; border-radius: 3px; transition: right .35s ease;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6); z-index: 10;
+}
+.deadbolt.retracted { right: 24px; }
+
+/* Kapı Kolu */
+.door-handle {
+  position: absolute; right: 38px; top: 50%; transform: translateY(-50%);
+  width: 14px; height: 44px; background: #64748B; border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5); transition: transform .3s ease;
+}
+.door-handle::after {
+  content: ''; position: absolute; left: -32px; top: 8px; width: 36px; height: 12px;
+  background: linear-gradient(180deg, #CBD5E1, #64748B); border-radius: 4px;
+}
+.door-handle.turned { transform: translateY(-50%) rotate(28deg); }
+
+/* Genişletilmiş Kilit Ünitesi */
+.lock-unit {
+  width: 220px; background: #030712; border: 2px solid #374151;
+  border-radius: 14px; padding: 14px 12px; display: flex; flex-direction: column;
+  align-items: center; gap: 10px; box-shadow: 0 10px 28px rgba(0,0,0,0.85);
+  z-index: 20;
+}
+
+/* OLED / LCD Ekran */
+.lock-lcd {
+  width: 100%; height: 58px; background: #022C22; border: 1.5px solid #059669;
+  border-radius: 8px; display: flex; flex-direction: column; justify-content: center;
+  align-items: center; font-family: var(--font-mono); color: #34D399;
+  box-shadow: inset 0 0 12px rgba(16, 185, 129, 0.35); text-align: center;
+  transition: all .2s ease;
+}
+.lock-lcd.error {
+  background: #450A0A; border-color: #DC2626; color: #F87171;
+  box-shadow: inset 0 0 12px rgba(220, 38, 38, 0.4);
+}
+.lcd-title { font-size: .65rem; font-weight: 700; letter-spacing: .08em; opacity: .8; }
+.lcd-msg { font-size: .95rem; font-weight: 900; letter-spacing: .04em; }
+
+/* LED Durum Halkası */
+.status-led-ring {
+  width: 16px; height: 16px; border-radius: 50%; background: #EF4444;
+  box-shadow: 0 0 14px #EF4444; transition: all .2s;
+}
+.status-led-ring.granted { background: #10B981; box-shadow: 0 0 16px #10B981; }
+.status-led-ring.alarm   { animation: blinkAlarm .25s infinite alternate; }
+@keyframes blinkAlarm { from{opacity:0.3; background:#EF4444;} to{opacity:1; background:#FF0000; box-shadow:0 0 20px #FF0000;} }
+
+/* Tuş Takımı */
+.lock-keypad {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%;
+}
+.kp-btn {
+  background: #1F2937; border: 1px solid #374151; color: #F9FAFB;
+  font-family: var(--font-mono); font-size: 1.05rem; font-weight: 800;
+  padding: 8px 0; border-radius: 6px; cursor: pointer; text-align: center;
+  transition: all .1s;
+}
+.kp-btn:hover { background: #374151; border-color: #60A5FA; }
+.kp-btn:active { transform: scale(0.94); }
+
+.door-info-footer {
+  margin-top: auto; background: rgba(15, 23, 42, 0.7); border: 1px solid #1E293B;
+  border-radius: 8px; padding: 7px 12px; font-family: var(--font-mono);
+  font-size: .72rem; color: #94A3B8; display: flex; justify-content: space-between;
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="top-nav">
+    <div class="brand">
+      <h1>Lock_Door</h1>
+      <span id="txtSubtitle">Hardware Emulation & FSM Explorer</span>
+    </div>
+
+    <!-- Moore vs Mealy -->
+    <div class="tab-group">
+      <button class="mode-btn active" id="btnMoore" onclick="switchFSMModel('moore')">🏛️ Moore FSM</button>
+      <button class="mode-btn" id="btnMealy" onclick="switchFSMModel('mealy')">⚡ Mealy FSM</button>
+    </div>
+
+    <!-- Dil Seçimi -->
+    <div class="tab-group">
+      <button class="lang-btn active" id="langEn" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" id="langTr" onclick="setLanguage('tr')">TR</button>
+    </div>
+
+    <div class="toolbar-actions">
+      <button class="btn-reset danger" id="btnResetCnt" onclick="resetCounters()">🔄 Reset Stats</button>
+      <button class="btn-reset" id="btnResetAll" onclick="resetAll()">⏮ Hardware RST</button>
+    </div>
+  </div>
+
+  <div class="main-grid">
+    <!-- SOL: Kontroller -->
+    <div class="left-col">
+      <div class="card">
+        <div class="card-head">
+          <span id="lblInputHeader">Clock & Serial Input</span>
+          <span style="font-family:var(--font-mono);color:var(--purple);font-weight:800" id="lblClk">CLK: 0</span>
+        </div>
+        <div class="bit-actions-vertical">
+          <button class="bit-btn-row btn-zero-wide" onclick="feedBit(0)">
+            <span class="val">0</span>
+            <span class="desc">
+              <span id="txtBtnZeroMain">Send Key '0'</span>
+              <small id="txtBtnZeroSub">Shift Logic 0</small>
+            </span>
+          </button>
+          <button class="bit-btn-row btn-one-wide" onclick="feedBit(1)">
+            <span class="val">1</span>
+            <span class="desc">
+              <span id="txtBtnOneMain">Send Key '1'</span>
+              <small id="txtBtnOneSub">Shift Logic 1</small>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span id="lblSecretPass">Target Combination</span>
+          <span style="font-size:.64rem;color:var(--text-faint)" id="lblClickToChange">TOGGLE BIT</span>
+        </div>
+        <div class="secret-box">
+          <div class="secret-pills" id="secretPills"></div>
+        </div>
+      </div>
+
+      <div class="card" style="flex:1;justify-content:space-between">
+        <div class="card-head">
+          <span id="lblSpeedControls">Shift Frequency</span>
+        </div>
+        <div class="speed-group">
+          <button class="spd-btn" id="spdSlow" onclick="setSpeed(1120, 'spdSlow')">1/4x</button>
+          <button class="spd-btn" id="spdMed" onclick="setSpeed(560, 'spdMed')">1/2x</button>
+          <button class="spd-btn active" id="spdFast" onclick="setSpeed(280, 'spdFast')">1x</button>
+        </div>
+
+        <button class="btn-reset" style="font-weight:800;width:100%" onclick="runAutoCorrect()" id="btnAutoCorrect">
+          ▶ Auto-Enter Correct Key
+        </button>
+
+        <div style="font-size:.72rem;color:var(--text-muted);line-height:1.4;margin-top:auto">
+          <b id="lblHintTitle">FSM Logic:</b>
+          <span id="lblHintText">Moore model isolates lock relay to S_UNL state for glitch immunity.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORTA: FSM Grafiği & Waveform -->
+    <div class="center-col">
+      <div class="card" style="flex:1;min-height:0">
+        <div class="card-head">
+          <span style="color:var(--accent-a)" id="headDiagTitle">LOCK_DOOR STATE TRANSITION GRAPH</span>
+          <span style="font-family:var(--font-mono);font-size:.84rem;font-weight:800" id="txtStateDisp">S_IDLE</span>
+        </div>
+        <div class="diag-svg-box">
+          <svg viewBox="0 0 580 260" id="svgFsm"></svg>
+        </div>
+      </div>
+
+      <!-- RTL Waveform -->
+      <div class="wf-card">
+        <div class="card-head" style="font-size:.72rem">
+          <span id="lblWfHeader">RTL TIMING WAVEFORM (LAST 16 CYCLES)</span>
+          <span style="font-family:var(--font-mono);font-size:.65rem;color:var(--text-faint)">1 CLK GRID</span>
+        </div>
+        <div class="wf-container">
+          <div class="wf-probes">
+            <div class="probe-badge in-sig">
+              <span>IN_KEY</span>
+              <span class="probe-val" id="probeInVal">0</span>
+            </div>
+            <div class="probe-badge unl-sig" id="probeUnlBadge">
+              <span>UNLOCKED</span>
+              <span class="probe-val" id="probeUnlVal">0</span>
+            </div>
+            <div class="probe-badge alm-sig" id="probeAlmBadge">
+              <span>ALARM_ERR</span>
+              <span class="probe-val" id="probeAlmVal">0</span>
+            </div>
+          </div>
+          <div style="flex:1;width:100%;height:100%">
+            <svg id="wfSvg" viewBox="0 0 520 85" preserveAspectRatio="none" style="width:100%;height:100%"></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAĞ: Genişletilmiş Kapı ve Donanım Paneli -->
+    <div class="right-col">
+      <div class="door-viewport">
+        <div class="card-head" style="color:#F8FAFC;margin-bottom:8px">
+          <span id="lblHwTitle">Hardware Module</span>
+          <span style="font-size:.65rem;color:#38BDF8">REAL-TIME LINK</span>
+        </div>
+
+        <div class="door-frame">
+          <div class="strike-plate"></div>
+          <div class="deadbolt" id="hwDeadbolt"></div>
+
+          <div class="door-leaf" id="hwDoorLeaf">
+            <div class="door-handle" id="hwHandle"></div>
+
+            <div class="lock-unit">
+              <div style="display:flex;align-items:center;justify-content:space-between;width:100%">
+                <span style="font-family:var(--font-mono);font-size:.64rem;color:#94A3B8">LOCK-OS v2.4</span>
+                <div class="status-led-ring" id="hwLed"></div>
+              </div>
+
+              <div class="lock-lcd" id="hwLcd">
+                <div class="lcd-title" id="hwLcdTitle">SYSTEM STATUS</div>
+                <div class="lcd-msg" id="hwLcdMsg">LOCKED</div>
+              </div>
+
+              <div class="lock-keypad">
+                <button class="kp-btn" onclick="feedBit(0)">KEY 0</button>
+                <button class="kp-btn" onclick="feedBit(1)">KEY 1</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="door-info-footer">
+          <span>Relay: <b id="hwRelayTxt" style="color:#EF4444">OFF</b></span>
+          <span>Solenoid: <b id="hwSolenoidTxt" style="color:#EF4444">ENGAGED</b></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentLang = 'en';
+
+const I18N = {
+  en: {
+    subtitle: "Hardware Emulation & FSM Explorer",
+    btnResetCnt: "🔄 Reset Stats",
+    btnResetAll: "⏮ Hardware RST",
+    lblInputHeader: "Clock & Serial Input",
+    txtBtnZeroMain: "Send Key '0'",
+    txtBtnZeroSub: "Shift Logic 0",
+    txtBtnOneMain: "Send Key '1'",
+    txtBtnOneSub: "Shift Logic 1",
+    lblSecretPass: "Target Combination",
+    lblClickToChange: "TOGGLE BIT",
+    lblSpeedControls: "Shift Frequency",
+    btnAutoCorrect: "▶ Auto-Enter Correct Key",
+    lblHintTitle: "FSM Logic:",
+    lblHintText: "Moore model isolates lock relay to S_UNL state for glitch immunity.",
+    lblWfHeader: "RTL TIMING WAVEFORM (LAST 16 CYCLES)",
+    lblHwTitle: "Hardware Module",
+    diagTitleMoore: "LOCK_DOOR STATE GRAPH (MOORE)",
+    diagTitleMealy: "LOCK_DOOR STATE GRAPH (MEALY)",
+    lcdLocked: "LOCKED",
+    lcdUnlocked: "OPEN (WELCOME)",
+    lcdAlarm: "ALARM / DENIED",
+    lcdWait: "CHECKING..."
+  },
+  tr: {
+    subtitle: "Donanım Emülasyonu & FSM Gezgini",
+    btnResetCnt: "🔄 İstatistik Sıfırla",
+    btnResetAll: "⏮ Donanımsal Reset",
+    lblInputHeader: "Saat & Seri Tuş Girişi",
+    txtBtnZeroMain: "Tuş '0' Gönder",
+    txtBtnZeroSub: "Lojik 0 Kaydır",
+    txtBtnOneMain: "Tuş '1' Gönder",
+    txtBtnOneSub: "Lojik 1 Kaydır",
+    lblSecretPass: "Hedef Şifre Dizisi",
+    lblClickToChange: "BİTİ DEĞİŞTİR",
+    lblSpeedControls: "Saat Frekansı",
+    btnAutoCorrect: "▶ Doğru Şifreyi Otomatik Gönder",
+    lblHintTitle: "FSM Mantığı:",
+    lblHintText: "Moore modeli elektriksel parazitleri önlemek için kilidi sadece S_UNL durumunda çeker.",
+    lblWfHeader: "RTL ZAMAN DALGA FORMU (SON 16 ÇEVRİM)",
+    lblHwTitle: "Fiziksel Kapı Donanımı",
+    diagTitleMoore: "LOCK_DOOR DURUM GEÇİŞİ (MOORE)",
+    diagTitleMealy: "LOCK_DOOR DURUM GEÇİŞİ (MEALY)",
+    lcdLocked: "KİLİTLİ",
+    lcdUnlocked: "AÇILDI (HOŞGELDİN)",
+    lcdAlarm: "ALARM / REDDEDİLDİ",
+    lcdWait: "DOĞRULANIYOR..."
+  }
+};
+
+let currentModel = 'moore';
+let secretCode = [1, 0, 1];
+
+let clk = 0;
+let lastBit = 0;
+let curState = 'S_IDLE';
+let nextState = 'S_IDLE';
+let isUnlocked = 0;
+let isAlarm = 0;
+let lastEdgeId = '';
+let unlockHits = 0;
+let alarmHits = 0;
+let currentSpeed = 280;
+
+const hist = [];
+
+function setLanguage(lang){
+  currentLang = lang;
+  document.getElementById('langEn').classList.toggle('active', lang === 'en');
+  document.getElementById('langTr').classList.toggle('active', lang === 'tr');
+
+  const d = I18N[lang];
+  document.getElementById('txtSubtitle').textContent = d.subtitle;
+  document.getElementById('btnResetCnt').textContent = d.btnResetCnt;
+  document.getElementById('btnResetAll').textContent = d.btnResetAll;
+  document.getElementById('lblInputHeader').textContent = d.lblInputHeader;
+  document.getElementById('txtBtnZeroMain').textContent = d.txtBtnZeroMain;
+  document.getElementById('txtBtnZeroSub').textContent = d.txtBtnZeroSub;
+  document.getElementById('txtBtnOneMain').textContent = d.txtBtnOneMain;
+  document.getElementById('txtBtnOneSub').textContent = d.txtBtnOneSub;
+  document.getElementById('lblSecretPass').textContent = d.lblSecretPass;
+  document.getElementById('lblClickToChange').textContent = d.lblClickToChange;
+  document.getElementById('lblSpeedControls').textContent = d.lblSpeedControls;
+  document.getElementById('btnAutoCorrect').textContent = d.btnAutoCorrect;
+  document.getElementById('lblHintTitle').textContent = d.lblHintTitle;
+  document.getElementById('lblHintText').textContent = d.lblHintText;
+  document.getElementById('lblWfHeader').textContent = d.lblWfHeader;
+  document.getElementById('lblHwTitle').textContent = d.lblHwTitle;
+
+  updateHeaders();
+  updateUI();
+}
+
+function updateHeaders(){
+  const d = I18N[currentLang];
+  const hint = document.getElementById('lblHintText');
+  if (hint) hint.textContent = currentModel === 'moore'
+    ? (currentLang === 'tr' ? 'Moore: kilit yalnız S_UNL durumunda açılır; çıkış durumdan gelir.' : 'Moore: lock opens only in S_UNL; output depends on state.')
+    : (currentLang === 'tr' ? 'Mealy: çıkış geçişte üretilir; üçüncü doğru bit geldiği anda kilit açılır.' : 'Mealy: output is produced on the transition when the 3rd correct bit arrives.');
+  document.getElementById('headDiagTitle').textContent = 
+    (currentModel === 'moore') ? d.diagTitleMoore : d.diagTitleMealy;
+}
+
+function switchFSMModel(m){
+  currentModel = m;
+  document.getElementById('btnMoore').classList.toggle('active', m === 'moore');
+  document.getElementById('btnMealy').classList.toggle('active', m === 'mealy');
+  updateHeaders();
+  resetAll();
+}
+
+function renderSecretEditor(){
+  const box = document.getElementById('secretPills');
+  box.innerHTML = '';
+  secretCode.forEach((b, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'secret-btn';
+    btn.textContent = b;
+    btn.onclick = () => {
+      secretCode[idx] = secretCode[idx] === 1 ? 0 : 1;
+      btn.textContent = secretCode[idx];
+      resetAll();
+    };
+    box.appendChild(btn);
+  });
+}
+
+function setSpeed(ms, btnId){
+  currentSpeed = ms;
+  ['spdSlow','spdMed','spdFast'].forEach(id => {
+    document.getElementById(id).classList.toggle('active', id === btnId);
+  });
+}
+
+function feedBit(bit){
+  clk++;
+  lastBit = bit;
+
+  const b0 = secretCode[0];
+  const b1 = secretCode[1];
+  const b2 = secretCode[2];
+
+  if(currentModel === 'moore'){
+    switch(curState){
+      case 'S_IDLE':
+        nextState = (bit === b0) ? 'S_1' : 'S_ERROR';
+        lastEdgeId = (bit === b0) ? 'e_idle_1' : 'e_idle_err';
+        break;
+      case 'S_1':
+        nextState = (bit === b1) ? 'S_2' : 'S_ERROR';
+        lastEdgeId = (bit === b1) ? 'e_1_2' : 'e_1_err';
+        break;
+      case 'S_2':
+        nextState = (bit === b2) ? 'S_UNLOCKED' : 'S_ERROR';
+        lastEdgeId = (bit === b2) ? 'e_2_unl' : 'e_2_err';
+        break;
+      case 'S_UNLOCKED':
+        nextState = (bit === b0) ? 'S_1' : 'S_IDLE';
+        lastEdgeId = (bit === b0) ? 'e_unl_1' : 'e_unl_idle';
+        break;
+      case 'S_ERROR':
+        nextState = (bit === b0) ? 'S_1' : 'S_IDLE';
+        lastEdgeId = (bit === b0) ? 'e_err_1' : 'e_err_idle';
+        break;
+    }
+    isUnlocked = (nextState === 'S_UNLOCKED') ? 1 : 0;
+    isAlarm    = (nextState === 'S_ERROR') ? 1 : 0;
+
+  } else {
+    switch(curState){
+      case 'S_IDLE':
+        nextState = (bit === b0) ? 'S_1' : 'S_IDLE';
+        lastEdgeId = (bit === b0) ? 'e_idle_1' : 'e_idle_idle';
+        isUnlocked = 0; isAlarm = (bit !== b0) ? 1 : 0;
+        break;
+      case 'S_1':
+        nextState = (bit === b1) ? 'S_2' : 'S_IDLE';
+        lastEdgeId = (bit === b1) ? 'e_1_2' : 'e_1_idle';
+        isUnlocked = 0; isAlarm = (bit !== b1) ? 1 : 0;
+        break;
+      case 'S_2':
+        if(bit === b2){
+          nextState = 'S_IDLE';
+          lastEdgeId = 'e_2_unl';
+          isUnlocked = 1; isAlarm = 0;
+        } else {
+          nextState = 'S_IDLE';
+          lastEdgeId = 'e_2_idle';
+          isUnlocked = 0; isAlarm = 1;
+        }
+        break;
+    }
+  }
+
+  if(isUnlocked) unlockHits++;
+  if(isAlarm) alarmHits++;
+
+  curState = nextState;
+
+  hist.push({ clk, in: lastBit, unl: isUnlocked, alm: isAlarm });
+  if(hist.length > 16) hist.shift();
+
+  updateUI();
+}
+
+function renderSVG(){
+  const svg = document.getElementById('svgFsm');
+  svg.innerHTML = '';
+
+  const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
+  defs.innerHTML = `
+    <marker id="arr-def" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#94A3B8"/></marker>
+    <marker id="arr-act" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--accent-a)"/></marker>
+    <marker id="arr-ok"  viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--accent-unlocked)"/></marker>
+    <marker id="arr-err" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="var(--accent-locked)"/></marker>
+  `;
+  svg.appendChild(defs);
+
+  const b0 = secretCode[0];
+  const b1 = secretCode[1];
+  const b2 = secretCode[2];
+
+  if(currentModel === 'moore'){
+    svg.innerHTML += `
+      <g id="grp_S_IDLE">
+        <circle cx="65" cy="105" r="30" class="node-outer-glow"/>
+        <circle cx="65" cy="105" r="24" class="state-node"/>
+        <text x="65" y="101" class="node-title">S_IDLE</text>
+        <text x="65" y="115" class="node-out-sub">unl:0</text>
+      </g>
+      <g id="grp_S_1">
+        <circle cx="185" cy="75" r="30" class="node-outer-glow"/>
+        <circle cx="185" cy="75" r="24" class="state-node"/>
+        <text x="185" y="71" class="node-title">S_1</text>
+        <text x="185" y="85" class="node-out-sub">unl:0</text>
+      </g>
+      <g id="grp_S_2">
+        <circle cx="315" cy="75" r="30" class="node-outer-glow"/>
+        <circle cx="315" cy="75" r="24" class="state-node"/>
+        <text x="315" y="71" class="node-title">S_2</text>
+        <text x="315" y="85" class="node-out-sub">unl:0</text>
+      </g>
+      <g id="grp_S_UNLOCKED">
+        <circle cx="445" cy="75" r="30" class="node-outer-glow"/>
+        <circle cx="445" cy="75" r="24" class="state-node"/>
+        <text x="445" y="71" class="node-title" fill="#047857">S_UNL</text>
+        <text x="445" y="85" class="node-out-sub one">unl:1</text>
+      </g>
+      <g id="grp_S_ERROR">
+        <circle cx="250" cy="185" r="30" class="node-outer-glow"/>
+        <circle cx="250" cy="185" r="24" class="state-node"/>
+        <text x="250" y="181" class="node-title" fill="#DC2626">S_ERR</text>
+        <text x="250" y="195" class="node-out-sub" fill="#DC2626">alm:1</text>
+      </g>
+
+      <path d="M 87,91 C 115,65 140,65 162,72" class="trans-edge" id="e_idle_1" marker-end="url(#arr-def)"/><text x="125" y="65" class="trans-label" id="lbl_idle_1">${b0}</text>
+      <path d="M 209,75 C 235,55 265,55 291,75" class="trans-edge" id="e_1_2" marker-end="url(#arr-def)"/><text x="250" y="58" class="trans-label" id="lbl_1_2">${b1}</text>
+      <path d="M 339,75 C 365,55 395,55 421,75" class="trans-edge" id="e_2_unl" marker-end="url(#arr-def)"/><text x="380" y="58" class="trans-label" id="lbl_2_unl">${b2}</text>
+
+      <path d="M 78,127 C 105,185 185,190 226,188" class="trans-edge" id="e_idle_err" marker-end="url(#arr-def)"/><text x="140" y="168" class="trans-label" id="lbl_idle_err">${1-b0}</text>
+      <path d="M 193,98 C 205,135 224,155 236,168" class="trans-edge" id="e_1_err" marker-end="url(#arr-def)"/><text x="205" y="138" class="trans-label" id="lbl_1_err">${1-b1}</text>
+      <path d="M 307,98 C 295,135 276,155 264,168" class="trans-edge" id="e_2_err" marker-end="url(#arr-def)"/><text x="295" y="138" class="trans-label" id="lbl_2_err">${1-b2}</text>
+
+      <path d="M 432,98 C 390,240 145,230 75,128" class="trans-edge" id="e_unl_idle" marker-end="url(#arr-def)"/><text x="290" y="235" class="trans-label" id="lbl_unl_idle">${1-b0}</text>
+      <path d="M 226,185 C 160,185 105,160 78,127" class="trans-edge" id="e_err_idle" marker-end="url(#arr-def)"/><text x="150" y="192" class="trans-label" id="lbl_err_idle">${1-b0}</text>
+      <path d="M 262,163 C 250,130 215,110 196,98" class="trans-edge" id="e_err_1" marker-end="url(#arr-def)"/><text x="240" y="125" class="trans-label" id="lbl_err_1">${b0}</text>
+      <path d="M 430,52 C 380,15 230,15 196,52" class="trans-edge" id="e_unl_1" marker-end="url(#arr-def)"/><text x="315" y="22" class="trans-label" id="lbl_unl_1">${b0}</text>
+    `;
+  } else {
+    svg.innerHTML += `
+      <g id="grp_S_IDLE">
+        <circle cx="85" cy="115" r="30" class="node-outer-glow"/>
+        <circle cx="85" cy="115" r="25" class="state-node"/>
+        <text x="85" y="115" class="node-title">S_IDLE</text>
+      </g>
+      <g id="grp_S_1">
+        <circle cx="245" cy="115" r="30" class="node-outer-glow"/>
+        <circle cx="245" cy="115" r="25" class="state-node"/>
+        <text x="245" y="115" class="node-title">S_1</text>
+      </g>
+      <g id="grp_S_2">
+        <circle cx="405" cy="115" r="30" class="node-outer-glow"/>
+        <circle cx="405" cy="115" r="25" class="state-node"/>
+        <text x="405" y="115" class="node-title">S_2</text>
+      </g>
+
+      <path d="M 64,102 C 34,88 34,142 62,128" class="trans-edge" id="e_idle_idle" marker-end="url(#arr-def)"/><text x="40" y="115" class="trans-label" id="lbl_idle_idle">${1-b0}/0</text>
+      <path d="M 109,106 C 145,75 180,75 222,106" class="trans-edge" id="e_idle_1" marker-end="url(#arr-def)"/><text x="165" y="80" class="trans-label" id="lbl_idle_1">${b0}/0</text>
+      <path d="M 269,106 C 305,75 340,75 382,106" class="trans-edge" id="e_1_2" marker-end="url(#arr-def)"/><text x="325" y="80" class="trans-label" id="lbl_1_2">${b1}/0</text>
+
+      <path d="M 226,128 C 190,155 145,155 109,128" class="trans-edge" id="e_1_idle" marker-end="url(#arr-def)"/><text x="165" y="152" class="trans-label" id="lbl_1_idle">${1-b1}/0</text>
+      <path d="M 390,135 C 320,225 160,225 99,135" class="trans-edge" id="e_2_unl" marker-end="url(#arr-def)"/><text x="245" y="215" class="trans-label" id="lbl_2_unl">${b2}/1 (UNL!)</text>
+      <path d="M 388,128 C 335,175 205,175 109,128" class="trans-edge" id="e_2_idle" marker-end="url(#arr-def)"/><text x="245" y="170" class="trans-label" id="lbl_2_idle">${1-b2}/0</text>
+    `;
+  }
+}
+
+function updateUI(){
+  const d = I18N[currentLang];
+  document.getElementById('lblClk').textContent = 'CLK: ' + clk;
+  document.getElementById('txtStateDisp').textContent = curState;
+
+  // Waveform Probları
+  document.getElementById('probeInVal').textContent = lastBit;
+  document.getElementById('probeUnlVal').textContent = isUnlocked;
+  document.getElementById('probeAlmVal').textContent = isAlarm;
+  document.getElementById('probeUnlBadge').classList.toggle('hit-unl', isUnlocked === 1);
+  document.getElementById('probeAlmBadge').classList.toggle('hit-alm', isAlarm === 1);
+
+  // Fiziksel Donanım Elemanlarının Durumu
+  const doorLeaf   = document.getElementById('hwDoorLeaf');
+  const deadbolt   = document.getElementById('hwDeadbolt');
+  const handle     = document.getElementById('hwHandle');
+  const led        = document.getElementById('hwLed');
+  const lcd        = document.getElementById('hwLcd');
+  const lcdMsg     = document.getElementById('hwLcdMsg');
+  const relayTxt   = document.getElementById('hwRelayTxt');
+  const solenoidTxt= document.getElementById('hwSolenoidTxt');
+
+  if(isUnlocked){
+    doorLeaf.classList.add('open');
+    deadbolt.classList.add('retracted');
+    handle.classList.add('turned');
+    led.className = 'status-led-ring granted';
+    lcd.className = 'lock-lcd';
+    lcdMsg.textContent = d.lcdUnlocked;
+    relayTxt.textContent = 'ON'; relayTxt.style.color = 'var(--accent-unlocked)';
+    solenoidTxt.textContent = 'RETRACTED'; solenoidTxt.style.color = 'var(--accent-unlocked)';
+  } else if(isAlarm){
+    doorLeaf.classList.remove('open');
+    deadbolt.classList.remove('retracted');
+    handle.classList.remove('turned');
+    led.className = 'status-led-ring alarm';
+    lcd.className = 'lock-lcd error';
+    lcdMsg.textContent = d.lcdAlarm;
+    relayTxt.textContent = 'OFF'; relayTxt.style.color = '#EF4444';
+    solenoidTxt.textContent = 'LOCKED'; solenoidTxt.style.color = '#EF4444';
+  } else {
+    doorLeaf.classList.remove('open');
+    deadbolt.classList.remove('retracted');
+    handle.classList.remove('turned');
+    led.className = 'status-led-ring';
+    lcd.className = 'lock-lcd';
+    lcdMsg.textContent = (curState === 'S_IDLE') ? d.lcdLocked : d.lcdWait;
+    relayTxt.textContent = 'OFF'; relayTxt.style.color = '#EF4444';
+    solenoidTxt.textContent = 'ENGAGED'; solenoidTxt.style.color = '#EF4444';
+  }
+
+  // FSM Düğüm Vurguları
+  const allNodes = (currentModel === 'moore') 
+    ? ['S_IDLE','S_1','S_2','S_UNLOCKED','S_ERROR'] 
+    : ['S_IDLE','S_1','S_2'];
+
+  allNodes.forEach(st => {
+    const el = document.getElementById(`grp_${st}`);
+    if(el){
+      if(st === curState){
+        if(st === 'S_UNLOCKED') el.className.baseVal = 'node-active-unlocked';
+        else if(st === 'S_ERROR') el.className.baseVal = 'node-active-error';
+        else el.className.baseVal = 'node-active-a';
+      } else {
+        el.className.baseVal = '';
+      }
+    }
+  });
+
+  // FSM Ok Vurguları
+  document.querySelectorAll('#svgFsm .trans-edge').forEach(e => {
+    e.classList.remove('highlight-a','highlight-ok','highlight-err');
+    e.setAttribute('marker-end', 'url(#arr-def)');
+  });
+  document.querySelectorAll('#svgFsm .trans-label').forEach(l => {
+    l.classList.remove('hit-a','hit-ok','hit-err');
+  });
+
+  if(lastEdgeId){
+    const edge = document.getElementById(lastEdgeId);
+    const lbl = document.getElementById('lbl_' + lastEdgeId.replace('e_',''));
+    if(edge){
+      if(lastEdgeId.includes('unl')){
+        edge.classList.add('highlight-ok');
+        edge.setAttribute('marker-end', 'url(#arr-ok)');
+        if(lbl) lbl.classList.add('hit-ok');
+      } else if(lastEdgeId.includes('err')){
+        edge.classList.add('highlight-err');
+        edge.setAttribute('marker-end', 'url(#arr-err)');
+        if(lbl) lbl.classList.add('hit-err');
+      } else {
+        edge.classList.add('highlight-a');
+        edge.setAttribute('marker-end', 'url(#arr-act)');
+        if(lbl) lbl.classList.add('hit-a');
+      }
+    }
+  }
+
+  drawWaveform();
+}
+
+function drawWaveform(){
+  const svg = document.getElementById('wfSvg');
+  svg.innerHTML = '';
+  if(hist.length === 0) return;
+
+  const N = hist.length;
+  const W = 520, H = 85;
+  const colW = W / Math.max(16, N);
+
+  for(let i = 0; i <= Math.max(16, N); i++){
+    const gx = i * colW;
+    const l = document.createElementNS('http://www.w3.org/2000/svg','line');
+    l.setAttribute('x1', gx); l.setAttribute('y1', 4);
+    l.setAttribute('x2', gx); l.setAttribute('y2', H - 4);
+    l.setAttribute('stroke', '#E2E8F0');
+    svg.appendChild(l);
+  }
+
+  const sigs = [
+    {val: h => h.in,  y1: 6,  y0: 22, c: '#7C3AED', fill: '#EDE9FE'},
+    {val: h => h.unl, y1: 32, y0: 48, c: '#10B981', fill: '#D1FAE5'},
+    {val: h => h.alm, y1: 58, y0: 74, c: '#EF4444', fill: '#FEE2E2'}
+  ];
+
+  sigs.forEach(s => {
+    let pts = [];
+    hist.forEach((h, i) => {
+      const x = i * colW;
+      const y = s.val(h) ? s.y1 : s.y0;
+      pts.push(`${x},${y}`);
+      pts.push(`${x + colW},${y}`);
+
+      if(s.val(h)){
+        const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        r.setAttribute('x', x); r.setAttribute('y', s.y1);
+        r.setAttribute('width', colW); r.setAttribute('height', s.y0 - s.y1);
+        r.setAttribute('fill', s.fill);
+        svg.appendChild(r);
+      }
+    });
+
+    const poly = document.createElementNS('http://www.w3.org/2000/svg','polyline');
+    poly.setAttribute('points', pts.join(' '));
+    poly.setAttribute('fill', 'none');
+    poly.setAttribute('stroke', s.c);
+    poly.setAttribute('stroke-width', '2.2');
+    svg.appendChild(poly);
+  });
+}
+
+function runAutoCorrect(){
+  let i = 0;
+  const timer = setInterval(() => {
+    feedBit(secretCode[i]);
+    i++;
+    if(i >= secretCode.length) clearInterval(timer);
+  }, currentSpeed);
+}
+
+function resetCounters(){
+  unlockHits = 0;
+  alarmHits = 0;
+  updateUI();
+}
+
+function resetAll(){
+  clk = 0; lastBit = 0;
+  curState = 'S_IDLE'; nextState = 'S_IDLE';
+  isUnlocked = 0; isAlarm = 0;
+  lastEdgeId = '';
+  hist.length = 0;
+
+  renderSVG();
+  updateUI();
+}
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === '0') feedBit(0);
+  if(e.key === '1') feedBit(1);
+});
+
+renderSecretEditor();
+setLanguage('tr');
+resetAll();
+</script>
+
+<style>
+#exBtn{position:fixed;right:18px;bottom:18px;z-index:200;border:0;border-radius:999px;padding:12px 18px;font:800 14px system-ui,sans-serif;color:#fff;cursor:pointer;
+  background:linear-gradient(135deg,#8B5CF6,#EC4899);box-shadow:0 10px 26px -8px rgba(139,92,246,.7)}
+#exPanel{position:fixed;top:0;right:0;height:100vh;width:430px;max-width:92vw;z-index:199;background:#fff;color:#0F172A;box-shadow:-18px 0 40px rgba(15,23,42,.25);
+  transform:translateX(105%);transition:transform .3s ease;display:flex;flex-direction:column;font-family:system-ui,sans-serif}
+#exPanel.open{transform:none}
+#exPanel .eh{padding:16px 18px;background:linear-gradient(135deg,#8B5CF6,#EC4899);color:#fff;display:flex;justify-content:space-between;align-items:center}
+#exPanel .eh b{font-size:16px}
+#exPanel .eh button{border:0;background:rgba(255,255,255,.25);color:#fff;border-radius:999px;padding:4px 11px;cursor:pointer;font-weight:800}
+#exPanel .eb{overflow:auto;padding:12px 14px 80px}
+#exPanel .intro{font-size:13px;line-height:1.55;color:#475569;margin:2px 2px 12px}
+.exc{border:1px solid #E2E8F0;border-radius:14px;padding:12px 14px;margin-bottom:10px;background:#FAFAFF}
+.exc h4{margin:0 0 6px;font-size:14px}
+.exc p{margin:0 0 9px;font-size:12.8px;line-height:1.55;color:#334155}
+.exc code{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:#EEF2FF;color:#4338CA;padding:1px 5px;border-radius:5px}
+.exc .row{display:flex;gap:6px;flex-wrap:wrap}
+.exc .go{border:0;border-radius:999px;padding:6px 12px;font-weight:800;font-size:12px;cursor:pointer;color:#fff}
+.exc .go.ok{background:#10B981}.exc .go.bad{background:#EF4444}.exc .go.info{background:#6366F1}
+.exc.run{outline:2px solid #8B5CF6;background:#F5F3FF}
+#exNote{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:198;background:#0F172A;color:#fff;border-radius:999px;padding:9px 18px;
+  font:700 13px system-ui,sans-serif;box-shadow:0 10px 26px -8px rgba(0,0,0,.5);display:none;max-width:70vw;text-align:center}
+</style>
+<button id="exBtn">💡 FSM Açıklamaları</button>
+<div id="exNote"></div>
+<aside id="exPanel"><div class="eh"><b>FSM nasıl çalışıyor?</b><button onclick="exToggle(false)">✕</button></div><div class="eb" id="exBody"></div></aside>
+<script>
+(function(){
+  const EX = {
+ speed: 650,
+ intro: 'Kilit, seri olarak gelen 3 biti şifreyle (varsayılan <code>101</code>) karşılaştıran bir durum makinesidir. Her saat darbesinde bir bit okunur ve makine bir sonraki duruma geçer. Senaryolar düğmeye bastığında kendiliğinden oynar; diyagramdaki vurgulu oku ve dalga formunu izle.',
+ cards: [
+  { t: '1. Doğru şifre', p: 'Bitler sırayla <code>1 → 0 → 1</code> girildiğinde makine <code>S_IDLE → S_1 → S_2 → S_UNL</code> yolunu izler. Moore modelinde çıkış durumdan gelir: yalnız <code>S_UNL</code> durumunda <code>unlocked = 1</code> olur ve kapı açılır.',
+    b: [['Başarılı: 1-0-1', 'ok', () => [() => { switchFSMModel('moore'); }, 'Şifre: 1-0-1', () => feedBit(1), () => feedBit(0), () => feedBit(1), 'Kilit açıldı: S_UNL']]] },
+  { t: '2. Yanlış hane ve alarm', p: 'Herhangi bir hane yanlışsa makine <code>S_ERROR</code> durumuna geçer; bu durumda <code>alarm = 1</code> olur. Sonraki bit şifrenin ilk hanesiyse makine doğrudan <code>S_1</code>\'e geçerek yeni denemeye başlar.',
+    b: [['Başarısız: 1-1', 'bad', () => [() => { switchFSMModel('moore'); }, '1. hane doğru', () => feedBit(1), '2. hane yanlış → S_ERROR', () => feedBit(1)]],
+        ['Hatadan sonra yeniden dene', 'info', () => [() => { switchFSMModel('moore'); }, () => feedBit(0), 'Hata! Yeniden: 1-0-1', () => feedBit(1), () => feedBit(0), () => feedBit(1), 'Kilit açıldı']]] },
+  { t: '3. Moore ve Mealy farkı', p: '<b>Moore</b>\'da çıkış yalnız duruma bağlıdır; kilit bir durum (<code>S_UNL</code>) olarak tutulur. <b>Mealy</b>\'de çıkış hem duruma hem girişe bağlıdır; üçüncü doğru bit geldiği anda geçiş üzerinde <code>unlocked = 1</code> üretilir ve bir durum daha az gerekir.',
+    b: [['Mealy: 1-0-1', 'ok', () => [() => { switchFSMModel('mealy'); }, 'Mealy modeli', () => feedBit(1), () => feedBit(0), () => feedBit(1), 'Çıkış geçişte üretildi']],
+        ['Mealy: 1-0-0', 'bad', () => [() => { switchFSMModel('mealy'); }, () => feedBit(1), () => feedBit(0), () => feedBit(0), '3. hane yanlış: alarm']]] },
+  { t: '4. Şifreyi değiştir', p: 'Sol paneldeki <b>Hedef Şifre</b> bitlerine tıklayarak şifreyi değiştirebilirsin. Diyagramdaki geçiş etiketleri yeni şifreye göre güncellenir.',
+    b: [] }
+ ]
+};
+  let tm = null, runEl = null;
+  window.exToggle = o => document.getElementById('exPanel').classList.toggle('open', o);
+  document.getElementById('exBtn').onclick = () => exToggle(!document.getElementById('exPanel').classList.contains('open'));
+  const note = t => { const n = document.getElementById('exNote'); n.style.display = t ? 'block' : 'none'; n.textContent = t || ''; };
+  function stop(){ clearTimeout(tm); tm = null; if (runEl) runEl.classList.remove('run'); runEl = null; }
+  function play(steps, el){
+    stop(); runEl = el; el.classList.add('run');
+    let k = 0;
+    const next = () => {
+      if (k >= steps.length) { setTimeout(() => note(''), 2500); stop(); return; }
+      const s = steps[k++];
+      if (typeof s === 'string') note(s); else s();
+      tm = setTimeout(next, typeof s === 'string' ? 200 : EX.speed);
+    };
+    next();
+  }
+  window.EX_TR = EX;
+  window.exRender = function(src){
+  const en = window.exLang === 'en';
+  document.getElementById('exBtn').textContent = en ? '💡 FSM Explanations' : '💡 FSM Açıklamaları';
+  document.querySelector('#exPanel .eh b').textContent = en ? 'How does the FSM work?' : 'FSM nasıl çalışıyor?';
+  stop(); note('');
+  const body = document.getElementById('exBody');
+  body.innerHTML = '<p class="intro">' + src.intro + '</p>';
+  src.cards.forEach(c => {
+    const d = document.createElement('div'); d.className = 'exc';
+    d.innerHTML = '<h4>' + c.t + '</h4><p>' + c.p + '</p><div class="row"></div>';
+    c.b.forEach(([lbl, kind, steps]) => {
+      const b = document.createElement('button'); b.className = 'go ' + kind; b.textContent = '▶ ' + lbl;
+      b.onclick = () => play(steps(), d);
+      d.querySelector('.row').appendChild(b);
+    });
+    body.appendChild(d);
+  });
+  if (window.exColorize) exColorize();
+  };
+  exRender(EX);
+})();
+</script>
+
+
+<style>
+.exc{border-left:5px solid var(--exk,#8B5CF6)}
+.exc:nth-of-type(5n+1){--exk:#8B5CF6}.exc:nth-of-type(5n+2){--exk:#0EA5E9}.exc:nth-of-type(5n+3){--exk:#F59E0B}
+.exc:nth-of-type(5n+4){--exk:#10B981}.exc:nth-of-type(5n+5){--exk:#EC4899}
+.exc h4{color:var(--exk)}
+.exc code.k-st{background:#EDE9FE;color:#6D28D9}
+.exc code.k-in{background:#E0F2FE;color:#0369A1}
+.exc code.k-out{background:#D1FAE5;color:#047857}
+.exc code.k-rg{background:#FEF3C7;color:#B45309}
+.exc code.k-bit{background:#FCE7F3;color:#BE185D}
+.exleg{display:flex;flex-wrap:wrap;gap:6px;margin:0 2px 14px}
+.exleg span{font:700 11.5px system-ui,sans-serif;padding:3px 10px;border-radius:999px}
+</style>
+<script>
+window.exColorize = function(){
+  const IN = /^(in|din|wr_en|rd_en|wr|rd|floor_req|door_sensor|emergency|rst|rst_n|clk)\b/;
+  const OUT = /^(unlocked|unl|alarm|dout|empty|full|led|motor_up|motor_down|door_open|seq_\w+|out)\b/;
+  const RG = /^(cnt|count|w_ptr|r_ptr|timer_cnt|req_reg|HALF_PERIOD|state_q|\$clog2)\b/;
+  const body = document.getElementById('exBody');
+  body.querySelectorAll('code').forEach(c => {
+    const t = c.textContent.trim();
+    const k = /^S(_[A-Z_]+|\d|[AB]\d)/.test(t) ? 'k-st' : IN.test(t) ? 'k-in' : OUT.test(t) ? 'k-out' : RG.test(t) ? 'k-rg' : /^[01 →\-]+$/.test(t) ? 'k-bit' : '';
+    if (k) c.classList.add(k);
+  });
+  const leg = document.createElement('div');
+  leg.className = 'exleg';
+  const L = window.exLang === 'en' ? ['State', 'Input', 'Output', 'Register / counter', 'Bit sequence'] : ['Durum', 'Giriş', 'Çıkış', 'Kayıtçı / sayaç', 'Bit dizisi'];
+  leg.innerHTML = '<span style="background:#EDE9FE;color:#6D28D9">' + L[0] + '</span><span style="background:#E0F2FE;color:#0369A1">' + L[1] + '</span>' +
+    '<span style="background:#D1FAE5;color:#047857">' + L[2] + '</span><span style="background:#FEF3C7;color:#B45309">' + L[3] + '</span><span style="background:#FCE7F3;color:#BE185D">' + L[4] + '</span>';
+  body.insertBefore(leg, body.children[1] || null);
+};
+exColorize();
+</script>
+
+<script>
+window.exLang = 'tr';
+window.EX_EN = {
+ speed: 650,
+ intro: 'The lock is a state machine that compares 3 serially arriving bits with the password (default <code>101</code>). One bit is read on every clock edge and the machine moves to the next state. Press a button to play a scenario and watch the highlighted arrow and the waveform.',
+ cards: [
+  { t: '1. Correct password', p: 'When the bits <code>1 → 0 → 1</code> arrive, the machine follows <code>S_IDLE → S_1 → S_2 → S_UNL</code>. In the Moore model the output comes from the state: only in <code>S_UNL</code> is <code>unlocked = 1</code> and the door opens.',
+    b: [['Success: 1-0-1', 'ok', () => [() => { switchFSMModel('moore'); }, 'Password: 1-0-1', () => feedBit(1), () => feedBit(0), () => feedBit(1), 'Unlocked: S_UNL']]] },
+  { t: '2. Wrong digit and alarm', p: 'If any digit is wrong the machine enters <code>S_ERROR</code> and <code>alarm = 1</code>. If the next bit is the first password digit, the machine goes straight to <code>S_1</code> and starts a new attempt.',
+    b: [['Fail: 1-1', 'bad', () => [() => { switchFSMModel('moore'); }, '1st digit correct', () => feedBit(1), '2nd digit wrong → S_ERROR', () => feedBit(1)]],
+        ['Retry after error', 'info', () => [() => { switchFSMModel('moore'); }, () => feedBit(0), 'Error! Retry: 1-0-1', () => feedBit(1), () => feedBit(0), () => feedBit(1), 'Unlocked']]] },
+  { t: '3. Moore vs Mealy', p: 'In <b>Moore</b> the output depends only on the state; the unlock is held as a state (<code>S_UNL</code>). In <b>Mealy</b> the output depends on state and input; <code>unlocked = 1</code> is produced on the transition when the third correct bit arrives, so one state fewer is needed.',
+    b: [['Mealy: 1-0-1', 'ok', () => [() => { switchFSMModel('mealy'); }, 'Mealy model', () => feedBit(1), () => feedBit(0), () => feedBit(1), 'Output produced on the transition']],
+        ['Mealy: 1-0-0', 'bad', () => [() => { switchFSMModel('mealy'); }, () => feedBit(1), () => feedBit(0), () => feedBit(0), '3rd digit wrong: alarm']]] },
+  { t: '4. Change the password', p: 'Click the <b>Target Combination</b> bits in the left panel to change the password. The transition labels in the diagram update to the new password.', b: [] }
+ ]
+};
+(function(){
+  const sl = window.setLanguage;
+  window.setLanguage = function(l){ sl(l); window.exLang = l; document.documentElement.lang = l; exRender(l === 'en' ? EX_EN : EX_TR); };
+})();
+</script>
+</body>
+</html>

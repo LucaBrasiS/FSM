@@ -1,0 +1,1013 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4 Katlı Asansör FSM Sunum Gezgini</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@500;600;700;800&display=swap">
+<style>
+:root{
+  --bg:#070A0F; --surface:#0E131F; --surface-2:#162032; --border:#223147;
+  --fg:#F8FAFC; --fg-dim:#94A3B8; --fg-faint:#64748B;
+  --accent:#F59E0B; --cyan:#06B6D4; --green:#10B981; --rose:#F43F5E; --purple:#A855F7;
+  --f0:#38BDF8; --f1:#34D399; --f2:#C084FC; --f3:#FBBF24;
+  --f-sans:"IBM Plex Sans",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",monospace;
+}
+*{box-sizing:border-box}
+html,body{height:100vh;margin:0;padding:0;overflow:hidden;background:var(--bg);color:var(--fg);font-family:var(--f-sans)}
+.app{height:100vh;display:flex;flex-direction:column;padding:8px 14px;gap:8px}
+
+.top{display:flex;align-items:center;gap:14px;flex:none;height:32px}
+h1{font-size:1.05rem;font-weight:800;margin:0;background:linear-gradient(90deg,#38BDF8,#C084FC,#F59E0B);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:.74rem;color:var(--fg-dim)}
+.langsw{display:flex;gap:2px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:2px}
+.langsw button{border:0;background:transparent;color:var(--fg-dim);font:700 .7rem var(--f-mono);padding:3px 8px;border-radius:4px;cursor:pointer}
+.langsw button.on{background:var(--accent);color:#000}
+.kbd-hint{font-family:var(--f-mono);font-size:.68rem;color:var(--cyan);margin-left:auto;background:var(--surface-2);padding:2px 8px;border-radius:4px;border:1px solid var(--border)}
+
+.main{display:grid;grid-template-columns:430px 1fr;gap:10px;flex:1;min-height:0}
+
+/* SOL: Kuyu Kesiti */
+.shaft-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:10px;display:flex;flex-direction:column;gap:8px;min-height:0;box-shadow:0 10px 35px rgba(0,0,0,.7);
+}
+.panel-head{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-dim);display:flex;justify-content:space-between;align-items:center}
+.hud-state{font-family:var(--f-mono);font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:5px;background:rgba(245,158,11,.15);color:var(--accent);border:1px solid var(--accent)}
+
+.shaft-stage{
+  flex:1;background:#030508;border:2px solid #1A2638;border-radius:8px;
+  position:relative;overflow:hidden;min-height:0;box-shadow:inset 0 0 35px rgba(0,0,0,.95);
+  display:grid;grid-template-columns:105px 1fr;
+}
+
+.stations-lane{
+  border-right:2px solid #1E2D42;background:rgba(10,15,24,0.92);
+  display:flex;flex-direction:column;position:relative;z-index:5;
+}
+.station-box{
+  flex:1;border-bottom:1px solid #1B273A;padding:6px 8px;
+  display:flex;flex-direction:column;justify-content:center;gap:2px;position:relative;
+}
+.station-box:last-child{border-bottom:none}
+.station-name{font-family:var(--f-mono);font-size:.76rem;font-weight:800;letter-spacing:.04em}
+.station-desc{font-size:.62rem;color:var(--fg-dim);font-weight:500}
+.station-obs{
+  font-size:.62rem;color:var(--rose);font-weight:700;display:none;align-items:center;gap:4px;
+  background:rgba(244,63,94,0.18);padding:2px 5px;border-radius:4px;border:1px solid var(--rose);
+}
+.station-box.has-obs .station-obs{display:flex}
+
+.s3{color:var(--f3)}
+.s2{color:var(--f2)}
+.s1{color:var(--f1)}
+.s0{color:var(--f0)}
+
+.shaft-core{position:relative;overflow:hidden;height:100%}
+.pulley-room{
+  position:absolute;top:0;left:0;right:0;height:36px;background:linear-gradient(180deg,#141E2E,#080D15);
+  border-bottom:2px solid #202F44;display:flex;align-items:center;justify-content:space-between;padding:0 30px;z-index:10;
+}
+.wheel{
+  width:26px;height:26px;border-radius:50%;border:3px solid var(--cyan);background:#09101C;
+  box-shadow:0 0 8px rgba(6,182,212,.4);position:relative;transition:transform .3s linear;
+}
+.wheel::after{content:'';position:absolute;top:50%;left:0;right:0;height:2px;background:var(--cyan);transform:translateY(-50%)}
+.wheel.spin-up{animation:spin .4s linear infinite}
+.wheel.spin-dn{animation:spin-rev .4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spin-rev{to{transform:rotate(-360deg)}}
+
+.floor-dividers{position:absolute;top:36px;bottom:0;left:0;right:0;display:flex;flex-direction:column}
+.f-slice{flex:1;border-bottom:1px dashed rgba(255,255,255,.08);position:relative;display:flex;align-items:center;justify-content:flex-end;padding-right:12px}
+.f-slice:last-child{border-bottom:none}
+.f-call-lamp{width:10px;height:10px;border-radius:50%;background:#131B27;border:2px solid #28374E;transition:all .2s}
+.f-call-lamp.lit{background:#F59E0B;border-color:#FDE68A;box-shadow:0 0 12px #F59E0B}
+
+.wire-cab{position:absolute;top:36px;left:120px;width:2px;background:#94A3B8;z-index:2;box-shadow:0 0 4px rgba(255,255,255,.3)}
+.wire-cnt{position:absolute;top:36px;right:28px;width:2px;background:#94A3B8;z-index:2}
+.counter-wt{
+  position:absolute;right:22px;width:14px;height:40px;background:linear-gradient(180deg,#475569,#334155);
+  border:1px solid #94A3B8;border-radius:3px;z-index:3;transition:bottom .35s cubic-bezier(.4,0,.2,1);
+}
+
+.cabin{
+  position:absolute;left:28px;width:180px;height:78px;
+  background:linear-gradient(180deg,#1E293B,#0F172A);
+  border:2px solid var(--cyan);border-radius:8px;z-index:4;
+  box-shadow:0 0 18px rgba(6,182,212,.3), 0 8px 24px rgba(0,0,0,.8);
+  display:flex;flex-direction:column;overflow:hidden;
+  transition:bottom .35s cubic-bezier(.4,0,.2,1);
+}
+.cabin-hdr{
+  height:18px;background:#020617;padding:0 8px;display:flex;align-items:center;
+  justify-content:space-between;font-family:var(--f-mono);font-size:.65rem;font-weight:700;
+  border-bottom:1px solid #1E293B;color:#38BDF8;
+}
+.cabin-room{flex:1;position:relative;background:#0A0F1A;display:flex;align-items:center;justify-content:center}
+.cabin-room::before{content:'';position:absolute;top:0;left:20%;right:20%;height:3px;background:#FDE68A;border-radius:2px;box-shadow:0 0 8px #FDE68A}
+.passenger{font-size:1.6rem;user-select:none;z-index:5}
+
+.obs-inside{
+  position:absolute;right:14px;bottom:4px;font-size:1.4rem;z-index:7;
+  filter:drop-shadow(0 0 8px rgba(244,63,94,0.9));display:none;
+}
+.has-obstacle .obs-inside{display:block;animation:bounce .4s infinite alternate}
+@keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-4px)}}
+
+.laser-barrier{
+  position:absolute;inset:0;pointer-events:none;z-index:8;display:none;
+  background:repeating-linear-gradient(0deg, rgba(244,63,94,0.18), rgba(244,63,94,0.18) 4px, transparent 4px, transparent 8px);
+  border-left:3px solid var(--rose);border-right:3px solid var(--rose);
+  box-shadow:0 0 16px rgba(244,63,94,0.8);
+  animation:laserGlow 0.3s infinite alternate;
+}
+@keyframes laserGlow{from{opacity:0.6}to{opacity:1}}
+.has-obstacle .laser-barrier{display:block}
+
+.door-leaf{position:absolute;top:0;bottom:0;width:50%;background:linear-gradient(90deg,#475569,#334155);border:1px solid #1E293B;transition:transform .35s ease;z-index:6}
+.door-leaf.l{left:0;border-right:1px solid #0F172A}
+.door-leaf.r{right:0;border-left:1px solid #0F172A}
+.doors-open .door-leaf.l{transform:translateX(-92%)}
+.doors-open .door-leaf.r{transform:translateX(92%)}
+
+.ctrl-panel{display:flex;flex-direction:column;gap:5px;flex:none}
+.btn-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.fbtn{
+  font-family:var(--f-mono);font-size:.74rem;font-weight:700;padding:7px 0;
+  background:var(--surface-2);border:1px solid var(--border);border-radius:6px;
+  color:var(--fg);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;
+  transition:all .15s;
+}
+.fbtn small{font-size:.58rem;font-weight:500;color:var(--fg-dim)}
+.fbtn:hover{border-color:var(--cyan);background:#1D283A}
+.fbtn.active{background:linear-gradient(135deg,#D97706,#F59E0B);color:#000;border-color:#FDE68A;box-shadow:0 0 12px rgba(245,158,11,.6)}
+
+.toggle-group{display:flex;gap:12px;font-size:.72rem;color:var(--fg-dim);padding:2px 0}
+.toggle-group label{display:flex;align-items:center;gap:5px;cursor:pointer}
+.toggle-group input{accent-color:var(--rose);width:14px;height:14px}
+
+/* SAĞ: Waveform & Dashboard */
+.right-col{display:flex;flex-direction:column;gap:8px;min-height:0}
+.toolbar{
+  background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  padding:5px 12px;display:flex;align-items:center;gap:8px;flex:none;height:40px;
+}
+.tbtn{
+  font:inherit;font-size:.74rem;font-weight:700;padding:5px 11px;background:var(--surface-2);
+  border:1px solid var(--border);border-radius:5px;cursor:pointer;color:var(--fg);
+  display:flex;align-items:center;gap:4px;transition:all .15s;
+}
+.tbtn:hover{background:#223046;border-color:var(--cyan)}
+.tbtn.play{background:var(--green);color:#042F2E;border-color:#34D399;min-width:86px;justify-content:center}
+.tbtn.play.paused{background:var(--accent);color:#2A1602;border-color:#FCD34D}
+.spd-select{font-family:var(--f-mono);font-size:.72rem;background:var(--surface-2);border:1px solid var(--border);border-radius:4px;padding:3px 6px;color:var(--fg)}
+.counters{font-family:var(--f-mono);font-size:.76rem;color:var(--fg-dim);margin-left:auto}
+.counters b{color:#38BDF8}
+
+.wf-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:6px 12px;display:flex;flex-direction:column;flex:1.55;min-height:220px;position:relative;
+}
+.svgbox{flex:1;width:100%;height:100%;line-height:0}
+svg{width:100%;height:100%}
+
+.bottom-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:8px;flex:1.05;min-height:140px}
+.pane{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;display:flex;flex-direction:column;gap:5px;overflow:hidden}
+.st-hero{display:flex;align-items:center;justify-content:space-between}
+.st-name{font-size:1.05rem;font-weight:800;color:var(--accent);margin:0;letter-spacing:-.01em}
+.st-desc{font-size:.82rem;color:var(--fg-dim);margin:0;line-height:1.45}
+.rtl-preview{background:#04060A;border:1px solid #1E2D44;border-radius:5px;padding:6px 10px;font-family:var(--f-mono);font-size:.76rem;color:#38BDF8;margin-top:auto}
+
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.chip{
+  font-family:var(--f-mono);font-size:.66rem;padding:3px 7px;border-radius:4px;
+  background:var(--surface-2);border:1px solid var(--border);color:var(--fg-faint);transition:all .2s;
+}
+.chip.active{background:rgba(245,158,11,.18);border-color:var(--accent);color:var(--accent);font-weight:800;box-shadow:0 0 10px rgba(245,158,11,.35)}
+.fsm-state-boxes{display:flex;gap:8px;margin-top:4px}
+.state-box-pill{
+  flex:1;padding:5px 8px;border-radius:6px;background:#05070B;border:1px solid var(--border);
+  font-family:var(--f-mono);font-size:.72rem;display:flex;flex-direction:column;gap:1px;
+}
+.state-box-pill small{font-size:.58rem;color:var(--fg-faint);text-transform:uppercase}
+.state-box-pill b{font-size:.75rem}
+
+.metrics{display:flex;gap:14px;font-family:var(--f-mono);font-size:.74rem;color:var(--fg-dim);margin-top:auto}
+.metrics span{color:var(--fg);font-weight:800}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="top">
+    <h1>4 Katlı Asansör FSM Sunum Gezgini</h1>
+    <span class="sub">RTL Dijital Mantık & Donanım Doğrulama Paneli</span>
+    <span class="kbd-hint">Klavye: ◀ Sol / Sağ ▶ ile saat adımı</span>
+    <span class="langsw"><button id="langTr" class="on" onclick="setLanguage('tr')">TR</button><button id="langEn" onclick="setLanguage('en')">EN</button></span>
+  </div>
+
+  <div class="main">
+    <div class="shaft-card">
+      <div class="panel-head">
+        <span>Fiziksel Kuyu & Kat İstasyonları</span>
+        <span class="hud-state" id="hudState">S_IDLE</span>
+      </div>
+
+      <div class="shaft-stage" id="shaftStage">
+        <div class="stations-lane">
+          <div class="station-box s3" id="sbox3"><span class="station-name">KAT 3</span><span class="station-desc">Çatı Katı</span><span class="station-obs">📦 ENGEL!</span></div>
+          <div class="station-box s2" id="sbox2"><span class="station-name">KAT 2</span><span class="station-desc">Ofis Katı</span><span class="station-obs">📦 ENGEL!</span></div>
+          <div class="station-box s1" id="sbox1"><span class="station-name">KAT 1</span><span class="station-desc">Giriş Katı</span><span class="station-obs">📦 ENGEL!</span></div>
+          <div class="station-box s0" id="sbox0"><span class="station-name">KAT 0</span><span class="station-desc">Zemin</span><span class="station-obs">📦 ENGEL!</span></div>
+        </div>
+
+        <div class="shaft-core">
+          <div class="pulley-room">
+            <div class="wheel" id="wheelLeft" title="Çekme Motoru"></div>
+            <div class="wheel" id="wheelRight" title="Ağırlık Yönlendirici"></div>
+          </div>
+
+          <div class="wire-cab" id="wireCab"></div>
+          <div class="wire-cnt" id="wireCnt"></div>
+          <div class="counter-wt" id="counterWt" style="bottom:120px"></div>
+
+          <div class="floor-dividers">
+            <div class="f-slice"><div class="f-call-lamp" id="lamp3"></div></div>
+            <div class="f-slice"><div class="f-call-lamp" id="lamp2"></div></div>
+            <div class="f-slice"><div class="f-call-lamp" id="lamp1"></div></div>
+            <div class="f-slice"><div class="f-call-lamp" id="lamp0"></div></div>
+          </div>
+
+          <div class="cabin" id="cabin" style="bottom:4px">
+            <div class="cabin-hdr">
+              <span id="cabFloorTxt">KAT 0</span>
+              <span id="cabDirTxt" style="color:var(--accent)">■ DURUYOR</span>
+            </div>
+            <div class="cabin-room" id="cabinRoom">
+              <span class="passenger">🧍</span>
+              <span class="obs-inside" id="obsEmoji">📦</span>
+              <div class="laser-barrier"></div>
+              <div class="door-leaf l"></div>
+              <div class="door-leaf r"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ctrl-panel">
+        <div class="panel-head"><span>Kat Çağrı Butonları (floor_req[3:0])</span></div>
+        <div class="btn-grid">
+          <button class="fbtn" id="b0" onclick="toggleReq(0)"><span style="color:var(--f0)">Kat 0</span><small>Zemin</small></button>
+          <button class="fbtn" id="b1" onclick="toggleReq(1)"><span style="color:var(--f1)">Kat 1</span><small>Giriş</small></button>
+          <button class="fbtn" id="b2" onclick="toggleReq(2)"><span style="color:var(--f2)">Kat 2</span><small>Ofis</small></button>
+          <button class="fbtn" id="b3" onclick="toggleReq(3)"><span style="color:var(--f3)">Kat 3</span><small>Çatı</small></button>
+        </div>
+        <div class="toggle-group">
+          <label style="color:var(--rose)"><input type="checkbox" id="chkObs" onchange="toggleSensor()"> <b>door_sensor:</b> Kapıda Engel Var (📦)</label>
+          <label><input type="checkbox" id="chkEmg" onchange="toggleEmg()"> <b>emergency:</b> Acil Fren</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-col">
+      <div class="toolbar">
+        <button class="tbtn" onclick="resetSim()" title="En Başa Dön">⏮ Başa</button>
+        <button class="tbtn" onclick="stepBack()" title="1 Saat Çevrimi Geri Git">◀ Geri Adım</button>
+        <button class="tbtn play" id="playBtn" onclick="togglePlay()">▶ Başlat</button>
+        <button class="tbtn" onclick="stepForward()" title="1 Saat Çevrimi İleri Git">İleri Adım ▶</button>
+
+        <div style="font-size:.72rem;color:var(--fg-dim);display:flex;align-items:center;gap:6px;margin-left:8px">
+          Hız:
+          <select class="spd-select" id="spdSel" onchange="changeSpeed()">
+            <option value="800">Yavaş (800ms)</option>
+            <option value="400" selected>Normal (400ms)</option>
+            <option value="120">Hızlı (120ms)</option>
+          </select>
+        </div>
+
+        <div class="counters">Döngü (clk): <b id="clkTxt">0</b> | Sayaç: <b id="cntTxt">0</b></div>
+      </div>
+
+      <div class="wf-card">
+        <div class="panel-head">
+          <span>Canlı Zaman Dalga Formu (RTL Waveform - Son 16 Çevrim)</span>
+          <span style="font-family:var(--f-mono);font-size:.65rem;color:var(--fg-dim)">Grid = 1 CLK Cycle</span>
+        </div>
+        <div class="svgbox"><svg id="wfSvg" viewBox="0 0 820 200" preserveAspectRatio="none"></svg></div>
+      </div>
+
+      <div class="bottom-grid">
+        <div class="pane">
+          <div class="panel-head"><span>FSM Durum Özeti & RTL Atamaları</span></div>
+          <div class="st-hero">
+            <span class="st-name" id="stTitle">S_IDLE (Boşta Bekliyor)</span>
+          </div>
+          <p class="st-desc" id="stDesc">Kabin katta park etmiş durumda. Bekleyen kat çağrısı kontrol ediliyor.</p>
+          <div class="rtl-preview" id="stRtl">motor_up = 1'b0; motor_down = 1'b0; door_open = 1'b0;</div>
+        </div>
+
+        <div class="pane">
+          <div class="panel-head"><span>Moore FSM Durum Kayıtçıları (Registers)</span></div>
+          
+          <div class="fsm-state-boxes">
+            <div class="state-box-pill">
+              <small>Mevcut Durum (state_q)</small>
+              <b style="color:var(--accent)" id="curStatePill">S_IDLE [0000]</b>
+            </div>
+            <div class="state-box-pill">
+              <small>Gelecek Durum (state_d)</small>
+              <b style="color:var(--cyan)" id="nextStatePill">S_IDLE [0000]</b>
+            </div>
+          </div>
+
+          <div class="chips">
+            <div class="chip" id="c_S_IDLE">S_IDLE</div>
+            <div class="chip" id="c_S_MOVING_UP">S_MOVING_UP</div>
+            <div class="chip" id="c_S_MOVING_DN">S_MOVING_DN</div>
+            <div class="chip" id="c_S_DECEL">S_DECEL</div>
+            <div class="chip" id="c_S_DOOR_OPEN">S_DOOR_OPEN</div>
+            <div class="chip" id="c_S_DOOR_WAIT">S_DOOR_WAIT</div>
+            <div class="chip" id="c_S_DOOR_CLOS">S_DOOR_CLOS</div>
+            <div class="chip" id="c_S_OBSTACLE">S_OBSTACLE</div>
+            <div class="chip" id="c_S_EMERGENCY">S_EMERGENCY</div>
+          </div>
+
+          <div class="metrics">
+            <div>Mevcut Kat: <span id="lblFloor">Kat 0</span></div>
+            <div>Kapı: <span id="lblDoor">KAPALI</span></div>
+            <div>Sensör: <span id="lblSens">NORMAL</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let LANG = 'tr';
+const EL_EN = {
+ '4 Katlı Asansör FSM Sunum Gezgini': '4-Floor Elevator FSM Explorer',
+ 'RTL Dijital Mantık & Donanım Doğrulama Paneli': 'RTL Digital Logic & Hardware Verification Panel',
+ 'Klavye: ◀ Sol / Sağ ▶ ile saat adımı': 'Keyboard: ◀ Left / Right ▶ to step the clock',
+ 'Fiziksel Kuyu & Kat İstasyonları': 'Physical Shaft & Floor Stations',
+ 'KAT 3': 'FLOOR 3', 'KAT 2': 'FLOOR 2', 'KAT 1': 'FLOOR 1', 'KAT 0': 'FLOOR 0',
+ 'Çatı Katı': 'Roof', 'Ofis Katı': 'Office', 'Giriş Katı': 'Lobby', 'Zemin': 'Ground', '📦 ENGEL!': '📦 BLOCKED!',
+ 'Kat Çağrı Butonları (floor_req[3:0])': 'Floor Call Buttons (floor_req[3:0])',
+ 'Kat 0': 'Floor 0', 'Kat 1': 'Floor 1', 'Kat 2': 'Floor 2', 'Kat 3': 'Floor 3', 'Giriş': 'Lobby', 'Ofis': 'Office', 'Çatı': 'Roof',
+ 'Kapıda Engel Var (📦)': 'Obstacle at Door (📦)', 'Acil Fren': 'Emergency Brake',
+ '⏮ Başa': '⏮ Start', '◀ Geri Adım': '◀ Step Back', '▶ Başlat': '▶ Run', '❚❚ Duraklat': '❚❚ Pause', 'İleri Adım ▶': 'Step Forward ▶',
+ 'Hız:': 'Speed:', 'Yavaş (800ms)': 'Slow (800ms)', 'Hızlı (120ms)': 'Fast (120ms)',
+ 'Döngü (clk):': 'Cycle (clk):', '| Sayaç:': '| Counter:',
+ 'Canlı Zaman Dalga Formu (RTL Waveform - Son 16 Çevrim)': 'Live Timing Waveform (RTL - Last 16 Cycles)',
+ 'FSM Durum Özeti & RTL Atamaları': 'FSM State Summary & RTL Assignments',
+ 'Moore FSM Durum Kayıtçıları (Registers)': 'Moore FSM State Registers',
+ 'Mevcut Durum (state_q)': 'Current State (state_q)', 'Gelecek Durum (state_d)': 'Next State (state_d)',
+ 'Mevcut Kat:': 'Current Floor:', 'Kapı:': 'Door:', 'Sensör:': 'Sensor:',
+ 'KAT ': 'FLOOR ', 'Kat ': 'Floor ',
+ '▲ YUKARI': '▲ UP', '▼ AŞAĞI': '▼ DOWN', '◉ SEVİYELEME': '◉ LEVELING', '■ DURUYOR': '■ STOPPED',
+ 'AÇIK': 'OPEN', 'KAPANIYOR': 'CLOSING', 'KAPALI': 'CLOSED', 'ENGEL (📦) VAR!': 'OBSTACLE (📦)!', 'ACİL STOP': 'EMERGENCY STOP'
+};
+const INFO_EN = {
+ S_IDLE: { t: 'S_IDLE (Waiting)', d: 'The car is parked with the motors locked. The req_reg register is scanned for new floor calls.' },
+ S_MOVING_UP: { t: 'S_MOVING_UP (Going Up)', d: 'motor_up=1. timer_cnt counts the motor run time between floors.' },
+ S_MOVING_DN: { t: 'S_MOVING_DN (Going Down)', d: 'motor_down=1. The sheave turns backward and the counterweight rises.' },
+ S_DECEL: { t: 'S_DECEL (Leveling & Brake)', d: 'Target floor reached! The brake engages and the car is leveled with the landing.' },
+ S_DOOR_OPEN: { t: 'S_DOOR_OPEN (Door Opening)', d: 'Brake confirmed; the door mechanism opens the panels.' },
+ S_DOOR_WAIT: { t: 'S_DOOR_WAIT (Boarding)', d: 'Door fully open. timer_cnt counts the boarding time.' },
+ S_DOOR_CLOS: { t: 'S_DOOR_CLOS (Door Closing)', d: 'The door is closing. If the obstacle sensor (📦) fires, it jumps to S_OBSTACLE immediately!' },
+ S_OBSTACLE: { t: 'S_OBSTACLE (Obstacle Detected!)', d: 'An obstacle (📦) broke the light curtain! The door reopens immediately to prevent trapping.' },
+ S_EMERGENCY: { t: 'S_EMERGENCY (Emergency Brake!)', d: 'Emergency stop triggered! All motion stopped, alarm active.' }
+};
+function T(s){ return LANG === 'en' ? (EL_EN[s] || s) : s; }
+function setLanguage(l){
+  LANG = l;
+  document.getElementById('langTr').classList.toggle('on', l === 'tr');
+  document.getElementById('langEn').classList.toggle('on', l === 'en');
+  const w = document.createTreeWalker(document.querySelector('.app'), NodeFilter.SHOW_TEXT, { acceptNode: n => n.parentElement.closest('svg') ? 2 : 1 });
+  let n;
+  while ((n = w.nextNode())) {
+    if (n._tr === undefined) n._tr = n.nodeValue;
+    const k = n._tr.trim();
+    n.nodeValue = (l === 'en' && EL_EN[k] && k.length > 1) ? n._tr.replace(k, EL_EN[k]) : n._tr;
+  }
+  document.getElementById('playBtn').innerHTML = T(isPlaying ? '❚❚ Duraklat' : '▶ Başlat');
+  updateUI();
+}
+</script>
+
+<script>
+const STATE_CODES = {
+  S_IDLE:      "0000",
+  S_MOVING_UP: "0001",
+  S_MOVING_DN: "0010",
+  S_DECEL:     "0011",
+  S_DOOR_OPEN: "0100",
+  S_DOOR_WAIT: "0101",
+  S_DOOR_CLOS: "0110",
+  S_OBSTACLE:  "0111",
+  S_EMERGENCY: "1000"
+};
+
+const STATES = ['S_IDLE','S_MOVING_UP','S_MOVING_DN','S_DECEL','S_DOOR_OPEN','S_DOOR_WAIT','S_DOOR_CLOS','S_OBSTACLE','S_EMERGENCY'];
+let state = 'S_IDLE';
+let nextStateComputed = 'S_IDLE';
+let currentFloor = 0;
+let req = [false, false, false, false];
+let doorSensor = false;
+let emergency = false;
+let timerCnt = 0;
+let clkCycle = 0;
+let isPlaying = false;
+let timer = null;
+let speed = 400;
+
+const snapshots = [];
+const history = [];
+
+function saveSnapshot(){
+  snapshots.push({
+    state, nextStateComputed, currentFloor, req: [...req], doorSensor, emergency, timerCnt, clkCycle,
+    history: JSON.parse(JSON.stringify(history))
+  });
+  if(snapshots.length > 60) snapshots.shift();
+}
+
+function toggleReq(f){
+  req[f] = !req[f];
+  document.getElementById('b' + f).classList.toggle('active', req[f]);
+  document.getElementById('lamp' + f).classList.toggle('lit', req[f]);
+  computeNextState();
+  updateUI();
+}
+
+function toggleSensor(){
+  doorSensor = document.getElementById('chkObs').checked;
+  document.getElementById('shaftStage').classList.toggle('has-obstacle', doorSensor);
+  updateObstacleIndicators();
+  computeNextState();
+  updateUI();
+}
+
+function updateObstacleIndicators(){
+  [0,1,2,3].forEach(f => {
+    const el = document.getElementById('sbox' + f);
+    if(el) el.classList.toggle('has-obs', doorSensor && currentFloor === f);
+  });
+}
+
+function toggleEmg(){ 
+  emergency = document.getElementById('chkEmg').checked; 
+  computeNextState();
+  updateUI();
+}
+
+function changeSpeed(){
+  speed = parseInt(document.getElementById('spdSel').value, 10);
+  if(isPlaying){ clearInterval(timer); timer = setInterval(stepForward, speed); }
+}
+
+function computeNextState(){
+  if(emergency){
+    nextStateComputed = 'S_EMERGENCY';
+    return;
+  }
+  switch(state){
+    case 'S_IDLE':
+      if(req[currentFloor]){
+        nextStateComputed = 'S_DECEL';
+      } else if(req.some((r,i) => r && i > currentFloor)){
+        nextStateComputed = 'S_MOVING_UP';
+      } else if(req.some((r,i) => r && i < currentFloor)){
+        nextStateComputed = 'S_MOVING_DN';
+      } else {
+        nextStateComputed = 'S_IDLE';
+      }
+      break;
+
+    case 'S_MOVING_UP':
+      if(timerCnt + 1 >= 3){
+        if(req[currentFloor + 1] || !req.some((r,i) => r && i > currentFloor + 1)) nextStateComputed = 'S_DECEL';
+        else nextStateComputed = 'S_MOVING_UP';
+      } else {
+        nextStateComputed = 'S_MOVING_UP';
+      }
+      break;
+
+    case 'S_MOVING_DN':
+      if(timerCnt + 1 >= 3){
+        if(req[currentFloor - 1]) nextStateComputed = 'S_DECEL';
+        else nextStateComputed = 'S_MOVING_DN';
+      } else {
+        nextStateComputed = 'S_MOVING_DN';
+      }
+      break;
+
+    case 'S_DECEL':
+      if(timerCnt + 1 >= 2) nextStateComputed = req[currentFloor] ? 'S_DOOR_OPEN' : 'S_IDLE';
+      else nextStateComputed = 'S_DECEL';
+      break;
+
+    case 'S_DOOR_OPEN':
+      if(timerCnt + 1 >= 2) nextStateComputed = 'S_DOOR_WAIT';
+      else nextStateComputed = 'S_DOOR_OPEN';
+      break;
+
+    case 'S_DOOR_WAIT':
+      if(timerCnt + 1 >= 3) nextStateComputed = 'S_DOOR_CLOS';
+      else nextStateComputed = 'S_DOOR_WAIT';
+      break;
+
+    case 'S_DOOR_CLOS':
+      if(doorSensor) nextStateComputed = 'S_OBSTACLE';
+      else if(timerCnt + 1 >= 2) nextStateComputed = 'S_IDLE';
+      else nextStateComputed = 'S_DOOR_CLOS';
+      break;
+
+    case 'S_OBSTACLE':
+      if(timerCnt + 1 >= 2) nextStateComputed = 'S_DOOR_OPEN';
+      else nextStateComputed = 'S_OBSTACLE';
+      break;
+
+    case 'S_EMERGENCY':
+      if(!emergency) nextStateComputed = 'S_IDLE';
+      else nextStateComputed = 'S_EMERGENCY';
+      break;
+  }
+}
+
+function stepForward(){
+  saveSnapshot();
+  clkCycle++;
+  computeNextState();
+
+  let up = 0, dn = 0, door = 0, obs = doorSensor ? 1 : 0;
+
+  if(state === 'S_MOVING_UP') up = 1;
+  if(state === 'S_MOVING_DN') dn = 1;
+  if(state === 'S_DOOR_OPEN' || state === 'S_DOOR_WAIT' || state === 'S_OBSTACLE') door = 1;
+
+  history.push({
+    clk: clkCycle,
+    currState: state,
+    nextState: nextStateComputed,
+    up, dn, door, obs
+  });
+  if(history.length > 18) history.shift();
+
+  if(state === 'S_MOVING_UP' && timerCnt + 1 >= 3) currentFloor++;
+  if(state === 'S_MOVING_DN' && timerCnt + 1 >= 3) currentFloor--;
+
+  if(state === 'S_DOOR_OPEN' && timerCnt + 1 >= 2){
+    req[currentFloor] = false;
+    document.getElementById('b' + currentFloor).classList.remove('active');
+    document.getElementById('lamp' + currentFloor).classList.remove('lit');
+  }
+
+  if(state !== nextStateComputed) timerCnt = 0;
+  else timerCnt++;
+
+  state = nextStateComputed;
+  computeNextState();
+  updateUI();
+}
+
+function stepBack(){
+  if(snapshots.length === 0) return;
+  if(isPlaying) togglePlay();
+  const prev = snapshots.pop();
+  state = prev.state;
+  nextStateComputed = prev.nextStateComputed;
+  currentFloor = prev.currentFloor;
+  req = [...prev.req];
+  doorSensor = prev.doorSensor;
+  emergency = prev.emergency;
+  timerCnt = prev.timerCnt;
+  clkCycle = prev.clkCycle;
+  history.length = 0;
+  prev.history.forEach(h => history.push(h));
+
+  [0,1,2,3].forEach(f => {
+    document.getElementById('b' + f).classList.toggle('active', req[f]);
+    document.getElementById('lamp' + f).classList.toggle('lit', req[f]);
+  });
+  document.getElementById('chkObs').checked = doorSensor;
+  document.getElementById('chkEmg').checked = emergency;
+  document.getElementById('shaftStage').classList.toggle('has-obstacle', doorSensor);
+
+  updateUI();
+}
+
+const info = {
+  S_IDLE: {
+    t: "S_IDLE (Boşta Bekliyor)",
+    d: "Asansör katta sabit, motorlar kilitli. req_reg register'ında yeni kat çağrısı taranıyor.",
+    rtl: "motor_up = 1'b0; motor_down = 1'b0; door_open = 1'b0;"
+  },
+  S_MOVING_UP: {
+    t: "S_MOVING_UP (Yukarı Çıkıyor)",
+    d: "motor_up=1. Sayacımız timer_cnt katlar arası motor çalışma süresini sayıyor.",
+    rtl: "motor_up = 1'b1; motor_down = 1'b0; door_open = 1'b0;"
+  },
+  S_MOVING_DN: {
+    t: "S_MOVING_DN (Aşağı İniyor)",
+    d: "motor_down=1. Makara ters döner, karşı ağırlık yukarı kalkar.",
+    rtl: "motor_up = 1'b0; motor_down = 1'b1; door_open = 1'b0;"
+  },
+  S_DECEL: {
+    t: "S_DECEL (Seviyeleme & Fren)",
+    d: "Hedef kata ulaşıldı! Motor freni devrede, zemin ve kat sahanlığı milimetrik hizalanıyor.",
+    rtl: "motor_brake = 1'b1; if(level_ok) state_d = S_DOOR_OPEN;"
+  },
+  S_DOOR_OPEN: {
+    t: "S_DOOR_OPEN (Kapı Açılıyor)",
+    d: "Fren onaylandı; kapı mekanizması devreye girdi, kanatlar açılıyor.",
+    rtl: "door_open = 1'b1; req_reg[current_floor] <= 1'b0;"
+  },
+  S_DOOR_WAIT: {
+    t: "S_DOOR_WAIT (Yolcu Bekleme)",
+    d: "Kapı tam açık. timer_cnt yolcuların inip binme süresini sayıyor.",
+    rtl: "door_open = 1'b1; timer_cnt <= timer_cnt + 1'b1;"
+  },
+  S_DOOR_CLOS: {
+    t: "S_DOOR_CLOS (Kapı Kapanıyor)",
+    d: "Kapı kapanıyor. Engel sensörü (📦) tetiklenirse derhal S_OBSTACLE'a sıçrar!",
+    rtl: "door_open = 1'b0; if(door_sensor) state_d = S_OBSTACLE;"
+  },
+  S_OBSTACLE: {
+    t: "S_OBSTACLE (Engel Algılandı!)",
+    d: "Lazer perdesinde bir engel (📦) tespit edildi! Sıkışmayı önlemek için kapı derhal geri açılıyor.",
+    rtl: "alarm = 1'b1; door_open = 1'b1; state_d = S_DOOR_OPEN;"
+  },
+  S_EMERGENCY: {
+    t: "S_EMERGENCY (Acil Fren!)",
+    d: "Acil stop emniyeti tetiklendi! Tüm hareketler durduruldu, alarm aktif.",
+    rtl: "motor_up = 1'b0; motor_down = 1'b0; alarm = 1'b1;"
+  }
+};
+
+function updateUI(){
+  document.getElementById('clkTxt').textContent = clkCycle;
+  document.getElementById('cntTxt').textContent = timerCnt;
+  document.getElementById('hudState').textContent = state;
+  document.getElementById('cabFloorTxt').textContent = T('KAT ') + currentFloor;
+  document.getElementById('lblFloor').textContent = T('Kat ') + currentFloor;
+
+  document.getElementById('curStatePill').textContent = state + ' [' + STATE_CODES[state] + ']';
+  document.getElementById('nextStatePill').textContent = nextStateComputed + ' [' + STATE_CODES[nextStateComputed] + ']';
+
+  const wL = document.getElementById('wheelLeft');
+  const wR = document.getElementById('wheelRight');
+  wL.className = 'wheel'; wR.className = 'wheel';
+
+  if(state === 'S_MOVING_UP'){
+    document.getElementById('cabDirTxt').textContent = T('▲ YUKARI');
+    document.getElementById('cabDirTxt').style.color = 'var(--cyan)';
+    wL.classList.add('spin-up'); wR.classList.add('spin-up');
+  } else if(state === 'S_MOVING_DN'){
+    document.getElementById('cabDirTxt').textContent = T('▼ AŞAĞI');
+    document.getElementById('cabDirTxt').style.color = 'var(--rose)';
+    wL.classList.add('spin-dn'); wR.classList.add('spin-dn');
+  } else if(state === 'S_DECEL'){
+    document.getElementById('cabDirTxt').textContent = T('◉ SEVİYELEME');
+    document.getElementById('cabDirTxt').style.color = 'var(--accent)';
+  } else {
+    document.getElementById('cabDirTxt').textContent = T('■ DURUYOR');
+    document.getElementById('cabDirTxt').style.color = 'var(--green)';
+  }
+
+  const isDoorOpen = (state === 'S_DOOR_OPEN' || state === 'S_DOOR_WAIT' || state === 'S_OBSTACLE');
+  document.getElementById('cabinRoom').classList.toggle('doors-open', isDoorOpen);
+  document.getElementById('lblDoor').textContent = T(isDoorOpen ? 'AÇIK' : (state === 'S_DOOR_CLOS' ? 'KAPANIYOR' : 'KAPALI'));
+  document.getElementById('lblSens').textContent = T(doorSensor ? 'ENGEL (📦) VAR!' : (emergency ? 'ACİL STOP' : 'NORMAL'));
+  document.getElementById('lblSens').style.color = (doorSensor || emergency) ? 'var(--rose)' : 'var(--green)';
+
+  const floorPos = [1.5, 26, 50.5, 75];
+  const bPos = floorPos[currentFloor];
+  document.getElementById('cabin').style.bottom = bPos + '%';
+
+  const cPos = 76 - bPos;
+  document.getElementById('counterWt').style.bottom = cPos + '%';
+  document.getElementById('wireCab').style.height = (94 - bPos) + '%';
+  document.getElementById('wireCnt').style.height = (94 - cPos) + '%';
+
+  updateObstacleIndicators();
+
+  document.getElementById('stTitle').textContent = (LANG === 'en' ? INFO_EN : info)[state].t;
+  document.getElementById('stDesc').textContent = (LANG === 'en' ? INFO_EN : info)[state].d;
+  document.getElementById('stRtl').textContent = info[state].rtl;
+
+  STATES.forEach(s => {
+    const el = document.getElementById('c_' + s);
+    if(el) el.className = 'chip' + (s === state ? ' active' : '');
+  });
+
+  drawWaveform();
+}
+
+function drawWaveform(){
+  const svg = document.getElementById('wfSvg');
+  svg.innerHTML = '';
+  if(history.length < 2) return;
+
+  const N = history.length;
+  const W = 820, H = 200;
+  const startX = 125;
+  const colW = (W - startX - 15) / Math.max(16, N);
+
+  for(let i = 0; i <= Math.max(16, N); i++){
+    const gx = startX + i * colW;
+    const gLine = document.createElementNS('http://www.w3.org/2000/svg','line');
+    gLine.setAttribute('x1', gx); gLine.setAttribute('y1', 6);
+    gLine.setAttribute('x2', gx); gLine.setAttribute('y2', H - 6);
+    gLine.setAttribute('stroke', 'rgba(255,255,255,0.06)');
+    gLine.setAttribute('stroke-width', '1');
+    svg.appendChild(gLine);
+
+    if(i < N){
+      const tickTxt = document.createElementNS('http://www.w3.org/2000/svg','text');
+      tickTxt.setAttribute('x', gx + colW / 2); tickTxt.setAttribute('y', 14);
+      tickTxt.setAttribute('font-size', '7.5'); tickTxt.setAttribute('fill', 'var(--fg-faint)');
+      tickTxt.setAttribute('text-anchor', 'middle'); tickTxt.setAttribute('font-family', 'var(--f-mono)');
+      tickTxt.textContent = history[i].clk;
+      svg.appendChild(tickTxt);
+    }
+  }
+
+  const lblBus = document.createElementNS('http://www.w3.org/2000/svg','text');
+  lblBus.setAttribute('x', 6); lblBus.setAttribute('y', 33);
+  lblBus.setAttribute('font-size', '9.5'); lblBus.setAttribute('font-weight', '700');
+  lblBus.setAttribute('fill', 'var(--accent)'); lblBus.setAttribute('font-family', 'var(--f-mono)');
+  lblBus.textContent = 'STATE_Q[3:0]';
+  svg.appendChild(lblBus);
+
+  const segments = [];
+  let curSeg = null;
+
+  history.forEach((h, idx) => {
+    if(!curSeg || curSeg.val !== h.currState){
+      curSeg = { val: h.currState, start: idx, end: idx + 1 };
+      segments.push(curSeg);
+    } else {
+      curSeg.end = idx + 1;
+    }
+  });
+
+  segments.forEach(seg => {
+    const x0 = startX + seg.start * colW;
+    const x1 = startX + seg.end * colW;
+    const w = x1 - x0;
+    const yTop = 20, yBot = 38;
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d', `M${x0},${(yTop+yBot)/2} L${x0+4},${yTop} L${x1-4},${yTop} L${x1},${(yTop+yBot)/2} L${x1-4},${yBot} L${x0+4},${yBot} Z`);
+    path.setAttribute('fill', 'rgba(245,158,11,0.18)');
+    path.setAttribute('stroke', 'var(--accent)');
+    path.setAttribute('stroke-width', '1.4');
+    svg.appendChild(path);
+
+    const rawName = seg.val.replace('S_', '');
+    const code = STATE_CODES[seg.val];
+    let displayText = rawName;
+
+    if(w < 45) displayText = code;
+    else if(w < 70 && rawName.length > 7) displayText = rawName.substring(0, 5) + '..';
+
+    const txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+    txt.setAttribute('x', x0 + w / 2); txt.setAttribute('y', 32);
+    txt.setAttribute('font-size', '8.5'); txt.setAttribute('font-weight', '800');
+    txt.setAttribute('fill', 'var(--accent)'); txt.setAttribute('text-anchor', 'middle');
+    txt.setAttribute('font-family', 'var(--f-mono)');
+    txt.textContent = displayText;
+    svg.appendChild(txt);
+  });
+
+  const sigs = [
+    {name: 'CLK', clk: true, val: h => h.clk % 2, y1: 48, y0: 62, c: 'var(--purple)', fill: 'rgba(168,85,247,0.15)'},
+    {name: 'DOOR_SENSOR', val: h => h.obs, y1: 76, y0: 90, c: 'var(--rose)', fill: 'rgba(244,63,94,0.18)'},
+    {name: 'MOTOR_UP', val: h => h.up, y1: 104, y0: 118, c: 'var(--cyan)', fill: 'rgba(6,182,212,0.18)'},
+    {name: 'MOTOR_DN', val: h => h.dn, y1: 132, y0: 146, c: 'var(--rose)', fill: 'rgba(244,63,94,0.18)'},
+    {name: 'DOOR_OPEN', val: h => h.door, y1: 160, y0: 174, c: 'var(--green)', fill: 'rgba(16,185,129,0.18)'}
+  ];
+
+  sigs.forEach(s => {
+    const curVal = s.val(history[history.length - 1]);
+    const lbl = document.createElementNS('http://www.w3.org/2000/svg','text');
+    lbl.setAttribute('x', 6); lbl.setAttribute('y', s.y0 - 2);
+    lbl.setAttribute('font-size', '9.5'); lbl.setAttribute('font-weight', '700');
+    lbl.setAttribute('fill', s.c); lbl.setAttribute('font-family', 'var(--f-mono)');
+    lbl.textContent = `${s.name} [${curVal}]`;
+    svg.appendChild(lbl);
+
+    let pts = [];
+    history.forEach((h, i) => {
+      const x = startX + i * colW;
+      if (s.clk) { pts.push(`${x},${s.y0}`, `${x},${s.y1}`, `${x + colW / 2},${s.y1}`, `${x + colW / 2},${s.y0}`, `${x + colW},${s.y0}`); return; } // her çevrim tam bir saat periyodu
+      const y = s.val(h) ? s.y1 : s.y0;
+      pts.push(`${x},${y}`);
+      pts.push(`${x + colW},${y}`);
+
+      if(s.val(h)){
+        const fillRect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        fillRect.setAttribute('x', x); fillRect.setAttribute('y', s.y1);
+        fillRect.setAttribute('width', colW); fillRect.setAttribute('height', s.y0 - s.y1);
+        fillRect.setAttribute('fill', s.fill);
+        svg.appendChild(fillRect);
+      }
+    });
+
+    const poly = document.createElementNS('http://www.w3.org/2000/svg','polyline');
+    poly.setAttribute('points', pts.join(' '));
+    poly.setAttribute('fill', 'none');
+    poly.setAttribute('stroke', s.c);
+    poly.setAttribute('stroke-width', '2.2');
+    poly.setAttribute('stroke-linejoin', 'round');
+    svg.appendChild(poly);
+  });
+}
+
+function togglePlay(){
+  isPlaying = !isPlaying;
+  const b = document.getElementById('playBtn');
+  b.innerHTML = T(isPlaying ? '❚❚ Duraklat' : '▶ Başlat');
+  b.classList.toggle('paused', isPlaying);
+  if(isPlaying) timer = setInterval(stepForward, speed);
+  else clearInterval(timer);
+}
+
+function resetSim(){
+  if(isPlaying) togglePlay();
+  state = 'S_IDLE';
+  currentFloor = 0;
+  req = [false, false, false, false];
+  doorSensor = false;
+  emergency = false;
+  computeNextState();
+  timerCnt = 0;
+  clkCycle = 0;
+  history.length = 0;
+  snapshots.length = 0;
+  [0,1,2,3].forEach(f => {
+    document.getElementById('b' + f).classList.remove('active');
+    document.getElementById('lamp' + f).classList.remove('lit');
+  });
+  document.getElementById('chkObs').checked = false;
+  document.getElementById('chkEmg').checked = false;
+  document.getElementById('shaftStage').classList.remove('has-obstacle');
+  updateUI();
+}
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'ArrowRight'){ stepForward(); e.preventDefault(); }
+  if(e.key === 'ArrowLeft'){ stepBack(); e.preventDefault(); }
+  if(e.key === ' '){ togglePlay(); e.preventDefault(); }
+});
+
+computeNextState();
+updateUI();
+</script>
+
+<style>
+#exBtn{position:fixed;right:18px;bottom:18px;z-index:200;border:0;border-radius:999px;padding:12px 18px;font:800 14px system-ui,sans-serif;color:#fff;cursor:pointer;
+  background:linear-gradient(135deg,#8B5CF6,#EC4899);box-shadow:0 10px 26px -8px rgba(139,92,246,.7)}
+#exPanel{position:fixed;top:0;right:0;height:100vh;width:430px;max-width:92vw;z-index:199;background:#fff;color:#0F172A;box-shadow:-18px 0 40px rgba(15,23,42,.25);
+  transform:translateX(105%);transition:transform .3s ease;display:flex;flex-direction:column;font-family:system-ui,sans-serif}
+#exPanel.open{transform:none}
+#exPanel .eh{padding:16px 18px;background:linear-gradient(135deg,#8B5CF6,#EC4899);color:#fff;display:flex;justify-content:space-between;align-items:center}
+#exPanel .eh b{font-size:16px}
+#exPanel .eh button{border:0;background:rgba(255,255,255,.25);color:#fff;border-radius:999px;padding:4px 11px;cursor:pointer;font-weight:800}
+#exPanel .eb{overflow:auto;padding:12px 14px 80px}
+#exPanel .intro{font-size:13px;line-height:1.55;color:#475569;margin:2px 2px 12px}
+.exc{border:1px solid #E2E8F0;border-radius:14px;padding:12px 14px;margin-bottom:10px;background:#FAFAFF}
+.exc h4{margin:0 0 6px;font-size:14px}
+.exc p{margin:0 0 9px;font-size:12.8px;line-height:1.55;color:#334155}
+.exc code{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:#EEF2FF;color:#4338CA;padding:1px 5px;border-radius:5px}
+.exc .row{display:flex;gap:6px;flex-wrap:wrap}
+.exc .go{border:0;border-radius:999px;padding:6px 12px;font-weight:800;font-size:12px;cursor:pointer;color:#fff}
+.exc .go.ok{background:#10B981}.exc .go.bad{background:#EF4444}.exc .go.info{background:#6366F1}
+.exc.run{outline:2px solid #8B5CF6;background:#F5F3FF}
+#exNote{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:198;background:#0F172A;color:#fff;border-radius:999px;padding:9px 18px;
+  font:700 13px system-ui,sans-serif;box-shadow:0 10px 26px -8px rgba(0,0,0,.5);display:none;max-width:70vw;text-align:center}
+</style>
+<button id="exBtn">💡 FSM Açıklamaları</button>
+<div id="exNote"></div>
+<aside id="exPanel"><div class="eh"><b>FSM nasıl çalışıyor?</b><button onclick="exToggle(false)">✕</button></div><div class="eb" id="exBody"></div></aside>
+<script>
+(function(){
+  const EX = {
+ speed: 380,
+ intro: 'Asansör 9 durumlu bir <b>Moore</b> makinesidir: motor ve kapı çıkışları yalnız mevcut duruma bağlıdır. Çağrılar kaydedilir, her durumda geçen süreyi <code>timer_cnt</code> sayar. Senaryoları oynatıp kabini, durum çiplerini ve dalga formunu izle.',
+ cards: [
+  { t: '1. Kat çağrısı', p: 'Çağrı geldiğinde <code>S_IDLE</code> hedefin yukarıda mı aşağıda mı olduğuna bakar: <code>S_MOVING_UP</code> → hedef katta <code>S_DECEL</code> → kapı çevrimi (<code>OPEN → WAIT → CLOS</code>) → <code>S_IDLE</code>.',
+    b: [['Başarılı: Kat 2', 'ok', () => [() => resetSim(), () => toggleReq(2), 'Kat 2 çağrıldı', ...Array(22).fill(() => stepForward()), 'Yolcu indi, asansör boşta']]] },
+  { t: '2. Kapıda engel', p: 'Kapı kapanırken (<code>S_DOOR_CLOS</code>) sensör engel görürse makine <code>S_OBSTACLE</code>\'a geçer ve kapıyı yeniden açar; engel kalkana dek kapı kapanmaz.',
+    b: [['Başarısız: kapı kapanamıyor', 'bad', () => [() => resetSim(), () => toggleReq(0), 'Bulunduğu kat çağrıldı', ...Array(8).fill(() => stepForward()),
+        () => { const c = document.getElementById('chkObs'); c.checked = true; toggleSensor(); }, 'Engel var: kapı yeniden açılıyor', ...Array(8).fill(() => stepForward()),
+        () => { const c = document.getElementById('chkObs'); c.checked = false; toggleSensor(); }, 'Engel kalktı', ...Array(8).fill(() => stepForward())]]] },
+  { t: '3. Acil durum', p: '<code>emergency = 1</code> her durumu geçersiz kılar: makine <code>S_EMERGENCY</code>\'ye geçer, motor durur. Acil durum kalkınca <code>S_IDLE</code>\'a döner ve bekleyen çağrıya devam eder.',
+    b: [['Acil fren', 'bad', () => [() => resetSim(), () => toggleReq(3), 'Kat 3 çağrıldı', ...Array(4).fill(() => stepForward()),
+        () => { const c = document.getElementById('chkEmg'); c.checked = true; toggleEmg(); }, 'ACİL FREN', ...Array(3).fill(() => stepForward()),
+        () => { const c = document.getElementById('chkEmg'); c.checked = false; toggleEmg(); }, 'Acil durum kalktı, yolculuk sürüyor', ...Array(18).fill(() => stepForward())]]] }
+ ]
+};
+  let tm = null, runEl = null;
+  window.exToggle = o => document.getElementById('exPanel').classList.toggle('open', o);
+  document.getElementById('exBtn').onclick = () => exToggle(!document.getElementById('exPanel').classList.contains('open'));
+  const note = t => { const n = document.getElementById('exNote'); n.style.display = t ? 'block' : 'none'; n.textContent = t || ''; };
+  function stop(){ clearTimeout(tm); tm = null; if (runEl) runEl.classList.remove('run'); runEl = null; }
+  function play(steps, el){
+    stop(); runEl = el; el.classList.add('run');
+    let k = 0;
+    const next = () => {
+      if (k >= steps.length) { setTimeout(() => note(''), 2500); stop(); return; }
+      const s = steps[k++];
+      if (typeof s === 'string') note(s); else s();
+      tm = setTimeout(next, typeof s === 'string' ? 200 : EX.speed);
+    };
+    next();
+  }
+  window.EX_TR = EX;
+  window.exRender = function(src){
+  const en = window.exLang === 'en';
+  document.getElementById('exBtn').textContent = en ? '💡 FSM Explanations' : '💡 FSM Açıklamaları';
+  document.querySelector('#exPanel .eh b').textContent = en ? 'How does the FSM work?' : 'FSM nasıl çalışıyor?';
+  stop(); note('');
+  const body = document.getElementById('exBody');
+  body.innerHTML = '<p class="intro">' + src.intro + '</p>';
+  src.cards.forEach(c => {
+    const d = document.createElement('div'); d.className = 'exc';
+    d.innerHTML = '<h4>' + c.t + '</h4><p>' + c.p + '</p><div class="row"></div>';
+    c.b.forEach(([lbl, kind, steps]) => {
+      const b = document.createElement('button'); b.className = 'go ' + kind; b.textContent = '▶ ' + lbl;
+      b.onclick = () => play(steps(), d);
+      d.querySelector('.row').appendChild(b);
+    });
+    body.appendChild(d);
+  });
+  if (window.exColorize) exColorize();
+  };
+  exRender(EX);
+})();
+</script>
+
+
+<style>
+.exc{border-left:5px solid var(--exk,#8B5CF6)}
+.exc:nth-of-type(5n+1){--exk:#8B5CF6}.exc:nth-of-type(5n+2){--exk:#0EA5E9}.exc:nth-of-type(5n+3){--exk:#F59E0B}
+.exc:nth-of-type(5n+4){--exk:#10B981}.exc:nth-of-type(5n+5){--exk:#EC4899}
+.exc h4{color:var(--exk)}
+.exc code.k-st{background:#EDE9FE;color:#6D28D9}
+.exc code.k-in{background:#E0F2FE;color:#0369A1}
+.exc code.k-out{background:#D1FAE5;color:#047857}
+.exc code.k-rg{background:#FEF3C7;color:#B45309}
+.exc code.k-bit{background:#FCE7F3;color:#BE185D}
+.exleg{display:flex;flex-wrap:wrap;gap:6px;margin:0 2px 14px}
+.exleg span{font:700 11.5px system-ui,sans-serif;padding:3px 10px;border-radius:999px}
+</style>
+<script>
+window.exColorize = function(){
+  const IN = /^(in|din|wr_en|rd_en|wr|rd|floor_req|door_sensor|emergency|rst|rst_n|clk)\b/;
+  const OUT = /^(unlocked|unl|alarm|dout|empty|full|led|motor_up|motor_down|door_open|seq_\w+|out)\b/;
+  const RG = /^(cnt|count|w_ptr|r_ptr|timer_cnt|req_reg|HALF_PERIOD|state_q|\$clog2)\b/;
+  const body = document.getElementById('exBody');
+  body.querySelectorAll('code').forEach(c => {
+    const t = c.textContent.trim();
+    const k = /^S(_[A-Z_]+|\d|[AB]\d)/.test(t) ? 'k-st' : IN.test(t) ? 'k-in' : OUT.test(t) ? 'k-out' : RG.test(t) ? 'k-rg' : /^[01 →\-]+$/.test(t) ? 'k-bit' : '';
+    if (k) c.classList.add(k);
+  });
+  const leg = document.createElement('div');
+  leg.className = 'exleg';
+  const L = window.exLang === 'en' ? ['State', 'Input', 'Output', 'Register / counter', 'Bit sequence'] : ['Durum', 'Giriş', 'Çıkış', 'Kayıtçı / sayaç', 'Bit dizisi'];
+  leg.innerHTML = '<span style="background:#EDE9FE;color:#6D28D9">' + L[0] + '</span><span style="background:#E0F2FE;color:#0369A1">' + L[1] + '</span>' +
+    '<span style="background:#D1FAE5;color:#047857">' + L[2] + '</span><span style="background:#FEF3C7;color:#B45309">' + L[3] + '</span><span style="background:#FCE7F3;color:#BE185D">' + L[4] + '</span>';
+  body.insertBefore(leg, body.children[1] || null);
+};
+exColorize();
+</script>
+
+<script>
+window.exLang = 'tr';
+window.EX_EN = {
+ speed: 380,
+ intro: 'The elevator is a 9-state <b>Moore</b> machine: motor and door outputs depend only on the current state. Calls are stored, and <code>timer_cnt</code> counts the time spent in each state. Play the scenarios and watch the car, the state chips and the waveform.',
+ cards: [
+  { t: '1. Floor call', p: 'When a call arrives, <code>S_IDLE</code> checks whether the target is above or below: <code>S_MOVING_UP</code> → <code>S_DECEL</code> at the target → door cycle (<code>OPEN → WAIT → CLOS</code>) → <code>S_IDLE</code>.',
+    b: [['Success: Floor 2', 'ok', () => [() => resetSim(), () => toggleReq(2), 'Floor 2 called', ...Array(22).fill(() => stepForward()), 'Passenger out, elevator idle']]] },
+  { t: '2. Obstacle at the door', p: 'If the sensor sees an obstacle while the door is closing (<code>S_DOOR_CLOS</code>), the machine goes to <code>S_OBSTACLE</code> and reopens the door; it will not close until the obstacle is gone.',
+    b: [['Fail: door cannot close', 'bad', () => [() => resetSim(), () => toggleReq(0), 'Current floor called', ...Array(8).fill(() => stepForward()),
+        () => { const c = document.getElementById('chkObs'); c.checked = true; toggleSensor(); }, 'Obstacle: door reopening', ...Array(8).fill(() => stepForward()),
+        () => { const c = document.getElementById('chkObs'); c.checked = false; toggleSensor(); }, 'Obstacle removed', ...Array(8).fill(() => stepForward())]]] },
+  { t: '3. Emergency', p: '<code>emergency = 1</code> overrides every state: the machine goes to <code>S_EMERGENCY</code> and the motor stops. When released it returns to <code>S_IDLE</code> and continues with the pending call.',
+    b: [['Emergency brake', 'bad', () => [() => resetSim(), () => toggleReq(3), 'Floor 3 called', ...Array(4).fill(() => stepForward()),
+        () => { const c = document.getElementById('chkEmg'); c.checked = true; toggleEmg(); }, 'EMERGENCY BRAKE', ...Array(3).fill(() => stepForward()),
+        () => { const c = document.getElementById('chkEmg'); c.checked = false; toggleEmg(); }, 'Emergency cleared, trip continues', ...Array(18).fill(() => stepForward())]]] }
+ ]
+};
+(function(){
+  const sl = window.setLanguage;
+  window.setLanguage = function(l){ sl(l); window.exLang = l; document.documentElement.lang = l; exRender(l === 'en' ? EX_EN : EX_TR); };
+})();
+</script>
+</body>
+</html>
