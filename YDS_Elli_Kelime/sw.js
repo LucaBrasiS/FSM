@@ -1,5 +1,5 @@
 /* Uygulamayı çevrimdışı açılabilir kılar: önce önbellekten verir, arkada günceller. */
-const CACHE = 'elli-kelime-v1';
+const CACHE = 'basamak-v1';
 const FILES = ['./', 'index.html', 'manifest.webmanifest', 'icon.svg', 'icon-192.png', 'icon-512.png', 'icon-180.png'];
 
 self.addEventListener('install', (e) => {

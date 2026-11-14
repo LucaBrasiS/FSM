@@ -7,14 +7,14 @@
 <meta name="theme-color" content="#5B3DF5">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Elli Kelime">
+<meta name="apple-mobile-web-app-title" content="Basamak">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
 </head>
 <body>
 <!-- APP:BEGIN -->
-<title>YDS Elli Kelime</title>
+<title>Basamak YDS</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Sans:opsz,wght@9..40,400..700&display=swap">
 <style>
@@ -316,6 +316,47 @@ button.opt:active{transform:translateY(var(--lift));box-shadow:0 0 0 var(--edge)
 .stars{flex:none;display:inline-flex;gap:2px}
 .stars .off{filter:grayscale(1);opacity:.3}
 .party .stars{align-self:flex-start;background:var(--on-brand);border:2px solid var(--edge);border-radius:999px;padding:4px 10px}
+
+/* ana menü */
+.hero.today{gap:12px}
+.task{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;padding:10px 12px;border-radius:var(--r);background:var(--surface);color:var(--ink);
+  border:2px solid var(--edge);box-shadow:0 3px 0 var(--edge);transition:transform .06s ease,box-shadow .06s ease}
+.task:active{transform:translateY(3px);box-shadow:0 0 0 var(--edge)}
+.ticon{flex:none;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--sunk);border:2px solid var(--edge)}
+.ttxt{flex:1;min-width:0;display:flex;flex-direction:column}
+.ttxt b{font-family:var(--display);font-weight:800;font-size:1.12rem}
+.ttxt span{font-size:.84rem;color:var(--muted);overflow-wrap:anywhere}
+.tstate{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--sun);color:var(--on-fill);border:2px solid var(--edge)}
+.tstate.ok{background:var(--ok)}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding-bottom:3px}
+.qbtn{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-height:96px;padding:10px;border-radius:var(--r-s);background:var(--surface);
+  border:2px solid var(--edge);box-shadow:0 3px 0 var(--edge);min-width:0;transition:transform .06s ease,box-shadow .06s ease}
+.qbtn:active:not([disabled]){transform:translateY(3px);box-shadow:0 0 0 var(--edge)}
+.qbtn[disabled]{opacity:.5;cursor:default}
+.qbtn b{font-family:var(--display);font-weight:700;font-size:.92rem;line-height:1.15}
+.qbtn span{font-size:.74rem;color:var(--muted)}
+.tabs{grid-template-columns:repeat(3,1fr)}
+.tab{flex-direction:column;gap:2px;font-size:.84rem;min-height:58px}
+
+/* gramer listesi: açılır bölümler, ince satırlar */
+details.part{background:var(--surface);border:2px solid var(--edge);border-radius:var(--r);display:block;gap:0}
+details.part summary{padding:12px 14px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px;border-radius:var(--r)}
+details.part summary::-webkit-details-marker{display:none}
+details.part summary::after{content:"+";font-size:1.4rem;line-height:1;font-weight:700}
+details.part[open] summary::after{content:"–"}
+details.part summary>span{display:flex;flex-direction:column}
+details.part summary b{font-family:var(--display);font-weight:800;font-size:1.04rem}
+.psub{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.plist{display:flex;flex-direction:column;padding:0 8px 8px}
+.urow{display:flex;align-items:center;gap:10px;width:100%;min-height:56px;padding:6px 6px;border-top:2px solid var(--sunk);text-align:left}
+.urow:first-child{border-top:0}
+.urow:active{background:var(--sunk)}
+.uicon.sm{width:42px;height:42px;border-radius:12px}
+.urow .utxt b{font-size:.98rem}
+.urow.rev .uicon{background:var(--sun)}
+.best{flex:none;font-weight:700;font-size:.86rem;font-variant-numeric:tabular-nums}
+.btn.unav{flex:0 0 56px;padding-inline:0}
+.top .count{margin-left:auto}
 
 /* karışık test, ara tekrar, okuma parçası */
 .ucard.rev .uicon{background:var(--sun)}
@@ -879,6 +920,7 @@ var I={
   no:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg>',
   ok:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
   pin:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16v6"/><path d="M8.5 3h7l-1 6.5 3 3V16h-11v-3.5l3-3z"/></svg>',
+  back:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>',
   go:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
   fire:'<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M13 2c.6 3.4-1.2 5.2-2.8 7.1C8.8 10.8 7 12.7 7 15.5a5 5 0 0010 0c0-2.1-.9-3.6-1.8-5-.5 1.4-1.4 2.2-2.4 2.400.7-3.300.9-7.300.2-10.900z"/></svg>',
   spk:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18V6L7.5 9.5z"/><path d="M15.5 9a4 4 0 010 6"/><path d="M18 6.5a7.5 7.5 0 010 11"/></svg>'
@@ -886,7 +928,7 @@ var I={
 
 function brand(streak){
   return '<header class="top"><div class="brand"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>'+
-    '<span>Elli Kelime</span><span class="bsub">YDS</span></div>'+
+    '<span>'+APPNAME+'</span><span class="bsub">YDS</span></div>'+
     (streak>0?'<span class="streak">'+ui('fire',18)+streak+' gün seri</span>':'')+'</header>';
 }
 function mixbar(r,k,n){
@@ -923,7 +965,41 @@ function progHead(ses,num){
     '<span class="count">'+num+' / '+n+'</span></header>';
 }
 
-function vHome(){
+/* ---- ana menü: bugünün iki görevi ve üç kısayol ---- */
+var APPNAME='Basamak';
+function streakNow(){var d=today();return(S.last!=null&&S.last>=d-1)?(S.streak|0):0}
+function taskRow(act,icon,title,sub,state,attr){
+  var mark=state==='done'?'<span class="tstate ok">'+I.ok+'</span>':(state==='part'?'<span class="tstate part">'+I.go+'</span>':'<span class="tstate">'+I.go+'</span>');
+  return '<button class="task" data-act="'+act+'"'+(attr||'')+'><span class="ticon">'+ui(icon,34)+'</span><span class="ttxt"><b>'+title+'</b><span>'+sub+'</span></span>'+mark+'</button>';
+}
+function vMenu(){
+  var ses=ensureSession(),d=today(),dayNo=S.first==null?1:d-S.first+1;
+  var wSub,wState='';
+  if(!ses){wSub='Bugün sorulacak kelime yok';wState='done'}
+  else if(ses.done){var r=tally(ses);wSub=ses.q.length+' kelime bitti · '+r.ok+' doğru';wState='done'}
+  else if(ses.i>0){wSub=ses.i+' / '+ses.q.length+' · kaldığın yerden devam';wState='part'}
+  else wSub=ses.q.length+' kelime · yaklaşık 20 dakika';
+  var dp=dailyPlan(),gSub,gState='',gAct='gdaily';
+  if(dailyDone()){gSub=S.gd.right+' / '+S.gd.n+' doğru · yarın yeni test';gState='done';gAct='tab'}
+  else if(dp.nt)gSub=uLabel(dp.nt.id)+' · Test '+(dp.nt.k+1)+' · '+dp.items.length+' soru';
+  else if(dp.items.length)gSub=dp.items.length+' karışık tekrar sorusu';
+  else{gSub='Çözülecek test kalmadı';gState='done';gAct='tab'}
+  var nt=nextTest(),wrongN=wrongItems().length;
+  var quick='<div class="quick">'+
+    '<button class="qbtn" data-act="'+(nt?'unit':'tab')+'"'+(nt?' data-id="'+nt.id+'"':' data-v="units"')+'>'+ui(nt?'u-'+nt.id:'tab-units',30)+'<b>Kaldığın ünite</b><span>'+(nt?uLabel(nt.id):'Hepsi bitti')+'</span></button>'+
+    '<button class="qbtn" data-act="gmix" data-n="20" data-s="all">'+ui('mix',30)+'<b>Karışık test</b><span>20 soru</span></button>'+
+    '<button class="qbtn" data-act="gwrong"'+(wrongN?'':' disabled')+'>'+ui('again',30)+'<b>Yanlışlarım</b><span>'+(wrongN?wrongN+' soru':'Henüz yok')+'</span></button></div>';
+  return brand(streakNow())+'<div class="body">'+
+    '<section class="hero today"><div class="herotop"><p class="eyebrow">Gün '+dayNo+' · '+esc(dateLabel())+'</p>'+ui('hero',44,'heroart')+'</div>'+
+    '<h1>Bugün</h1>'+
+    taskRow(ses&&!ses.done?'start':'tab','tab-words','Kelime',wSub,wState,ses&&!ses.done?'':' data-v="words"')+
+    taskRow(gAct,'tab-units','Gramer',gSub,gState,gAct==='tab'?' data-v="units"':'')+'</section>'+
+    quick+weekStrip(d)+
+    '<section class="tip"><h2>'+ui('tip',22)+'Günün ipucu</h2><p>'+esc(TIPS[(dayNo-1)%TIPS.length])+'</p></section>'+
+    '<p class="credit">Görseller: Microsoft Fluent Emoji, MIT lisansı</p></div>'+tabs('home');
+}
+
+function vWords(){
   var ses=ensureSession(),d=today(),t=totals();
   var streak=(S.last!=null&&S.last>=d-1)?(S.streak|0):0;
   var dayNo=S.first==null?1:d-S.first+1;
@@ -957,7 +1033,7 @@ function vHome(){
     '<li><b>Bir günde en fazla '+CAP+' kelime.</b> Önce tekrarlar sorulur, sığmayan yeni kelimeler sonraki güne kalır.</li>'+
     '<li><b>Yer kalırsa pekiştirme.</b> Öğrendiğin kelimeler '+IVL.join(', ').replace(/, ([^,]*)$/,' ve $1')+' gün sonra yeniden sorulur; üçünü de geçen kelime kalıcı sayılır.</li>'+
     '<li><b>Her '+HALF+' kelimede bir ara görev.</b> Sırayla eşleştirme ve cümle gelir. Cümleyi ya parçalarını sıralayarak kurar ya da devamını seçerek tamamlarsın.</li>'+
-    '<li><b>'+UNITS.length+' gramer ünitesi.</b> Üniteler sekmesinde her konunun özeti ve '+TLEN+' soruluk üç testi var; soruların hepsi beş şıklı.</li>'+
+    '<li><b>'+UNITS.length+' gramer ünitesi.</b> Gramer sekmesinde her konunun özeti ve '+TLEN+' soruluk üç testi var; soruların hepsi beş şıklı.</li>'+
     '<li><b>Günün grameri.</b> Her gün sıradaki ünite testi ve önceki ünitelerden '+DAILY_REVIEW+' karışık tekrar sorusu gelir; yanlış yaptıkların öne alınır.</li>'+
     '<li><b>Karışık ve ara tekrar testleri.</b> İstediğin zaman ünitelerden rastgele 10 ya da 20 soru çözebilirsin.</li>'+
     '<li><b>Renkler kelime türüdür.</b> Fiil mavi, isim nane, sıfat turuncu, zarf lila, bağlaç pembe, öbek fiil limon.</li></ul></details>';
@@ -979,18 +1055,7 @@ function vHome(){
   var demo='<section class="demo"><h2>Demo araçları</h2>'+
     '<p class="note">Günlerin akışını beklemeden görmek için. Gerçek uygulamada yer almaz.</p>'+tools+types+
     '<p class="note">'+(storeMode==='cloud'?'İlerlemen hesabına kaydediliyor.':'İlerlemen bu cihazda saklanıyor.')+'</p></section>';
-  var dp=dailyPlan(),gram='';
-  if(dailyDone()){
-    gram=dp.nt?unitCard(dp.nt.id,'Günün grameri tamam · '+S.gd.right+' / '+S.gd.n,'Sıradaki: '+uLabel(dp.nt.id)+' · Test '+(dp.nt.k+1),I.go)
-      :'<section class="card"><h2>Günün grameri tamam</h2><p class="note">'+S.gd.right+' / '+S.gd.n+' doğru. Bütün testleri çözdün.</p></section>';
-  }else if(dp.nt){
-    gram=unitCard(dp.nt.id,'Günün grameri',uLabel(dp.nt.id)+' · Test '+(dp.nt.k+1)+' · '+dp.unitN+' soru'+(dp.rev?' + '+dp.rev+' karışık tekrar':''),I.go,'data-act="gdaily"');
-  }else if(dp.items.length){
-    gram='<button class="ucard rev" data-act="gdaily"><span class="uicon">'+ui('mix',40)+'</span><span class="utxt"><span class="unum">Günün grameri</span>'+
-      '<b>Karışık tekrar</b><span class="usub">'+dp.items.length+' soru</span></span>'+I.go+'</button>';
-  }
-  return brand(streak)+'<div class="body">'+hero+weekStrip(d)+gram+stats+tip+how+demo+
-    '<p class="credit">Görseller: Microsoft Fluent Emoji, MIT lisansı</p></div>'+tabs('home');
+  return brand(streak)+'<div class="body">'+hero+stats+how+demo+'</div>'+tabs('words');
 }
 
 var KIND={n:'Yeni kelime',r:'Tekrar',k:'Pekiştirme',d:'Deneme'};
@@ -1194,7 +1259,7 @@ function starRow(n,size){
 }
 function tabs(v){
   var t=function(key,icon,label){return '<button class="tab" data-act="tab" data-v="'+key+'"'+(v===key?' aria-current="page"':'')+'>'+ui(icon,24)+label+'</button>'};
-  return '<nav class="tabs" aria-label="Bölümler">'+t('home','tab-today','Bugün')+t('units','tab-units','Üniteler')+'</nav>';
+  return '<nav class="tabs" aria-label="Bölümler">'+t('home','tab-today','Bugün')+t('words','tab-words','Kelime')+t('units','tab-units','Gramer')+'</nav>';
 }
 function unitCard(id,eyebrow,sub,tail,actAttr){
   var nm=uName(id);
@@ -1269,46 +1334,61 @@ function notes(md){
     return '<details class="nsec"'+(k===0?' open':'')+'><summary>'+esc(s.h)+'</summary><div class="nbody">'+out+'</div></details>';
   }).join('');
 }
+function unitRow(id){
+  var pips='',solved=0;
+  for(var k=0;k<TESTS.length;k++){var b=gBest(id,k);if(b!==null)solved++;pips+='<i class="'+(b===null?'':(b>=TLEN*0.7?'ok':'try'))+'"></i>'}
+  var nm=uName(id);
+  return '<button class="urow" data-act="unit" data-id="'+id+'" style="--pc:var('+uColor(id)+')"><span class="uicon sm">'+ui('u-'+id,28)+'</span>'+
+    '<span class="utxt"><span class="unum">'+uLabel(id)+'</span><b'+(nm[2]?' lang="en"':'')+'>'+esc(nm[0])+'</b></span>'+
+    '<span class="pips" role="img" aria-label="'+TESTS.length+' testten '+solved+' tanesi çözüldü">'+pips+'</span></button>';
+}
 function vUnits(){
-  var d=today(),streak=(S.last!=null&&S.last>=d-1)?(S.streak|0):0,done=gDone(),total=UNITS.length*TESTS.length,body='';
-  var mine=solvedItems().length;
+  var done=gDone(),total=UNITS.length*TESTS.length,nt=nextTest(),body='';
   PARTS.forEach(function(p){
-    var cards=p.ids.map(function(id){
-      var pips='',solved=0;
-      for(var k=0;k<TESTS.length;k++){var b=gBest(id,k);if(b!==null)solved++;pips+='<i class="'+(b===null?'':(b>=TLEN*0.7?'ok':'try'))+'"></i>'}
-      return unitCard(id,uLabel(id),esc(uName(id)[1]),'<span class="pips" role="img" aria-label="'+TESTS.length+' testten '+solved+' tanesi çözüldü">'+pips+'</span>');
-    }).join('');
+    var solved=0,all=p.ids.length*TESTS.length;
+    p.ids.forEach(function(id){for(var k=0;k<TESTS.length;k++)if(gBest(id,k)!==null)solved++});
+    var open=nt?p.ids.indexOf(nt.id)>=0:false;
+    var rows=p.ids.map(unitRow).join('');
     if(p.rev){
       var rb=typeof S.gr[p.rev]==='number'?S.gr[p.rev]:null;
-      cards+='<button class="ucard rev" data-act="grev" data-key="'+p.rev+'"><span class="uicon">'+ui('rev',40)+'</span>'+
-        '<span class="utxt"><span class="unum">Ara tekrar</span><b lang="en">'+p.revName+'</b>'+
-        '<span class="usub">'+p.h+' karışık · '+REV_LEN+' soru'+(rb===null?'':' · en iyi '+rb+' / '+REV_LEN)+'</span></span>'+I.go+'</button>';
+      rows+='<button class="urow rev" data-act="grev" data-key="'+p.rev+'"><span class="uicon sm">'+ui('rev',28)+'</span>'+
+        '<span class="utxt"><span class="unum">Ara tekrar · '+REV_LEN+' soru</span><b lang="en">'+p.revName+'</b></span>'+
+        (rb===null?I.go:'<span class="best">'+rb+' / '+REV_LEN+'</span>')+'</button>';
     }
-    body+='<section class="part"><h2>'+p.h+'</h2>'+cards+'</section>';
+    body+='<details class="part"'+(open?' open':'')+'><summary><span><b>'+p.h+'</b><span class="psub">'+solved+' / '+all+' test</span></span></summary><div class="plist">'+rows+'</div></details>';
   });
-  return brand(streak)+'<div class="body">'+
-    '<section class="card"><div class="hwline"><div><h2>Gramer üniteleri</h2><p class="h1u">'+UNITS.length+' ünite, '+total+' test</p></div>'+ui('tab-units',52)+'</div>'+
+  var cont=nt?'<button class="btn pri" data-act="gstart" data-id="'+nt.id+'" data-k="'+nt.k+'">'+uLabel(nt.id)+' · Test '+(nt.k+1)+I.go+'</button>':'';
+  return brand(streakNow())+'<div class="body">'+
+    '<section class="card"><div class="hwline"><div><h2>Gramer</h2><p class="h1u">'+done+' / '+total+' test</p></div>'+ui('tab-units',48)+'</div>'+
     '<div class="gbar" role="img" aria-label="'+done+' / '+total+' test çözüldü"><i style="width:'+(done/total*100)+'%"></i></div>'+
-    '<p class="note">'+done+' / '+total+' test çözüldü. Her testte '+TLEN+' çoktan seçmeli soru var.</p></section>'+
-    '<section class="card mixcard"><div class="hwline"><div><h2>Karışık test</h2><p class="note">Ünitelerden rastgele sorular. Yanlış yaptıkların öne alınır.</p></div>'+ui('mix',44)+'</div>'+
-    '<div class="tools"><button class="tool" data-act="gmix" data-n="10" data-s="mine"'+(mine>=10?'':' disabled')+'><b>10 soru</b><span>Çalıştığım ünitelerden</span></button>'+
-    '<button class="tool" data-act="gmix" data-n="20" data-s="all"><b>20 soru</b><span>Bütün ünitelerden</span></button></div>'+
-    (mine>=10?'':'<p class="note">Çalıştıkların seçeneği ilk testi çözünce açılır.</p>')+'</section>'+body+
-    '<p class="credit">Görseller: Microsoft Fluent Emoji, MIT lisansı</p></div>'+tabs('units');
+    (nt?'<p class="note">Kaldığın yer</p>'+cont:'<p class="note">Bütün testleri çözdün.</p>')+'</section>'+
+    body+
+    '<section class="card mixcard"><h2>Karışık test</h2><div class="tools">'+
+    '<button class="tool" data-act="gmix" data-n="10" data-s="mine"'+(solvedItems().length>=10?'':' disabled')+'><b>10 soru</b><span>Çalıştığım ünitelerden</span></button>'+
+    '<button class="tool" data-act="gmix" data-n="20" data-s="all"><b>20 soru</b><span>Bütün ünitelerden</span></button></div></section>'+
+    '</div>'+tabs('units');
 }
+/* ünite sayfası: altta önceki / sonraki ünite ve sıradaki testi başlatma */
+function unitNext(id){for(var k=0;k<TESTS.length;k++)if(gBest(id,k)===null)return k;return 0}
 function vUnit(){
-  var id=UV,t=TOPIC[id],nm=uName(id),rows='';
+  var id=UV,t=TOPIC[id],nm=uName(id),rows='',u=UNITS.indexOf(id),prev=UNITS[u-1],next=UNITS[u+1],nk=unitNext(id);
   for(var k=0;k<TESTS.length;k++){
     var b=gBest(id,k);
     rows+='<button class="trow" data-act="gstart" data-id="'+id+'" data-k="'+k+'"><span class="tmeta"><b>Test '+(k+1)+' · '+TESTS[k]+'</b>'+
       '<span>'+TLEN+' soru'+(b===null?'':' · en iyi '+b+' / '+TLEN)+'</span></span>'+(b===null?'':starRow(starCount(b,TLEN),20))+I.go+'</button>';
   }
-  return '<header class="top"><button class="x" data-act="tab" data-v="units" aria-label="Ünitelere dön">'+I.x+'</button><div class="brand"><span>'+uLabel(id)+'</span></div></header>'+
+  var nav=function(to,dir){
+    if(!to)return '<button class="btn sec unav" disabled aria-label="'+(dir<0?'Önceki ünite yok':'Sonraki ünite yok')+'">'+(dir<0?I.back:I.go)+'</button>';
+    return '<button class="btn sec unav" data-act="unit" data-id="'+to+'" aria-label="'+(dir<0?'Önceki':'Sonraki')+': '+esc(uLabel(to))+'">'+(dir<0?I.back:I.go)+'</button>';
+  };
+  return '<header class="top"><button class="x" data-act="tab" data-v="units" aria-label="Ünitelere dön">'+I.x+'</button>'+
+    '<div class="brand"><span>'+uLabel(id)+'</span></div><span class="count">'+(u+1)+' / '+UNITS.length+'</span></header>'+
     '<div class="body" style="--pc:var('+uColor(id)+')">'+
     '<section class="wcard"><div class="wband"><span>Gramer</span>'+(nm[1]?'<span class="tag"'+(nm[2]?'':' lang="en"')+'>'+esc(nm[1])+'</span>':'')+'</div>'+
     '<div class="wbody"><div class="hwline"><div><p class="h1u"'+(nm[2]?' lang="en"':'')+'>'+esc(nm[0])+'</p></div><span class="wart">'+ui('u-'+id,40)+'</span></div><p class="note">'+esc(t.kisa)+'</p></div></section>'+
     '<h2>Testler</h2><div class="tlist">'+rows+'</div>'+
-    '<h2>Konu özeti</h2><div class="notes">'+notes(t.not)+'</div></div>';
+    '<h2>Konu özeti</h2><div class="notes">'+notes(t.not)+'</div></div>'+
+    '<footer class="foot">'+nav(prev,-1)+'<button class="btn pri" data-act="gstart" data-id="'+id+'" data-k="'+nk+'">Test '+(nk+1)+['’i','’yi','’ü'][nk]+' başlat</button>'+nav(next,1)+'</footer>';
 }
 
 /* ---- gramer seti: ünite testi, günün grameri, karışık test, ara tekrar ya da yanlışların tekrarı ---- */
@@ -1411,7 +1491,7 @@ function vGRes(){
   if(GQ.wrong.length)pri='<button class="btn pri" data-act="gretry" data-focus>Yanlışları yeniden çöz</button>';
   else if(nx)pri='<button class="btn pri" data-act="gstart" data-id="'+nx.id+'" data-k="'+nx.k+'" data-focus>'+(nx.id===id?'Sonraki test':'Sonraki ünite')+I.go+'</button>';
   else if(GQ.mode==='mixed'&&GQ.again)pri='<button class="btn pri" data-act="gmix" data-n="'+GQ.again.n+'" data-s="'+GQ.again.s+'" data-focus>Bir karışık test daha</button>';
-  else if(GQ.mode==='daily')pri='<button class="btn pri" data-act="home" data-focus>Ana sayfa</button>';
+  else if(GQ.mode==='daily')pri='<button class="btn pri" data-act="tab" data-v="home" data-focus>Ana sayfa</button>';
   else pri='<button class="btn pri" data-act="tab" data-v="units" data-focus>Ünitelere dön</button>';
   return '<header class="top"><button class="x" '+gBack()+'>'+I.x+'</button><div class="brand"><span>'+esc(GQ.title)+'</span></div></header><div class="body">'+
     '<section class="party">'+(celebrate&&st>=2?burst():'')+ui(GQ.right===n?'trophy':'party',56,'partyart')+
@@ -1467,7 +1547,8 @@ function render(keepScroll){
   else if(view==='unit'&&UV&&TOPIC[UV])h=vUnit();
   else if(view==='gq'&&GQ&&!GQ.fin)h=vGQ();
   else if(view==='gres'&&GQ&&GQ.fin)h=vGRes();
-  else{view='home';h=vHome()}
+  else if(view==='words')h=vWords();
+  else{view='home';h=vMenu()}
   app.innerHTML=h;
   celebrate=false;
   if(top){body=app.querySelector('.body');if(body)body.scrollTop=top}
@@ -1509,8 +1590,9 @@ function sentDone(ok){
 function rnd(){return ORDER[Math.floor(Math.random()*ORDER.length)]}
 var act={
   start:function(){var ses=ensureSession();if(!ses){render();return}if(ses.done){view='sum';render();return}advance()},
-  home:function(){Q=null;ST=null;M=null;GQ=null;view='home';render()},
-  tab:function(b){Q=null;ST=null;M=null;GQ=null;view=b.getAttribute('data-v')==='units'?'units':'home';render()},
+  home:function(){Q=null;ST=null;M=null;GQ=null;view='words';render()},
+  tab:function(b){var v=b.getAttribute('data-v');Q=null;ST=null;M=null;GQ=null;view=v==='units'||v==='words'?v:'home';render()},
+  gwrong:function(){var w=wrongItems();if(w.length)gRun('retry',shuffle(w).slice(0,20),{title:'Yanlışlarım'})},
   unit:function(b){var id=b.getAttribute('data-id');if(!TOPIC[id])return;UV=id;GQ=null;view='unit';render()},
   gstart:function(b){var id=b.getAttribute('data-id');if(GRAM.q[id])gStart(id,+b.getAttribute('data-k')||0)},
   gpick:function(b){gAnswer(+b.getAttribute('data-k'))},
@@ -1548,7 +1630,7 @@ var act={
     sentDone(b.ans.every(function(v,k){return b.ch[v]===b.ch[k]}));
   },
   sum:function(){view='sum';render()},
-  nextday:function(){S.off=(S.off|0)+1;Q=null;ST=null;M=null;confirmReset=false;save();view='home';render()},
+  nextday:function(){S.off=(S.off|0)+1;Q=null;ST=null;M=null;confirmReset=false;save();view='words';render()},
   auto:function(){
     var ses=ensureSession();if(!ses||ses.done)return;
     while(ses.i<ses.q.length)mark(ses.q[ses.i],Math.random()<0.7);
@@ -1568,7 +1650,7 @@ var act={
   tryfmt:function(b){Q=makeQ(rnd(),'d',b.getAttribute('data-f'));Q.solo=true;ST=null;M=null;view='word';render()},
   reset:function(){confirmReset=true;render(true)},
   resetno:function(){confirmReset=false;render(true)},
-  resetyes:function(){var r=S.rev|0;S=fresh();S.rev=r;confirmReset=false;Q=null;ST=null;M=null;save();view='home';render()}
+  resetyes:function(){var r=S.rev|0;S=fresh();S.rev=r;confirmReset=false;Q=null;ST=null;M=null;save();view='words';render()}
 };
 app.addEventListener('click',function(e){
   if(e.detail===0&&AB()){                                   // klavyeyle etkinleştirilen parça
@@ -1709,13 +1791,16 @@ window.kelimeBack=function(){
   if(view==='home')return false;
   if(view==='gq'||view==='gres'){var uid=GQ&&GQ.id;GQ=null;if(uid){UV=uid;view='unit'}else view='units'}
   else if(view==='unit')view='units';
-  else{Q=null;ST=null;M=null;GQ=null;view='home'}
+  else if(view==='words'||view==='units')view='home';
+  else{Q=null;ST=null;M=null;GQ=null;view='words'}
   render();
   return true;
 };
 
 /* ---- başlangıç ---- */
 function boot(d){
+  var h=(location.hash||'').slice(1);
+  if(h==='kelime')view='words';else if(h==='gramer')view='units';
   render();
   if(d&&d.view==='session'&&S.ses&&!S.ses.done)advance();
   initCloud();

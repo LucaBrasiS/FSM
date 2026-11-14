@@ -1,6 +1,6 @@
 {
-  "name": "YDS Elli Kelime",
-  "short_name": "Elli Kelime",
+  "name": "Basamak YDS",
+  "short_name": "Basamak",
   "description": "YDS için günlük kelime, cümle ve gramer çalışması",
   "lang": "tr",
   "start_url": "./index.html",

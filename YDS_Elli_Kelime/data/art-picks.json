@@ -242,6 +242,11 @@
   "rev": [
    "clipboard",
    "memo"
+  ],
+  "tab-words": [
+   "abc",
+   "input-latin-letters",
+   "memo"
   ]
  },
  "words": {
