@@ -1,0 +1,430 @@
+{
+ "no": 4,
+ "id": "k04",
+ "en": "The Present Perfect Tense with For and Since",
+ "tr": "For ve since ile Present Perfect",
+ "kisa": "have/has + V3 ile şimdiye kadar süren dönem, for ile süre, since ile başlangıç, How long, Past Simple ile farkı",
+ "not": "## Temel kural\n- **Present Perfect** (*have / has* + V3), geçmişte başlayıp **şimdiye kadar devam eden** bir durumu anlatır: *I have lived here for five years.* Hâlâ burada yaşıyorum.\n- Türkçede bu anlam çoğu zaman şimdiki zamanla verilir: *Beş yıldır burada yaşıyorum.* İngilizcede ise *I live here for five years* yanlıştır.\n\n## Yapı\n- *for* + süre: *for two hours, for ten years, for a long time, for ages*.\n- *since* + başlangıç noktası: *since 2015, since Monday, since last summer, since I was a child*.\n- *since* sonrasında cümle gelirse o cümle genellikle **Past Simple** olur: *since we moved here*.\n- Soru: *How long have you had this bike?* Olumsuz: *I haven't seen her since May.*\n- *It's been three years since we met.* — Tanışalı üç yıl oldu.\n\n## Past Simple ile farkı\n- Bitmiş bir zaman ifadesi varsa (*ago, last year, in 2019, yesterday, when I was ten*) **Past Simple** kullanılır: *I met him two years ago.*\n- *ago* bir olayın ne kadar önce olduğunu, *for* bir durumun ne kadar sürdüğünü söyler.\n- Bitmiş bir dönemin süresi de Past Simple ile verilir: *She worked there for ten years* (artık orada çalışmıyor).\n\n## Örnekler\n> We have known each other since primary school. — İlkokuldan beri birbirimizi tanıyoruz.\n> Mert has had a cold for a week. — Mert bir haftadır nezle.\n> I haven't eaten anything since breakfast. — Kahvaltıdan beri hiçbir şey yemedim.\n> How long have they been married? — Ne zamandır evliler?\n> She started her new job three months ago. — Yeni işine üç ay önce başladı.\n\n## Sık hatalar\n- *for* ile *since* karıştırmak: *since three years* değil *for three years*.\n- Present Simple kullanmak: *I know her for ten years* değil *I have known her for ten years*.\n- *ago* ile Present Perfect kullanmak: *I have bought it two days ago* değil *I bought it two days ago*.\n- *since* sonrasındaki cümleyi Present Perfect yapmak: *since I have come here* değil *since I came here*.",
+ "qs": [
+  {
+   "q": "We have lived in this flat ---- 2018.",
+   "o": [
+    "for",
+    "ago",
+    "since",
+    "from",
+    "during"
+   ],
+   "a": 2,
+   "e": "'2018' bir başlangıç noktasıdır; başlangıç noktası 'since' ile verilir. 'For' süre (beş yıl gibi) için kullanılır.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Kemal has worked at the hospital ---- six years.",
+   "o": [
+    "for",
+    "since",
+    "ago",
+    "during",
+    "from"
+   ],
+   "a": 0,
+   "e": "'Six years' bir süredir; süre 'for' ile verilir: 'for six years'. 'Since' bir başlangıç noktası ister, 'ago' ise Present Perfect ile kullanılmaz.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "I ---- Elena since we were at primary school.",
+   "o": [
+    "know",
+    "am knowing",
+    "knew",
+    "have known",
+    "have know"
+   ],
+   "a": 3,
+   "e": "Geçmişte başlayıp bugün de süren bir durum, 'since' ile birlikte Present Perfect gerektirir: 'have known'. 'Know' düzensizdir, üçüncü hâli 'known'.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "She has had her car ---- three months.",
+   "o": [
+    "since",
+    "for",
+    "ago",
+    "before",
+    "at"
+   ],
+   "a": 1,
+   "e": "'Three months' bir süre bildirir; Present Perfect ile süre 'for' ile verilir. 'Since' başlangıç noktası ister.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Tom and Ada ---- married for ten years now.",
+   "o": [
+    "are",
+    "has been",
+    "be",
+    "being",
+    "have been"
+   ],
+   "a": 4,
+   "e": "On yıl önce başlayıp bugün de süren durum Present Perfect ile anlatılır. Özne çoğul olduğu için 'have been'; 'are married for ten years' yanlıştır.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "How long ---- you had that phone?",
+   "o": [
+    "have",
+    "do",
+    "are",
+    "has",
+    "were"
+   ],
+   "a": 0,
+   "e": "'How long' ile şimdiye kadar süren bir durum sorulur ve 'had' üçüncü hâldir: Present Perfect sorusu 'have you had'. 'You' ile 'has' kullanılmaz.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "My brother hasn't called me ---- last Sunday.",
+   "o": [
+    "for",
+    "ago",
+    "from",
+    "since",
+    "in"
+   ],
+   "a": 3,
+   "e": "'Last Sunday' bir başlangıç noktasıdır; Present Perfect ile 'since' kullanılır: 'since last Sunday'. 'For' süre için kullanılır.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "I moved to Ankara three years ----.",
+   "o": [
+    "for",
+    "since",
+    "ago",
+    "before",
+    "last"
+   ],
+   "a": 2,
+   "e": "Fiil Past Simple ('moved') ve olayın ne kadar önce olduğu söyleniyor: 'three years ago'. 'For' ve 'since' süre ve başlangıç için Present Perfect ile kullanılır.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Aylin ---- in Istanbul since 2020.",
+   "o": [
+    "lives",
+    "has lived",
+    "lived",
+    "is living",
+    "have lived"
+   ],
+   "a": 1,
+   "e": "'Since 2020' şimdiye kadar süren bir dönemi gösterir: Present Perfect. Aylin tekil olduğu için 'has lived'; 'lives since' yanlıştır.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "We haven't seen each other ---- ages.",
+   "o": [
+    "since",
+    "ago",
+    "from",
+    "during",
+    "for"
+   ],
+   "a": 4,
+   "e": "'Ages' (çok uzun süre) bir süre bildirir ve 'for' ile kullanılır: 'for ages'. 'Since' bir başlangıç noktası ister.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "I ---- him last year, but I haven't seen him since then.",
+   "o": [
+    "have met",
+    "met",
+    "meet",
+    "has met",
+    "am meeting"
+   ],
+   "a": 1,
+   "e": "'Last year' bitmiş bir geçmiş zamandır ve Present Perfect ile kullanılmaz; Past Simple gerekir: 'met'. Cümlenin ikinci yarısı ise o andan bugüne uzanır.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Sinan ---- a teacher since he left university.",
+   "o": [
+    "is",
+    "was",
+    "have been",
+    "has been",
+    "be"
+   ],
+   "a": 3,
+   "e": "'Since he left university' bugüne kadar süren bir dönemi gösterir: Present Perfect 'has been'. 'Is' ve 'was' 'since' ile bu anlamda kullanılmaz.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "How long ---- Nora ---- her guitar?",
+   "o": [
+    "has / had",
+    "does / have",
+    "is / having",
+    "have / had",
+    "has / have"
+   ],
+   "a": 0,
+   "e": "'How long' ile bugüne kadar süren sahiplik sorulur: Present Perfect 'has + özne + had'. Nora tekil olduğu için 'have' olmaz; 'have' sahiplik anlamında -ing almaz.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Emma ---- in this company ---- she was twenty-two.",
+   "o": [
+    "has worked / for",
+    "worked / since",
+    "works / for",
+    "is working / since",
+    "has worked / since"
+   ],
+   "a": 4,
+   "e": "'She was twenty-two' bir başlangıç noktasıdır ve 'since' ile verilir; bugüne uzanan dönem Present Perfect ister: 'has worked / since'.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "It ---- three weeks since I last went to the gym.",
+   "o": [
+    "has",
+    "have been",
+    "has been",
+    "is being",
+    "will be"
+   ],
+   "a": 2,
+   "e": "'It has been + süre + since + Past Simple' kalıbı, bir olaydan bu yana geçen süreyi anlatır: 'It has been three weeks'. 'It' ile 'have' kullanılmaz; 'has' tek başına 'been' olmadan eksik kalır.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "---- did you buy that jacket? — Last month.",
+   "o": [
+    "When",
+    "How long",
+    "Since when",
+    "How often",
+    "For how long"
+   ],
+   "a": 0,
+   "e": "Cevap bitmiş bir zaman noktasıdır ('last month') ve soru Past Simple ile kurulmuştur; 'When' sorulur. 'How long' süreyi sorar, Present Perfect ile kullanılır.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Mehmet has played in the school orchestra ----.",
+   "o": [
+    "for he was eleven years old",
+    "since five years",
+    "ago five years",
+    "since he was eleven years old",
+    "for since last year"
+   ],
+   "a": 3,
+   "e": "'Since' bir başlangıç noktası, burada da bir geçmiş cümle alabilir: 'since he was eleven'. 'Since five years' yanlıştır; süre 'for' ile verilir.",
+   "lvl": 2,
+   "tip": "tamamla"
+  },
+  {
+   "q": "We ---- each other since last summer, but we talk online every day.",
+   "o": [
+    "didn't see",
+    "don't see",
+    "hadn't seen",
+    "aren't seeing",
+    "haven't seen"
+   ],
+   "a": 4,
+   "e": "'Since last summer' bugüne kadar uzanan bir dönemi gösterir; olumsuz Present Perfect gerekir: 'haven't seen'. 'Didn't see' ile 'since' bu anlamda kullanılmaz.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Lucas ---- here for two months. He came from Brazil in March and he's still here.",
+   "o": [
+    "was",
+    "has been",
+    "is",
+    "were",
+    "has"
+   ],
+   "a": 1,
+   "e": "'He's still here' durumun bugün de sürdüğünü gösterir: Present Perfect 'has been'. 'Was here for two months' artık burada olmadığını anlatırdı.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "I ---- this book three years ---- and I still read it every summer.",
+   "o": [
+    "have bought / ago",
+    "bought / since",
+    "bought / ago",
+    "have bought / for",
+    "buy / ago"
+   ],
+   "a": 2,
+   "e": "'Ago' bitmiş bir zamanı gösterir ve Past Simple ile kullanılır: 'bought / ago'. 'Have bought ... ago' yanlıştır; satın almak tek seferlik olduğu için 'for' da uymaz.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The museum ---- closed to the public since the roof was damaged in a storm last winter.",
+   "o": [
+    "was",
+    "is",
+    "have been",
+    "being",
+    "has been"
+   ],
+   "a": 4,
+   "e": "'Since + geçmiş cümle' bugüne kadar süren bir durumu gösterir: Present Perfect. Özne tekil ('the museum') olduğu için 'has been'; 'was' ve 'is' 'since' ile bu anlamda kullanılmaz.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Since the new law came into force, the number of road accidents in the region ---- by almost a third.",
+   "o": [
+    "has fallen",
+    "fell",
+    "falls",
+    "is falling",
+    "had fallen"
+   ],
+   "a": 0,
+   "e": "'Since the new law came into force' bugüne kadar uzanan bir dönemi verir; o dönemdeki değişim Present Perfect ile anlatılır: 'has fallen'. 'Had fallen' geçmişte bir referans ister.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Dr Arslan has led the research department ---- the past decade, during which time it has doubled in size.",
+   "o": [
+    "since",
+    "ago",
+    "for",
+    "from",
+    "until"
+   ],
+   "a": 2,
+   "e": "'The past decade' bir süredir; Present Perfect ile süre 'for' ile verilir. 'Since' bir başlangıç noktası ister, örneğin 'since 2015'.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The two countries ---- diplomatic relations since 1995, when they signed their first trade agreement.",
+   "o": [
+    "had",
+    "have",
+    "are having",
+    "have had",
+    "has had"
+   ],
+   "a": 3,
+   "e": "'Since 1995' bugüne kadar süren bir durumu gösterir: Present Perfect. Özne çoğul olduğu için 'have had'; 'have' sahiplik anlamında -ing almaz.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "How long ---- the company ---- in the renewable energy sector?",
+   "o": [
+    "is / operating",
+    "has / operated",
+    "does / operate",
+    "have / operated",
+    "has / operate"
+   ],
+   "a": 1,
+   "e": "'How long' ile bugüne kadar süren faaliyet sorulur: Present Perfect 'has + özne + V3'. Şirket tekil olduğu için 'have' olmaz; 'has' ile yalın fiil kullanılmaz.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The village has had no reliable internet connection ----.",
+   "o": [
+    "for the storm brought down the main cable in October",
+    "since the storm has brought down the main cable in October",
+    "ago the storm brought down the main cable in October",
+    "since the storm brings down the main cable in October",
+    "since the storm brought down the main cable in October"
+   ],
+   "a": 4,
+   "e": "'Since' ardından gelen cümle başlangıç olayını verir ve Past Simple olur: 'since the storm brought down'. 'In October' bitmiş zaman olduğu için 'has brought' olmaz.",
+   "lvl": 3,
+   "tip": "tamamla"
+  },
+  {
+   "q": "Mina ---- as a translator for a decade before she ---- her own agency two years ago.",
+   "o": [
+    "worked / started",
+    "has worked / started",
+    "worked / has started",
+    "has worked / has started",
+    "works / started"
+   ],
+   "a": 0,
+   "e": "Çevirmenlik bitmiş bir dönemdir ve 'two years ago' bitmiş zamandır; ikisi de Past Simple olur: 'worked / started'. 'Ago' ile Present Perfect kullanılmaz.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Global temperatures have risen significantly ---- the start of the industrial revolution.",
+   "o": [
+    "for",
+    "since",
+    "ago",
+    "from",
+    "during"
+   ],
+   "a": 1,
+   "e": "'The start of the industrial revolution' bir başlangıç noktasıdır: Present Perfect ile 'since' kullanılır. 'For' süre ister, 'during' ise bitmiş bir dönem içini anlatır.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Ali has been a member of the club ---- over twenty years, which makes him its longest-serving member.",
+   "o": [
+    "since",
+    "ago",
+    "during",
+    "for",
+    "by"
+   ],
+   "a": 3,
+   "e": "'Over twenty years' (yirmi yılı aşkın) bir süredir ve 'for' ile verilir. 'Since' başlangıç noktası ister; 'ago' Present Perfect ile kullanılmaz.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "It has been almost a year ----.",
+   "o": [
+    "for the factory closed and hundreds of workers lost their jobs",
+    "ago the factory closed and hundreds of workers lost their jobs",
+    "since the factory closed and hundreds of workers lost their jobs",
+    "since the factory has closed and hundreds of workers have lost their jobs",
+    "when the factory closed and hundreds of workers lost their jobs"
+   ],
+   "a": 2,
+   "e": "'It has been + süre + since + Past Simple' kalıbı kullanılır: 'since the factory closed'. 'Since' sonrasındaki başlangıç olayı Present Perfect olmaz.",
+   "lvl": 3,
+   "tip": "tamamla"
+  }
+ ]
+}

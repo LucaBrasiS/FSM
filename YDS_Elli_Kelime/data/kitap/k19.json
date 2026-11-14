@@ -1,0 +1,430 @@
+{
+ "no": 19,
+ "id": "k19",
+ "en": "Look, Seem, Sound, Smell (Verbs of Sense)",
+ "tr": "Duyu fiilleri: look, seem, sound, smell",
+ "kisa": "look, seem, sound, smell, taste, feel + sıfat; look like / sound like + isim; seem to; as if; eylem fiili + zarf",
+ "not": "## Temel kural\n- *look, seem, sound, smell, taste, feel* bir eylemi değil, öznenin **nasıl göründüğünü, duyulduğunu, koktuğunu** anlatır. Bu bağlama fiillerinden sonra **sıfat** gelir, zarf gelmez: *You look tired.* (*tiredly* değil)\n- Türkçede 'güzel kokuyor', 'yorgun görünüyorsun' derken sözcüğün biçimi değişmez; İngilizcede de burada *-ly* eklenmez.\n\n## Yapı\n- fiil + sıfat: *The soup smells good. That sounds great. The bed feels soft.*\n- fiil + *like* + isim: *She looks like her mother. It sounds like a good idea.*\n- *seem* + *to* + fiil: *He seems to know the answer.* Geçmiş için: *seems to have left*.\n- *look / sound / feel* + *as if / as though* + cümle: *It looks as if it's going to rain.*\n- Bu anlamda genellikle sürekli zaman kullanılmaz: *It tastes good.* (*is tasting* değil)\n\n## Eylem fiili olarak kullanım\n- Aynı fiiller bir eylem bildirdiğinde zarf alır: *Look carefully at the map.* *The chef tasted the sauce slowly.* *She felt the cloth gently.*\n- Ayırt etmek için sorun: Özne bir şey mi yapıyor (zarf), yoksa bir izlenim mi veriyor (sıfat)?\n- *looked angry* = kızgın görünüyordu; *looked angrily at me* = bana kızgınca baktı.\n\n## Örnekler\n> This cake tastes delicious. — Bu pasta çok lezzetli.\n> You sound happy today. — Bugün sesin mutlu geliyor.\n> He looks like a famous actor. — Ünlü bir oyuncuya benziyor.\n> They seem to be lost. — Kaybolmuş gibi görünüyorlar.\n> It feels as if summer has started. — Yaz başlamış gibi hissediliyor.\n> She looked carefully at the photo. — Fotoğrafa dikkatle baktı.\n\n## Sık hatalar\n- *It smells nicely* yerine *It smells nice*; *She looks sadly* yerine *She looks sad*.\n- *He looks his father* yerine *He looks like his father*.\n- *It sounds like good* yerine *It sounds good*; *like* yalnızca isimden önce gelir.\n- *He seems knowing* yerine *He seems to know*.",
+ "qs": [
+  {
+   "q": "This soup smells ----. What's in it?",
+   "o": [
+    "well",
+    "nicely",
+    "good",
+    "goodly",
+    "best"
+   ],
+   "a": 2,
+   "e": "'Smell' burada bağlama fiilidir ve ardından sıfat gelir: 'smells good'. 'Well' ve 'nicely' zarftır; kokunun nasıl olduğunu anlatmaz.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "You look ---- today. Are you ill?",
+   "o": [
+    "tiredly",
+    "tired",
+    "tire",
+    "tiring",
+    "tiredness"
+   ],
+   "a": 1,
+   "e": "'Look' 'görünmek' anlamında sıfat alır: 'look tired' = yorgun görünmek. 'Tiredly' zarftır; 'tiring' ise 'yorucu' demektir ve kişiyi anlatmaz.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "That music sounds ----. What is it called?",
+   "o": [
+    "beautifully",
+    "beauty",
+    "beautify",
+    "beautifulness",
+    "beautiful"
+   ],
+   "a": 4,
+   "e": "'Sound' 'kulağa … gelmek' anlamında sıfat alır: 'sounds beautiful'. Burada müzik bir eylem yapmıyor, bir izlenim veriyor; bu yüzden zarf kullanılmaz.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "This cake tastes ----. Did you make it yourself?",
+   "o": [
+    "delicious",
+    "deliciously",
+    "delight",
+    "deliciousness",
+    "delicacy"
+   ],
+   "a": 0,
+   "e": "'Taste' 'tadı … olmak' anlamında bağlama fiilidir ve sıfat alır: 'tastes delicious'. 'Deliciously' zarftır, bu yapıda kullanılmaz.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Your idea sounds ---- a great plan.",
+   "o": [
+    "as",
+    "alike",
+    "such",
+    "like",
+    "likes"
+   ],
+   "a": 3,
+   "e": "Duyu fiilinden sonra isim ('a great plan') gelirse 'like' kullanılır: 'sounds like a great plan'. 'As' ve 'alike' bu yapıda kullanılmaz.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Elif looks ---- her mother. They have the same eyes.",
+   "o": [
+    "like",
+    "as",
+    "alike",
+    "likes",
+    "same"
+   ],
+   "a": 0,
+   "e": "'Look like + isim' 'birine benzemek' demektir: 'looks like her mother'. 'Alike' yalnızca 'They look alike' gibi ardından nesne gelmeyen cümlelerde kullanılır.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The baby's skin feels very ----.",
+   "o": [
+    "softly",
+    "softness",
+    "soften",
+    "the softest",
+    "soft"
+   ],
+   "a": 4,
+   "e": "'Feel' 'dokununca … gelmek' anlamında sıfat alır: 'feels very soft'. 'Softly' zarftır; 'very the softest' ise dil bilgisi açısından yanlıştır.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Kerem seems ----. He has been smiling all day.",
+   "o": [
+    "happily",
+    "happiness",
+    "happy",
+    "happen",
+    "happier as"
+   ],
+   "a": 2,
+   "e": "'Seem' bağlama fiilidir ve sıfat alır: 'seems happy' = mutlu görünüyor. 'Happily' zarftır ve 'seem' ile kullanılmaz.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Please look ---- at the map before we leave.",
+   "o": [
+    "careful",
+    "carefulness",
+    "care",
+    "carefully",
+    "cared"
+   ],
+   "a": 3,
+   "e": "Burada 'look at' bir eylemdir (bakmak) ve eylemi zarf niteler: 'look carefully at the map'. 'Careful' sıfattır; bakma eylemini niteleyemez.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The milk smells ----. Don't drink it.",
+   "o": [
+    "badly",
+    "bad",
+    "worst",
+    "badness",
+    "worse as"
+   ],
+   "a": 1,
+   "e": "'Smell' kokunun nasıl olduğunu anlatırken sıfat alır: 'smells bad' = kötü kokuyor. 'Badly' zarftır ve bu anlamı vermez.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Mert ---- to be angry, but I don't know why.",
+   "o": [
+    "sounds like",
+    "tastes",
+    "seems",
+    "smells",
+    "feels like"
+   ],
+   "a": 2,
+   "e": "'Seem + to + fiil' 'gibi görünmek' demektir: 'seems to be angry'. 'Sounds like' ve 'feels like' ardından isim ya da cümle alır, 'to be' almaz.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The chef tasted the sauce ---- before adding more salt.",
+   "o": [
+    "careful",
+    "like careful",
+    "carefulness",
+    "as careful",
+    "carefully"
+   ],
+   "a": 4,
+   "e": "Burada 'taste' bir eylemdir (tadına bakmak) ve nesnesi var ('the sauce'). Eylemi zarf niteler: 'tasted the sauce carefully'.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The new teacher looks ----, but she actually speaks very ----.",
+   "o": [
+    "strictly / gently",
+    "strict / gentle",
+    "strictness / gently",
+    "strict / gently",
+    "strictly / gentle"
+   ],
+   "a": 3,
+   "e": "'Look' 'görünmek' anlamında sıfat alır: 'looks strict'. 'Speak' ise bir eylemdir ve zarfla nitelenir: 'speaks very gently'.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Look at those dark clouds. It ---- it's going to rain.",
+   "o": [
+    "looks",
+    "looks that",
+    "looks as if",
+    "looks so",
+    "looks as"
+   ],
+   "a": 2,
+   "e": "Duyu fiilinden sonra bir cümle gelirse 'as if / as though' kullanılır: 'It looks as if it's going to rain'. 'Looks that' ve 'looks so' yanlıştır.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "This jacket feels ---- leather, but it is actually plastic.",
+   "o": [
+    "as",
+    "as if",
+    "alike",
+    "likely",
+    "like"
+   ],
+   "a": 4,
+   "e": "'Feel like + isim' 'dokununca … gibi gelmek' demektir: 'feels like leather'. 'As if' ardından cümle ister; 'as' ve 'alike' bu yapıda kullanılmaz.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The roses in my grandmother's garden smell so ---- in June.",
+   "o": [
+    "sweetest",
+    "sweetness",
+    "sweeten",
+    "sweet",
+    "sweeter as"
+   ],
+   "a": 3,
+   "e": "'Smell' kokunun niteliğini anlatırken sıfat alır: 'smell so sweet'. 'So' ardından üstünlük biçimi ('sweetest') gelmez; isim ve fiil biçimleri de yapıya uymaz.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Defne looked ---- at the stranger who was standing in the doorway.",
+   "o": [
+    "suspiciously",
+    "suspicious",
+    "suspicion",
+    "suspect",
+    "suspected"
+   ],
+   "a": 0,
+   "e": "'Look at' burada bakma eylemidir ve zarf alır: 'looked suspiciously at'. 'Looked suspicious' 'şüpheli görünüyordu' demektir ve ardından 'at' gelmez.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Your plan ---- good, but have you thought about the cost?",
+   "o": [
+    "hears",
+    "sounds",
+    "sounds like",
+    "listens",
+    "is sounding like"
+   ],
+   "a": 1,
+   "e": "Bir fikir hakkında izlenim 'sound + sıfat' ile verilir: 'sounds good'. 'Sounds like' ardından isim ister; 'hear' ve 'listen' bu anlamda kullanılmaz.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "When Sam came back from his holiday, ----.",
+   "o": [
+    "he looked very relaxed and healthy",
+    "he looked very relaxedly and healthily",
+    "he looked like very relaxed and healthy",
+    "he looked as relaxed and healthy",
+    "he looked relaxing and healthily"
+   ],
+   "a": 0,
+   "e": "'Look' 'görünmek' anlamında sıfat alır: 'looked relaxed and healthy'. 'Like' yalnızca isimden önce gelir; '-ly' zarflar bu yapıda yanlıştır.",
+   "lvl": 2,
+   "tip": "tamamla"
+  },
+  {
+   "q": "The children seem ---- the new board game.",
+   "o": [
+    "enjoying",
+    "enjoy",
+    "enjoyed",
+    "to enjoying",
+    "to enjoy"
+   ],
+   "a": 4,
+   "e": "'Seem' ardından fiil gelirse 'to + yalın fiil' kullanılır: 'seem to enjoy'. 'Seem enjoying' ve 'to enjoying' yanlıştır.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The proposal ---- reasonable at first, but closer analysis revealed several serious flaws.",
+   "o": [
+    "seemed like",
+    "seemed",
+    "seemed to",
+    "seemed as",
+    "seemed that"
+   ],
+   "a": 1,
+   "e": "'Seem' ardından doğrudan sıfat alır: 'seemed reasonable'. 'Seemed like' isim ister; 'seemed to' fiil ister; 'seemed as' ve 'seemed that' bu yapıda yanlıştır.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "After eleven hours of negotiations, both delegations looked ---- and left the room without speaking.",
+   "o": [
+    "exhaustedly",
+    "exhausting",
+    "exhaustion",
+    "exhausted",
+    "exhaust"
+   ],
+   "a": 3,
+   "e": "'Look' görünüşü anlatır ve kişinin durumunu bildiren sıfat alır: 'looked exhausted'. 'Exhausting' 'yorucu' demektir ve görüşmeleri niteler, kişileri değil.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Convinced that she had missed something important, the researcher looked ---- at the data again.",
+   "o": [
+    "close",
+    "closer than",
+    "closely",
+    "closeness",
+    "as close"
+   ],
+   "a": 2,
+   "e": "'Look at' burada inceleme eylemidir ve zarf alır: 'looked closely at' = yakından, dikkatle baktı. 'Close' sıfattır; 'closer than' karşılaştırma ister.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "From the way he was talking on the phone, Omar sounded ---- he had not slept for days.",
+   "o": [
+    "like as",
+    "as if",
+    "as",
+    "so",
+    "such as"
+   ],
+   "a": 1,
+   "e": "Duyu fiilinden sonra tam bir cümle ('he had not slept…') geldiğinde 'as if / as though' kullanılır: 'sounded as if'. 'Like as' ve 'such as' yanlıştır.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Under an electron microscope, the surface of a leaf looks ---- a landscape of tiny hills and valleys.",
+   "o": [
+    "as",
+    "as if",
+    "alike",
+    "like",
+    "likely"
+   ],
+   "a": 3,
+   "e": "Ardından bir isim tamlaması geldiği için 'look like + isim' kullanılır. 'As if' cümle ister; 'alike' nesne almaz; 'likely' 'olası' demektir.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The patient's voice sounded ---- on the phone, so the doctor asked him to come in for a check-up.",
+   "o": [
+    "weakly",
+    "weakness",
+    "weaken",
+    "weaker as",
+    "weak"
+   ],
+   "a": 4,
+   "e": "'Sound' sesin nasıl geldiğini anlatır ve sıfat alır: 'sounded weak'. 'Weakly' zarftır; hasta burada bir eylem yapmıyor, bir izlenim veriyor.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "To check for hairline cracks, the engineer felt the surface of the metal ---- with her fingertips.",
+   "o": [
+    "gentle",
+    "gentleness",
+    "gently",
+    "as gentle",
+    "like gentle"
+   ],
+   "a": 2,
+   "e": "'Feel' burada nesnesi olan bir eylemdir (dokunarak yoklamak); eylemi zarf niteler: 'felt the surface gently'. 'Gentle' sıfattır.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Geologists say the rock seems ---- in an ancient river bed millions of years ago.",
+   "o": [
+    "to have formed",
+    "to form",
+    "forming",
+    "formed",
+    "to be form"
+   ],
+   "a": 0,
+   "e": "Şimdiki bir izlenim geçmişteki bir olayla ilgiliyse 'seem + to have + V3' kullanılır: 'seems to have formed … millions of years ago'. 'To form' geçmiş zaman bildirmez.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The cheese smelled terrible, ----.",
+   "o": [
+    "but it tasted surprisingly well",
+    "but it tasted like surprisingly good",
+    "but it was tasting surprisingly good",
+    "but it tasted surprisingly good",
+    "but it tasted as surprisingly good"
+   ],
+   "a": 3,
+   "e": "'Taste' tadı anlatırken sıfat alır: 'tasted surprisingly good'. 'Well' zarftır; 'like' isim ister; bu anlamda 'taste' sürekli zamanda kullanılmaz.",
+   "lvl": 3,
+   "tip": "tamamla"
+  },
+  {
+   "q": "With its broken windows and overgrown garden, the old castle looks as though ----.",
+   "o": [
+    "nobody lives it for centuries",
+    "nobody has lived in it for centuries",
+    "nobody living in it for centuries",
+    "it has nobody lived in for centuries",
+    "of nobody living there for centuries"
+   ],
+   "a": 1,
+   "e": "'As though' ardından tam bir cümle gelir: 'nobody has lived in it for centuries'. 'For centuries' Present Perfect ister; 'live' fiili 'in' edatıyla kullanılır.",
+   "lvl": 3,
+   "tip": "tamamla"
+  }
+ ]
+}

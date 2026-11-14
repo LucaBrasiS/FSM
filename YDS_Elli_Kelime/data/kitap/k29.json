@@ -1,0 +1,430 @@
+{
+ "no": 29,
+ "id": "k29",
+ "en": "Subordinative Conjunctions",
+ "tr": "Yan cümle bağlaçları",
+ "kisa": "neden, zıtlık, karşılaştırma, zaman, koşul ve amaç bağlaçları: because, although, whereas, until, unless, so that, as if",
+ "not": "## Temel kural\n- **Yan cümle bağlaçları** iki cümle arasındaki anlam ilişkisini kurar. Doğru bağlacı seçmek için önce iki cümlenin birbirine ne yaptığını sorun: neden mi, zıtlık mı, zaman mı, koşul mu, amaç mı?\n- Bağlacın arkasından her zaman **özne + fiil** içeren bir cümle gelir.\n\n## Anlam grupları\n- Neden: *because, since, as* (çünkü, -dığı için).\n- Zıtlık: *although, though, even though* (-e rağmen, -dığı halde).\n- Karşılaştırma: *while, whereas* (oysa, -iken): iki farklı durumu yan yana koyar.\n- Zaman: *when, while, as soon as* (-ir -mez), *until* (-e kadar), *before, after, once* (bir kez ... -ince).\n- Koşul: *if* (eğer), *unless* (-medikçe, = *if not*).\n- Amaç: *so that* (-sın diye), çoğunlukla *can, could, will, would* ile.\n- Benzetme: *as if* (sanki), gerçek dışı durumda *were* ya da Past Perfect ile.\n\n## Yapı\n- Yan cümle başta gelirse virgülle ayrılır: *Although it was cold, we swam.*\n- Zaman ve koşul bağlaçlarından sonra gelecek anlamı Present Simple ile verilir: *Call me as soon as you arrive.*\n- *because of, despite, in spite of* bağlaç değil edattır; arkalarından isim ya da *-ing* gelir: *because of the rain*, *despite the rain*.\n- *however* iki cümleyi tek başına bağlamaz; ayrı bir cümlenin başında ya da noktalı virgülden sonra kullanılır.\n\n## Örnekler\n> We stayed in because it was snowing. — Kar yağdığı için evde kaldık.\n> Although the flat is small, it is very comfortable. — Daire küçük olmasına rağmen çok rahat.\n> My father likes jazz, whereas my mother prefers pop. — Babam cazı sever, oysa annem popu tercih eder.\n> I'll wait here until you come back. — Sen dönene kadar burada bekleyeceğim.\n> You won't get a seat unless you book early. — Erken yer ayırtmazsan koltuk bulamazsın.\n> She spoke slowly so that everyone could understand. — Herkes anlasın diye yavaş konuştu.\n\n## Sık hatalar\n- *despite* ya da *because of* arkasına cümle koymak: *despite it was raining* yerine *although it was raining*.\n- *Although* ile *but* sözcüklerini birlikte kullanmak: *Although he was tired, but he worked* yanlıştır.\n- *unless* ile olumsuz fiil kullanmak: *unless you don't study* yerine *unless you study*.\n- Zaman bağlacından sonra *will* kullanmak: *when I will arrive* yerine *when I arrive*.\n- *so that* (amaç) ile *so* (sonuç) bağlaçlarını karıştırmak.",
+ "qs": [
+  {
+   "q": "I stayed at home yesterday ---- I had a bad cold.",
+   "o": [
+    "because",
+    "although",
+    "unless",
+    "so that",
+    "until"
+   ],
+   "a": 0,
+   "e": "Evde kalmanın nedeni soğuk algınlığı: neden bildiren bağlaç 'because' olur. 'although' zıtlık, 'so that' amaç bildirir; ikisi de burada anlamı bozar.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "---- it was raining, we went for a walk in the park.",
+   "o": [
+    "Because",
+    "Although",
+    "If",
+    "Since",
+    "As soon as"
+   ],
+   "a": 1,
+   "e": "Yağmura rağmen yürüyüşe çıkılmış; beklenenin tersi olduğu için zıtlık bağlacı 'Although' gerekir. 'Because' ve 'Since' neden bildirir; yağmur yürüyüşün nedeni olamaz.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Please wait here ---- I come back.",
+   "o": [
+    "although",
+    "because",
+    "until",
+    "unless",
+    "so that"
+   ],
+   "a": 2,
+   "e": "Bekleme, dönüş anına kadar sürecek: 'until' (-e kadar). 'unless' koşul, 'because' neden bildirir ve cümleye uymaz.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Call me ---- you arrive at the airport.",
+   "o": [
+    "although",
+    "unless",
+    "so that",
+    "as soon as",
+    "until"
+   ],
+   "a": 3,
+   "e": "Havalimanına varır varmaz aranması isteniyor: 'as soon as' (-ir -mez). 'until' ile 'varana kadar ara' gibi anlamsız bir cümle çıkar.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "You won't pass the exam ---- you study harder.",
+   "o": [
+    "if",
+    "because",
+    "although",
+    "while",
+    "unless"
+   ],
+   "a": 4,
+   "e": "'unless' = 'if not': Daha çok çalışmazsan geçemezsin. 'if' kullanılırsa 'daha çok çalışırsan geçemezsin' gibi mantıksız bir anlam çıkar.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Turn off the lights ---- you leave the room.",
+   "o": [
+    "before",
+    "until",
+    "unless",
+    "although",
+    "because"
+   ],
+   "a": 0,
+   "e": "Işıklar odadan çıkmadan önce kapatılmalı: 'before'. 'until' ile 'çıkana kadar kapat', 'unless' ile 'çıkmazsan kapat' gibi anlamsız cümleler çıkar.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Lena talks to everyone ---- she were the boss of the whole company.",
+   "o": [
+    "because",
+    "as if",
+    "unless",
+    "so that",
+    "until"
+   ],
+   "a": 1,
+   "e": "'sanki' anlamı 'as if' ile verilir; gerçek olmayan durumu gösteren 'were' de bunu doğrular: Sanki şirketin patronuymuş gibi konuşuyor.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "I'm saving money ---- I can buy a new bike in the summer.",
+   "o": [
+    "although",
+    "unless",
+    "so that",
+    "because",
+    "as if"
+   ],
+   "a": 2,
+   "e": "Para biriktirmenin amacı bisiklet almak: amaç 'so that' + 'can' ile verilir. 'because' ile 'alabildiğim için biriktiriyorum' gibi ters bir anlam çıkar.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "My brother likes coffee, ---- my sister prefers tea.",
+   "o": [
+    "because",
+    "so that",
+    "unless",
+    "whereas",
+    "until"
+   ],
+   "a": 3,
+   "e": "İki kişinin farklı tercihleri karşılaştırılıyor: 'whereas' (oysa). 'because' ya da 'so that' iki tercih arasında neden ya da amaç ilişkisi kurar ve anlamsız olur.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "I'll lend you my car ----.",
+   "o": [
+    "unless you drive it carefully",
+    "although you always drive carefully",
+    "so that you can't drive it",
+    "because you never drive carefully",
+    "if you promise to drive carefully"
+   ],
+   "a": 4,
+   "e": "Arabayı ödünç verme bir koşula bağlanıyor: 'if you promise to drive carefully'. 'unless' ile 'dikkatli sürmezsen veririm' gibi ters bir anlam çıkar.",
+   "lvl": 1,
+   "tip": "tamamla"
+  },
+  {
+   "q": "We cancelled the picnic ---- the heavy rain.",
+   "o": [
+    "because of",
+    "because",
+    "although",
+    "despite",
+    "so that"
+   ],
+   "a": 0,
+   "e": "Boşluktan sonra cümle değil, isim öbeği ('the heavy rain') geliyor; neden anlamı için edat olan 'because of' gerekir. 'because' arkasından özne + fiil ister.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "---- she had studied very hard, Defne failed the exam.",
+   "o": [
+    "Because",
+    "Even though",
+    "Despite",
+    "As",
+    "So that"
+   ],
+   "a": 1,
+   "e": "Çok çalışmasına rağmen kalmış: zıtlık için 'Even though'. 'Despite' arkasından cümle almaz; 'As' ise neden bildirir ve anlamı bozar.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "We really enjoyed our holiday ---- the bad weather.",
+   "o": [
+    "although",
+    "because",
+    "despite",
+    "unless",
+    "so that"
+   ],
+   "a": 2,
+   "e": "Arkadan isim öbeği ('the bad weather') geliyor ve anlam zıtlık: 'despite' (-e rağmen). 'although' bir bağlaçtır, arkasından özne + fiil ister.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "---- you've tried this dessert, you'll want to eat it every day.",
+   "o": [
+    "Unless",
+    "Although",
+    "Until",
+    "Once",
+    "So that"
+   ],
+   "a": 3,
+   "e": "'Once' = 'bir kez ... -ince': Bu tatlıyı bir kez denediğinde her gün yemek isteyeceksin. 'Unless' ile 'denemezsen her gün isteyeceksin' gibi ters bir anlam çıkar.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Ahmet hurt his back ---- he was carrying a heavy box upstairs.",
+   "o": [
+    "until",
+    "unless",
+    "so that",
+    "although",
+    "while"
+   ],
+   "a": 4,
+   "e": "Sürmekte olan bir eylem ('was carrying') sırasında başka bir olay olmuş: 'while' (-irken). 'until' ve 'so that' bu zaman ilişkisini kuramaz.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "---- the museum didn't open until ten, we had breakfast in a café ---- we waited.",
+   "o": [
+    "As / while",
+    "Although / while",
+    "As / unless",
+    "Unless / so that",
+    "Although / until"
+   ],
+   "a": 0,
+   "e": "Müzenin geç açılması kahvaltının nedeni ('As' = çünkü); beklerken kahvaltı yapılmış ('while'). 'Although' zıtlık bildirir, burada neden-sonuç ilişkisi var.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Don't open your presents ---- everyone has arrived.",
+   "o": [
+    "although",
+    "until",
+    "so that",
+    "whereas",
+    "because"
+   ],
+   "a": 1,
+   "e": "'not ... until' = '-e kadar ... -me': Herkes gelene kadar hediyeleri açma. 'because' ile 'herkes geldiği için açma' gibi anlamsız bir cümle çıkar.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The baby fell asleep ---- her mother started singing.",
+   "o": [
+    "until",
+    "unless",
+    "as soon as",
+    "although",
+    "so that"
+   ],
+   "a": 2,
+   "e": "Annesi şarkıya başlar başlamaz bebek uyumuş: 'as soon as'. 'until' ile 'şarkıya başlayana kadar uyudu', 'unless' ile koşul anlamı çıkar; ikisi de olaya uymaz.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "We'll go to the beach tomorrow ---- the weather is nice.",
+   "o": [
+    "unless",
+    "although",
+    "so that",
+    "if",
+    "until"
+   ],
+   "a": 3,
+   "e": "Plaja gitmek havanın güzel olması koşuluna bağlı: 'if'. 'unless' kullanılırsa 'hava güzel olmazsa gideriz' gibi ters bir anlam çıkar.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Although the hotel was very expensive, ----.",
+   "o": [
+    "but the rooms were small and dirty",
+    "so we stayed there for a week",
+    "because the rooms were very large",
+    "we couldn't afford to stay there",
+    "the rooms were small and rather dirty"
+   ],
+   "a": 4,
+   "e": "Pahalı olmasına rağmen odalar kötüymüş: zıtlık tamamlanıyor. 'Although' varken 'but' ya da 'so' kullanılmaz; 'couldn't afford' ise zıtlık değil sonuç bildirir.",
+   "lvl": 2,
+   "tip": "tamamla"
+  },
+  {
+   "q": "---- the new drug is effective in most patients, it can cause serious side effects in some.",
+   "o": [
+    "Although",
+    "Because",
+    "Unless",
+    "So that",
+    "As soon as"
+   ],
+   "a": 0,
+   "e": "İlacın etkili olması ile yan etkileri arasında zıtlık var: 'Although'. 'Because' ile etkili olması yan etkinin nedeni gibi okunur ve anlam bozulur.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The bridge was closed for several weeks ---- engineers could inspect the damage caused by the earthquake.",
+   "o": [
+    "although",
+    "so that",
+    "unless",
+    "whereas",
+    "as if"
+   ],
+   "a": 1,
+   "e": "Köprünün kapatılma amacı mühendislerin hasarı inceleyebilmesi: amaç 'so that' + 'could' ile verilir. 'although' ve 'whereas' zıtlık bildirir ve uymaz.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Northern regions receive heavy rainfall throughout the year, ---- the south stays dry for most of the summer.",
+   "o": [
+    "because",
+    "so that",
+    "whereas",
+    "unless",
+    "until"
+   ],
+   "a": 2,
+   "e": "Kuzey ile güneyin iklimi karşılaştırılıyor: 'whereas' (oysa). Kuzeydeki yağış güneyin kuraklığının nedeni ya da amacı olmadığı için 'because' ve 'so that' uymaz.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The board will not approve the project ---- the budget is reduced by at least ten per cent.",
+   "o": [
+    "if",
+    "because",
+    "although",
+    "unless",
+    "so that"
+   ],
+   "a": 3,
+   "e": "'will not ... unless' = '-medikçe ... -meyecek': Bütçe azaltılmadıkça onaylanmayacak. 'if' ile 'bütçe azaltılırsa onaylanmayacak' gibi mantıksız bir anlam çıkar.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "---- the results of the national survey were published, several universities changed their admission policies.",
+   "o": [
+    "Unless",
+    "Although",
+    "So that",
+    "Whereas",
+    "After"
+   ],
+   "a": 4,
+   "e": "Önce sonuçlar yayımlanmış, ardından politikalar değişmiş: zaman sırası 'After' ile verilir. 'Although' ve 'Whereas' zıtlık, 'Unless' koşul bildirir.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Many students struggle in their first year at university ---- they are not used to studying independently.",
+   "o": [
+    "because",
+    "although",
+    "unless",
+    "so that",
+    "despite"
+   ],
+   "a": 0,
+   "e": "Zorlanmanın nedeni bağımsız çalışmaya alışkın olmamak: 'because'. 'despite' arkasından cümle almaz; 'although' zıtlık bildirir ve anlamı bozar.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The patient's condition improved very quickly, ---- the doctors had expected a long and difficult recovery.",
+   "o": [
+    "because",
+    "even though",
+    "so that",
+    "unless",
+    "as soon as"
+   ],
+   "a": 1,
+   "e": "Doktorlar uzun bir iyileşme beklediği halde hasta hızla iyileşmiş: beklenenin tersi, yani 'even though'. 'because' ile doktorların beklentisi hızlı iyileşmenin nedeni olur.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The lecturer presented the theory ---- it were a simple fact that every scientist already accepted.",
+   "o": [
+    "because",
+    "unless",
+    "as if",
+    "so that",
+    "although"
+   ],
+   "a": 2,
+   "e": "'sanki herkesin kabul ettiği bir gerçekmiş gibi' anlamı 'as if' ile verilir; gerçek dışılığı gösteren 'were' de bunu doğrular.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "As soon as the fire alarm went off, ----.",
+   "o": [
+    "the staff will calmly leave the building",
+    "although the staff left the building calmly",
+    "the staff had left the building an hour earlier",
+    "the staff calmly left the building",
+    "so that the staff left the building calmly"
+   ],
+   "a": 3,
+   "e": "'As soon as' + Past Simple ile kurulan yan cümleye Past Simple bir ana cümle gerekir: 'the staff calmly left'. Bir saat önce çıkmak 'as soon as' ile çelişir; 'although' ve 'so that' ana cümle kurmaz.",
+   "lvl": 3,
+   "tip": "tamamla"
+  },
+  {
+   "q": "The experiment will be repeated next month ----.",
+   "o": [
+    "because of the first results were unclear",
+    "despite the first results were unclear",
+    "whereas the results will be checked",
+    "until the first results had been confirmed",
+    "so that an independent team can confirm the results"
+   ],
+   "a": 4,
+   "e": "Deneyin tekrarlanma amacı sonuçların doğrulanması: 'so that' + 'can'. 'because of' ve 'despite' arkasından cümle almaz; 'until' ile zaman uyumu bozuk.",
+   "lvl": 3,
+   "tip": "tamamla"
+  }
+ ]
+}

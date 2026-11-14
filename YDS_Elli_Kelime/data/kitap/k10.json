@@ -1,0 +1,430 @@
+{
+ "no": 10,
+ "id": "k10",
+ "en": "On time & In time",
+ "tr": "Zamanında ve vaktinde: on time ile in time",
+ "kisa": "on time (tam planlanan saatte), in time (yetecek kadar erken), in time for / in time to, just in time, right on time",
+ "not": "## Temel kural\n- **on time**: planlanan, belirlenen saatte; ne geç ne erken. Dakikliği anlatır: *The train left on time.*\n- **in time**: bir şeye yetişecek kadar erken, geç kalmadan. Önemli olan saat değil, bir şeyi kaçırmamaktır: *We got there in time to see the start.*\n- Türkçede ikisi de çoğu zaman 'zamanında' diye çevrilir; bu yüzden cümlede hangi anlamın istendiğine bakmak gerekir.\n\n## Yapı\n- *on time*: tarife, program, randevu, teslim tarihi gibi planlı bir saat vardır: *start / leave / arrive / finish on time*.\n- *in time for* + isim: *in time for dinner*, *in time for her birthday*.\n- *in time to* + fiil: *in time to catch the bus*, *in time to say goodbye*.\n- *just in time*: son anda, kıl payı yetişerek. *right on time*: tam dakikasında.\n- Olumsuzları: *not on time* (geç kaldı), *not in time* (yetişemedi).\n\n## İşaret sözcükleri\n- *on time* için: *timetable, schedule, as planned, at exactly seven, never late, deadline, no delay*.\n- *in time* için: *to* + fiil, *for* + olay, *before* + bir olay, *just*.\n- *at time*, *by time*, *in the time* gibi kalıplar yanlıştır. *at the time* 'o sırada', *by the time* 'olduğunda, -e kadar' demektir ve başka anlamlar taşır.\n\n## Örnekler\n> The concert started on time, at eight sharp. — Konser tam saat sekizde, zamanında başladı.\n> We arrived in time to get good seats. — İyi yerler bulacak kadar erken vardık.\n> The doctor came just in time. — Doktor son anda yetişti.\n> Our bus is never on time. — Otobüsümüz hiç zamanında gelmez.\n> I'll be back in time for dinner. — Akşam yemeğine yetişirim.\n> The taxi arrived right on time. — Taksi tam dakikasında geldi.\n\n## Sık hatalar\n- *in time to* yerine *on time to* kullanmak: *We got there in time to catch the train.*\n- *in time for* kalıbında *for* yerine *to* kullanmak: *in time for the film* ama *in time to see the film*.\n- *at time* ya da *in the time* demek; bu biçimler bu anlamda yoktur.",
+ "qs": [
+  {
+   "q": "Trains in this country are very reliable; they almost always leave ----.",
+   "o": [
+    "in time",
+    "on time",
+    "at time",
+    "by time",
+    "in the time"
+   ],
+   "a": 1,
+   "e": "Trenlerin güvenilir olması tarifeye uymaları demektir; planlanan saatte kalkmak 'on time' ile anlatılır. 'In time' bir şeye yetişecek kadar erken demektir; burada yetişilecek bir şey yok.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "We ran and got to the bus stop ---- to catch the last bus home.",
+   "o": [
+    "on time",
+    "at time",
+    "in time",
+    "on the time",
+    "by time"
+   ],
+   "a": 2,
+   "e": "Bir şeye yetişecek kadar erken varmak 'in time to + fiil' ile anlatılır: 'in time to catch the last bus'. 'On time' ardından 'to + fiil' almaz.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The meeting started ----, at exactly ten o'clock.",
+   "o": [
+    "in time",
+    "at time",
+    "on the time",
+    "in the time",
+    "on time"
+   ],
+   "a": 4,
+   "e": "'At exactly ten o'clock' planlanan saati gösterir. Tam programdaki saatte olmak 'on time' ile anlatılır. 'At time' ve 'in the time' bu anlamda kullanılmaz.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The firefighters arrived ---- to put out the fire before it reached the kitchen.",
+   "o": [
+    "in time",
+    "on time",
+    "at time",
+    "by the time",
+    "in times"
+   ],
+   "a": 0,
+   "e": "'To put out the fire before it reached the kitchen' bir şeye yetişmeyi anlatıyor: 'in time to + fiil' (yetişecek kadar erken). 'On time' planlı bir saat bildirir.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Selin is a very punctual person. She is always ----.",
+   "o": [
+    "in time",
+    "at time",
+    "by time",
+    "on time",
+    "in the time"
+   ],
+   "a": 3,
+   "e": "'Punctual' dakik demektir; dakik insan her yere belirlenen saatte gelir: 'always on time'. 'In time' tek başına dakikliği değil, bir şeye yetişmeyi anlatır.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "I got to the kitchen just ---- to take the cake out of the oven before it burned.",
+   "o": [
+    "at time",
+    "by time",
+    "in the time",
+    "in time",
+    "at the time"
+   ],
+   "a": 3,
+   "e": "'Just in time' son anda, kıl payı yetişmek demektir; ardından 'to + fiil' gelir. 'At the time' 'o sırada' anlamına gelir ve 'to take' ile kullanılmaz.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Our teacher wants us to hand in our essays ----, on the day she sets, not a day later.",
+   "o": [
+    "in time",
+    "on time",
+    "at time",
+    "in the time",
+    "by the time"
+   ],
+   "a": 1,
+   "e": "'On the day she sets, not a day later' belirlenen teslim gününe uymayı anlatır; bu 'on time'dır. 'In time' için bir şeye yetişme amacı ('to …', 'for …') gerekir.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Hurry up! We need to get to the theatre ---- to find our seats before the play begins.",
+   "o": [
+    "on time",
+    "at time",
+    "by time",
+    "on the time",
+    "in time"
+   ],
+   "a": 4,
+   "e": "Oyun başlamadan yerimizi bulacak kadar erken gitmek gerekiyor: 'in time to + fiil'. 'On time' ardından 'to + fiil' almaz; 'at time' ve 'by time' bu anlamda yoktur.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The plane took off ----, at exactly the time printed on our tickets.",
+   "o": [
+    "on time",
+    "in time",
+    "at time",
+    "by time",
+    "in the time"
+   ],
+   "a": 0,
+   "e": "Biletteki saatte, yani programa uygun olarak kalkmak 'on time' ile anlatılır. Cümlede yetişilecek bir şey olmadığı için 'in time' uymaz.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "We got home in time ---- dinner.",
+   "o": [
+    "to",
+    "at",
+    "for",
+    "on",
+    "by"
+   ],
+   "a": 2,
+   "e": "'In time' ardından isim gelirse 'for' kullanılır: 'in time for dinner'. Fiil gelirse 'to' kullanılır: 'in time to have dinner'. 'To dinner' burada yanlıştır.",
+   "lvl": 1,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The match didn't start ---- because one team's bus was stuck in traffic.",
+   "o": [
+    "in time",
+    "in the end",
+    "at last",
+    "on time",
+    "at time"
+   ],
+   "a": 3,
+   "e": "Maçın planlanan saatte başlayamaması 'didn't start on time' ile anlatılır. 'In the end' ve 'at last' 'sonunda' demektir; 'in time' için yetişilecek bir şey gerekir.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The bus left ----, at 7:15 as usual, but I didn't get to the stop ---- to catch it.",
+   "o": [
+    "in time / on time",
+    "on time / in time",
+    "on time / on time",
+    "in time / in time",
+    "at time / in time"
+   ],
+   "a": 1,
+   "e": "Otobüs her zamanki saatinde kalktı: 'on time'. Yetişmek için gereken erkenlik ise 'in time to + fiil' ile anlatılır: 'in time to catch it'.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Leyla posted her application on the last possible day, and it arrived just ---- to be considered.",
+   "o": [
+    "in time",
+    "on time",
+    "at last",
+    "in the end",
+    "on the time"
+   ],
+   "a": 0,
+   "e": "Başvuru son gün gönderilmiş ve kıl payı yetişmiş: 'just in time to + fiil'. 'On time' ardından 'to + fiil' almaz; 'at last' ve 'in the end' 'sonunda' demektir.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Thanks to a quick-thinking nurse, the boy got his medicine ---- to stop the allergic reaction getting worse.",
+   "o": [
+    "on time",
+    "at time",
+    "in time",
+    "by time",
+    "at the time"
+   ],
+   "a": 2,
+   "e": "İlaç, alerjinin kötüleşmesini önleyecek kadar erken verilmiş: 'in time to + fiil'. 'At the time' 'o sırada' demektir ve 'to stop' ile birlikte anlam vermez.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "If we leave now, we'll get to the stadium ---- see the kick-off.",
+   "o": [
+    "on time to",
+    "in time for",
+    "on time for",
+    "at time to",
+    "in time to"
+   ],
+   "a": 4,
+   "e": "Ardından fiil ('see') geldiği için 'in time to' kullanılır. 'In time for' isimden önce gelir ('in time for the kick-off'); 'on time' ise 'to + fiil' almaz.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Professor Demir always begins his lectures ----; anyone who comes at 9:05 finds the door already closed.",
+   "o": [
+    "in time",
+    "on time",
+    "at time",
+    "in the time",
+    "by time"
+   ],
+   "a": 1,
+   "e": "Ders tam belirlenen saatte başlıyor; beş dakika geç gelen bile içeri giremiyor. Dakiklik 'on time' ile anlatılır; 'in time' bir şeye yetişmeyi bildirir.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The repair team fixed the heating ---- the first cold night of the winter.",
+   "o": [
+    "in time to",
+    "on time to",
+    "during time of",
+    "by time for",
+    "in time for"
+   ],
+   "a": 4,
+   "e": "Kalorifer ilk soğuk geceden önce, ona yetişecek biçimde onarılmış. Ardından isim geldiği için 'in time for' kullanılır; 'in time to' fiil ister.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Kemal set three alarms so that he would wake up ----.",
+   "o": [
+    "on time for to catch the early ferry",
+    "in time catching the early ferry",
+    "in time to catch the early ferry",
+    "at time to catch the early ferry",
+    "in the time of catching the early ferry"
+   ],
+   "a": 2,
+   "e": "Amaç sabah vapuruna yetişmek: 'in time to + yalın fiil'. 'For to catch' ve 'in time catching' dil bilgisi açısından yanlıştır; 'at time' bu anlamda yoktur.",
+   "lvl": 2,
+   "tip": "tamamla"
+  },
+  {
+   "q": "The roads were busy, but our taxi pulled up outside the hotel at exactly seven, ----.",
+   "o": [
+    "right in time",
+    "at the time",
+    "right on time",
+    "on the time",
+    "in time to"
+   ],
+   "a": 2,
+   "e": "'At exactly seven' tam dakikasında gelmeyi gösterir: 'right on time'. 'Right in time' yerleşik bir kalıp değildir; 'in time to' ardından fiil ister.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The concert started ---- at eight, but because of the traffic we arrived only ---- to hear the last song.",
+   "o": [
+    "in time / on time",
+    "on time / on time",
+    "at time / in time",
+    "on time / in time",
+    "in time / at time"
+   ],
+   "a": 3,
+   "e": "Konser programdaki saatte başladı: 'on time'. Biz ise yalnızca son şarkıya yetişebildik: 'in time to hear'. 'On time' ardından 'to + fiil' gelmez.",
+   "lvl": 2,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Despite heavy snow, the overnight express reached the capital ----, at precisely 6:40 as shown in the timetable.",
+   "o": [
+    "on time",
+    "in time",
+    "by time",
+    "at the time",
+    "until then"
+   ],
+   "a": 0,
+   "e": "'At precisely 6:40 as shown in the timetable' tarifeye uyulduğunu gösterir: 'on time'. 'In time' için yetişilecek bir şey gerekir; 'until then' ve 'at the time' süre ya da 'o sırada' bildirir.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Health officials hope the new vaccine will reach remote villages ---- to protect people before the winter flu season begins.",
+   "o": [
+    "on time",
+    "in time",
+    "at time",
+    "until then",
+    "during time"
+   ],
+   "a": 1,
+   "e": "Aşı, grip mevsiminden önce insanları koruyacak kadar erken ulaşmalı: 'in time to + fiil'. 'Until then' bir sürenin sonunu bildirir ve 'to protect' ile kullanılmaz.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Workers stayed late every evening so that the exhibition hall would be ready in time ---- the opening ceremony on Monday.",
+   "o": [
+    "to",
+    "at",
+    "on",
+    "for",
+    "until"
+   ],
+   "a": 3,
+   "e": "'In time' ardından isim ('the opening ceremony') geldiğinde 'for' kullanılır: 'in time for the opening ceremony'. 'To' ancak fiille gelir; 'on' ve 'until' bu kalıba uymaz.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The conference programme was planned to the minute, and the chair made sure that every session finished ----, exactly at the time printed in it.",
+   "o": [
+    "in time",
+    "at time",
+    "by time",
+    "during time",
+    "on time"
+   ],
+   "a": 4,
+   "e": "Oturumların programda yazan saatte, tam zamanında bitmesi dakikliktir: 'on time'. 'In time' bir şeye yetişmeyi anlatır ve 'exactly at the time printed' ifadesiyle uyuşmaz.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The rescue boat reached the stranded sailors ----.",
+   "o": [
+    "just on time for bring them ashore before the storm hit",
+    "just in time to bring them ashore before the storm hit",
+    "in time while the storm hit them",
+    "during time the storm hit",
+    "by time to bring them ashore before the storm hit"
+   ],
+   "a": 1,
+   "e": "Fırtınadan önce denizcileri kıyıya getirecek kadar erken, son anda varılmış: 'just in time to + fiil'. 'For bring' yanlıştır; 'during time' ve 'by time' bu anlamda yoktur.",
+   "lvl": 3,
+   "tip": "tamamla"
+  },
+  {
+   "q": "For the treatment to work properly, patients must take the tablets ----, at the same hour every day, as the doctor has instructed.",
+   "o": [
+    "in time",
+    "at time",
+    "on time",
+    "until time",
+    "during time"
+   ],
+   "a": 2,
+   "e": "'At the same hour every day, as the doctor has instructed' belirlenmiş saate uymayı anlatır: 'on time'. 'In time' bir şeye yetişmeyi bildirir; diğer biçimler yanlıştır.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The exam began ---- at 9:30, and Nilay finished the last question just ---- before the invigilator called time.",
+   "o": [
+    "in time / on time",
+    "at time / in time",
+    "on time / at time",
+    "on time / in time",
+    "by time / on time"
+   ],
+   "a": 3,
+   "e": "Sınav programdaki saatte başladı: 'on time'. Nilay ise süre bitmeden son anda yetişti: 'just in time'. 'At time' ve 'by time' bu anlamda kullanılmaz.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "If the parts are not delivered ----, on the date agreed in the contract, the supplier will have to pay a penalty.",
+   "o": [
+    "in time",
+    "on time",
+    "by time",
+    "until time",
+    "at the time"
+   ],
+   "a": 1,
+   "e": "'On the date agreed in the contract' sözleşmedeki tarihe uymayı gösterir; ceza da gecikme içindir. Bu 'on time'dır. 'At the time' 'o sırada' demektir.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "The goalkeeper threw himself to the left and reacted ---- to stop the ball crossing the line.",
+   "o": [
+    "right on time",
+    "at the time",
+    "until then",
+    "on the time",
+    "just in time"
+   ],
+   "a": 4,
+   "e": "Kaleci topun çizgiyi geçmesini son anda önlemiş: 'just in time to + fiil'. 'Right on time' planlanmış bir saate uymayı anlatır, burada plan yoktur.",
+   "lvl": 3,
+   "tip": "bosluk"
+  },
+  {
+   "q": "Because the guest speaker's flight landed late, the panel discussion could not ----.",
+   "o": [
+    "begin on time, as printed in the programme",
+    "begin at time, as printed in the programme",
+    "begin by time, as printed in the programme",
+    "begin until time, as printed in the programme",
+    "begin in the time, as printed in the programme"
+   ],
+   "a": 0,
+   "e": "'As printed in the programme' programdaki saati gösterir; o saatte başlayamamak 'could not begin on time' ile anlatılır. Diğer kalıplar bu anlamda İngilizcede yoktur.",
+   "lvl": 3,
+   "tip": "tamamla"
+  }
+ ]
+}
