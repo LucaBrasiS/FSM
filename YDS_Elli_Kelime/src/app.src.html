@@ -317,6 +317,12 @@ button.opt:active{transform:translateY(var(--lift));box-shadow:0 0 0 var(--edge)
 .stars .off{filter:grayscale(1);opacity:.3}
 .party .stars{align-self:flex-start;background:var(--on-brand);border:2px solid var(--edge);border-radius:999px;padding:4px 10px}
 
+/* tanıtım */
+.idots{display:inline-flex;gap:5px;margin-left:10px;vertical-align:middle}
+.idots i{width:9px;height:9px;border-radius:50%;border:2px solid var(--edge);background:var(--sunk)}
+.idots i.on{background:var(--brand)}
+.prog.fin .seg i{background:var(--ok)}
+
 /* ana menü */
 .hero.today{gap:12px}
 .task{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;padding:10px 12px;border-radius:var(--r);background:var(--surface);color:var(--ink);
@@ -476,8 +482,8 @@ details.nsec[open] summary::after{content:"–"}
 'use strict';
 
 /* ---- Kurallar ---- */
-var BASE_NEW=50;     // günde sorulan yeni kelime
-var CAP=60;          // bir günde sorulabilecek en fazla kelime
+var BASE_NEW=20;     // günde sorulan yeni kelime
+var CAP=30;          // bir günde sorulabilecek en fazla kelime (tekrar + yeni)
 var BLOCK=10;        // kaç kelimede bir cümle kurulur
 var HALF=5;          // bloğun ortasında eşleştirme turu
 var IVL=[3,7,21];    // öğrenilen kelimenin pekiştirme aralıkları (gün); hepsini geçen kelime kalıcı sayılır
@@ -486,156 +492,7 @@ var KEY='yds-elli-kelime-v1';
 var POS={v:'fiil',adj:'sıfat',n:'isim',adv:'zarf',bag:'bağlaç',phr:'öbek fiil'};
 
 /* kelime|tür|Türkçe|eş anlamlılar|cümle ( / = parça sınırı, [ ] = hedef kelime)|cümlenin Türkçesi */
-var RAW=`undermine|v|baltalamak, zayıflatmak|weaken, erode|Constant criticism / can [undermine] / a child's confidence / at school.|Sürekli eleştiri bir çocuğun okuldaki özgüvenini zayıflatabilir.
-enhance|v|artırmak, geliştirmek|improve, boost|Regular exercise / can [enhance] / memory / and concentration.|Düzenli egzersiz hafızayı ve konsantrasyonu geliştirebilir.
-deteriorate|v|kötüleşmek, bozulmak|worsen, decline|Without treatment, / the patient's condition / is likely to [deteriorate] / rapidly.|Tedavi olmazsa hastanın durumu büyük olasılıkla hızla kötüleşir.
-facilitate|v|kolaylaştırmak|ease, simplify|New technology / will [facilitate] / communication / between doctors and patients.|Yeni teknoloji doktorlar ile hastalar arasındaki iletişimi kolaylaştıracak.
-sustain|v|sürdürmek, devam ettirmek|maintain, keep up|The country / cannot [sustain] / this level of spending / for long.|Ülke bu harcama düzeyini uzun süre sürdüremez.
-exceed|v|aşmak, geçmek|surpass, go beyond|The cost / of the project / must not [exceed] / the planned budget.|Projenin maliyeti planlanan bütçeyi aşmamalıdır.
-diminish|v|azalmak, azaltmak|decrease, reduce|The effect / of the drug / will [diminish] / after a few hours.|İlacın etkisi birkaç saat sonra azalacaktır.
-acquire|v|edinmek, kazanmak|gain, obtain|Children / can [acquire] / a second language / very quickly.|Çocuklar ikinci bir dili çok hızlı edinebilir.
-attribute|v|atfetmek, bağlamak|ascribe, credit|Scientists / [attribute] / the rise in temperature / to human activity.|Bilim insanları sıcaklıktaki artışı insan faaliyetine bağlıyor.
-comprise|v|-den oluşmak, içermek|consist of, include|The course / will [comprise] / ten lectures / and two exams.|Ders on konferans ve iki sınavdan oluşacak.
-conduct|v|yürütmek, yapmak|carry out, perform|The team / plans to [conduct] / a survey / among university students.|Ekip üniversite öğrencileri arasında bir anket yapmayı planlıyor.
-constitute|v|oluşturmak, teşkil etmek|form, make up|Women / [constitute] / nearly half / of the workforce.|Kadınlar iş gücünün neredeyse yarısını oluşturuyor.
-convey|v|iletmek, aktarmak|communicate, express|A good title / should [convey] / the main idea / of the article.|İyi bir başlık makalenin ana fikrini aktarmalıdır.
-derive|v|elde etmek, türetmek|get, draw|Many people / [derive] / great pleasure / from reading.|Birçok insan okumaktan büyük zevk alır.
-emerge|v|ortaya çıkmak|appear, arise|New diseases / may [emerge] / as the climate / changes.|İklim değiştikçe yeni hastalıklar ortaya çıkabilir.
-enable|v|olanak sağlamak, mümkün kılmak|allow, permit|This software / will [enable] / users / to work from home.|Bu yazılım kullanıcıların evden çalışmasına olanak sağlayacak.
-encounter|v|karşılaşmak|face, come across|Travellers / may [encounter] / serious problems / at the border.|Yolcular sınırda ciddi sorunlarla karşılaşabilir.
-ensure|v|sağlamak, garanti etmek|guarantee, secure|Regular checks / [ensure] / the safety / of the passengers.|Düzenli kontroller yolcuların güvenliğini sağlar.
-establish|v|kurmak, tesis etmek|found, set up|The two countries / agreed / to [establish] / closer economic ties.|İki ülke daha yakın ekonomik bağlar kurma konusunda anlaştı.
-exhibit|v|sergilemek, göstermek|display, show|Some patients / [exhibit] / no symptoms / in the early stages.|Bazı hastalar erken evrelerde hiçbir belirti göstermez.
-foster|v|teşvik etmek, geliştirmek|encourage, promote|Team sports / can [foster] / a sense of responsibility / in children.|Takım sporları çocuklarda sorumluluk duygusunu geliştirebilir.
-hinder|v|engellemek, aksatmak|obstruct, impede|Heavy rain / may [hinder] / the rescue efforts / in the region.|Şiddetli yağmur bölgedeki kurtarma çalışmalarını aksatabilir.
-imply|v|ima etmek, anlamına gelmek|suggest, mean|High sales / do not / always [imply] / high profits.|Yüksek satışlar her zaman yüksek kâr anlamına gelmez.
-impose|v|dayatmak, vergi koymak|enforce, levy|The government / decided to [impose] / a new tax / on sugary drinks.|Hükümet şekerli içeceklere yeni bir vergi koymaya karar verdi.
-indicate|v|göstermek, işaret etmek|show, point to|Recent studies / [indicate] / a strong link / between sleep and memory.|Son çalışmalar uyku ile hafıza arasında güçlü bir bağ olduğunu gösteriyor.
-inhibit|v|engellemek, baskılamak|prevent, suppress|Low temperatures / [inhibit] / the growth / of bacteria.|Düşük sıcaklıklar bakterilerin çoğalmasını engeller.
-obtain|v|elde etmek, almak|get, acquire|Visitors / must [obtain] / a permit / before entering the park.|Ziyaretçiler parka girmeden önce izin almalıdır.
-perceive|v|algılamak|view, regard|People / often [perceive] / change / as a threat.|İnsanlar değişimi çoğu zaman bir tehdit olarak algılar.
-persist|v|sürmek, devam etmek|continue, last|If the symptoms / [persist] / for a week, / you should see a doctor.|Belirtiler bir hafta sürerse doktora görünmelisiniz.
-precede|v|önce gelmek|come before, lead up to|A period / of calm / may [precede] / a major earthquake.|Büyük bir depremden önce bir sakinlik dönemi yaşanabilir.
-prevail|v|üstün gelmek, hüküm sürmek|triumph, dominate|Experts believe / that common sense / will [prevail] / in the end.|Uzmanlar sonunda sağduyunun üstün geleceğine inanıyor.
-pursue|v|peşinden gitmek, izlemek|follow, seek|She moved abroad / to [pursue] / a career / in medicine.|Tıp alanında kariyer yapmak için yurt dışına taşındı.
-reinforce|v|güçlendirmek, pekiştirmek|strengthen, support|Such images / [reinforce] / negative ideas / about older people.|Bu tür görüntüler yaşlılar hakkındaki olumsuz düşünceleri pekiştirir.
-resolve|v|çözmek, çözüme kavuşturmak|settle, solve|Both sides / want to [resolve] / the dispute / without going to court.|İki taraf da anlaşmazlığı mahkemeye gitmeden çözmek istiyor.
-restrict|v|kısıtlamak, sınırlamak|limit, confine|Many cities / [restrict] / the use of cars / in their centres.|Birçok şehir, merkezlerinde araba kullanımını kısıtlıyor.
-retain|v|tutmak, muhafaza etmek|keep, preserve|Clay soils / [retain] / water / better than sandy soils.|Killi topraklar suyu kumlu topraklardan daha iyi tutar.
-reveal|v|ortaya çıkarmak, açığa vurmak|disclose, uncover|The report / will [reveal] / the true cost / of the war.|Rapor savaşın gerçek maliyetini ortaya çıkaracak.
-trigger|v|tetiklemek, başlatmak|set off, spark|Stress / can [trigger] / headaches / in some people.|Stres bazı insanlarda baş ağrısını tetikleyebilir.
-undergo|v|geçirmek, maruz kalmak|experience, go through|The patient / will [undergo] / surgery / next week.|Hasta gelecek hafta ameliyat geçirecek.
-withstand|v|dayanmak, karşı koymak|resist, endure|Modern buildings / in Japan / can [withstand] / strong earthquakes.|Japonya'daki modern binalar güçlü depremlere dayanabilir.
-alleviate|v|hafifletmek, dindirmek|relieve, ease|This medicine / will [alleviate] / the pain / within minutes.|Bu ilaç ağrıyı dakikalar içinde hafifletecek.
-allocate|v|ayırmak, tahsis etmek|assign, set aside|The council / will [allocate] / more money / to public transport.|Belediye meclisi toplu taşımaya daha fazla para ayıracak.
-compensate|v|telafi etmek, tazmin etmek|make up for, offset|Nothing / can [compensate] / for the loss / of a close friend.|Hiçbir şey yakın bir arkadaşın kaybını telafi edemez.
-contradict|v|çelişmek, yalanlamak|conflict with, deny|The new findings / [contradict] / earlier research / on the subject.|Yeni bulgular konuyla ilgili önceki araştırmalarla çelişiyor.
-deplete|v|tüketmek, bitirmek|exhaust, use up|Overfishing / can [deplete] / fish stocks / within a few years.|Aşırı avlanma balık stoklarını birkaç yıl içinde tüketebilir.
-evaluate|v|değerlendirmek|assess, judge|Teachers / [evaluate] / each student's progress / twice a year.|Öğretmenler her öğrencinin ilerlemesini yılda iki kez değerlendirir.
-generate|v|üretmek, meydana getirmek|produce, create|Wind farms / [generate] / electricity / without polluting the air.|Rüzgâr santralleri havayı kirletmeden elektrik üretir.
-anticipate|v|öngörmek, beklemek|expect, foresee|Experts / [anticipate] / a sharp rise / in food prices.|Uzmanlar gıda fiyatlarında sert bir artış öngörüyor.
-prohibit|v|yasaklamak|ban, forbid|Most airlines / [prohibit] / smoking / on all flights.|Çoğu hava yolu şirketi tüm uçuşlarda sigara içmeyi yasaklar.
-yield|v|sonuç vermek, ürün vermek|produce, provide|The new method / should [yield] / better results / in less time.|Yeni yöntem daha kısa sürede daha iyi sonuçlar vermelidir.
-abundant|adj|bol, bereketli|plentiful, ample|Fish / are [abundant] / in the cold waters / of the north.|Kuzeyin soğuk sularında balık boldur.
-adequate|adj|yeterli, elverişli|sufficient, enough|Many villages / still lack / [adequate] / health services.|Birçok köyde hâlâ yeterli sağlık hizmeti yok.
-adverse|adj|olumsuz, ters|unfavourable, negative|The drug / may have / [adverse] effects / on the liver.|İlacın karaciğer üzerinde olumsuz etkileri olabilir.
-ambiguous|adj|belirsiz, muğlak|unclear, vague|The wording / of the contract / is [ambiguous] / in several places.|Sözleşmenin ifadesi birkaç yerde muğlaktır.
-apparent|adj|belli, açık|obvious, evident|It soon became / [apparent] / that the plan / had failed.|Planın başarısız olduğu kısa sürede belli oldu.
-comprehensive|adj|kapsamlı|thorough, complete|The book / offers / a [comprehensive] guide / to modern art.|Kitap modern sanata dair kapsamlı bir rehber sunuyor.
-considerable|adj|hatırı sayılır, büyük|substantial, significant|The project / required / a [considerable] amount / of time.|Proje hatırı sayılır miktarda zaman gerektirdi.
-consistent|adj|tutarlı, istikrarlı|steady, compatible|The results / of the test / are [consistent] / with earlier studies.|Testin sonuçları önceki çalışmalarla tutarlıdır.
-crucial|adj|çok önemli, hayati|vital, essential|Sleep / plays / a [crucial] role / in learning.|Uyku öğrenmede çok önemli bir rol oynar.
-detrimental|adj|zararlı|harmful, damaging|Too much screen time / can be / [detrimental] / to children's health.|Çok fazla ekran süresi çocukların sağlığına zararlı olabilir.
-diverse|adj|çeşitli, farklı|varied, various|The city / has / a culturally [diverse] / population.|Şehrin kültürel açıdan çeşitlilik gösteren bir nüfusu var.
-drastic|adj|köklü, sert|radical, severe|The company / had to take / [drastic] measures / to survive.|Şirket ayakta kalmak için köklü önlemler almak zorunda kaldı.
-excessive|adj|aşırı|extreme, too much|Doctors warn / that [excessive] use of salt / can raise / blood pressure.|Doktorlar aşırı tuz kullanımının tansiyonu yükseltebileceği konusunda uyarıyor.
-feasible|adj|uygulanabilir, mümkün|practical, viable|Experts doubt / whether the plan / is economically / [feasible].|Uzmanlar planın ekonomik açıdan uygulanabilir olup olmadığından şüphe ediyor.
-fragile|adj|kırılgan, hassas|delicate, breakable|The peace / between the two sides / remains / [fragile].|İki taraf arasındaki barış kırılganlığını koruyor.
-inevitable|adj|kaçınılmaz|unavoidable, certain|Some delay / is [inevitable] / in a project / of this size.|Bu büyüklükte bir projede bir miktar gecikme kaçınılmazdır.
-inherent|adj|doğasında var olan|built-in, intrinsic|Some degree of risk / is [inherent] / in every investment / you make.|Yaptığınız her yatırımın doğasında bir ölçüde risk vardır.
-notable|adj|dikkate değer, kayda değer|remarkable, noteworthy|The small town / is [notable] / for its / ancient walls.|Küçük kasaba antik surlarıyla dikkat çeker.
-plausible|adj|akla yatkın, makul|reasonable, believable|Her explanation / sounds [plausible], / but it may not / be true.|Açıklaması akla yatkın görünüyor ama doğru olmayabilir.
-profound|adj|derin, köklü|deep, intense|The invention / had / a [profound] effect / on daily life.|Buluşun gündelik yaşam üzerinde derin bir etkisi oldu.
-prominent|adj|önde gelen, tanınmış|leading, well-known|She is / a [prominent] figure / in modern / Turkish literature.|O, modern Türk edebiyatının önde gelen isimlerinden biridir.
-reluctant|adj|isteksiz, gönülsüz|unwilling, hesitant|Many employees / are [reluctant] / to change / their habits.|Birçok çalışan alışkanlıklarını değiştirmeye isteksizdir.
-scarce|adj|kıt, az bulunan|rare, in short supply|Clean water / is [scarce] / in many parts / of the region.|Bölgenin birçok yerinde temiz su kıttır.
-severe|adj|şiddetli, ağır|serious, harsh|The storm / caused / [severe] damage / to the harbour.|Fırtına limanda ağır hasara yol açtı.
-substantial|adj|büyük, önemli miktarda|considerable, significant|The firm / made / a [substantial] profit / last year.|Firma geçen yıl büyük bir kâr elde etti.
-subtle|adj|ince, zor fark edilen|slight, delicate|There is / a [subtle] difference / between / the two words.|İki kelime arasında ince bir fark var.
-sufficient|adj|yeterli|adequate, enough|The evidence / was not [sufficient] / to prove / his guilt.|Kanıtlar onun suçunu kanıtlamaya yeterli değildi.
-sustainable|adj|sürdürülebilir|lasting, long-term|Farmers / need / more [sustainable] methods / of production.|Çiftçilerin daha sürdürülebilir üretim yöntemlerine ihtiyacı var.
-vulnerable|adj|savunmasız, hassas|exposed, at risk|Small children / are especially / [vulnerable] / to the disease.|Küçük çocuklar hastalığa karşı özellikle savunmasızdır.
-widespread|adj|yaygın|common, extensive|The decision / met / [widespread] criticism / in the press.|Karar basında yaygın eleştiriyle karşılaştı.
-prevalent|adj|yaygın, hâkim|widespread, common|This belief / is still / [prevalent] / in rural areas.|Bu inanç kırsal bölgelerde hâlâ yaygındır.
-obsolete|adj|eskimiş, kullanılmayan|outdated, out of date|New software / can make / older computers / [obsolete].|Yeni yazılımlar eski bilgisayarları kullanılmaz hale getirebilir.
-mutual|adj|karşılıklı, ortak|shared, reciprocal|A good partnership / depends / on [mutual] trust / and respect.|İyi bir ortaklık karşılıklı güven ve saygıya dayanır.
-preliminary|adj|ön, hazırlık niteliğinde|initial, introductory|The [preliminary] results / suggest / that the vaccine / is safe.|Ön sonuçlar aşının güvenli olduğuna işaret ediyor.
-rigid|adj|katı, esnek olmayan|strict, inflexible|The school / is known / for its [rigid] rules / on uniform.|Okul, üniforma konusundaki katı kurallarıyla bilinir.
-consequence|n|sonuç, netice|result, outcome|Rising sea levels / are / a direct [consequence] / of global warming.|Yükselen deniz seviyeleri küresel ısınmanın doğrudan bir sonucudur.
-decline|n|düşüş, gerileme|decrease, fall|There has been / a sharp [decline] / in the number / of visitors.|Ziyaretçi sayısında keskin bir düşüş oldu.
-deficiency|n|eksiklik, yetersizlik|lack, shortage|Vitamin D [deficiency] / is common / among people / in northern countries.|D vitamini eksikliği kuzey ülkelerindeki insanlar arasında yaygındır.
-exposure|n|maruz kalma|contact, subjection|Long [exposure] / to the sun / can damage / the skin.|Güneşe uzun süre maruz kalmak cilde zarar verebilir.
-incentive|n|teşvik, özendirici|motivation, encouragement|Lower taxes / give firms / a strong [incentive] / to invest.|Düşük vergiler firmalara yatırım yapmaları için güçlü bir teşvik sağlar.
-insight|n|kavrayış, iç görü|understanding, awareness|The book / gives / a valuable [insight] / into village life.|Kitap köy yaşamına dair değerli bir kavrayış sunuyor.
-outcome|n|sonuç|result, consequence|Nobody / could predict / the [outcome] / of the election.|Seçimin sonucunu kimse tahmin edemezdi.
-prospect|n|olasılık, beklenti|possibility, likelihood|There is / little [prospect] / of peace / in the near future.|Yakın gelecekte barış olasılığı düşüktür.
-shortage|n|kıtlık, sıkıntı|lack, scarcity|The region / faces / a serious [shortage] / of doctors.|Bölge ciddi bir doktor sıkıntısıyla karşı karşıya.
-threat|n|tehdit|danger, risk|Plastic waste / is / a major [threat] / to marine life.|Plastik atıklar deniz yaşamı için büyük bir tehdittir.
-proportion|n|oran, bölüm|share, percentage|A large [proportion] / of the population / lives / in cities.|Nüfusun büyük bir bölümü şehirlerde yaşıyor.
-phenomenon|n|olgu, olay|occurrence, event|Migration / to the cities / is not / a new [phenomenon].|Şehirlere göç yeni bir olgu değildir.
-assumption|n|varsayım|supposition, belief|The whole theory / rests / on a false [assumption] / about human nature.|Bütün kuram insan doğasına ilişkin yanlış bir varsayıma dayanıyor.
-constraint|n|kısıtlama, sınırlama|limitation, restriction|Lack of money / is / the main [constraint] / on our plans.|Para eksikliği planlarımız üzerindeki başlıca kısıtlamadır.
-implication|n|dolaylı sonuç, çıkarım|consequence, significance|The discovery / has / a major [implication] / for cancer research.|Keşfin kanser araştırmaları açısından önemli bir sonucu var.
-approach|n|yaklaşım|method, way|We need / a different [approach] / to the problem / of traffic.|Trafik sorununa farklı bir yaklaşıma ihtiyacımız var.
-evidence|n|kanıt, delil|proof, data|There is / no clear [evidence] / that the diet / works.|Diyetin işe yaradığına dair net bir kanıt yok.
-extent|n|boyut, derece|degree, scale|Nobody knows / the full [extent] / of the damage / yet.|Hasarın tam boyutunu henüz kimse bilmiyor.
-priority|n|öncelik|precedence, main concern|Safety / is / the top [priority] / of the company.|Güvenlik şirketin en önemli önceliğidir.
-obstacle|n|engel|barrier, hurdle|Fear of failure / is / the biggest [obstacle] / to success.|Başarısızlık korkusu başarının önündeki en büyük engeldir.
-scope|n|kapsam, alan|range, reach|This question / is beyond / the [scope] / of our study.|Bu soru çalışmamızın kapsamı dışındadır.
-trend|n|eğilim, yönelim|tendency, movement|The current [trend] / in Europe / is towards / smaller families.|Avrupa'daki güncel eğilim daha küçük aileler yönünde.
-abundance|n|bolluk|plenty, wealth|The region / is famous / for its [abundance] / of wildlife.|Bölge yaban hayatının bolluğuyla ünlüdür.
-dispute|n|anlaşmazlık, uyuşmazlık|conflict, disagreement|The [dispute] / over the border / lasted / for decades.|Sınır konusundaki anlaşmazlık onlarca yıl sürdü.
-measure|n|önlem, tedbir|step, action|The ban / is / a temporary [measure] / to protect the forest.|Yasak, ormanı korumaya yönelik geçici bir önlemdir.
-approximately|adv|yaklaşık olarak|roughly, about|The journey / takes / [approximately] three hours / by train.|Yolculuk trenle yaklaşık üç saat sürüyor.
-consequently|adv|sonuç olarak, bu nedenle|therefore, as a result|He missed the bus / and [consequently] / arrived late / for the exam.|Otobüsü kaçırdı ve bunun sonucunda sınava geç kaldı.
-considerably|adv|önemli ölçüde, epeyce|significantly, greatly|Prices / have risen / [considerably] / since last year.|Fiyatlar geçen yıldan bu yana önemli ölçüde arttı.
-eventually|adv|sonunda, nihayet|finally, in the end|After years of work, / she [eventually] / found / a cure.|Yıllarca çalıştıktan sonra sonunda bir tedavi buldu.
-gradually|adv|yavaş yavaş, kademeli olarak|slowly, steadily|The weather / will [gradually] / improve / during the week.|Hava hafta boyunca yavaş yavaş düzelecek.
-increasingly|adv|giderek, gittikçe|more and more, progressively|Online shopping / is becoming / [increasingly] popular / among older people.|İnternetten alışveriş yaşlılar arasında giderek daha popüler hale geliyor.
-merely|adv|yalnızca, sadece|only, simply|The long delay / was [merely] / the result / of a technical problem.|Uzun gecikme yalnızca teknik bir sorunun sonucuydu.
-predominantly|adv|ağırlıklı olarak, çoğunlukla|mainly, mostly|The economy / of the region / is [predominantly] / agricultural.|Bölgenin ekonomisi ağırlıklı olarak tarıma dayalıdır.
-primarily|adv|öncelikle, esas olarak|mainly, chiefly|The course / is designed / [primarily] / for beginners.|Kurs öncelikle yeni başlayanlar için tasarlanmıştır.
-readily|adv|kolayca, hemen|easily, willingly|Such information / is now / [readily] available / on the internet.|Bu tür bilgilere artık internette kolayca ulaşılabiliyor.
-relatively|adv|nispeten, görece|comparatively, fairly|The test / is [relatively] easy / for native speakers / of English.|Sınav, ana dili İngilizce olanlar için nispeten kolaydır.
-solely|adv|yalnızca, tamamen|only, exclusively|The decision / was based / [solely] / on cost.|Karar yalnızca maliyete dayanıyordu.
-substantially|adv|büyük oranda, önemli ölçüde|considerably, significantly|Costs / have fallen / [substantially] / in recent years.|Maliyetler son yıllarda büyük oranda düştü.
-virtually|adv|neredeyse, hemen hemen|almost, nearly|It is / [virtually] impossible / to predict / an earthquake.|Bir depremi önceden tahmin etmek neredeyse imkânsızdır.
-deliberately|adv|kasten, bilerek|intentionally, on purpose|Police believe / the fire / was started / [deliberately].|Polis yangının kasten çıkarıldığına inanıyor.
-despite|bag|-e rağmen|in spite of, notwithstanding|[Despite] the heavy rain, / the match / went ahead / as planned.|Şiddetli yağmura rağmen maç planlandığı gibi yapıldı.
-although|bag|-diği halde, -e rağmen|though, even though|[Although] the test / was difficult, / most students / passed it.|Sınav zor olmasına rağmen öğrencilerin çoğu geçti.
-whereas|bag|oysa, -iken|while, but|Some people / enjoy city life, / [whereas] others / prefer the countryside.|Bazı insanlar şehir hayatından hoşlanırken bazıları kırsalı tercih eder.
-nevertheless|bag|yine de, bununla birlikte|however, nonetheless|The task was hard; / [nevertheless], / they finished it / on time.|Görev zordu; yine de zamanında bitirdiler.
-hence|bag|bu yüzden, bundan dolayı|therefore, thus|The roads were icy; / [hence], / the journey / took longer.|Yollar buzluydu; bu yüzden yolculuk daha uzun sürdü.
-thereby|bag|böylece, bu suretle|thus, in this way|They cut costs, / [thereby] / increasing / their profits.|Maliyetleri düşürdüler ve böylece kârlarını artırdılar.
-moreover|bag|üstelik, ayrıca|furthermore, in addition|The flat is small; / [moreover], / it is far / from the centre.|Daire küçük; üstelik merkeze de uzak.
-unless|bag|-medikçe, -mezse|if not, except if|The plants / will die / [unless] / you water them.|Onları sulamazsan bitkiler ölecek.
-owing to|bag|-den dolayı, yüzünden|because of, due to|The flight / was cancelled / [owing to] / bad weather.|Uçuş kötü hava koşulları yüzünden iptal edildi.
-in terms of|bag|açısından, bakımından|with regard to, as regards|The two cities / are similar / [in terms of] / population.|İki şehir nüfus açısından benzerdir.
-regardless of|bag|-e bakılmaksızın|irrespective of, no matter|Everyone / is welcome / [regardless of] / their age.|Yaşı ne olursa olsun herkes davetlidir.
-in accordance with|bag|-e uygun olarak, uyarınca|in line with, according to|The work / was done / [in accordance with] / safety rules.|İş güvenlik kurallarına uygun olarak yapıldı.
-provided that|bag|şartıyla, koşuluyla|as long as, on condition that|You can borrow the car / [provided that] / you return it / by Friday.|Cumaya kadar geri getirmen şartıyla arabayı ödünç alabilirsin.
-bring about|phr|yol açmak, neden olmak|cause, lead to|New laws / may [bring about] / major changes / in education.|Yeni yasalar eğitimde büyük değişikliklere yol açabilir.
-carry out|phr|yürütmek, gerçekleştirmek|conduct, perform|Scientists / plan to [carry out] / more tests / next month.|Bilim insanları gelecek ay daha fazla test yapmayı planlıyor.
-come up with|phr|fikir bulmak, ortaya atmak|think of, devise|We must / [come up with] / a better solution / soon.|Yakında daha iyi bir çözüm bulmalıyız.
-account for|phr|oluşturmak, açıklamak|make up, explain|Exports / [account for] / half / of the country's income.|İhracat ülke gelirinin yarısını oluşturuyor.
-rule out|phr|olasılık dışı bırakmak, elemek|exclude, eliminate|Doctors / cannot [rule out] / the possibility / of infection.|Doktorlar enfeksiyon olasılığını dışlayamıyor.
-give rise to|phr|sebep olmak, yol açmak|cause, lead to|Such decisions / often [give rise to] / heated debates / in parliament.|Bu tür kararlar mecliste çoğu zaman hararetli tartışmalara yol açar.
-put forward|phr|öne sürmek, ileri sürmek|propose, suggest|Several experts / [put forward] / new ideas / at the meeting.|Birkaç uzman toplantıda yeni fikirler öne sürdü.
-cope with|phr|başa çıkmak|deal with, handle|Some people / find it hard / to [cope with] / stress.|Bazı insanlar stresle başa çıkmakta zorlanır.
-turn out|phr|sonuçlanmak, öyle çıkmak|prove, end up|The rumours / about the company / may [turn out] / to be true.|Şirketle ilgili söylentiler doğru çıkabilir.
-rely on|phr|güvenmek, bel bağlamak|depend on, count on|Many farmers / [rely on] / rain / to water their crops.|Birçok çiftçi ekinlerini sulamak için yağmura bel bağlar.
-give up|phr|bırakmak, vazgeçmek|quit, abandon|Doctors / advise patients / to [give up] / smoking.|Doktorlar hastalara sigarayı bırakmalarını tavsiye ediyor.
-look into|phr|araştırmak, incelemek|investigate, examine|The police / promised to [look into] / the matter / at once.|Polis konuyu derhal araştıracağına söz verdi.`;
+var RAW=/*@@WORDS@@*/'';
 
 /* aynı soruda yan yana şık olmaması gereken, anlamı birbirine yakın çiftler */
 var CONF=[['emerge','reveal'],['sustain','persist'],['retain','sustain'],['ensure','enable'],['comprise','constitute'],
@@ -656,7 +513,7 @@ var TIPS=[
   'Uyumadan önce kısa bir tur at. Uyku, gün içinde öğrendiklerini kalıcı belleğe taşır.'
 ];
 
-var WORDS=RAW.trim().split('\n').map(function(l){
+var WORDS=RAW.trim().split('\n').filter(Boolean).map(function(l){
   var p=l.split('|');
   return {w:p[0],pos:p[1],tr:p[2],syn:p[3].split(',').map(function(s){return s.trim()}),en:p[4],trs:p[5],
           tok:p[2].split(',').map(function(s){return s.trim()})};
@@ -792,7 +649,7 @@ function resched(id){
   var w=S.w[id],ses=S.ses;
   if(!w||!ses||!has(ses.res,id))return;
   var day=ses.day;
-  if(ses.res[id]!==1){w.st=1;w.due=day+1;w.lv=0;return}            // bilemedi: yarın tekrar
+  if(ses.res[id]!==1||(ses.fres&&ses.fres[id]===0)){w.st=1;w.due=day+1;w.lv=0;return}   // bilemedi ya da gün sonunda yanıldı: yarın tekrar
   var lv=(ses.base[id]|0)+(kindAt(ses,ses.q.indexOf(id))==='k'?1:0);
   w.lv=lv;
   if(w.pin){w.st=1;w.due=day+1;return}                             // sabit: yarın yine
@@ -829,6 +686,48 @@ function matchIds(ses){
   return out;
 }
 function sentMode(ses){return ses.i%BLOCK===0&&(ses.i/BLOCK)%2===0?'complete':'order'}
+/* ---- yeni kelime tanıtımı (her 5 yeni kelimeden önce) ve gün sonu kontrolü ---- */
+var IN=null;
+function introDue(ses){
+  var i=ses.i,start=ses.nRev+ses.nChk;
+  if(i<start||i>=ses.q.length||(i-start)%HALF!==0)return false;
+  return(ses.intro||[]).indexOf(i)<0;
+}
+function startIntro(ses){
+  var start=ses.nRev+ses.nChk,ids=ses.q.slice(ses.i,Math.min(ses.q.length,ses.i+HALF)).filter(function(_,k){return ses.i+k>=start});
+  IN={ids:ids,k:0,at:ses.i};Q=null;ST=null;M=null;view='intro';render();
+}
+function vIntro(){
+  var ses=S.ses,id=IN.ids[IN.k],x=BY[id],last=IN.k+1>=IN.ids.length;
+  var dots='';for(var k=0;k<IN.ids.length;k++)dots+='<i class="'+(k<=IN.k?'on':'')+'"></i>';
+  return progHead(ses,ses.i)+'<div class="body">'+
+    '<p class="ask">Yeni kelimeler · '+(IN.k+1)+' / '+IN.ids.length+'<span class="idots" aria-hidden="true">'+dots+'</span></p>'+
+    '<section class="wcard p'+x.pos+'">'+wband(x,{pin:0},'n',x.w+'. '+plain(x.en))+'<div class="wbody">'+
+    '<div class="hwline"><div class="hw" lang="en">'+esc(x.w)+'</div>'+(ART.words[x.w]?'<span class="wart">'+art(ART.words[x.w],40)+'</span>':'')+'</div>'+
+    '<p class="mean">'+esc(x.tr)+'</p><p class="syn">Eş anlamlı: <span lang="en">'+esc(x.syn.join(' · '))+'</span></p><hr class="rule">'+
+    '<p class="ex" lang="en">'+marked(x.en)+'</p><p class="tr">'+esc(x.trs)+'</p></div></section>'+
+    '<p class="note">Kelimeyi ve cümlesini oku, istersen dinle. Birazdan bu kelimeler sorulacak.</p></div>'+
+    '<footer class="foot">'+(IN.k?'<button class="btn sec unav" data-act="iprev" aria-label="Önceki kelime">'+I.back+'</button>':'')+
+    '<button class="btn pri" data-act="inext" data-focus>'+(last?'Soruları başlat':'Sonraki kelime')+I.go+'</button></footer>';
+}
+function finalList(ses){
+  var start=ses.nRev+ses.nChk;
+  return ses.q.slice(start).filter(function(id){return ses.res[id]===1});
+}
+function finalMark(id,ok){
+  var ses=S.ses,w=S.w[id];
+  ses.fres[id]=ok?1:0;ses.fi++;
+  if(ok){ses.combo++;if(ses.combo>ses.best)ses.best=ses.combo}else ses.combo=0;
+  if(w)resched(id);
+}
+function finalHead(ses,num){
+  var n=ses.fq.length,segs='';
+  for(var k=0;k<n;k++)segs+='<span class="seg" style="flex:1 1 0"><i style="width:'+(k<ses.fi?100:0)+'%"></i></span>';
+  return '<header class="top"><button class="x" data-act="home" aria-label="Kelime ekranına dön">'+I.x+'</button>'+
+    '<div class="prog fin" role="progressbar" aria-label="Gün sonu kontrolü" aria-valuemin="0" aria-valuemax="'+n+'" aria-valuenow="'+ses.fi+'">'+segs+'</div>'+
+    '<span class="count">'+num+' / '+n+'</span></header>';
+}
+
 function finish(){
   var ses=S.ses;if(!ses||ses.done)return;
   ses.done=true;
@@ -1020,7 +919,7 @@ function vMenu(){
   if(!ses){wSub='Bugün sorulacak kelime yok';wState='done'}
   else if(ses.done){var r=tally(ses);wSub=ses.q.length+' kelime bitti · '+r.ok+' doğru';wState='done'}
   else if(ses.i>0){wSub=ses.i+' / '+ses.q.length+' · kaldığın yerden devam';wState='part'}
-  else wSub=ses.q.length+' kelime · yaklaşık 20 dakika';
+  else wSub=ses.q.length+' kelime · yaklaşık '+Math.max(5,Math.round(ses.q.length*0.6))+' dakika';
   var dp=dailyPlan(),gSub,gState='',gAct='gdaily';
   if(dailyDone()){gSub=S.gd.right+' / '+S.gd.n+' doğru · yarın yeni test';gState='done';gAct='tab'}
   else if(dp.nt)gSub=uLabel(dp.nt.id)+' · Test '+(dp.nt.k+1)+' · '+dp.items.length+' soru';
@@ -1070,8 +969,9 @@ function vWords(){
     '<div class="c3"><b>'+t.pin+'</b><span>Sabit</span></div><div class="c4"><b>'+t.left+'</b><span>Sırada</span></div></section>';
   var tip='<section class="tip"><h2>'+ui('tip',22)+'Günün ipucu</h2><p>'+esc(TIPS[(dayNo-1)%TIPS.length])+'</p></section>';
   var how='<details class="card"><summary>Nasıl işliyor</summary><ul class="how">'+
-    '<li><b>Günde '+BASE_NEW+' yeni kelime.</b> Yeni kelimede cümleye bakıp Türkçe karşılığını seçersin; emin değilsen Bilmiyorum de.</li>'+
+    '<li><b>Günde '+BASE_NEW+' yeni kelime.</b> Her 5 yeni kelime önce kısa kartlarla tanıtılır, sonra sorulur. Emin değilsen Bilmiyorum de.</li>'+
     '<li><b>Bilemediğin ve sabitlediğin kelimeler</b> ertesi gün geri gelir. Her gelişte soru türü değişir: boşluk doldurma, İngilizcesini seçme, parçalardan kelimeyi kurma.</li>'+
+    '<li><b>Gün sonu kontrolü.</b> O gün doğru bildiğin yeni kelimeler günün sonunda bir kez de cümle içinde sorulur; ikisini de bilirsen kelime öğrenilmiş sayılır.</li>'+
     '<li><b>Bir günde en fazla '+CAP+' kelime.</b> Önce tekrarlar sorulur, sığmayan yeni kelimeler sonraki güne kalır.</li>'+
     '<li><b>Yer kalırsa pekiştirme.</b> Öğrendiğin kelimeler '+IVL.join(', ').replace(/, ([^,]*)$/,' ve $1')+' gün sonra yeniden sorulur; üçünü de geçen kelime kalıcı sayılır.</li>'+
     '<li><b>Her '+HALF+' kelimede bir ara görev.</b> Sırayla eşleştirme ve cümle gelir. Cümleyi ya parçalarını sıralayarak kurar ya da devamını seçerek tamamlarsın.</li>'+
@@ -1100,7 +1000,7 @@ function vWords(){
   return brand(streak)+'<div class="body">'+hero+stats+how+demo+'</div>'+tabs('words');
 }
 
-var KIND={n:'Yeni kelime',r:'Tekrar',k:'Pekiştirme',d:'Deneme'};
+var KIND={n:'Yeni kelime',r:'Tekrar',k:'Pekiştirme',d:'Deneme',f:'Gün sonu kontrolü'};
 var ASK={tr:'Türkçe karşılığı hangisi?',en:'İngilizcesi hangisi?',blank:'Boşluğa hangisi gelir?',syn:'Anlamca en yakını hangisi?',spell:'Parçaları sıraya diz'};
 /* k >= 0 ise A–E balonu çizilir; act verilirse dokunulabilir şık olur */
 function optRow(text,k,cls,en,icon,act){
@@ -1140,7 +1040,7 @@ function vWord(){
     else if(f==='en')inner='<p class="lbl">Türkçesi</p><div class="meanbig">'+esc(x.tr)+'</div>';
     else if(f==='spell')inner='<p class="lbl">Türkçesi</p><div class="meanbig">'+esc(x.tr)+'</div><p class="ex" lang="en">'+blanked(x.en)+'</p>';
     else{inner='<div class="hw" lang="en">'+esc(x.w)+'</div><p class="ex" lang="en">'+marked(x.en)+'</p>';sayText=x.w}
-    var head=Q.solo?soloHead('Deneme sorusu'):progHead(ses,ses.i+1);
+    var head=Q.solo?soloHead('Deneme sorusu'):(Q.kind==='f'?finalHead(ses,ses.fi+1):progHead(ses,ses.i+1));
     var card='<section class="wcard p'+x.pos+'">'+wband(x,w,Q.kind,sayText)+'<div class="wbody">'+inner+'</div></section>';
     if(f==='spell'){
       var b=Q.b;
@@ -1157,6 +1057,7 @@ function vWord(){
   }
   var title=Q.picked===-1?'Cevap bu':(Q.ok?'Doğru!':'Yanlış'),sub;
   if(Q.solo)sub='Deneme sorusu, ilerlemeni etkilemez.';
+  else if(Q.kind==='f')sub=Q.ok?'Kelimeyi cümlede de tanıdın: öğrenildi.':'Cümlede tanıyamadın; yarın tekrar gelecek.';
   else if(!Q.ok)sub='Yarın tekrar gelecek.';
   else if(w.pin)sub='Sabitledin, yarın yine gelecek.';
   else if(w.st===3)sub='Kalıcı oldu, bir daha sorulmayacak.';
@@ -1173,7 +1074,7 @@ function vWord(){
     '<div class="hwline"><div class="hw" lang="en">'+esc(x.w)+'</div>'+(ART.words[x.w]?'<span class="wart">'+art(ART.words[x.w],40)+'</span>':'')+'</div><p class="mean">'+esc(x.tr)+'</p>'+
     '<p class="syn">Eş anlamlı: <span lang="en">'+esc(x.syn.join(' · '))+'</span></p><hr class="rule">'+
     '<p class="ex" lang="en">'+marked(x.en)+'</p><p class="tr">'+esc(x.trs)+'</p></div></section>';
-  return (Q.solo?soloHead('Deneme sorusu'):progHead(ses,ses.i))+'<div class="body">'+
+  return (Q.solo?soloHead('Deneme sorusu'):(Q.kind==='f'?finalHead(ses,ses.fi):progHead(ses,ses.i)))+'<div class="body">'+
     '<p class="res '+(Q.ok?'ok':'no')+(Q.fresh?' fresh':'')+'" role="status"><b>'+title+'</b><span>'+sub+'</span></p>'+
     '<div class="opts">'+rows+'</div>'+detail+'</div>'+
     '<footer class="foot">'+(Q.solo?soloFoot('tryfmt',f)
@@ -1702,6 +1603,7 @@ function vSum(){
     '<section class="party">'+(celebrate?burst():'')+ui('party',56,'partyart')+'<p class="eyebrow">Gün '+dayNo+' tamam</p><h1>'+asked.length+' kelime soruldu</h1>'+
     '<div class="stats three"><div class="g"><b>'+r.ok+'</b><span>Doğru</span></div><div class="b"><b>'+r.no+'</b><span>Yanlış</span></div>'+
     '<div class="w"><b>'+ses.sOk+' / '+ses.sN+'</b><span>Cümle</span></div></div>'+
+    (ses.fq&&ses.fq.length?'<p class="pnote">Gün sonu kontrolü: '+ses.fq.filter(function(id){return ses.fres[id]===1}).length+' / '+ses.fq.length+'</p>':'')+
     (ses.best>=3?'<p class="pnote">En uzun doğru serin: '+ses.best+'</p>':'')+
     (ses.mN?'<p class="pnote">Eşleştirme: '+ses.mN+' tur'+(ses.mMiss?', '+ses.mMiss+' yanlış deneme':'')+'</p>':'')+'</section>'+tomorrow+l1+l2+'</div>'+
     '<footer class="foot"><button class="btn sec narrow" data-act="home">Ana sayfa</button>'+
@@ -1719,6 +1621,7 @@ function render(keepScroll){
   else if(view==='gq'&&GQ&&!GQ.fin)h=vGQ();
   else if(view==='gres'&&GQ&&GQ.fin)h=vGRes();
   else if(view==='words')h=vWords();
+  else if(view==='intro'&&IN&&S.ses)h=vIntro();
   else if(view==='bag'&&bagReady())h=vBag();
   else if(view==='bcards'&&bagReady())h=vBagCards();
   else if(view==='bsort'&&SR)h=vSort();
@@ -1740,11 +1643,16 @@ function advance(){
     ses.md.push(ses.i);
   }
   if(sentDue(ses)){startSent(sentWord(ses),false,sentMode(ses));return}
-  if(ses.i>=ses.q.length){finish();Q=null;ST=null;M=null;celebrate=true;view='sum';render();return}
+  if(ses.i<ses.q.length&&kindAt(ses,ses.i)==='n'&&introDue(ses)){startIntro(ses);return}
+  if(ses.i>=ses.q.length){
+    if(!ses.fq){ses.fq=finalList(ses);ses.fi=0;ses.fres={};save()}
+    if(ses.fi<ses.fq.length){Q=makeQ(ses.fq[ses.fi],'f','blank');ST=null;M=null;view='word';render();return}
+    finish();Q=null;ST=null;M=null;celebrate=true;view='sum';render();return;
+  }
   Q=makeQ(ses.q[ses.i],kindAt(ses,ses.i));ST=null;M=null;view='word';render();
 }
 function settle(){
-  if(!Q.solo){mark(Q.id,Q.ok);save()}
+  if(!Q.solo){if(Q.kind==='f')finalMark(Q.id,Q.ok);else mark(Q.id,Q.ok);save()}
   Q.fresh=true;render();Q.fresh=false;
 }
 function answer(k){
@@ -1776,6 +1684,8 @@ var act={
   spick:function(b){if(!SR)return;var i=+b.getAttribute('data-i');SR.cur.sel=SR.cur.sel===i?null:i;render(true)},
   sbin:function(b){if(!SR||SR.cur.sel==null)return;sortPlace(SR.cur.sel,+b.getAttribute('data-b'))},
   snext:function(){if(!SR)return;SR.round++;SR.cur=sortRound(SR.type);render()},
+  inext:function(){if(!IN)return;if(IN.k+1<IN.ids.length){IN.k++;render();return}var ses=S.ses;(ses.intro||(ses.intro=[])).push(IN.at);IN=null;save();advance()},
+  iprev:function(){if(IN&&IN.k>0){IN.k--;render()}},
   gwrong:function(){var w=wrongItems();if(w.length)gRun('retry',shuffle(w).slice(0,20),{title:'Yanlışlarım'})},
   unit:function(b){var id=b.getAttribute('data-id');if(!TOPIC[id])return;UV=id;GQ=null;view='unit';render()},
   gstart:function(b){var id=b.getAttribute('data-id');if(GRAM.q[id])gStart(id,+b.getAttribute('data-k')||0)},
@@ -1822,6 +1732,8 @@ var act={
     for(k=HALF;k<=n;k+=BLOCK)if(ses.md.indexOf(k)<0)ses.md.push(k);
     for(k=BLOCK;k<=n;k+=BLOCK)if(ses.sd.indexOf(k)<0)ses.sd.push(k);
     if(ses.sd.indexOf(n)<0)ses.sd.push(n);
+    ses.fq=finalList(ses);ses.fi=0;ses.fres={};
+    while(ses.fi<ses.fq.length)finalMark(ses.fq[ses.fi],Math.random()<0.85);
     finish();Q=null;ST=null;M=null;celebrate=true;view='sum';render();
   },
   trysent:function(){startSent(rnd(),true,'order')},
@@ -1978,6 +1890,7 @@ window.kelimeBack=function(){
   else if(view==='bag')view='units';
   else if(view==='unit')view='units';
   else if(view==='words'||view==='units')view='home';
+  else if(view==='intro'){IN=null;view='words'}
   else{Q=null;ST=null;M=null;GQ=null;view='words'}
   render();
   return true;
@@ -1995,7 +1908,7 @@ function boot(d){
 var hot=window.claude&&window.claude.hot;
 try{if(hot&&hot.snapshot)hot.snapshot(function(){
   var solo=(Q&&Q.solo)||(ST&&ST.solo)||(M&&M.solo);
-  return{view:(view==='word'||view==='sent'||view==='match')&&!solo?'session':'home'};
+  return{view:(view==='word'||view==='sent'||view==='match'||view==='intro')&&!solo?'session':'home'};
 })}catch(e){}
 if(hot&&hot.ready)hot.ready(boot);else boot(hot&&hot.data||{});
 })();

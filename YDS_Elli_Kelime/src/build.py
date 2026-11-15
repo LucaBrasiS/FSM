@@ -55,6 +55,20 @@ def load_grammar(kitap_dir, allow_missing):
     return {"t": topics, "q": qs, "pas": pas}
 
 
+def load_words(path):
+    """data/kelimeler.txt: kelime|tür|Türkçe|eş anlamlılar|cümle (/ parçalar, [kelime])|çeviri|görseller -> ilk altı alan."""
+    out, seen = [], set()
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        p = line.split("|")
+        assert len(p) == 7 and p[0] not in seen, line
+        assert len(p[4].split(" / ")) == 4 and "[" + p[0] + "]" in p[4].lower(), line
+        seen.add(p[0])
+        out.append("|".join(p[:6]))
+    return "\n".join(out)
+
+
 def load_bag(d, allow_missing):
     """Bağlaç atölyesi: list.json (gruplar, yapılar) + kartlar.json + sec/iliski/anlam.json -> {groups, yapi, qs}."""
     if not (d / "list.json").exists():
@@ -96,6 +110,7 @@ def main():
     lic = (ROOT / "assets" / "FLUENT-EMOJI-LICENSE.txt").read_text(encoding="utf-8").strip()
     gram = load_grammar(pathlib.Path(args.kitap), args.eksik_olabilir)
     bag = load_bag(ROOT / "data" / "baglac", args.eksik_olabilir)
+    words = load_words(ROOT / "data" / "kelimeler.txt")
 
     for group in ("ui", "words"):
         for key, name in art[group].items():
@@ -111,6 +126,7 @@ def main():
         ("/*@@ART@@*/{icons:{},ui:{},words:{}}", js(art)),
         ("/*@@GRAM@@*/{t:[],q:{},pas:{}}", js(gram)),
         ("/*@@BAG@@*/{groups:[],yapi:{},qs:{}}", js(bag)),
+        ("/*@@WORDS@@*/''", js(words)),
     ):
         assert out.count(mark) == 1, mark
         out = out.replace(mark, value)
