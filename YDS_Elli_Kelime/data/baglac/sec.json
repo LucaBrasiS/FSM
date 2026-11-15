@@ -1,0 +1,422 @@
+[
+ {
+  "q": "I was very tired, ---- I went to bed early.",
+  "o": [
+   "so",
+   "but",
+   "because",
+   "although",
+   "unless"
+  ],
+  "a": 0,
+  "e": "Yorgunluk neden, erken yatmak sonuç: 'so' (bu yüzden) sonucu bağlar. 'because' ilişkiyi tersine çevirir (erken yattığım için yorgundum olur), 'but' ve 'although' ise beklenen bir sonuca zıtlık katar.",
+  "lvl": 1,
+  "g": "sonuc"
+ },
+ {
+  "q": "---- it was raining yesterday, we played football in the park.",
+  "o": [
+   "Despite",
+   "Because",
+   "Although",
+   "So",
+   "Until"
+  ],
+  "a": 2,
+  "e": "Yağmura rağmen futbol oynandı: zıtlık. 'Although' + özne + fiil alır. 'Despite' de zıtlık bildirir ama ardından cümle değil isim ya da -ing gelir (despite the rain). 'Because' ilişkiyi nedene çevirir.",
+  "lvl": 1,
+  "g": "zitlik"
+ },
+ {
+  "q": "We stayed at home ---- the weather was terrible.",
+  "o": [
+   "because of",
+   "because",
+   "although",
+   "so that",
+   "unless"
+  ],
+  "a": 1,
+  "e": "Kötü hava evde kalmanın nedenidir. Ardından tam cümle (the weather was terrible) geldiği için 'because' doğru. 'because of' da neden bildirir ama yalnızca isim alır (because of the bad weather).",
+  "lvl": 1,
+  "g": "neden"
+ },
+ {
+  "q": "Ali is very good at maths, ---- his brother finds it difficult.",
+  "o": [
+   "so",
+   "because",
+   "if",
+   "when",
+   "but"
+  ],
+  "a": 4,
+  "e": "İki kardeş karşılaştırılıyor: Ali matematikte iyi, kardeşi zorlanıyor. Bu zıtlıktır ve virgülle iki cümleciği 'but' bağlar. 'so' ve 'because' iki durum arasında neden-sonuç ilişkisi kurar, burada öyle bir ilişki yok.",
+  "lvl": 1,
+  "g": "zitlik"
+ },
+ {
+  "q": "You will miss the bus ---- you leave now.",
+  "o": [
+   "if",
+   "because",
+   "although",
+   "unless",
+   "so"
+  ],
+  "a": 3,
+  "e": "Otobüsü kaçırmak, şimdi çıkmamanın sonucudur: 'unless' = if ... not (şimdi çıkmazsan). 'if' anlamı tersine çevirir: şimdi çıkarsan otobüsü kaçırırsın demek olur ki mantıksızdır.",
+  "lvl": 1,
+  "g": "kosul"
+ },
+ {
+  "q": "Please call me ---- you arrive at the station.",
+  "o": [
+   "until",
+   "when",
+   "because",
+   "although",
+   "unless"
+  ],
+  "a": 1,
+  "e": "Aramak, istasyona varma anında olacak: zaman ilişkisi, 'when' (-dığında). 'until' bir eylemin o ana kadar sürdüğünü anlatır; tek seferlik 'call' ile 'varana kadar ara' anlamsız olur.",
+  "lvl": 1,
+  "g": "zaman"
+ },
+ {
+  "q": "She went to the library ---- borrow some books.",
+  "o": [
+   "in order to",
+   "so that",
+   "because",
+   "so",
+   "although"
+  ],
+  "a": 0,
+  "e": "Kütüphaneye gitmenin amacı kitap almak. Boşluktan sonra yalın fiil (borrow) geldiği için 'in order to' doğru. 'so that' da amaç bildirir ama ardından özne + fiil ister (so that she could borrow).",
+  "lvl": 1,
+  "g": "amac"
+ },
+ {
+  "q": "We waited in the café ---- the rain stopped.",
+  "o": [
+   "during",
+   "because of",
+   "so",
+   "until",
+   "unless"
+  ],
+  "a": 3,
+  "e": "Bekleme, yağmur dinene kadar sürdü: zaman ilişkisi, 'until' (-e kadar) + cümle. 'during' da zaman bildirir ama yalnızca isim alır (during the rain); 'because of' da cümle almaz.",
+  "lvl": 1,
+  "g": "zaman"
+ },
+ {
+  "q": "She speaks English ---- French, so she often helps tourists in town.",
+  "o": [
+   "because of",
+   "despite",
+   "as well as",
+   "so",
+   "unless"
+  ],
+  "a": 2,
+  "e": "İngilizceye ek olarak Fransızca da konuşuyor: ekleme. 'as well as' (-in yanı sıra) isim alır. 'despite' ve 'because of' de isim alır ama zıtlık ve neden bildirir; iki dil arasında böyle bir ilişki yok.",
+  "lvl": 1,
+  "g": "ekleme"
+ },
+ {
+  "q": "I can't come to the party ---- I have an exam tomorrow.",
+  "o": [
+   "so",
+   "although",
+   "despite",
+   "until",
+   "because"
+  ],
+  "a": 4,
+  "e": "Yarınki sınav partiye gelememenin nedeni: 'because' + cümle. 'so' ilişkiyi tersine çevirir (partiye gelemediğim için sınavım var), 'although' ise mantıksız bir zıtlık kurar.",
+  "lvl": 1,
+  "g": "neden"
+ },
+ {
+  "q": "---- the heavy traffic, we arrived at the meeting on time.",
+  "o": [
+   "Although",
+   "Because of",
+   "Despite",
+   "Unless",
+   "So that"
+  ],
+  "a": 2,
+  "e": "Yoğun trafiğe rağmen zamanında varıldı: zıtlık. Ardından isim öbeği (the heavy traffic) geldiği için 'Despite' doğru. 'Although' da zıtlık bildirir ama cümle ister. 'Because of' trafiği zamanında varmanın nedeni yapar.",
+  "lvl": 2,
+  "g": "zitlik"
+ },
+ {
+  "q": "The tennis match was cancelled ---- the strong wind.",
+  "o": [
+   "because",
+   "although",
+   "despite",
+   "so",
+   "because of"
+  ],
+  "a": 4,
+  "e": "Kuvvetli rüzgâr iptalin nedeni. Ardından isim öbeği geldiği için 'because of' doğru; 'because' özne + fiil ister. 'despite' isim alır ama zıtlık kurar: rüzgâra rağmen iptal edildi, mantıksız.",
+  "lvl": 2,
+  "g": "neden"
+ },
+ {
+  "q": "Take an umbrella with you ---- it rains later.",
+  "o": [
+   "in case",
+   "unless",
+   "although",
+   "because of",
+   "so that"
+  ],
+  "a": 0,
+  "e": "Şemsiye, ileride yağmur yağma ihtimaline karşı alınıyor: 'in case' (-e karşı, ne olur ne olmaz). 'unless' koşulu tersine çevirir, 'so that' ise yağmuru şemsiye almanın amacı yapar.",
+  "lvl": 2,
+  "g": "kosul"
+ },
+ {
+  "q": "He spoke slowly and clearly ---- everyone in the room could understand him.",
+  "o": [
+   "in order to",
+   "because of",
+   "although",
+   "so that",
+   "unless"
+  ],
+  "a": 3,
+  "e": "Yavaş konuşmanın amacı herkesin anlaması. Ardından özne + fiil (everyone could understand) geldiği için 'so that' doğru. 'in order to' da amaç bildirir ama yalın fiil ister, özneli cümle almaz.",
+  "lvl": 2,
+  "g": "amac"
+ },
+ {
+  "q": "You can borrow my bike ---- you bring it back by six o'clock.",
+  "o": [
+   "unless",
+   "as long as",
+   "although",
+   "because of",
+   "in case"
+  ],
+  "a": 1,
+  "e": "Bisikleti alma izni bir şarta bağlı: saat altıya kadar getirmen şartıyla, 'as long as'. 'unless' şartı tersine çevirir (getirmezsen alabilirsin), 'in case' ise bir ihtimale karşı önlem bildirir.",
+  "lvl": 2,
+  "g": "kosul"
+ },
+ {
+  "q": "I'll send you a message ---- I get home tonight.",
+  "o": [
+   "during",
+   "until",
+   "because of",
+   "as soon as",
+   "unless"
+  ],
+  "a": 3,
+  "e": "Mesaj, eve varır varmaz gönderilecek: zaman, 'as soon as' + cümle. 'until' süren bir eylem ister, tek seferlik mesajla 'varana kadar' anlamsızdır. 'during' ve 'because of' cümle almaz.",
+  "lvl": 2,
+  "g": "zaman"
+ },
+ {
+  "q": "It was ---- a lovely day that we had lunch in the garden.",
+  "o": [
+   "so",
+   "such",
+   "as",
+   "thus",
+   "since"
+  ],
+  "a": 1,
+  "e": "Günün güzelliği, bahçede yemek yemenin nedeni; yapı 'such ... that' (öyle ... ki). Araya 'a + sıfat + isim' (a lovely day) girdiği için 'such' doğru; 'so' yalnızca sıfat alır (so lovely that).",
+  "lvl": 2,
+  "g": "sonuc"
+ },
+ {
+  "q": "My brother loves spicy food, ---- I can't eat it at all.",
+  "o": [
+   "because",
+   "despite",
+   "unless",
+   "as soon as",
+   "whereas"
+  ],
+  "a": 4,
+  "e": "İki kişi karşılaştırılıyor: kardeşim acıyı çok seviyor, bense hiç yiyemiyorum. Bu zıtlıktır, 'whereas' (-dığı halde, oysa) + cümle. 'because' aralarında mantıksız bir neden ilişkisi kurar; 'despite' cümle almaz.",
+  "lvl": 2,
+  "g": "zitlik"
+ },
+ {
+  "q": "Our flight was delayed for three hours. ----, we missed our connection in Rome.",
+  "o": [
+   "As a result",
+   "However",
+   "Because",
+   "Despite",
+   "Although"
+  ],
+  "a": 0,
+  "e": "Rötar neden, aktarmayı kaçırmak sonuç. Noktadan sonra gelip virgül alan bağlaç zarfı gerekir: 'As a result'. 'However' da bu yapıya uyar ama zıtlık bildirir; 'Because' ve 'Although' virgülle tek başına kullanılmaz.",
+  "lvl": 2,
+  "g": "sonuc"
+ },
+ {
+  "q": "I'd rather not go out tonight. It's far too cold. ----, I've got a lot of homework to finish.",
+  "o": [
+   "However",
+   "Otherwise",
+   "Besides",
+   "Therefore",
+   "Unless"
+  ],
+  "a": 2,
+  "e": "Dışarı çıkmamak için ikinci bir gerekçe ekleniyor: 'Besides' (üstelik, hem de). Soğuk ile ödev arasında zıtlık olmadığı için 'However' uymaz; 'Therefore' ödevi soğuğun sonucu gibi gösterir.",
+  "lvl": 2,
+  "g": "ekleme"
+ },
+ {
+  "q": "Solar panels have become much cheaper over the past decade; ----, many households still cannot afford the initial cost of buying and installing them on their roofs.",
+  "o": [
+   "therefore",
+   "moreover",
+   "although",
+   "because",
+   "however"
+  ],
+  "a": 4,
+  "e": "Paneller ucuzladı ama birçok aile hâlâ karşılayamıyor: zıtlık. Noktalı virgülden sonra virgülle gelen bağlaç zarfı 'however' olmalı. 'although' zıtlık bildirir ama bu noktalamayla kullanılmaz; 'therefore' sonuç kurar.",
+  "lvl": 3,
+  "g": "zitlik"
+ },
+ {
+  "q": "The university research team had to postpone the final stage of the experiment ---- a sudden shortage of laboratory equipment and trained staff.",
+  "o": [
+   "because",
+   "despite",
+   "so as to",
+   "owing to",
+   "as long as"
+  ],
+  "a": 3,
+  "e": "Ekipman ve personel eksikliği ertelemenin nedeni. Ardından isim öbeği (a sudden shortage) geldiği için 'owing to' doğru. 'because' cümle ister; 'despite' isim alır ama zıtlık kurar, mantıksız olur.",
+  "lvl": 3,
+  "g": "neden"
+ },
+ {
+  "q": "Regular exercise lowers blood pressure and improves the quality of sleep; ----, doctors increasingly recommend it as part of the treatment for several long-term conditions.",
+  "o": [
+   "whereas",
+   "otherwise",
+   "hence",
+   "however",
+   "unless"
+  ],
+  "a": 2,
+  "e": "Egzersizin faydaları neden, doktorların önermesi sonuç: 'hence' (bu nedenle). 'however' aynı noktalamaya uyar ama zıtlık kurar, burada zıtlık yok. 'whereas' ve 'unless' noktalı virgül + virgülle kullanılmaz.",
+  "lvl": 3,
+  "g": "sonuc"
+ },
+ {
+  "q": "Employees may work from home two days a week ---- they remain available during core hours and complete their tasks on schedule every week.",
+  "o": [
+   "unless",
+   "provided that",
+   "in case",
+   "whereas",
+   "owing to"
+  ],
+  "a": 1,
+  "e": "Evden çalışma izni şarta bağlı: ulaşılabilir kalmaları ve işleri zamanında bitirmeleri şartıyla, 'provided that'. 'unless' şartı tersine çevirir (ulaşılabilir kalmazlarsa izin var), 'owing to' cümle almaz.",
+  "lvl": 3,
+  "g": "kosul"
+ },
+ {
+  "q": "Patients should finish the full course of antibiotics even if they feel better after a few days; ----, the remaining bacteria may become resistant to the medicine.",
+  "o": [
+   "otherwise",
+   "moreover",
+   "therefore",
+   "unless",
+   "because of"
+  ],
+  "a": 0,
+  "e": "Tedaviyi bitirmezlerse ne olacağı anlatılıyor: 'otherwise' (aksi takdirde). 'therefore' direnci tedaviyi bitirmenin sonucu yapar, tam tersi bir anlam çıkar. 'unless' ve 'because of' bu noktalamayla kullanılmaz.",
+  "lvl": 3,
+  "g": "kosul"
+ },
+ {
+  "q": "Many cities have introduced low-emission zones in their centres ---- reduce air pollution and encourage residents to use public transport more often for daily journeys.",
+  "o": [
+   "so as to",
+   "so that",
+   "owing to",
+   "whereas",
+   "as long as"
+  ],
+  "a": 0,
+  "e": "Düşük emisyon bölgelerinin amacı kirliliği azaltmak. Ardından yalın fiil (reduce) geldiği için 'so as to' doğru. 'so that' da amaç bildirir ama özne + fiil ister (so that they can reduce).",
+  "lvl": 3,
+  "g": "amac"
+ },
+ {
+  "q": "---- the scientists reached the glacier, the storm had already passed and the weather was calm enough for them to set up their measuring equipment safely.",
+  "o": [
+   "Unless",
+   "Despite",
+   "By the time",
+   "In order to",
+   "Whereas"
+  ],
+  "a": 2,
+  "e": "Bilim insanları vardığında fırtına çoktan geçmişti: zaman, 'By the time' (-dığında, -e kadar). 'had already passed' bu bağlaçla kurulan tipik yapıdır. 'Despite' cümle almaz, 'Unless' anlamsız bir koşul kurar.",
+  "lvl": 3,
+  "g": "zaman"
+ },
+ {
+  "q": "The engineers spent six months testing the new battery in extreme temperatures. ----, the design team was working on a lighter case for the device.",
+  "o": [
+   "Therefore",
+   "Otherwise",
+   "Although",
+   "Despite",
+   "Meanwhile"
+  ],
+  "a": 4,
+  "e": "İki ekip aynı dönemde farklı işler yapıyor: 'Meanwhile' (bu arada, o sırada). 'Therefore' kasa tasarımını testlerin sonucu gibi gösterir. 'Although' ve 'Despite' noktadan sonra virgülle tek başına kullanılmaz.",
+  "lvl": 3,
+  "g": "zaman"
+ },
+ {
+  "q": "The new irrigation system ---- reduces water consumption on farms but also increases crop yields, which makes it attractive to farmers in dry and hot regions.",
+  "o": [
+   "as well as",
+   "not only",
+   "although",
+   "because of",
+   "in case"
+  ],
+  "a": 1,
+  "e": "Sistemin iki faydası art arda sıralanıyor; cümledeki 'but also' ile birlikte 'not only ... but also' (yalnızca ... değil, aynı zamanda) ekleme yapısı kurulur. 'as well as' de ekleme bildirir ama fiilden önce bu yapıda kullanılmaz.",
+  "lvl": 3,
+  "g": "ekleme"
+ },
+ {
+  "q": "Online courses allow students to study at their own pace and from almost any location. ----, they are usually far cheaper than traditional degree programmes.",
+  "o": [
+   "However",
+   "Otherwise",
+   "Whereas",
+   "Moreover",
+   "Because of"
+  ],
+  "a": 3,
+  "e": "Çevrim içi derslerin ikinci bir avantajı ekleniyor: 'Moreover' (üstelik). Ucuzluk da bir avantaj olduğu için zıtlık yoktur, 'However' uymaz. 'Whereas' ve 'Because of' noktadan sonra virgülle kullanılmaz.",
+  "lvl": 3,
+  "g": "ekleme"
+ }
+]

@@ -1,0 +1,422 @@
+[
+ {
+  "q": "[Since] it's your birthday, you can choose the restaurant tonight.",
+  "w": "since",
+  "o": [
+   "Neden",
+   "Zaman",
+   "Koşul",
+   "Sonuç",
+   "Amaç"
+  ],
+  "a": 0,
+  "lvl": 1,
+  "e": "Since burada 'madem, -diği için' anlamındadır: doğum günü olması restoranı seçme hakkının nedenidir. Bir başlangıç noktası ('-den beri') anlatılmadığı için Zaman değildir."
+ },
+ {
+  "q": "My brother loves football, [while] I prefer basketball.",
+  "w": "while",
+  "o": [
+   "Zaman",
+   "Neden",
+   "Zıtlık",
+   "Ekleme",
+   "Sonuç"
+  ],
+  "a": 2,
+  "lvl": 1,
+  "e": "While burada iki kişinin zevklerini karşılaştırır ve 'oysa' anlamındadır. Aynı anda olan iki olay yok, kalıcı tercihler var; bu yüzden Zaman değil Zıtlık."
+ },
+ {
+  "q": "[As] I don't have a car, I usually take the bus to work.",
+  "w": "as",
+  "o": [
+   "Zaman",
+   "Neden",
+   "Zıtlık",
+   "Amaç",
+   "Koşul"
+  ],
+  "a": 1,
+  "lvl": 1,
+  "e": "As burada '-diği için' demektir: arabası olmaması otobüse binmesinin nedenidir. Bir an ya da süre anlatılmadığı için '-ken' (Zaman) anlamı burada yoktur."
+ },
+ {
+  "q": "Wait in the car; I'll be back [once] I've paid for the petrol.",
+  "w": "once",
+  "o": [
+   "Koşul",
+   "Neden",
+   "Sonuç",
+   "Zaman",
+   "Amaç"
+  ],
+  "a": 3,
+  "lvl": 1,
+  "e": "Once burada '-ince, -dikten hemen sonra' anlamındadır ve geri dönüşün ne zaman olacağını söyler. Ödeme kesin yapılacaktır; bir şart değil, olayların sırası vardır."
+ },
+ {
+  "q": "Take some snacks with you [in case] you get hungry on the trip.",
+  "w": "in case",
+  "o": [
+   "Zaman",
+   "Neden",
+   "Zıtlık",
+   "Sonuç",
+   "Koşul"
+  ],
+  "a": 4,
+  "lvl": 1,
+  "e": "In case 'acıkma ihtimaline karşı' demektir: olası bir duruma karşı önceden önlem alınır. 'Acıktığında' (when) anlamına gelmez; acıkıp acıkmayacağı belli değildir."
+ },
+ {
+  "q": "The tea was too hot to drink, [so] I added some cold milk.",
+  "w": "so",
+  "o": [
+   "Amaç",
+   "Sonuç",
+   "Neden",
+   "Zıtlık",
+   "Ekleme"
+  ],
+  "a": 1,
+  "lvl": 1,
+  "e": "Virgülden sonra gelen so 'bu yüzden' anlamındadır: çayın sıcak olması nedendir, süt eklemek sonucudur. Amaç için so that gerekirdi ('-sin diye')."
+ },
+ {
+  "q": "[Though] the test was short, most of us didn't finish it.",
+  "w": "though",
+  "o": [
+   "Zıtlık",
+   "Neden",
+   "Zaman",
+   "Koşul",
+   "Sonuç"
+  ],
+  "a": 0,
+  "lvl": 1,
+  "e": "Though 'olmasına rağmen' demektir: sınav kısaydı, yine de çoğu kişi bitiremedi. Beklenenin tersi bir sonuç olduğu için ilişki Neden değil Zıtlıktır."
+ },
+ {
+  "q": "I can't come to the cinema tonight. [Besides], I've already seen that film.",
+  "w": "besides",
+  "o": [
+   "Sonuç",
+   "Zıtlık",
+   "Ekleme",
+   "Koşul",
+   "Zaman"
+  ],
+  "a": 2,
+  "lvl": 1,
+  "e": "Besides 'üstelik, hem de' anlamındadır ve ilk söylenene ikinci bir gerekçe ekler. İkinci cümle birinciyle çelişmediği ve ondan doğmadığı için Zıtlık ya da Sonuç değildir."
+ },
+ {
+  "q": "We played cards in the tent [until] the rain stopped.",
+  "w": "until",
+  "o": [
+   "Koşul",
+   "Neden",
+   "Amaç",
+   "Zıtlık",
+   "Zaman"
+  ],
+  "a": 4,
+  "lvl": 1,
+  "e": "Until '-e kadar' demektir ve kart oyununun ne zamana kadar sürdüğünü gösterir. Yağmurun durması oyunun bitiş anıdır; bir şart ya da neden değildir."
+ },
+ {
+  "q": "You can use my laptop [as long as] you're careful with it.",
+  "w": "as long as",
+  "o": [
+   "Zaman",
+   "Neden",
+   "Ekleme",
+   "Koşul",
+   "Zıtlık"
+  ],
+  "a": 3,
+  "lvl": 1,
+  "e": "As long as burada 'dikkatli olman şartıyla' anlamındadır; izin bir koşula bağlanır. İçindeki 'long' kelimesi süre çağrıştırsa da cümle bir zaman aralığı anlatmaz."
+ },
+ {
+  "q": "[Owing to] a problem with the engine, the ferry left two hours late.",
+  "w": "owing to",
+  "o": [
+   "Sonuç",
+   "Zıtlık",
+   "Neden",
+   "Koşul",
+   "Zaman"
+  ],
+  "a": 2,
+  "lvl": 2,
+  "e": "Owing to 'nedeniyle' demektir ve isimle kullanılır: motor arızası gecikmenin nedenidir. Bağlaç nedeni getirir; sonuç olan gecikme ana cümlededir, bu yüzden Sonuç değildir."
+ },
+ {
+  "q": "The instructions were confusing; [nevertheless], we managed to build the shelf.",
+  "w": "nevertheless",
+  "o": [
+   "Sonuç",
+   "Ekleme",
+   "Neden",
+   "Zaman",
+   "Zıtlık"
+  ],
+  "a": 4,
+  "lvl": 2,
+  "e": "Nevertheless 'buna rağmen, yine de' anlamındadır: talimatlar kafa karıştırıcıydı ama raf yine de kuruldu. Beklenenin tersi olduğu için Sonuç değil Zıtlıktır."
+ },
+ {
+  "q": "We set off before dawn [so as to] reach the summit by midday.",
+  "w": "so as to",
+  "o": [
+   "Amaç",
+   "Sonuç",
+   "Neden",
+   "Zaman",
+   "Koşul"
+  ],
+  "a": 0,
+  "lvl": 2,
+  "e": "So as to + yalın fiil '-mek için' demektir: erken yola çıkmanın amacı öğlene kadar zirveye varmaktır. Zirveye varılıp varılmadığını söylemez, bu yüzden Sonuç değildir."
+ },
+ {
+  "q": "Mum was cooking in the kitchen. [Meanwhile], the children were decorating the living room.",
+  "w": "meanwhile",
+  "o": [
+   "Zıtlık",
+   "Zaman",
+   "Sonuç",
+   "Ekleme",
+   "Neden"
+  ],
+  "a": 1,
+  "lvl": 2,
+  "e": "Meanwhile 'bu arada, o sırada' demektir: iki iş aynı anda yapılıyor. İki eylem birbirine karşıt değildir; bağlacın kattığı anlam eşzamanlılıktır."
+ },
+ {
+  "q": "Leyla took off her coat, [for] the room was very warm.",
+  "w": "for",
+  "o": [
+   "Sonuç",
+   "Amaç",
+   "Zaman",
+   "Neden",
+   "Ekleme"
+  ],
+  "a": 3,
+  "lvl": 2,
+  "e": "Virgülden sonra cümle alan for 'çünkü' anlamındadır: odanın sıcak olması paltoyu çıkarmanın nedenidir. 'İçin' anlamındaki edat for burada değildir, bu yüzden Amaç olmaz."
+ },
+ {
+  "q": "Some people find this app useful, [whereas] others think it is a waste of time.",
+  "w": "whereas",
+  "o": [
+   "Neden",
+   "Ekleme",
+   "Zaman",
+   "Sonuç",
+   "Zıtlık"
+  ],
+  "a": 4,
+  "lvl": 2,
+  "e": "Whereas 'oysa' demektir ve iki grubun karşıt görüşlerini karşılaştırır. Bir görüş ötekinin nedeni ya da sonucu değildir; ilişki Zıtlıktır."
+ },
+ {
+  "q": "You won't get a refund [unless] you keep the receipt.",
+  "w": "unless",
+  "o": [
+   "Zıtlık",
+   "Neden",
+   "Koşul",
+   "Amaç",
+   "Zaman"
+  ],
+  "a": 2,
+  "lvl": 2,
+  "e": "Unless 'if ... not' demektir: fişi saklamazsan para iadesi alamazsın. Fişi saklamak iadenin şartıdır; olumsuz anlam yüzünden Zıtlık sanılmamalıdır."
+ },
+ {
+  "q": "[Thanks to] the new lift, older residents can now reach the top floor easily.",
+  "w": "thanks to",
+  "o": [
+   "Neden",
+   "Sonuç",
+   "Ekleme",
+   "Amaç",
+   "Zaman"
+  ],
+  "a": 0,
+  "lvl": 2,
+  "e": "Thanks to 'sayesinde' demektir ve isim alır: yeni asansör kolay ulaşımın nedenidir. Sonuç ana cümlededir; bağlaç olumlu nedeni getirir."
+ },
+ {
+  "q": "Always keep your phone charged [in case of] an emergency.",
+  "w": "in case of",
+  "o": [
+   "Zıtlık",
+   "Neden",
+   "Zaman",
+   "Koşul",
+   "Sonuç"
+  ],
+  "a": 3,
+  "lvl": 2,
+  "e": "In case of + isim '... durumunda, ... ihtimaline karşı' demektir: acil bir durum olabilir diye telefon şarjlı tutulur. Acil durum henüz yaşanmadığı için Neden değildir."
+ },
+ {
+  "q": "The museum has a large collection of paintings [as well as] some rare old maps.",
+  "w": "as well as",
+  "o": [
+   "Zıtlık",
+   "Ekleme",
+   "Koşul",
+   "Neden",
+   "Zaman"
+  ],
+  "a": 1,
+  "lvl": 2,
+  "e": "As well as '-in yanı sıra' demektir ve müzedeki ikinci bir koleksiyonu ekler. Haritalar resimlerle karşılaştırılmaz, yalnızca listeye eklenir; ilişki Ekleme."
+ },
+ {
+  "q": "Regular exercise strengthens the heart and lowers blood pressure; [hence], doctors increasingly recommend at least thirty minutes of brisk walking a day.",
+  "w": "hence",
+  "o": [
+   "Neden",
+   "Ekleme",
+   "Zıtlık",
+   "Sonuç",
+   "Amaç"
+  ],
+  "a": 3,
+  "lvl": 3,
+  "e": "Hence 'bu nedenle, dolayısıyla' demektir: egzersizin faydaları önce verilir, doktorların önerisi bunun sonucudur. Bağlaç nedeni değil, nedenden çıkan sonucu getirir."
+ },
+ {
+  "q": "Solar panels have become far cheaper over the past decade, [yet] many households still hesitate to install them owing to concerns about maintenance.",
+  "w": "yet",
+  "o": [
+   "Zıtlık",
+   "Sonuç",
+   "Neden",
+   "Ekleme",
+   "Zaman"
+  ],
+  "a": 0,
+  "lvl": 3,
+  "e": "Yet burada 'ama, yine de' demektir: paneller ucuzlamış ama birçok aile hâlâ çekiniyor. Olumsuz cümle sonundaki 'henüz' anlamı burada yoktur; ilişki Zıtlık."
+ },
+ {
+  "q": "Many employers now offer flexible working hours [so that] staff can balance their professional duties with family responsibilities and feel less stressed.",
+  "w": "so that",
+  "o": [
+   "Sonuç",
+   "Neden",
+   "Koşul",
+   "Zaman",
+   "Amaç"
+  ],
+  "a": 4,
+  "lvl": 3,
+  "e": "So that + can 'yapabilsinler diye' demektir: esnek saatlerin amacı çalışanların iş ve aileyi dengelemesidir. Virgülsüz so that ve can amacı gösterir; Sonuç için virgüllü so gerekirdi."
+ },
+ {
+  "q": "[By the time] the new hospital opens next spring, the city's population will have grown by nearly ten per cent, putting further pressure on health services.",
+  "w": "by the time",
+  "o": [
+   "Koşul",
+   "Zaman",
+   "Neden",
+   "Zıtlık",
+   "Sonuç"
+  ],
+  "a": 1,
+  "lvl": 3,
+  "e": "By the time '-dığında (çoktan)' demektir: hastane açıldığında nüfus artışı tamamlanmış olacak. Future perfect bir zaman noktasını gösterir; açılış bir şart değildir."
+ },
+ {
+  "q": "The research grant will be renewed next year [provided that] the team publishes its results and keeps its spending within the agreed budget.",
+  "w": "provided that",
+  "o": [
+   "Amaç",
+   "Zaman",
+   "Koşul",
+   "Neden",
+   "Zıtlık"
+  ],
+  "a": 2,
+  "lvl": 3,
+  "e": "Provided that '-mek şartıyla' demektir: hibenin yenilenmesi sonuçların yayımlanmasına ve bütçeye uyulmasına bağlıdır. Bu bir amaç değil, yerine getirilmesi gereken şarttır."
+ },
+ {
+  "q": "[While] some experts believe that artificial intelligence will create millions of new jobs, others warn that it may replace many workers in offices and factories.",
+  "w": "while",
+  "o": [
+   "Zaman",
+   "Neden",
+   "Koşul",
+   "Ekleme",
+   "Zıtlık"
+  ],
+  "a": 4,
+  "lvl": 3,
+  "e": "While burada 'oysa, -e karşın' demektir: bir grup uzman iyimser, diğeri karamsar. İki görüş karşılaştırılıyor; aynı anda olan iki olay anlatılmadığı için Zaman değildir."
+ },
+ {
+  "q": "The new vaccine can be stored at room temperature; [moreover], it requires only a single dose, which makes it ideal for remote areas with few clinics.",
+  "w": "moreover",
+  "o": [
+   "Sonuç",
+   "Zıtlık",
+   "Neden",
+   "Ekleme",
+   "Amaç"
+  ],
+  "a": 3,
+  "lvl": 3,
+  "e": "Moreover 'üstelik' demektir: aşının oda sıcaklığında saklanabilmesine ikinci bir avantaj eklenir. Tek doz olması ilk bilginin sonucu değildir, bu yüzden Sonuç değil Ekleme."
+ },
+ {
+  "q": "[Since] most of the town's young people have moved to larger cities in search of work, local schools are struggling to find enough pupils to stay open.",
+  "w": "since",
+  "o": [
+   "Neden",
+   "Zaman",
+   "Sonuç",
+   "Zıtlık",
+   "Koşul"
+  ],
+  "a": 0,
+  "lvl": 3,
+  "e": "Since burada '-diği için' demektir: gençlerin göçü okulların öğrenci bulamamasının nedenidir. Ana cümle present continuous olduğu için '-den beri' (Zaman) okuması uymaz."
+ },
+ {
+  "q": "Fewer students are choosing to study engineering at university; [thus], many companies now offer scholarships to attract young people into the profession.",
+  "w": "thus",
+  "o": [
+   "Neden",
+   "Zaman",
+   "Sonuç",
+   "Zıtlık",
+   "Amaç"
+  ],
+  "a": 2,
+  "lvl": 3,
+  "e": "Thus 'bu yüzden' demektir: öğrenci sayısının azalması şirketlerin burs vermesine yol açmıştır. Cümledeki 'to attract' amacı gösterir ama thus'ın kattığı ilişki Sonuçtur."
+ },
+ {
+  "q": "The recycling scheme has [not only] reduced the amount of waste sent to landfill but also created dozens of jobs in the local community.",
+  "w": "not only ... but also",
+  "o": [
+   "Zıtlık",
+   "Ekleme",
+   "Sonuç",
+   "Neden",
+   "Amaç"
+  ],
+  "a": 1,
+  "lvl": 3,
+  "e": "Not only ... but also 'sadece ... değil, aynı zamanda' demektir ve programın iki ayrı faydasını sıralar. 'Not' olumsuzluk gibi görünse de karşıtlık yoktur; ilişki Ekleme."
+ }
+]
