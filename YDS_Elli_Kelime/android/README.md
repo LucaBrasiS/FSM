@@ -1,7 +1,7 @@
 # Android paketi (Basamak.apk)
 
 Uygulama, önceki KELIME 0.4.0 uygulamasının WebView kabuğuyla paketlenir. Kabuk `assets/www/index.html` dosyasını
-açar; ses (`KelimeApp.speak`) ve geri tuşu (`window.kelimeBack`) köprülerini sağlar.
+açar; ses (`KelimeApp.speak`, `KelimeApp.stop`) ve geri tuşu (`window.kelimeBack`) köprülerini sağlar.
 
 - `base/`: KELIME 0.4.0 APK'sından alınan kabuk dosyaları (manifest, classes.dex, resources.arsc, uyarlanabilir simge).
 - `build_apk.py`: manifesti yeni paket adı (`com.nefata.basamak`) ve uygulama adıyla (`Basamak`) yeniden yazar,

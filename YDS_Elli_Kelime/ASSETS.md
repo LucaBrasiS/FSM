@@ -24,4 +24,15 @@ Sorular uygulamada onar soruluk üç teste bölünür; günün grameri, karış�
 
 ## Kelimeler
 
-150 kelimelik demo seti, örnek cümleleri ve çevirileriyle birlikte bu proje için yazılmıştır (`src/app.src.html` içinde).
+293 kelimelik liste (B1 – alt B2, YDS metinlerinde sık geçen kelimeler), örnek cümleleri ve çevirileriyle birlikte bu proje
+için yazılmıştır (`data/kelimeler.txt`).
+
+## Sesler
+
+Uygulamada ses dosyası yoktur. Ses efektlerinin hepsi (dokunma, doğru, yanlış, eşleşme, balon, kutlama) çalışma anında
+WebAudio ile üretilir (`src/app.src.html` içindeki `SFX`); telif gerektiren bir kayıt kullanılmaz. Kelimelerin okunması
+cihazın kendi konuşma sesiyle yapılır.
+
+## Çıkartmalar
+
+Sürpriz kutudan çıkan 24 çıkartma da Fluent Emoji çizimleridir (`data/art-picks.json` içinde `stk-` ile başlayanlar).

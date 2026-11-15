@@ -256,6 +256,97 @@
   ],
   "u-b-anlam": [
    "speech-balloon"
+  ],
+  "gift": [
+   "wrapped-gift"
+  ],
+  "balloon": [
+   "balloon"
+  ],
+  "cards": [
+   "joker",
+   "flower-playing-cards"
+  ],
+  "album": [
+   "framed-picture"
+  ],
+  "sparkle": [
+   "sparkles"
+  ],
+  "journey": [
+   "rocket"
+  ],
+  "stk-sloth": [
+   "sloth"
+  ],
+  "stk-otter": [
+   "otter"
+  ],
+  "stk-penguin": [
+   "penguin"
+  ],
+  "stk-owl": [
+   "owl"
+  ],
+  "stk-fox": [
+   "fox"
+  ],
+  "stk-unicorn": [
+   "unicorn"
+  ],
+  "stk-t-rex": [
+   "t-rex"
+  ],
+  "stk-octopus": [
+   "octopus"
+  ],
+  "stk-parrot": [
+   "parrot"
+  ],
+  "stk-hedgehog": [
+   "hedgehog"
+  ],
+  "stk-llama": [
+   "llama"
+  ],
+  "stk-flamingo": [
+   "flamingo"
+  ],
+  "stk-robot": [
+   "robot"
+  ],
+  "stk-alien": [
+   "alien"
+  ],
+  "stk-ghost": [
+   "ghost"
+  ],
+  "stk-rocket": [
+   "rocket"
+  ],
+  "stk-rainbow": [
+   "rainbow"
+  ],
+  "stk-crown": [
+   "crown"
+  ],
+  "stk-cactus": [
+   "cactus"
+  ],
+  "stk-avocado": [
+   "avocado"
+  ],
+  "stk-mirror-ball": [
+   "mirror-ball"
+  ],
+  "stk-flying-saucer": [
+   "flying-saucer"
+  ],
+  "stk-dragon": [
+   "dragon"
+  ],
+  "stk-jellyfish": [
+   "jellyfish"
   ]
  },
  "words": {
