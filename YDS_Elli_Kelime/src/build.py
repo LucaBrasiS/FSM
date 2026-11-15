@@ -55,6 +55,36 @@ def load_grammar(kitap_dir, allow_missing):
     return {"t": topics, "q": qs, "pas": pas}
 
 
+def load_bag(d, allow_missing):
+    """Bağlaç atölyesi: list.json (gruplar, yapılar) + kartlar.json + sec/iliski/anlam.json -> {groups, yapi, qs}."""
+    if not (d / "list.json").exists():
+        if allow_missing:
+            return {"groups": [], "yapi": {}, "qs": {}}
+        sys.exit(f"eksik: {d / 'list.json'}")
+    lst = json.loads((d / "list.json").read_text(encoding="utf-8"))
+    need = ["kartlar.json", "sec.json", "iliski.json", "anlam.json"]
+    if not all((d / n).exists() for n in need):
+        if allow_missing:
+            return {"groups": [], "yapi": {}, "qs": {}}
+        sys.exit(f"eksik bağlaç dosyası: {[n for n in need if not (d / n).exists()]}")
+    cards = {c["w"]: c for c in json.loads((d / "kartlar.json").read_text(encoding="utf-8"))}
+    groups = []
+    for g in lst["groups"]:
+        items = []
+        for w, y in g["items"]:
+            c = cards[w]
+            items.append({"w": w, "y": y, "tr": c["tr"], "ex": c["ex"], "ext": c["ext"], "not": c["not"]})
+        groups.append({"id": g["id"], "ad": g["ad"], "items": items})
+    qs = {}
+    for k in ("sec", "iliski", "anlam"):
+        rows = json.loads((d / f"{k}.json").read_text(encoding="utf-8"))
+        assert len(rows) == 30 and [q["lvl"] for q in rows] == sorted(q["lvl"] for q in rows), k
+        qs[k] = [[q["q"], q["o"], q["a"], q["e"], k, q.get("g") or q.get("w")] for q in rows]
+        for r in qs[k]:
+            assert len(r[1]) == 5 and len(set(r[1])) == 5 and 0 <= r[2] < 5, (k, r[0])
+    return {"groups": groups, "yapi": lst["yapi"], "qs": qs}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--kitap", default=str(ROOT / "data" / "kitap"))
@@ -65,6 +95,7 @@ def main():
     art = json.loads((ROOT / "data" / "art.json").read_text(encoding="utf-8"))
     lic = (ROOT / "assets" / "FLUENT-EMOJI-LICENSE.txt").read_text(encoding="utf-8").strip()
     gram = load_grammar(pathlib.Path(args.kitap), args.eksik_olabilir)
+    bag = load_bag(ROOT / "data" / "baglac", args.eksik_olabilir)
 
     for group in ("ui", "words"):
         for key, name in art[group].items():
@@ -79,6 +110,7 @@ def main():
         ("/*@@ARTLICENSE@@*/", notice),
         ("/*@@ART@@*/{icons:{},ui:{},words:{}}", js(art)),
         ("/*@@GRAM@@*/{t:[],q:{},pas:{}}", js(gram)),
+        ("/*@@BAG@@*/{groups:[],yapi:{},qs:{}}", js(bag)),
     ):
         assert out.count(mark) == 1, mark
         out = out.replace(mark, value)

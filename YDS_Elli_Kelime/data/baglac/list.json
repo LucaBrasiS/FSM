@@ -1,0 +1,18 @@
+{
+ "groups": [
+  {"id": "zitlik", "ad": "Zıtlık", "items": [["although","cumle"],["even though","cumle"],["though","cumle"],["while","cumle"],["whereas","cumle"],["despite","isim"],["in spite of","isim"],["however","zarf"],["nevertheless","zarf"],["but","es"],["yet","es"]]},
+  {"id": "neden", "ad": "Neden", "items": [["because","cumle"],["since","cumle"],["as","cumle"],["because of","isim"],["due to","isim"],["owing to","isim"],["thanks to","isim"],["for","es"]]},
+  {"id": "sonuc", "ad": "Sonuç", "items": [["so","es"],["so ... that","cumle"],["such ... that","cumle"],["therefore","zarf"],["thus","zarf"],["hence","zarf"],["consequently","zarf"],["as a result","zarf"]]},
+  {"id": "kosul", "ad": "Koşul", "items": [["if","cumle"],["unless","cumle"],["provided that","cumle"],["as long as","cumle"],["in case","cumle"],["in case of","isim"],["otherwise","zarf"]]},
+  {"id": "amac", "ad": "Amaç", "items": [["so that","cumle"],["in order that","cumle"],["in order to","fiil"],["so as to","fiil"]]},
+  {"id": "zaman", "ad": "Zaman", "items": [["when","cumle"],["as soon as","cumle"],["until","cumle"],["by the time","cumle"],["once","cumle"],["during","isim"],["meanwhile","zarf"]]},
+  {"id": "ekleme", "ad": "Ekleme", "items": [["moreover","zarf"],["furthermore","zarf"],["in addition","zarf"],["besides","zarf"],["as well as","isim"],["not only ... but also","es"]]}
+ ],
+ "yapi": {
+  "cumle": "+ özne + fiil (yan cümle kurar)",
+  "isim": "+ isim / -ing (cümle almaz)",
+  "fiil": "+ yalın fiil (to'lu yapı)",
+  "zarf": "iki ayrı cümleyi bağlar; noktalı virgül ya da noktadan sonra, virgülle",
+  "es": "iki cümleciği virgülle bağlar (eşgüdüm bağlacı)"
+ }
+}

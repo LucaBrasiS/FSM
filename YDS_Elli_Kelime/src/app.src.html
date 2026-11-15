@@ -358,6 +358,47 @@ details.part summary b{font-family:var(--display);font-weight:800;font-size:1.04
 .btn.unav{flex:0 0 56px;padding-inline:0}
 .top .count{margin-left:auto}
 
+/* bağlaç atölyesi */
+.bhero h1{font-size:2rem}
+.gchips{display:flex;flex-wrap:wrap;gap:10px 8px;padding-bottom:3px}
+.gchip{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:6px 14px;border-radius:999px;background:var(--pc);color:var(--on-fill);
+  border:2px solid var(--edge);box-shadow:0 3px 0 var(--edge);font-family:var(--display);font-weight:700}
+.gchip small{font-family:var(--ui);font-size:.72rem;background:var(--on-brand);border-radius:999px;padding:0 7px}
+.gchip:active{transform:translateY(3px);box-shadow:none}
+.bmode{background:var(--surface);border:2px solid var(--edge);border-radius:var(--r);padding:12px;display:flex;flex-direction:column;gap:10px}
+.bmhead{display:flex;align-items:center;gap:10px}
+.bmhead>span{display:flex;flex-direction:column}
+.bmhead b{font-family:var(--display);font-weight:800;font-size:1.06rem}
+.bmhead span span{font-size:.82rem;color:var(--muted)}
+.lvrow{display:flex;gap:8px;padding-bottom:3px}
+.lvbtn{flex:1;min-height:46px;border-radius:var(--r-s);border:2px solid var(--edge);background:var(--sunk);box-shadow:0 3px 0 var(--edge);
+  font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1}
+.lvbtn small{font-size:.7rem;font-weight:600}
+.lvbtn.ok{background:var(--ok);color:var(--on-fill)}
+.lvbtn.try{background:var(--sun);color:var(--on-fill)}
+.lvbtn:active{transform:translateY(3px);box-shadow:none}
+.bcard{background:var(--surface);border:2px solid var(--edge);border-left:10px solid var(--pc);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.bchead{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.bchead b{font-family:var(--display);font-weight:800;font-size:1.3rem}
+.ypill{font-size:.74rem;font-weight:700;border:2px solid var(--edge);border-radius:999px;padding:1px 9px;background:var(--pc);color:var(--on-fill)}
+.bcard .ex{font-size:1.04rem}
+.bcard .ex mark,.gq mark{background:var(--sun);color:var(--on-fill)}
+.sbins{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sbin{min-height:190px;border-radius:var(--r);border:2px dashed var(--muted);background:var(--sunk);padding:10px;display:flex;flex-direction:column;align-items:stretch;gap:8px;text-align:left}
+.sbin.hot{border-color:var(--brand);border-style:solid;background:var(--brand-soft)}
+.sbh{font-family:var(--display);font-weight:800;text-align:center}
+.sbl{display:flex;flex-direction:column;gap:6px}
+.sin{background:var(--ok);color:var(--on-fill);border:2px solid var(--edge);border-radius:10px;padding:4px 8px;display:flex;flex-direction:column;font-weight:600}
+.sin small{font-weight:500;font-size:.76rem}
+.stiles{display:flex;flex-wrap:wrap;gap:10px 8px;justify-content:center;padding-bottom:3px}
+.stile{min-height:46px;padding:8px 14px;border-radius:12px;background:var(--surface);border:2px solid var(--edge);box-shadow:0 3px 0 var(--edge);font-weight:700;
+  touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
+.stile.sel{background:var(--sun);color:var(--on-fill)}
+.stile.bad{background:var(--no);color:var(--on-fill);animation:shake .3s ease-out}
+.stile.lift{opacity:.25}
+.stile.ghost{position:fixed;left:0;top:0;z-index:50;pointer-events:none;margin:0;background:var(--sun);color:var(--on-fill);box-shadow:0 12px 26px var(--shadow)}
+.bagcard .uicon{background:var(--sun)}
+
 /* karışık test, ara tekrar, okuma parçası */
 .ucard.rev .uicon{background:var(--sun)}
 .mixcard .tools{padding-bottom:3px}
@@ -674,13 +715,14 @@ var ORDER=shuffle(WORDS.map(function(x){return x.w}),rng(5060));
 /* ---- durum ----
    kelime: st 1 = yarın tekrar, 2 = öğrenildi (chk gününde pekiştirme), 3 = kalıcı; lv = geçilen pekiştirme sayısı */
 function dayNow(off){var n=new Date();return Math.floor((n.getTime()-n.getTimezoneOffset()*60000)/86400000)+(off|0)}
-function fresh(){return{v:1,rev:0,off:0,first:null,w:{},ses:null,streak:0,last:null,days:[],g:{},gw:{},gr:{},gd:null}}
+function fresh(){return{v:1,rev:0,off:0,first:null,w:{},ses:null,streak:0,last:null,days:[],g:{},gw:{},gr:{},gd:null,bg:{}}}
 function sanitize(o){
   if(!Array.isArray(o.days))o.days=o.last!=null?[o.last]:[];
   if(!o.g||typeof o.g!=='object')o.g={};                 // gramer: ünite -> üç testin en iyi sonucu
   if(!o.gw||typeof o.gw!=='object')o.gw={};              // ünite -> yanlış yapılan soruların sırası
   if(!o.gr||typeof o.gr!=='object')o.gr={};              // ara tekrar testlerinin en iyi sonucu
-  if(!o.gd||typeof o.gd!=='object')o.gd=null;            // günün grameri: {day, right, n}
+  if(!o.gd||typeof o.gd!=='object')o.gd=null;
+  if(!o.bg||typeof o.bg!=='object')o.bg={};              // bağlaç alıştırmaları: tür -> üç düzeyin en iyi sonucu            // günün grameri: {day, right, n}
   var ref=o.ses&&typeof o.ses.day==='number'?o.ses.day:dayNow(o.off);
   for(var k in o.w){
     if(!BY[k]){delete o.w[k];continue}
@@ -913,7 +955,7 @@ function initVoice(){
 
 /* ---- görünüm ---- */
 var app=document.getElementById('app');
-var view='home',Q=null,ST=null,M=null,GQ=null,UV=null,confirmReset=false,storeMode='local',celebrate=false;
+var BG=null,view='home',Q=null,ST=null,M=null,GQ=null,UV=null,confirmReset=false,storeMode='local',celebrate=false;
 
 var I={
   x:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
@@ -1233,10 +1275,11 @@ function vMatch(){
 
 /* ---- gramer üniteleri ---- */
 var UCOL=['--p-v','--p-n','--p-adj','--p-adv','--p-bag','--p-phr'];
-function uColor(id){return UCOL[Math.max(0,UNITS.indexOf(id))%UCOL.length]}
+function uColor(id){return /^b-/.test(id)?'--sun':UCOL[Math.max(0,UNITS.indexOf(id))%UCOL.length]}
 function uLabel(id){
   var t=TOPIC[id];
   if(t.grp==='k')return 'Ünite '+t.no;
+  if(t.grp==='b')return 'Bağlaç';
   return 'YDS '+(UNITS.filter(function(x){return TOPIC[x].grp!=='k'}).indexOf(id)+1);
 }
 /* [ana başlık, alt başlık, ana başlık İngilizce mi] : kitap ünitelerinde başlık kitaptaki İngilizce ad, altında Türkçesi */
@@ -1362,6 +1405,7 @@ function vUnits(){
     '<section class="card"><div class="hwline"><div><h2>Gramer</h2><p class="h1u">'+done+' / '+total+' test</p></div>'+ui('tab-units',48)+'</div>'+
     '<div class="gbar" role="img" aria-label="'+done+' / '+total+' test çözüldü"><i style="width:'+(done/total*100)+'%"></i></div>'+
     (nt?'<p class="note">Kaldığın yer</p>'+cont:'<p class="note">Bütün testleri çözdün.</p>')+'</section>'+
+    (bagReady()?'<button class="ucard bagcard" data-act="bag"><span class="uicon">'+ui('u-b-iliski',40)+'</span><span class="utxt"><span class="unum">Özel çalışma</span><b>Bağlaç atölyesi</b><span class="usub">Zor cümleleri çözmek için bağlaçlar · kartlar, 3 alıştırma, Ayır oyunu</span></span>'+I.go+'</button>':'')+
     body+
     '<section class="card mixcard"><h2>Karışık test</h2><div class="tools">'+
     '<button class="tool" data-act="gmix" data-n="10" data-s="mine"'+(solvedItems().length>=10?'':' disabled')+'><b>10 soru</b><span>Çalıştığım ünitelerden</span></button>'+
@@ -1391,12 +1435,135 @@ function vUnit(){
     '<footer class="foot">'+nav(prev,-1)+'<button class="btn pri" data-act="gstart" data-id="'+id+'" data-k="'+nk+'">Test '+(nk+1)+['’i','’yi','’ü'][nk]+' başlat</button>'+nav(next,1)+'</footer>';
 }
 
+/* ---- bağlaç atölyesi ----
+   BAG.groups: ilişki grupları ve bağlaç kartları {w, y (yapı), tr, ex, ext, not}; BAG.yapi: yapı açıklamaları;
+   BAG.qs: sec / iliski / anlam soruları [soru, şıklar, doğru, açıklama, tür, ek]. Sorular gramer setleriyle aynı motorda çözülür. */
+var BAG=/*@@BAG@@*/{groups:[],yapi:{},qs:{}};
+var BAGM=[
+  {k:'sec',ad:'Bağlacı seç',sub:'Boşluğa uyan bağlacı bul',icon:'u-b-sec'},
+  {k:'iliski',ad:'İlişkiyi bul',sub:'Bağlaç cümleye hangi anlamı katıyor',icon:'u-b-iliski'},
+  {k:'anlam',ad:'Anlamı seç',sub:'Cümlenin doğru Türkçesini bul',icon:'u-b-anlam'}
+];
+var BLV=['Kolay','Orta','Zor'];
+var BCOL={zitlik:'--p-bag',neden:'--p-v',sonuc:'--p-n',kosul:'--p-adj',amac:'--p-adv',zaman:'--p-phr',ekleme:'--sun'};
+var YAPI_KISA={cumle:'+ cümle',isim:'+ isim / -ing',fiil:'+ fiil',zarf:'cümleler arası',es:'virgülle bağlar'};
+BAGM.forEach(function(m){
+  var id='b-'+m.k;
+  if(BAG.qs[m.k]&&BAG.qs[m.k].length){GRAM.q[id]=BAG.qs[m.k];TOPIC[id]={id:id,grp:'b',ad:'Bağlaçlar · '+m.ad,kisa:m.sub,not:''}}
+});
+function bagReady(){return BAG.groups.length&&BAGM.every(function(m){return GRAM.q['b-'+m.k]})}
+function bagBest(k,l){var a=S.bg[k];return a&&typeof a[l]==='number'?a[l]:null}
+function bagMark(s){return esc(s).replace(/\[(.+?)\]/g,'<mark>$1</mark>')}
+
+function vBag(){
+  var modes=BAGM.map(function(m){
+    var lv='';
+    for(var l=0;l<3;l++){var b=bagBest(m.k,l);lv+='<button class="lvbtn'+(b===null?'':(b>=7?' ok':' try'))+'" data-act="bstart" data-k="'+m.k+'" data-l="'+l+'">'+BLV[l]+(b===null?'':'<small>'+b+'/10</small>')+'</button>'}
+    return '<section class="bmode"><div class="bmhead">'+ui(m.icon,34)+'<span><b>'+m.ad+'</b><span>'+m.sub+'</span></span></div><div class="lvrow">'+lv+'</div></section>';
+  }).join('');
+  var chips=BAG.groups.map(function(g){return '<button class="gchip" data-act="bcards" data-g="'+g.id+'" style="--pc:var('+BCOL[g.id]+')">'+g.ad+'<small>'+g.items.length+'</small></button>'}).join('');
+  return '<header class="top"><button class="x" data-act="tab" data-v="units" aria-label="Gramere dön">'+I.x+'</button><div class="brand"><span>Bağlaçlar</span></div></header><div class="body">'+
+    '<section class="hero bhero"><div class="herotop"><p class="eyebrow">Zor cümleleri çözmenin anahtarı</p>'+ui('u-b-iliski',44,'heroart')+'</div>'+
+    '<h1>Bağlaç atölyesi</h1><p class="hnote">Uzun bir cümlede neyin neden, neyin zıtlık, neyin koşul olduğunu bağlaçlar söyler. Önce kartlara bak, sonra alıştırmalara geç.</p></section>'+
+    '<h2>Kartlar</h2><div class="gchips">'+chips+'</div>'+
+    '<h2>Alıştırmalar</h2>'+modes+
+    '<section class="bmode"><div class="bmhead">'+ui('t-match',34)+'<span><b>Ayır</b><span>Bağlaçları doğru kutuya sürükle</span></span></div>'+
+    '<div class="lvrow"><button class="lvbtn" data-act="bsort" data-t="yapi">Yapıya göre</button><button class="lvbtn" data-act="bsort" data-t="iliski">Anlama göre</button></div></section>'+
+    '<button class="btn pri" data-act="bmix">Karışık 10 soru'+I.go+'</button>'+
+    '</div>';
+}
+function vBagCards(){
+  var g=BAG.groups.filter(function(x){return x.id===BG})[0]||BAG.groups[0],i=BAG.groups.indexOf(g);
+  var cards=g.items.map(function(c){
+    return '<section class="bcard" style="--pc:var('+BCOL[g.id]+')"><div class="bchead"><b lang="en">'+esc(c.w)+'</b><span class="ypill">'+YAPI_KISA[c.y]+'</span></div>'+
+      '<p class="mean">'+esc(c.tr)+'</p><p class="ex" lang="en">'+bagMark(c.ex)+'</p><p class="tr">'+esc(c.ext)+'</p><p class="note">'+esc(c.not)+'</p></section>';
+  }).join('');
+  var prev=BAG.groups[i-1],next=BAG.groups[i+1];
+  var nav=function(to,dir){return to?'<button class="btn sec unav" data-act="bcards" data-g="'+to.id+'" aria-label="'+(dir<0?'Önceki':'Sonraki')+': '+to.ad+'">'+(dir<0?I.back:I.go)+'</button>':'<button class="btn sec unav" disabled>'+(dir<0?I.back:I.go)+'</button>'};
+  return '<header class="top"><button class="x" data-act="bag" aria-label="Bağlaçlara dön">'+I.x+'</button><div class="brand"><span>'+g.ad+'</span></div><span class="count">'+(i+1)+' / '+BAG.groups.length+'</span></header>'+
+    '<div class="body"><p class="note">'+g.items.length+' bağlaç. Altındaki etiket, ardından ne geldiğini gösterir.</p>'+cards+'</div>'+
+    '<footer class="foot">'+nav(prev,-1)+'<button class="btn pri" data-act="bsort" data-t="iliski">Ayır oyunu</button>'+nav(next,1)+'</footer>';
+}
+
+/* ---- Ayır: bağlaçları iki kutuya dağıt (dokun-seç-dokun ya da sürükle bırak) ---- */
+var SR=null;
+function sortRound(type){
+  var all=[];BAG.groups.forEach(function(g){g.items.forEach(function(c){all.push({w:c.w,y:c.y,g:g.id,tr:c.tr})})});
+  var bins,pick;
+  if(type==='yapi'){
+    bins=[{k:'cumle',ad:'+ özne + fiil'},{k:'isim',ad:'+ isim / -ing'}];
+    pick=function(c){return c.y==='cumle'?0:(c.y==='isim'?1:-1)};
+  }else{
+    var gs=shuffle(BAG.groups.slice()).slice(0,2);
+    bins=gs.map(function(g){return{k:g.id,ad:g.ad}});
+    pick=function(c){return c.g===gs[0].id?0:(c.g===gs[1].id?1:-1)};
+  }
+  var a=shuffle(all.filter(function(c){return pick(c)===0})).slice(0,4),b=shuffle(all.filter(function(c){return pick(c)===1})).slice(0,4);
+  return{type:type,bins:bins,tiles:shuffle(a.map(function(c){c.bin=0;return c}).concat(b.map(function(c){c.bin=1;return c}))),placed:{},sel:null,bad:null,miss:0};
+}
+function startSort(type){SR={type:type,round:0,rounds:3,miss:0,cur:sortRound(type),fin:false};Q=null;ST=null;M=null;GQ=null;view='bsort';render()}
+function sortPlace(i,bin){
+  var r=SR.cur,t=r.tiles[i];if(!t||r.placed[i]!=null)return;
+  if(t.bin===bin){r.placed[i]=bin;r.sel=null;r.bad=null}
+  else{r.miss++;SR.miss++;r.bad=i;r.sel=null;var cur=r;setTimeout(function(){if(SR&&SR.cur===cur&&cur.bad===i){cur.bad=null;if(view==='bsort')render(true)}},450)}
+  render(true);
+}
+function vSort(){
+  var r=SR.cur,done=Object.keys(r.placed).length===r.tiles.length;
+  var tile=function(t,i){return '<button class="stile'+(r.sel===i?' sel':'')+(r.bad===i?' bad':'')+'" data-act="spick" data-i="'+i+'" lang="en">'+esc(t.w)+'</button>'};
+  var bins=r.bins.map(function(b,k){
+    var inside=r.tiles.map(function(t,i){return r.placed[i]===k?'<span class="sin"><b lang="en">'+esc(t.w)+'</b>'+(done?'<small>'+esc(t.tr)+'</small>':'')+'</span>':''}).join('');
+    return '<button class="sbin" data-act="sbin" data-b="'+k+'"><span class="sbh">'+esc(b.ad)+'</span><span class="sbl">'+inside+'</span></button>';
+  }).join('');
+  var left=r.tiles.map(function(t,i){return r.placed[i]==null?tile(t,i):''}).join('');
+  var last=SR.round+1>=SR.rounds;
+  return '<header class="top"><button class="x" data-act="bag" aria-label="Bağlaçlara dön">'+I.x+'</button><div class="brand"><span>Ayır · '+(SR.type==='yapi'?'yapıya göre':'anlama göre')+'</span></div><span class="count">'+(SR.round+1)+' / '+SR.rounds+'</span></header>'+
+    '<div class="body"><p class="ask">'+(done?'Tamam! Anlamlarıyla birlikte:':(SR.type==='yapi'?'Bağlacın ardından ne gelir? Kutusuna sürükle ya da dokunup kutuya dokun.':'Bağlaç hangi anlamı katar? Kutusuna sürükle ya da dokunup kutuya dokun.'))+'</p>'+
+    '<div class="sbins">'+bins+'</div>'+(done?'':'<div class="stiles">'+left+'</div>')+
+    (done?'<p class="res '+(r.miss?'no':'ok')+' fresh" role="status"><b>'+(r.miss?r.miss+' yanlış':'Hepsi doğru!')+'</b><span>Bu turda</span></p>':'')+'</div>'+
+    '<footer class="foot">'+(done?(last?'<button class="btn sec narrow" data-act="bag">Bağlaçlar</button><button class="btn pri" data-act="bsort" data-t="'+SR.type+'" data-focus>Yeniden oyna</button>'
+      :'<button class="btn pri" data-act="snext" data-focus>Sonraki tur'+I.go+'</button>'):'<button class="btn pri" disabled>'+(r.tiles.length-Object.keys(r.placed).length)+' bağlaç kaldı</button>')+'</footer>';
+}
+/* sürükleme: parçayı tutup kutunun üstüne bırak */
+var SD=null;
+app.addEventListener('pointerdown',function(e){
+  if(view!=='bsort'||!SR||SD)return;
+  var t=e.target.closest('.stile');if(!t||(e.pointerType==='mouse'&&e.button!==0))return;
+  var rc=t.getBoundingClientRect();
+  SD={i:+t.getAttribute('data-i'),el:t,pid:e.pointerId,x0:e.clientX,y0:e.clientY,ox:e.clientX-rc.left,oy:e.clientY-rc.top,w:rc.width,ghost:null};
+  window.addEventListener('pointermove',sdMove,{passive:false});window.addEventListener('pointerup',sdUp);window.addEventListener('pointercancel',sdEnd);
+});
+app.addEventListener('touchstart',function(e){if(e.cancelable&&view==='bsort'&&e.target.closest&&e.target.closest('.stile'))e.preventDefault()},{passive:false});
+function sdBin(x,y){var bins=document.querySelectorAll('.sbin');for(var k=0;k<bins.length;k++){var r=bins[k].getBoundingClientRect();if(x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom)return k}return -1}
+function sdMove(e){
+  if(!SD||e.pointerId!==SD.pid)return;
+  if(!SD.ghost){
+    if(Math.abs(e.clientX-SD.x0)+Math.abs(e.clientY-SD.y0)<8)return;
+    var g=SD.el.cloneNode(true);g.classList.add('ghost');g.style.width=SD.w+'px';document.body.appendChild(g);SD.ghost=g;SD.el.classList.add('lift');
+  }
+  e.preventDefault();
+  SD.ghost.style.transform='translate('+(e.clientX-SD.ox)+'px,'+(e.clientY-SD.oy)+'px) rotate(-3deg)';
+  var k=sdBin(e.clientX,e.clientY);[].forEach.call(document.querySelectorAll('.sbin'),function(b,j){b.classList.toggle('hot',j===k)});
+}
+function sdEnd(){
+  if(!SD)return;
+  if(SD.ghost&&SD.ghost.parentNode)SD.ghost.parentNode.removeChild(SD.ghost);
+  window.removeEventListener('pointermove',sdMove);window.removeEventListener('pointerup',sdUp);window.removeEventListener('pointercancel',sdEnd);
+  SD=null;
+}
+function sdUp(e){
+  if(!SD||e.pointerId!==SD.pid)return;
+  var d=SD,k=d.ghost?sdBin(e.clientX,e.clientY):-2;sdEnd();
+  if(k===-2){SR.cur.sel=SR.cur.sel===d.i?null:d.i;render(true);return}   // dokunma: seç
+  if(k>=0)sortPlace(d.i,k);else render(true);
+}
+
 /* ---- gramer seti: ünite testi, günün grameri, karışık test, ara tekrar ya da yanlışların tekrarı ---- */
-var GMODE={test:'',daily:'Günün grameri',mixed:'Karışık test',rev:'Ara tekrar',retry:'Yanlışlar'};
+var GMODE={test:'',daily:'Günün grameri',mixed:'Karışık test',rev:'Ara tekrar',retry:'Yanlışlar',bag:'Bağlaçlar'};
 function gRun(mode,items,meta){
   meta=meta||{};
   GQ={mode:mode,items:items,i:0,order:shuffle([0,1,2,3,4]),picked:null,done:false,ok:false,right:0,wrong:[],hits:[],fin:false,fresh:false,
-      id:meta.id||null,k:meta.k==null?null:meta.k,unitN:meta.unitN||0,key:meta.key||null,title:meta.title||GMODE[mode],again:meta.again||null,unitRight:null};
+      id:meta.id||null,k:meta.k==null?null:meta.k,unitN:meta.unitN||0,key:meta.key||null,title:meta.title||GMODE[mode],again:meta.again||null,unitRight:null,bag:!!meta.bag};
   if(GQ.id)UV=GQ.id;
   Q=null;ST=null;M=null;view='gq';render();
 }
@@ -1430,19 +1597,20 @@ function gNext(){
   }
   if(GQ.mode==='daily')S.gd={day:today(),right:GQ.right,n:GQ.items.length};
   if(GQ.mode==='rev'&&GQ.key&&(typeof S.gr[GQ.key]!=='number'||GQ.right>S.gr[GQ.key]))S.gr[GQ.key]=GQ.right;
+  if(GQ.mode==='bag'&&GQ.key){var bb=S.bg[GQ.key[0]]||(S.bg[GQ.key[0]]=[null,null,null]);if(typeof bb[GQ.key[1]]!=='number'||GQ.right>bb[GQ.key[1]])bb[GQ.key[1]]=GQ.right}
   save();
   celebrate=true;view='gres';render();
 }
 /* ---- yerine boşluk çizer; fill verilirse doğru cevabı işaretleyerek yerleştirir (çok boşluklu sorularda "a / b" sırayla dağıtılır) */
 function gText(q,fill){
-  var parts=esc(q[0]).split('----'),n=parts.length-1,ans=String(q[1][q[2]]),bits=ans.split(' / '),out=parts[0];
-  if(!n)return out+(fill?' <mark>'+esc(ans)+'</mark>':'');
+  var parts=esc(q[0]).replace(/\[(.+?)\]/g,'<mark>$1</mark>').split('----'),n=parts.length-1,ans=String(q[1][q[2]]),bits=ans.split(' / '),out=parts[0];
+  if(!n)return out+(fill&&q[4]!=='iliski'&&q[4]!=='anlam'?' <mark>'+esc(ans)+'</mark>':'');
   for(var k=1;k<=n;k++){
     out+=(fill?'<mark>'+esc(bits.length===n?bits[k-1]:ans)+'</mark>':'<span class="blank" role="img" aria-label="boşluk"></span>')+parts[k];
   }
   return out;
 }
-function gBack(){return GQ.id?'data-act="unit" data-id="'+GQ.id+'" aria-label="Üniteye dön"':'data-act="tab" data-v="units" aria-label="Ünitelere dön"'}
+function gBack(){if(GQ.mode==='bag'||(GQ.mode==='retry'&&GQ.bag))return 'data-act="bag" aria-label="Bağlaçlara dön"';return GQ.id?'data-act="unit" data-id="'+GQ.id+'" aria-label="Üniteye dön"':'data-act="tab" data-v="units" aria-label="Ünitelere dön"'}
 function vGQ(){
   var q=gCur(),n=GQ.items.length,id=gCurId(),segs='';
   for(var s=0;s<n;s++)segs+='<span class="seg" style="flex:1 1 0"><i style="width:'+(s<GQ.i+(GQ.done?1:0)?100:0)+'%"></i></span>';
@@ -1458,14 +1626,16 @@ function vGQ(){
   };
   if(!GQ.done){
     var opts='';
-    for(var k=0;k<5;k++)opts+=optRow(q[1][GQ.order[k]],k,'',true,'','gpick');
-    var ask=q[4]==='okuma'?'Parçaya göre cevabı işaretle':(q[4]==='tamamla'?'Cümleyi hangisi tamamlar?':'Boşluğa hangisi gelir?');
+    var oen=q[4]!=='iliski'&&q[4]!=='anlam';
+    for(var k=0;k<5;k++)opts+=optRow(q[1][GQ.order[k]],k,'',oen,'','gpick');
+    var ask={okuma:'Parçaya göre cevabı işaretle',tamamla:'Cümleyi hangisi tamamlar?',iliski:'İşaretli bağlaç cümleye hangi anlamı katıyor?',anlam:'Bu cümlenin doğru Türkçesi hangisi?'}[q[4]]||'Boşluğa hangisi gelir?';
     return head+'<div class="body">'+pcard+card(false)+'<p class="ask">'+ask+'</p><div class="opts">'+opts+'</div></div>'+
       '<footer class="foot"><button class="btn ghost" data-act="gidk">Bilmiyorum</button></footer>';
   }
   var cpos=GQ.order.indexOf(q[2]);
-  var rows=optRow(q[1][q[2]],cpos,' ok'+(GQ.picked===cpos?' picked':''),true,I.ok,'');
-  if(GQ.picked>=0&&GQ.picked!==cpos)rows+=optRow(q[1][GQ.order[GQ.picked]],GQ.picked,' no picked',true,I.no,'');
+  var ren=q[4]!=='iliski'&&q[4]!=='anlam';
+  var rows=optRow(q[1][q[2]],cpos,' ok'+(GQ.picked===cpos?' picked':''),ren,I.ok,'');
+  if(GQ.picked>=0&&GQ.picked!==cpos)rows+=optRow(q[1][GQ.order[GQ.picked]],GQ.picked,' no picked',ren,I.no,'');
   return head+'<div class="body">'+
     '<p class="res '+(GQ.ok?'ok':'no')+(GQ.fresh?' fresh':'')+'" role="status"><b>'+(GQ.picked===-1?'Cevap bu':(GQ.ok?'Doğru!':'Yanlış'))+'</b><span>'+GQ.right+' doğru, '+GQ.wrong.length+' yanlış</span></p>'+
     card(true)+'<div class="opts">'+rows+'</div>'+
@@ -1492,13 +1662,14 @@ function vGRes(){
   else if(nx)pri='<button class="btn pri" data-act="gstart" data-id="'+nx.id+'" data-k="'+nx.k+'" data-focus>'+(nx.id===id?'Sonraki test':'Sonraki ünite')+I.go+'</button>';
   else if(GQ.mode==='mixed'&&GQ.again)pri='<button class="btn pri" data-act="gmix" data-n="'+GQ.again.n+'" data-s="'+GQ.again.s+'" data-focus>Bir karışık test daha</button>';
   else if(GQ.mode==='daily')pri='<button class="btn pri" data-act="tab" data-v="home" data-focus>Ana sayfa</button>';
+  else if(GQ.mode==='bag'||GQ.bag)pri='<button class="btn pri" data-act="bag" data-focus>Bağlaçlara dön</button>';
   else pri='<button class="btn pri" data-act="tab" data-v="units" data-focus>Ünitelere dön</button>';
   return '<header class="top"><button class="x" '+gBack()+'>'+I.x+'</button><div class="brand"><span>'+esc(GQ.title)+'</span></div></header><div class="body">'+
     '<section class="party">'+(celebrate&&st>=2?burst():'')+ui(GQ.right===n?'trophy':'party',56,'partyart')+
     '<p class="eyebrow">'+(id?esc(uName(id)[0]):esc(GMODE[GQ.mode]||GQ.title))+'</p><div class="score">'+GQ.right+' / '+n+'</div>'+starRow(st,30)+
     '<p class="pnote">'+msg+extra+'</p></section>'+
     (wrong?'<section class="card"><h2>Yanlışların · '+GQ.wrong.length+'</h2>'+wrong+'</section>':'')+'</div>'+
-    '<footer class="foot">'+(id?'<button class="btn sec narrow" data-act="unit" data-id="'+id+'">Ünite</button>':'<button class="btn sec narrow" data-act="tab" data-v="units">Üniteler</button>')+pri+'</footer>';
+    '<footer class="foot">'+(id?'<button class="btn sec narrow" data-act="unit" data-id="'+id+'">Ünite</button>':(GQ.mode==='bag'||GQ.bag?'':'<button class="btn sec narrow" data-act="tab" data-v="units">Üniteler</button>'))+pri+'</footer>';
 }
 
 function wordRow(id,ses){
@@ -1548,6 +1719,9 @@ function render(keepScroll){
   else if(view==='gq'&&GQ&&!GQ.fin)h=vGQ();
   else if(view==='gres'&&GQ&&GQ.fin)h=vGRes();
   else if(view==='words')h=vWords();
+  else if(view==='bag'&&bagReady())h=vBag();
+  else if(view==='bcards'&&bagReady())h=vBagCards();
+  else if(view==='bsort'&&SR)h=vSort();
   else{view='home';h=vMenu()}
   app.innerHTML=h;
   celebrate=false;
@@ -1592,13 +1766,23 @@ var act={
   start:function(){var ses=ensureSession();if(!ses){render();return}if(ses.done){view='sum';render();return}advance()},
   home:function(){Q=null;ST=null;M=null;GQ=null;view='words';render()},
   tab:function(b){var v=b.getAttribute('data-v');Q=null;ST=null;M=null;GQ=null;view=v==='units'||v==='words'?v:'home';render()},
+  bag:function(){Q=null;ST=null;M=null;GQ=null;SR=null;view='bag';render()},
+  bcards:function(b){BG=b.getAttribute('data-g');view='bcards';render()},
+  bstart:function(b){var k=b.getAttribute('data-k'),l=+b.getAttribute('data-l')||0,id='b-'+k,m=BAGM.filter(function(x){return x.k===k})[0];
+    var items=[];for(var i=l*10;i<l*10+10&&i<GRAM.q[id].length;i++)items.push([id,i]);
+    gRun('bag',items,{key:[k,l],title:m.ad+' · '+BLV[l],bag:true})},
+  bmix:function(){var pool=[];BAGM.forEach(function(m){GRAM.q['b-'+m.k].forEach(function(_,i){pool.push(['b-'+m.k,i])})});gRun('bag',take(pool,10),{title:'Bağlaçlar · karışık',bag:true})},
+  bsort:function(b){startSort(b.getAttribute('data-t')==='yapi'?'yapi':'iliski')},
+  spick:function(b){if(!SR)return;var i=+b.getAttribute('data-i');SR.cur.sel=SR.cur.sel===i?null:i;render(true)},
+  sbin:function(b){if(!SR||SR.cur.sel==null)return;sortPlace(SR.cur.sel,+b.getAttribute('data-b'))},
+  snext:function(){if(!SR)return;SR.round++;SR.cur=sortRound(SR.type);render()},
   gwrong:function(){var w=wrongItems();if(w.length)gRun('retry',shuffle(w).slice(0,20),{title:'Yanlışlarım'})},
   unit:function(b){var id=b.getAttribute('data-id');if(!TOPIC[id])return;UV=id;GQ=null;view='unit';render()},
   gstart:function(b){var id=b.getAttribute('data-id');if(GRAM.q[id])gStart(id,+b.getAttribute('data-k')||0)},
   gpick:function(b){gAnswer(+b.getAttribute('data-k'))},
   gidk:function(){gAnswer(-1)},
   gnext:function(){gNext()},
-  gretry:function(){if(GQ&&GQ.fin&&GQ.wrong.length)gRun('retry',GQ.wrong.slice(),{id:GQ.id,k:GQ.k,title:GQ.title+' · yanlışlar'})},
+  gretry:function(){if(GQ&&GQ.fin&&GQ.wrong.length)gRun('retry',GQ.wrong.slice(),{id:GQ.id,k:GQ.k,title:GQ.title+' · yanlışlar',bag:GQ.mode==='bag'||GQ.bag})},
   gdaily:function(){
     var p=dailyPlan();
     if(p.items.length)gRun('daily',p.items,{id:p.nt?p.nt.id:null,k:p.nt?p.nt.k:null,unitN:p.unitN,title:'Günün grameri'});
@@ -1789,7 +1973,9 @@ document.addEventListener('visibilitychange',function(){
 /* ---- Android sarmalayıcının geri tuşu: işlendiyse true döner ---- */
 window.kelimeBack=function(){
   if(view==='home')return false;
-  if(view==='gq'||view==='gres'){var uid=GQ&&GQ.id;GQ=null;if(uid){UV=uid;view='unit'}else view='units'}
+  if(view==='gq'||view==='gres'){var uid=GQ&&GQ.id,isb=GQ&&(GQ.mode==='bag'||GQ.bag);GQ=null;if(isb)view='bag';else if(uid){UV=uid;view='unit'}else view='units'}
+  else if(view==='bcards'||view==='bsort'){SR=null;view='bag'}
+  else if(view==='bag')view='units';
   else if(view==='unit')view='units';
   else if(view==='words'||view==='units')view='home';
   else{Q=null;ST=null;M=null;GQ=null;view='words'}
