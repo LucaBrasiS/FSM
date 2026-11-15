@@ -259,551 +259,1189 @@
   ]
  },
  "words": {
-  "undermine": [
-   "pick",
-   "hammer"
-  ],
-  "enhance": [
-   "sparkles"
-  ],
-  "deteriorate": [
-   "wilted-flower",
-   "chart-decreasing"
-  ],
-  "facilitate": [
-   "hammer-and-wrench",
-   "toolbox"
-  ],
-  "sustain": [
-   "battery",
-   "recycling-symbol"
-  ],
-  "exceed": [
-   "rocket"
-  ],
-  "diminish": [
-   "speaker-low-volume",
-   "chart-decreasing"
-  ],
-  "acquire": [
-   "shopping-cart",
-   "magnet"
-  ],
-  "attribute": [
-   "label"
-  ],
-  "comprise": [
-   "puzzle-piece"
-  ],
-  "conduct": [
-   "test-tube",
-   "clipboard"
-  ],
-  "constitute": [
-   "brick"
-  ],
-  "convey": [
-   "incoming-envelope",
-   "envelope"
-  ],
-  "derive": [
-   "alembic",
-   "seedling"
-  ],
-  "emerge": [
-   "sunrise",
-   "hatching-chick"
-  ],
-  "enable": [
-   "unlocked",
-   "key"
-  ],
-  "encounter": [
-   "crossed-swords",
-   "handshake"
-  ],
-  "ensure": [
-   "shield",
-   "check-mark-button"
-  ],
-  "establish": [
-   "classical-building",
-   "building-construction"
-  ],
-  "exhibit": [
-   "framed-picture"
-  ],
-  "foster": [
-   "seedling"
-  ],
-  "hinder": [
-   "construction"
-  ],
-  "imply": [
-   "thought-balloon"
-  ],
-  "impose": [
-   "receipt",
-   "balance-scale"
-  ],
-  "indicate": [
-   "round-pushpin",
-   "backhand-index-pointing-right"
-  ],
-  "inhibit": [
-   "stop-sign",
-   "no-entry"
-  ],
-  "obtain": [
-   "ticket",
-   "old-key"
-  ],
-  "perceive": [
-   "eye",
-   "eyes"
-  ],
-  "persist": [
-   "repeat-button",
-   "turtle"
-  ],
-  "precede": [
-   "last-track-button",
-   "reverse-button"
-  ],
-  "prevail": [
-   "trophy"
-  ],
-  "pursue": [
-   "bullseye",
-   "person-running"
-  ],
-  "reinforce": [
-   "flexed-biceps",
-   "brick"
-  ],
-  "resolve": [
-   "handshake",
-   "puzzle-piece"
-  ],
-  "restrict": [
-   "prohibited",
-   "chains"
-  ],
-  "retain": [
-   "magnet",
-   "floppy-disk"
-  ],
-  "reveal": [
-   "flashlight",
-   "wrapped-gift"
-  ],
-  "trigger": [
-   "firecracker",
-   "collision"
-  ],
-  "undergo": [
-   "hospital"
-  ],
-  "withstand": [
-   "castle",
-   "shield"
-  ],
-  "alleviate": [
-   "pill",
-   "adhesive-bandage"
-  ],
-  "allocate": [
-   "bar-chart"
-  ],
-  "compensate": [
-   "money-bag",
-   "balance-scale"
-  ],
-  "contradict": [
-   "left-right-arrow",
-   "cross-mark"
-  ],
-  "deplete": [
-   "low-battery",
-   "battery"
-  ],
-  "evaluate": [
-   "memo",
-   "clipboard"
-  ],
-  "generate": [
-   "high-voltage",
-   "factory"
-  ],
-  "anticipate": [
-   "crystal-ball",
-   "hourglass-not-done"
-  ],
-  "prohibit": [
-   "no-smoking",
-   "prohibited"
-  ],
-  "yield": [
-   "sheaf-of-rice",
-   "red-apple"
-  ],
-  "abundant": [
-   "grapes",
-   "sheaf-of-rice"
-  ],
-  "adequate": [
-   "ok-hand",
-   "check-mark-button"
-  ],
-  "adverse": [
-   "cloud-with-lightning-and-rain",
-   "warning"
-  ],
-  "ambiguous": [
-   "fog",
-   "red-question-mark"
-  ],
-  "apparent": [
-   "magnifying-glass-tilted-left",
-   "eyes"
-  ],
-  "comprehensive": [
-   "books"
-  ],
-  "considerable": [
-   "elephant"
-  ],
-  "consistent": [
-   "straight-ruler"
-  ],
-  "crucial": [
-   "key",
-   "red-exclamation-mark"
-  ],
-  "detrimental": [
-   "skull-and-crossbones",
-   "warning"
-  ],
-  "diverse": [
-   "rainbow"
-  ],
-  "drastic": [
-   "scissors",
-   "high-voltage"
-  ],
-  "excessive": [
-   "salt",
-   "water-wave"
-  ],
-  "feasible": [
-   "thumbs-up",
-   "check-mark-button"
-  ],
-  "fragile": [
-   "egg",
-   "wine-glass"
-  ],
-  "inevitable": [
-   "hourglass-done",
-   "hourglass-not-done"
-  ],
-  "inherent": [
-   "dna"
-  ],
-  "notable": [
-   "star",
-   "sports-medal"
-  ],
-  "plausible": [
-   "thinking-face"
-  ],
-  "profound": [
-   "water-wave",
-   "hole"
-  ],
-  "prominent": [
-   "glowing-star",
-   "mountain"
-  ],
-  "reluctant": [
-   "turtle",
-   "unamused-face"
-  ],
-  "scarce": [
-   "desert",
-   "droplet"
-  ],
-  "severe": [
-   "tornado"
-  ],
-  "substantial": [
-   "rock",
-   "elephant"
-  ],
-  "subtle": [
-   "feather"
-  ],
-  "sufficient": [
-   "battery",
-   "check-mark-button"
-  ],
-  "sustainable": [
-   "recycling-symbol",
-   "seedling"
-  ],
-  "vulnerable": [
-   "hatching-chick",
-   "adhesive-bandage"
-  ],
-  "widespread": [
-   "globe-showing-europe-africa"
-  ],
-  "prevalent": [
-   "globe-with-meridians"
-  ],
-  "obsolete": [
-   "floppy-disk",
-   "videocassette"
-  ],
-  "mutual": [
-   "handshake"
-  ],
-  "preliminary": [
-   "test-tube",
-   "memo"
-  ],
-  "rigid": [
-   "brick",
-   "straight-ruler"
-  ],
-  "consequence": [
-   "bowling",
-   "right-arrow"
-  ],
-  "decline": [
-   "chart-decreasing"
-  ],
-  "deficiency": [
-   "hole",
-   "glass-of-milk"
-  ],
-  "exposure": [
-   "sun",
-   "camera-with-flash"
-  ],
-  "incentive": [
-   "carrot"
-  ],
-  "insight": [
+  "increase": [
+   "chart-increasing",
+   "up-arrow"
+  ],
+  "reduce": [
+   "chart-decreasing",
+   "down-arrow"
+  ],
+  "require": [
+   "clipboard",
+   "check-box-with-check"
+  ],
+  "provide": [
+   "wrapped-gift",
+   "open-hands"
+  ],
+  "improve": [
+   "chart-increasing",
    "light-bulb"
   ],
-  "outcome": [
-   "chequered-flag"
+  "avoid": [
+   "no-entry",
+   "hamburger"
   ],
-  "prospect": [
-   "telescope"
+  "prevent": [
+   "shield",
+   "soap"
   ],
-  "shortage": [
-   "low-battery",
-   "desert"
+  "support": [
+   "open-hands",
+   "handshake"
   ],
-  "threat": [
-   "warning"
+  "affect": [
+   "sleepy-face",
+   "brain"
   ],
-  "proportion": [
+  "cause": [
+   "face-with-head-bandage",
+   "collision"
+  ],
+  "develop": [
+   "technologist",
+   "mobile-phone",
+   "gear"
+  ],
+  "suggest": [
+   "light-bulb",
+   "droplet"
+  ],
+  "recommend": [
+   "thumbs-up",
+   "classical-building"
+  ],
+  "include": [
+   "admission-tickets",
+   "check-box-with-check"
+  ],
+  "contain": [
+   "red-apple",
+   "jar"
+  ],
+  "involve": [
+   "busts-in-silhouette",
+   "puzzle-piece"
+  ],
+  "consider": [
+   "thinking-face",
+   "balance-scale"
+  ],
+  "determine": [
+   "dna",
+   "straight-ruler"
+  ],
+  "identify": [
+   "magnifying-glass-tilted-left",
+   "microscope"
+  ],
+  "compare": [
+   "balance-scale",
+   "shopping-cart"
+  ],
+  "measure": [
+   "stethoscope",
+   "straight-ruler"
+  ],
+  "achieve": [
+   "trophy",
+   "bullseye"
+  ],
+  "maintain": [
+   "balance-scale",
+   "green-heart"
+  ],
+  "protect": [
+   "shield",
+   "lotion-bottle",
+   "sun"
+  ],
+  "continue": [
+   "right-arrow",
+   "books"
+  ],
+  "remain": [
+   "anchor",
+   "heavy-dollar-sign"
+  ],
+  "depend": [
+   "potted-plant",
+   "link"
+  ],
+  "claim": [
+   "megaphone",
+   "speaking-head"
+  ],
+  "argue": [
+   "speech-balloon",
+   "right-anger-bubble"
+  ],
+  "discover": [
+   "magnifying-glass-tilted-right",
+   "beetle"
+  ],
+  "reveal": [
+   "eye",
    "bar-chart"
   ],
-  "phenomenon": [
-   "volcano",
-   "comet",
-   "rainbow"
+  "indicate": [
+   "cloud-with-rain",
+   "index-pointing-up"
   ],
-  "assumption": [
-   "thought-balloon"
+  "encourage": [
+   "raising-hands",
+   "flexed-biceps"
   ],
-  "constraint": [
-   "chains",
-   "locked"
+  "allow": [
+   "check-mark-button",
+   "house"
   ],
-  "implication": [
+  "attract": [
+   "magnet",
+   "beach-with-umbrella"
+  ],
+  "replace": [
+   "robot",
+   "factory-worker"
+  ],
+  "produce": [
+   "high-voltage",
+   "sun"
+  ],
+  "create": [
+   "sparkles",
+   "hammer-and-wrench"
+  ],
+  "establish": [
+   "building-construction",
+   "school"
+  ],
+  "expand": [
+   "up-right-arrow",
+   "globe-showing-asia-australia"
+  ],
+  "spread": [
+   "sneezing-face",
+   "busts-in-silhouette"
+  ],
+  "decrease": [
+   "chart-decreasing",
+   "bird"
+  ],
+  "rise": [
+   "up-arrow",
+   "water-wave"
+  ],
+  "survive": [
+   "camel",
+   "desert"
+  ],
+  "suffer": [
+   "face-with-head-bandage",
+   "office-worker"
+  ],
+  "recover": [
+   "mending-heart",
+   "health-worker"
+  ],
+  "treat": [
+   "pill",
+   "stethoscope"
+  ],
+  "examine": [
+   "face-with-monocle",
+   "magnifying-glass-tilted-left"
+  ],
+  "investigate": [
+   "detective",
+   "magnifying-glass-tilted-right"
+  ],
+  "analyse": [
+   "bar-chart",
+   "desktop-computer"
+  ],
+  "observe": [
+   "telescope",
+   "eyes"
+  ],
+  "predict": [
+   "crystal-ball",
+   "automobile"
+  ],
+  "estimate": [
+   "evergreen-tree",
+   "thinking-face"
+  ],
+  "expect": [
+   "train",
+   "hourglass-not-done"
+  ],
+  "assume": [
+   "thought-balloon",
+   "red-question-mark"
+  ],
+  "prove": [
+   "check-mark-button",
+   "hot-beverage"
+  ],
+  "confirm": [
+   "check-mark",
+   "e-mail"
+  ],
+  "reject": [
+   "thumbs-down",
+   "cross-mark-button"
+  ],
+  "accept": [
+   "handshake",
+   "check-mark-button"
+  ],
+  "complete": [
+   "page-facing-up",
+   "check-box-with-check"
+  ],
+  "attempt": [
+   "warning",
+   "electric-plug"
+  ],
+  "lack": [
+   "empty-nest",
+   "minus"
+  ],
+  "gain": [
+   "plus",
+   "chart-increasing"
+  ],
+  "waste": [
+   "wastebasket",
+   "money-with-wings"
+  ],
+  "consume": [
+   "fuel-pump",
+   "automobile"
+  ],
+  "combine": [
+   "green-salad",
+   "puzzle-piece"
+  ],
+  "limit": [
+   "stop-sign",
+   "mobile-phone"
+  ],
+  "solve": [
    "puzzle-piece",
-   "thought-balloon"
+   "light-bulb"
   ],
-  "approach": [
-   "compass"
+  "focus": [
+   "bullseye",
+   "eyes"
+  ],
+  "adapt": [
+   "school",
+   "counterclockwise-arrows-button"
+  ],
+  "respond": [
+   "incoming-envelope",
+   "speech-balloon"
+  ],
+  "participate": [
+   "raising-hands",
+   "soccer-ball"
+  ],
+  "contribute": [
+   "recycling-symbol",
+   "open-hands"
+  ],
+  "emphasise": [
+   "red-exclamation-mark",
+   "loudspeaker"
+  ],
+  "warn": [
+   "warning",
+   "salt"
+  ],
+  "express": [
+   "speech-balloon",
+   "red-heart"
+  ],
+  "occur": [
+   "collision",
+   "cooking"
+  ],
+  "exist": [
+   "speaking-head",
+   "globe-showing-europe-africa"
+  ],
+  "appear": [
+   "face-with-thermometer",
+   "eyes"
+  ],
+  "disappear": [
+   "dodo",
+   "leaf-fluttering-in-wind"
+  ],
+  "destroy": [
+   "tornado",
+   "sheaf-of-rice"
+  ],
+  "damage": [
+   "ear",
+   "speaker-high-volume"
+  ],
+  "pollute": [
+   "factory",
+   "non-potable-water"
+  ],
+  "seek": [
+   "compass",
+   "magnifying-glass-tilted-left"
+  ],
+  "tend": [
+   "right-arrow-curving-up",
+   "chart-increasing"
+  ],
+  "relate": [
+   "linked-paperclips",
+   "link"
+  ],
+  "reach": [
+   "mountain",
+   "triangular-flag"
+  ],
+  "extend": [
+   "left-right-arrow",
+   "books"
+  ],
+  "reflect": [
+   "mirror",
+   "t-shirt"
+  ],
+  "represent": [
+   "name-badge",
+   "trophy"
+  ],
+  "vary": [
+   "level-slider",
+   "hotel"
+  ],
+  "transform": [
+   "butterfly",
+   "counterclockwise-arrows-button"
+  ],
+  "enable": [
+   "laptop",
+   "unlocked"
+  ],
+  "ensure": [
+   "locked",
+   "check-mark-button"
+  ],
+  "raise": [
+   "coin",
+   "musical-notes"
+  ],
+  "overcome": [
+   "flexed-biceps",
+   "airplane"
+  ],
+  "struggle": [
+   "persevering-face",
+   "writing-hand"
+  ],
+  "perform": [
+   "mechanical-arm",
+   "robot"
+  ],
+  "publish": [
+   "newspaper",
+   "open-book"
+  ],
+  "manage": [
+   "office-worker",
+   "busts-in-silhouette"
+  ],
+  "amount": [
+   "balance-scale",
+   "bar-chart"
+  ],
+  "rate": [
+   "chart-increasing",
+   "bar-chart"
+  ],
+  "research": [
+   "microscope",
+   "magnifying-glass-tilted-left"
   ],
   "evidence": [
    "magnifying-glass-tilted-left",
+   "detective"
+  ],
+  "benefit": [
+   "thumbs-up",
+   "check-mark-button"
+  ],
+  "risk": [
+   "warning",
+   "rescue-workers-helmet"
+  ],
+  "result": [
+   "check-mark-button",
+   "bar-chart"
+  ],
+  "effect": [
+   "collision",
+   "mobile-phone"
+  ],
+  "factor": [
+   "puzzle-piece",
+   "gear"
+  ],
+  "level": [
+   "level-slider",
+   "bar-chart"
+  ],
+  "process": [
+   "gear",
+   "hourglass-not-done"
+  ],
+  "method": [
+   "clipboard",
+   "teacher"
+  ],
+  "source": [
+   "fish",
+   "droplet"
+  ],
+  "survey": [
+   "clipboard",
+   "check-box-with-check"
+  ],
+  "data": [
+   "bar-chart",
+   "computer-disk"
+  ],
+  "population": [
+   "busts-in-silhouette",
+   "cityscape"
+  ],
+  "pollution": [
+   "factory",
+   "fog"
+  ],
+  "resource": [
+   "droplet",
+   "water-wave",
+   "oil-drum"
+  ],
+  "species": [
+   "bird",
+   "butterfly"
+  ],
+  "climate": [
+   "sun-behind-cloud",
+   "thermometer"
+  ],
+  "disease": [
+   "microbe",
+   "face-with-thermometer"
+  ],
+  "treatment": [
+   "pill",
+   "stethoscope"
+  ],
+  "symptom": [
+   "face-with-thermometer",
+   "thermometer"
+  ],
+  "diet": [
+   "green-salad",
+   "red-apple"
+  ],
+  "habit": [
+   "open-book",
+   "repeat-button"
+  ],
+  "behaviour": [
+   "child",
+   "thinking-face"
+  ],
+  "attitude": [
+   "smiling-face-with-smiling-eyes",
+   "thumbs-up"
+  ],
+  "ability": [
+   "dolphin",
+   "mirror"
+  ],
+  "skill": [
+   "hammer-and-wrench",
+   "speech-balloon"
+  ],
+  "knowledge": [
+   "books",
+   "brain"
+  ],
+  "experience": [
+   "briefcase",
+   "woman-health-worker"
+  ],
+  "opportunity": [
+   "airplane",
+   "door"
+  ],
+  "challenge": [
+   "mountain",
+   "person-climbing"
+  ],
+  "solution": [
+   "light-bulb",
+   "key"
+  ],
+  "purpose": [
+   "bullseye",
+   "compass"
+  ],
+  "goal": [
+   "goal-net",
+   "trophy"
+  ],
+  "advantage": [
+   "plus",
+   "thumbs-up"
+  ],
+  "disadvantage": [
+   "low-battery",
+   "thumbs-down"
+  ],
+  "feature": [
+   "camera",
+   "sparkles"
+  ],
+  "quality": [
+   "1st-place-medal",
+   "star"
+  ],
+  "region": [
+   "world-map",
+   "olive"
+  ],
+  "society": [
+   "busts-in-silhouette",
+   "globe-showing-europe-africa"
+  ],
+  "community": [
+   "people-hugging",
+   "handshake"
+  ],
+  "income": [
+   "money-bag",
+   "dollar-banknote"
+  ],
+  "cost": [
+   "money-with-wings",
    "receipt"
   ],
-  "extent": [
-   "straight-ruler"
+  "employee": [
+   "office-worker",
+   "name-badge"
   ],
-  "priority": [
-   "1st-place-medal",
-   "top-arrow"
+  "industry": [
+   "factory",
+   "beach-with-umbrella"
   ],
-  "obstacle": [
-   "rock",
-   "construction"
+  "product": [
+   "package",
+   "recycling-symbol"
   ],
-  "scope": [
-   "telescope",
-   "bullseye"
+  "growth": [
+   "seedling",
+   "baby"
   ],
-  "trend": [
+  "development": [
+   "brain",
+   "child"
+  ],
+  "progress": [
+   "footprints",
+   "right-arrow"
+  ],
+  "improvement": [
+   "mending-heart",
    "chart-increasing"
   ],
-  "abundance": [
+  "decision": [
+   "thinking-face",
+   "balance-scale"
+  ],
+  "option": [
+   "train",
+   "left-right-arrow"
+  ],
+  "influence": [
+   "magnet",
+   "people-hugging"
+  ],
+  "responsibility": [
+   "shield",
+   "clipboard"
+  ],
+  "relationship": [
+   "handshake",
+   "two-hearts"
+  ],
+  "issue": [
+   "globe-showing-europe-africa",
+   "red-exclamation-mark"
+  ],
+  "condition": [
+   "automobile",
+   "check-box-with-check"
+  ],
+  "aspect": [
+   "puzzle-piece",
+   "person-in-bed"
+  ],
+  "variety": [
    "basket",
    "grapes"
   ],
-  "dispute": [
-   "anger-symbol",
-   "collision",
-   "crossed-swords"
+  "average": [
+   "mobile-phone",
+   "bar-chart"
   ],
-  "measure": [
-   "shield",
+  "majority": [
+   "raising-hands",
+   "busts-in-silhouette"
+  ],
+  "access": [
+   "potable-water",
+   "key"
+  ],
+  "demand": [
+   "shopping-cart",
+   "automobile"
+  ],
+  "attention": [
+   "eyes",
+   "eye"
+  ],
+  "success": [
+   "trophy",
+   "1st-place-medal"
+  ],
+  "danger": [
+   "warning",
+   "water-wave"
+  ],
+  "device": [
+   "watch",
+   "mobile-phone"
+  ],
+  "equipment": [
+   "person-lifting-weights",
+   "toolbox"
+  ],
+  "discovery": [
+   "microscope",
+   "petri-dish"
+  ],
+  "experiment": [
+   "test-tube",
+   "alembic"
+  ],
+  "sample": [
+   "drop-of-blood",
+   "syringe",
+   "test-tube"
+  ],
+  "belief": [
+   "carrot",
+   "thought-balloon"
+  ],
+  "concern": [
+   "worried-face",
+   "water-wave"
+  ],
+  "pressure": [
+   "face-exhaling",
+   "weary-face"
+  ],
+  "stage": [
+   "building-construction",
+   "keycap-1"
+  ],
+  "substance": [
+   "lotion-bottle",
+   "alembic"
+  ],
+  "facility": [
+   "stadium",
+   "building-construction"
+  ],
+  "generation": [
+   "older-person",
+   "child"
+  ],
+  "lifestyle": [
+   "couch-and-lamp",
+   "person-running"
+  ],
+  "consumer": [
+   "shopping-bags",
+   "shopping-cart"
+  ],
+  "explanation": [
+   "teacher",
+   "anatomical-heart"
+  ],
+  "crop": [
+   "sheaf-of-rice",
+   "farmer"
+  ],
+  "common": [
+   "busts-in-silhouette",
+   "check-mark"
+  ],
+  "similar": [
+   "heavy-equals-sign",
+   "school"
+  ],
+  "likely": [
+   "cloud-with-rain",
+   "thinking-face",
+   "motorway"
+  ],
+  "recent": [
+   "tear-off-calendar",
+   "newspaper"
+  ],
+  "necessary": [
+   "check-box-with-check",
+   "ticket"
+  ],
+  "available": [
+   "wireless",
+   "hotel"
+  ],
+  "significant": [
+   "chart-increasing",
+   "automobile"
+  ],
+  "essential": [
+   "droplet",
+   "potable-water"
+  ],
+  "effective": [
+   "bullseye",
+   "flexed-biceps"
+  ],
+  "efficient": [
+   "gear",
+   "high-voltage"
+  ],
+  "various": [
+   "chess-pawn",
+   "musical-note",
+   "performing-arts"
+  ],
+  "certain": [
+   "check-mark-button",
+   "hundred-points"
+  ],
+  "specific": [
+   "pill",
+   "clipboard",
+   "bullseye"
+  ],
+  "major": [
+   "factory",
+   "cityscape"
+  ],
+  "sudden": [
+   "high-voltage",
+   "cloud-with-lightning",
+   "person-climbing"
+  ],
+  "local": [
+   "basket",
+   "carrot",
+   "leafy-green"
+  ],
+  "global": [
+   "globe-showing-europe-africa",
+   "globe-with-meridians"
+  ],
+  "natural": [
+   "herb",
+   "leaf-fluttering-in-wind",
+   "honey-pot"
+  ],
+  "physical": [
+   "person-running",
+   "flexed-biceps"
+  ],
+  "mental": [
+   "brain",
+   "thought-balloon"
+  ],
+  "financial": [
+   "money-bag",
+   "coin"
+  ],
+  "environmental": [
+   "recycling-symbol",
+   "globe-showing-americas",
+   "water-wave"
+  ],
+  "traditional": [
+   "performing-arts",
+   "confetti-ball"
+  ],
+  "current": [
+   "watch",
+   "desktop-computer"
+  ],
+  "previous": [
+   "back-arrow",
+   "mobile-phone"
+  ],
+  "ancient": [
+   "classical-building",
+   "amphora"
+  ],
+  "rapid": [
+   "dashing-away",
+   "chart-increasing"
+  ],
+  "gradual": [
+   "chart-increasing",
+   "ladder"
+  ],
+  "constant": [
+   "speaker-high-volume",
+   "infinity"
+  ],
+  "entire": [
+   "house-with-garden",
+   "broom"
+  ],
+  "positive": [
+   "thumbs-up",
+   "plus"
+  ],
+  "negative": [
+   "thumbs-down",
+   "minus"
+  ],
+  "harmful": [
+   "warning",
+   "sun"
+  ],
+  "valuable": [
+   "gem-stone",
+   "briefcase"
+  ],
+  "beneficial": [
+   "brain",
+   "thumbs-up",
+   "books"
+  ],
+  "useful": [
+   "mobile-phone",
+   "toolbox"
+  ],
+  "responsible": [
+   "clipboard",
+   "student"
+  ],
+  "aware": [
+   "eyes",
+   "light-bulb"
+  ],
+  "capable": [
+   "flexed-biceps",
+   "child"
+  ],
+  "obvious": [
+   "eye",
+   "light-bulb"
+  ],
+  "accurate": [
+   "bullseye",
    "straight-ruler"
   ],
-  "approximately": [
-   "straight-ruler"
+  "appropriate": [
+   "necktie",
+   "womans-clothes"
   ],
-  "consequently": [
-   "right-arrow"
+  "reliable": [
+   "handshake",
+   "books"
   ],
-  "considerably": [
+  "independent": [
+   "person-walking",
+   "house"
+  ],
+  "familiar": [
+   "face-with-monocle",
+   "thinking-face"
+  ],
+  "unique": [
+   "glowing-star",
+   "raised-hand"
+  ],
+  "rare": [
+   "bird",
+   "gem-stone"
+  ],
+  "typical": [
+   "health-worker",
+   "seven-oclock"
+  ],
+  "complex": [
+   "brain",
+   "puzzle-piece"
+  ],
+  "basic": [
+   "adhesive-bandage",
+   "books"
+  ],
+  "serious": [
+   "face-with-thermometer",
+   "warning"
+  ],
+  "severe": [
+   "cloud-with-lightning-and-rain",
+   "tornado"
+  ],
+  "sufficient": [
+   "check-mark",
+   "bed"
+  ],
+  "limited": [
+   "seat",
+   "bus"
+  ],
+  "crucial": [
+   "key",
+   "speech-balloon"
+  ],
+  "regular": [
+   "tooth",
+   "spiral-calendar"
+  ],
+  "frequent": [
+   "repeat-button",
+   "hot-beverage"
+  ],
+  "permanent": [
+   "briefcase",
+   "infinity"
+  ],
+  "temporary": [
+   "construction",
+   "hourglass-done"
+  ],
+  "extreme": [
+   "hot-face",
+   "thermometer",
+   "desert"
+  ],
+  "strict": [
+   "no-mobile-phones",
+   "stop-sign"
+  ],
+  "flexible": [
+   "alarm-clock",
+   "office-worker"
+  ],
+  "relevant": [
+   "link",
+   "memo"
+  ],
+  "scientific": [
+   "microscope",
+   "test-tube"
+  ],
+  "urban": [
+   "cityscape",
+   "office-building"
+  ],
+  "rural": [
+   "tractor",
+   "house-with-garden",
+   "sheaf-of-rice"
+  ],
+  "wealthy": [
+   "money-bag",
+   "bank"
+  ],
+  "potential": [
+   "magnifying-glass-tilted-left",
+   "busts-in-silhouette"
+  ],
+  "annual": [
+   "spiral-calendar",
+   "page-facing-up"
+  ],
+  "especially": [
+   "bullseye",
+   "glowing-star"
+  ],
+  "nearly": [
+   "hourglass-not-done",
+   "pinching-hand"
+  ],
+  "recently": [
+   "new-button",
+   "spiral-calendar"
+  ],
+  "instead": [
+   "shuffle-tracks-button",
+   "left-right-arrow"
+  ],
+  "mainly": [
+   "bar-chart",
+   "bullseye"
+  ],
+  "rarely": [
+   "television",
+   "snail"
+  ],
+  "gradually": [
+   "snail",
    "chart-increasing"
   ],
   "eventually": [
    "chequered-flag",
-   "hourglass-done"
+   "check-mark-button"
   ],
-  "gradually": [
-   "snail",
-   "ladder"
+  "frequently": [
+   "repeat-button",
+   "airplane"
   ],
   "increasingly": [
+   "chart-increasing",
+   "up-arrow"
+  ],
+  "approximately": [
+   "abacus",
+   "balance-scale"
+  ],
+  "slightly": [
+   "pinching-hand",
    "chart-increasing"
   ],
-  "merely": [
-   "pinching-hand"
+  "currently": [
+   "alarm-clock",
+   "stopwatch"
   ],
-  "predominantly": [
-   "bar-chart"
+  "widely": [
+   "globe-showing-europe-africa",
+   "globe-with-meridians"
   ],
-  "primarily": [
-   "1st-place-medal"
+  "highly": [
+   "hundred-points",
+   "glowing-star"
   ],
-  "readily": [
-   "high-voltage"
+  "completely": [
+   "check-mark-button",
+   "hundred-points"
   ],
-  "relatively": [
-   "balance-scale"
-  ],
-  "solely": [
-   "index-pointing-up",
-   "keycap-1"
-  ],
-  "substantially": [
-   "bar-chart"
-  ],
-  "virtually": [
-   "laptop",
-   "sunglasses"
-  ],
-  "deliberately": [
-   "bullseye"
-  ],
-  "despite": [
-   "umbrella-with-rain-drops",
-   "umbrella"
+  "however": [
+   "left-right-arrow",
+   "warning"
   ],
   "although": [
-   "right-arrow-curving-left"
+   "umbrella-with-rain-drops",
+   "soccer-ball"
+  ],
+  "despite": [
+   "snowflake",
+   "flexed-biceps"
+  ],
+  "therefore": [
+   "right-arrow",
+   "link"
+  ],
+  "unless": [
+   "no-entry",
+   "stop-sign"
   ],
   "whereas": [
-   "balance-scale"
+   "balance-scale",
+   "left-right-arrow"
   ],
-  "nevertheless": [
-   "flexed-biceps",
-   "mountain"
-  ],
-  "hence": [
-   "right-arrow"
-  ],
-  "thereby": [
-   "link"
+  "in addition": [
+   "plus",
+   "puzzle-piece"
   ],
   "moreover": [
    "plus",
-   "heavy-plus-sign"
+   "bicycle"
   ],
-  "unless": [
-   "vertical-traffic-light"
+  "as a result": [
+   "chequered-flag",
+   "right-arrow"
   ],
-  "owing to": [
-   "cloud-with-rain"
+  "on the other hand": [
+   "balance-scale",
+   "left-right-arrow"
   ],
-  "in terms of": [
-   "triangular-ruler"
+  "in order to": [
+   "bullseye",
+   "right-arrow"
   ],
-  "regardless of": [
-   "person-shrugging",
-   "shrug"
-  ],
-  "in accordance with": [
-   "scroll"
-  ],
-  "provided that": [
+  "as long as": [
    "handshake",
    "check-mark-button"
   ],
-  "bring about": [
-   "butterfly",
-   "seedling"
+  "rely on": [
+   "handshake"
   ],
-  "carry out": [
-   "clipboard",
-   "test-tube"
+  "deal with": [
+   "hammer-and-wrench",
+   "flexed-biceps"
   ],
-  "come up with": [
+  "find out": [
+   "magnifying-glass-tilted-left",
    "light-bulb"
   ],
-  "account for": [
-   "receipt",
-   "bar-chart"
+  "take part in": [
+   "person-raising-hand",
+   "raising-hands"
   ],
-  "rule out": [
-   "cross-mark"
+  "carry out": [
+   "test-tube",
+   "gear"
   ],
-  "give rise to": [
-   "volcano",
-   "seedling"
-  ],
-  "put forward": [
-   "megaphone",
-   "raising-hand"
-  ],
-  "cope with": [
-   "person-in-lotus-position",
-   "lotus"
-  ],
-  "turn out": [
-   "wrapped-gift",
-   "game-die"
-  ],
-  "rely on": [
-   "handshake",
-   "anchor"
+  "set up": [
+   "building-construction",
+   "office-building"
   ],
   "give up": [
-   "white-flag"
+   "white-flag",
+   "stop-sign"
   ],
-  "look into": [
-   "magnifying-glass-tilted-right",
-   "magnifying-glass-tilted-left"
+  "depend on": [
+   "link",
+   "balance-scale"
+  ],
+  "point out": [
+   "index-pointing-up"
+  ],
+  "come up with": [
+   "light-bulb",
+   "thinking-face"
+  ],
+  "result in": [
+   "chequered-flag",
+   "warning"
+  ],
+  "consist of": [
+   "puzzle-piece",
+   "card-index"
   ]
  }
 }

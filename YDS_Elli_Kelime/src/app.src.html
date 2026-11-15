@@ -1574,7 +1574,7 @@ function vGRes(){
 }
 
 function wordRow(id,ses){
-  var x=BY[id],w=S.w[id]||{},ok=ses.res[id]===1;
+  var x=BY[id],w=S.w[id]||{},ok=ses.res[id]===1&&!(ses.fres&&ses.fres[id]===0);
   return '<li class="row"><span class="mk '+(ok?'ok':'no')+'" aria-label="'+(ok?'doğru':'yanlış')+'" role="img">'+(ok?I.ok:I.no)+'</span>'+
     '<span class="rt"><b lang="en">'+esc(x.w)+'</b><span>'+esc(x.tr)+'</span></span>'+
     '<button class="pinb" data-act="pin" data-id="'+esc(x.w)+'" aria-pressed="'+(w.pin?'true':'false')+'" aria-label="'+esc(x.w)+(w.pin?' sabit, kaldır':' kelimesini sabitle')+'">'+I.pin+'</button></li>';
@@ -1591,12 +1591,12 @@ function vSum(){
   var asked=ses.q.filter(function(id){return has(ses.res,id)});
   var back=asked.filter(function(id){return S.w[id]&&S.w[id].st===1});
   var done=asked.filter(function(id){return S.w[id]&&S.w[id].st>=2});
-  var nPin=back.filter(function(id){return ses.res[id]===1}).length;
+  var nPin=back.filter(function(id){return S.w[id].pin}).length,nFin=back.filter(function(id){return ses.fres&&ses.fres[id]===0}).length;
   var tomorrow=tn
     ?'<section class="hero"><h2>Yarın '+tn+' kelime</h2>'+mixbar(p.rev.length,p.chk.length,p.neu.length)+lateNote(p)+'</section>'
     :'<section class="card"><h2>Yarın</h2><p class="note">Bekleyen kelime yok. Öğrendiklerin kontrol günü geldiğinde sorulacak.</p></section>';
   var l1=back.length?'<section class="card"><h2>Yarın tekrar gelecekler · '+back.length+'</h2>'+
-    '<p class="note">'+r.no+' yanlış'+(nPin?', '+nPin+' sabit':'')+'.</p><ul class="list">'+back.map(function(id){return wordRow(id,ses)}).join('')+'</ul></section>':'';
+    '<p class="note">'+r.no+' yanlış'+(nFin?', '+nFin+' gün sonunda yanılınan':'')+(nPin?', '+nPin+' sabit':'')+'.</p><ul class="list">'+back.map(function(id){return wordRow(id,ses)}).join('')+'</ul></section>':'';
   var l2=done.length?'<section class="card"><h2>Öğrenildi sayılanlar · '+done.length+'</h2>'+
     '<p class="note">Yarın yine görmek istediğini iğneyle sabitle.</p><ul class="list">'+done.map(function(id){return wordRow(id,ses)}).join('')+'</ul></section>':'';
   return brand(streak)+'<div class="body">'+
