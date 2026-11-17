@@ -35,9 +35,20 @@ olduğu için aynı soruda şık olarak yan yana gelmemesi gereken fiilleri tuta
 
 ## Sesler
 
-Uygulamada ses dosyası yoktur. Ses efektlerinin hepsi (dokunma, doğru, yanlış, eşleşme, balon, kutlama) çalışma anında
-WebAudio ile üretilir (`src/app.src.html` içindeki `SFX`); telif gerektiren bir kayıt kullanılmaz. Kelimelerin okunması
-cihazın kendi konuşma sesiyle yapılır.
+Uygulamada ses dosyası yoktur. Ses efektlerinin hepsi çalışma anında WebAudio ile üretilir (`src/app.src.html` içindeki
+`SFX`); telif gerektiren bir kayıt kullanılmaz. Kelimelerin okunması cihazın kendi konuşma sesiyle yapılır.
+
+- Düğmeler işine göre çalar: ileri giden yukarı, geri ve kapat aşağı, ötekiler nötr.
+- Cevaptan sonra Devam: kart kayıp gider ("fşşt"); tur içinde bölüm değişince ayrı bir geçiş sesi ("fiuv").
+- Doğru sesi bölüme göre çalgı değiştirir: kelime marimba, gramer zil, bağlaç pizzicato, fiil taraması kalimba (turda
+  20 adım boyunca bir oktav tırmanır). Yanlışta "boing" her seferinde biraz farklı perdede.
+- Seri rozeti (x3, x5, x10…) belirince ayrı kutlama; gün serisi artınca bir kez "alev".
+- Sürpriz kutu: her dokunuşta uzayan trampet, kutu büyür ve daha sert sallanır; açılışta zil ve tada. Albüm dolduysa
+  tekrar gelen çıkartmaya daha hafif bir kutlama.
+- Yeni kelime kartında kelime ve kazanılan çıkartmanın İngilizce adı kendiliğinden okunur (Ayarlar'dan kapatılır).
+
+Bu sesler, görsel yargıç ajanın (İlya) ses anları değerlendirmesine göre seçildi; arka plan müziği, boşta kalma uyarısı ve
+hafıza kartlarında konuma göre nota bilerek eklenmedi.
 
 ## Çıkartmalar
 
