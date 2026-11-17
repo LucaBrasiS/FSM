@@ -1,0 +1,586 @@
+be|A1|olmak
+have|A1|sahip olmak
+do|A1|yapmak
+make|A1|yapmak, üretmek
+go|A1|gitmek
+come|A1|gelmek
+get|A1|almak, elde etmek
+take|A1|almak, götürmek
+give|A1|vermek
+see|A1|görmek
+look|A1|bakmak
+watch|A1|izlemek, seyretmek
+know|A1|bilmek, tanımak
+think|A1|düşünmek
+want|A1|istemek
+like|A1|sevmek, hoşlanmak
+love|A1|sevmek, âşık olmak
+need|A1|ihtiyaç duymak
+live|A1|yaşamak
+work|A1|çalışmak|study
+play|A1|oynamak, çalmak
+read|A1|okumak
+write|A1|yazmak
+speak|A1|konuşmak
+talk|A1|konuşmak, sohbet etmek
+say|A1|söylemek, demek
+tell|A1|söylemek, anlatmak
+ask|A1|sormak, rica etmek
+answer|A1|cevap vermek, yanıtlamak
+listen|A1|dinlemek
+hear|A1|duymak, işitmek|listen
+eat|A1|yemek
+drink|A1|içmek
+cook|A1|yemek pişirmek
+sleep|A1|uyumak
+buy|A1|satın almak
+sell|A1|satmak
+open|A1|açmak
+close|A1|kapatmak
+start|A1|başlamak
+begin|A1|başlamak
+stop|A1|durmak, durdurmak
+finish|A1|bitirmek
+help|A1|yardım etmek
+learn|A1|öğrenmek
+study|A1|ders çalışmak, incelemek
+teach|A1|öğretmek
+understand|A1|anlamak
+sit|A1|oturmak
+stand|A1|ayakta durmak
+walk|A1|yürümek
+run|A1|koşmak
+swim|A1|yüzmek
+drive|A1|sürmek, araba kullanmak
+ride|A1|binmek, sürmek
+fly|A1|uçmak
+travel|A1|seyahat etmek
+visit|A1|ziyaret etmek
+stay|A1|kalmak
+wait|A1|beklemek
+meet|A1|tanışmak, buluşmak
+call|A1|aramak, çağırmak
+phone|A1|telefon etmek, aramak
+find|A1|bulmak
+put|A1|koymak
+bring|A1|getirmek
+send|A1|göndermek
+pay|A1|ödemek
+wear|A1|giymek
+wash|A1|yıkamak
+clean|A1|temizlemek
+use|A1|kullanmak
+try|A1|denemek, uğraşmak
+show|A1|göstermek
+sing|A1|şarkı söylemek
+dance|A1|dans etmek
+draw|A1|çizmek, resim yapmak
+paint|A1|boyamak, resim yapmak
+cut|A1|kesmek
+enjoy|A1|keyif almak, hoşlanmak
+hate|A1|nefret etmek
+change|A1|değiştirmek, değişmek
+leave|A1|ayrılmak, bırakmak
+arrive|A1|varmak, ulaşmak
+turn|A1|dönmek, çevirmek
+move|A1|hareket etmek, taşınmak
+feel|A1|hissetmek
+hope|A1|ummak, umut etmek
+remember|A1|hatırlamak
+forget|A1|unutmak
+believe|A1|inanmak
+agree|A1|aynı fikirde olmak, kabul etmek
+thank|A1|teşekkür etmek
+repeat|A1|tekrarlamak
+check|A1|kontrol etmek
+choose|A1|seçmek
+cost|A1|mal olmak, fiyatı olmak
+spend|A1|harcamak, geçirmek
+grow|A1|büyümek, yetiştirmek
+die|A1|ölmek
+rain|A1|yağmur yağmak
+snow|A1|kar yağmak
+happen|A1|olmak, meydana gelmek
+become|A1|olmak, haline gelmek
+fall|A1|düşmek
+shop|A1|alışveriş yapmak|buy
+plan|A1|planlamak
+decide|A1|karar vermek
+prefer|A1|tercih etmek
+mean|A1|anlamına gelmek, kastetmek
+miss|A1|özlemek, kaçırmak
+relax|A1|rahatlamak, dinlenmek
+share|A1|paylaşmak
+add|A1|eklemek
+get up|A1|kalkmak, yataktan kalkmak|wake up,stand up
+wake up|A1|uyanmak
+go out|A1|dışarı çıkmak
+come back|A1|geri gelmek, geri dönmek
+sit down|A1|oturmak
+stand up|A1|ayağa kalkmak|stand
+smile|A2|gülümsemek|laugh
+laugh|A2|gülmek
+cry|A2|ağlamak
+carry|A2|taşımak
+break|A2|kırmak, bozulmak
+build|A2|inşa etmek
+win|A2|kazanmak
+lose|A2|kaybetmek
+keep|A2|tutmak, saklamak
+hold|A2|tutmak
+catch|A2|yakalamak
+throw|A2|atmak, fırlatmak
+jump|A2|atlamak, zıplamak
+push|A2|itmek
+pull|A2|çekmek
+climb|A2|tırmanmak
+smell|A2|koklamak, kokmak
+taste|A2|tadına bakmak, tadı olmak
+touch|A2|dokunmak
+let|A2|izin vermek, bırakmak
+borrow|A2|ödünç almak
+lend|A2|ödünç vermek
+return|A2|geri dönmek, iade etmek
+explain|A2|açıklamak
+describe|A2|tarif etmek, anlatmak|explain
+complete|A2|tamamlamak, bitirmek
+count|A2|saymak
+save|A2|kurtarmak, biriktirmek
+order|A2|sipariş vermek, emretmek
+invite|A2|davet etmek
+celebrate|A2|kutlamak
+rest|A2|dinlenmek
+include|A2|içermek, dahil etmek
+create|A2|yaratmak, oluşturmak
+imagine|A2|hayal etmek
+improve|A2|geliştirmek, iyileşmek
+discuss|A2|tartışmak, görüşmek
+compare|A2|karşılaştırmak
+match|A2|eşleştirmek, uymak
+correct|A2|düzeltmek
+practise|A2|pratik yapmak, alıştırma yapmak
+spell|A2|hecelemek, harf harf söylemek
+guess|A2|tahmin etmek
+introduce|A2|tanıştırmak, tanıtmak
+join|A2|katılmak
+collect|A2|toplamak, biriktirmek
+complain|A2|şikâyet etmek
+continue|A2|devam etmek
+cover|A2|örtmek, kapsamak
+cross|A2|karşıya geçmek|pass
+dream|A2|rüya görmek, hayal etmek
+drop|A2|düşürmek
+enter|A2|girmek
+fail|A2|başarısız olmak
+pass|A2|geçmek, geçirmek
+feed|A2|beslemek
+fill|A2|doldurmak
+fix|A2|tamir etmek, sabitlemek
+repair|A2|tamir etmek
+follow|A2|takip etmek, izlemek
+hit|A2|vurmak, çarpmak
+hurt|A2|incitmek, acımak
+kill|A2|öldürmek
+kiss|A2|öpmek
+knock|A2|kapıyı çalmak, vurmak
+lead|A2|liderlik etmek, yol göstermek
+lie|A2|yalan söylemek, uzanmak
+marry|A2|evlenmek
+pack|A2|bavul hazırlamak, paketlemek
+park|A2|park etmek
+pick|A2|seçmek, toplamak
+prepare|A2|hazırlamak, hazırlanmak
+promise|A2|söz vermek
+reach|A2|ulaşmak, varmak
+receive|A2|almak, teslim almak
+rent|A2|kiralamak
+reply|A2|cevap vermek, yanıtlamak
+ring|A2|çalmak, telefon etmek
+seem|A2|gibi görünmek|appear
+shout|A2|bağırmak
+shut|A2|kapatmak
+steal|A2|çalmak, hırsızlık yapmak
+suggest|A2|önermek
+worry|A2|endişelenmek
+wonder|A2|merak etmek
+cycle|A2|bisiklet sürmek|ride,drive
+book|A2|rezervasyon yapmak, ayırtmak
+earn|A2|kazanmak, para kazanmak
+expect|A2|beklemek, ummak
+fight|A2|kavga etmek, savaşmak|argue
+hide|A2|saklamak, saklanmak
+hurry|A2|acele etmek
+kick|A2|tekmelemek
+land|A2|iniş yapmak, inmek
+last|A2|sürmek, devam etmek
+lift|A2|kaldırmak|pick up
+lock|A2|kilitlemek
+mix|A2|karıştırmak
+notice|A2|fark etmek
+offer|A2|teklif etmek, sunmak|suggest
+own|A2|sahip olmak
+pour|A2|dökmek
+print|A2|yazdırmak, basmak
+record|A2|kaydetmek
+search|A2|aramak
+serve|A2|servis yapmak, hizmet etmek
+shake|A2|sallamak, titremek
+shine|A2|parlamak
+shoot|A2|ateş etmek, vurmak
+sign|A2|imzalamak
+smoke|A2|sigara içmek
+solve|A2|çözmek
+sort|A2|sınıflandırmak, ayırmak
+tidy|A2|toplamak, düzenlemek|clean
+tie|A2|bağlamak
+train|A2|eğitmek, antrenman yapmak|teach,practise
+translate|A2|tercüme etmek, çevirmek
+download|A2|indirmek
+upload|A2|yüklemek
+wish|A2|dilemek, istemek|hope
+bake|A2|fırında pişirmek|cook
+boil|A2|kaynatmak, haşlamak|cook
+fry|A2|kızartmak|cook
+burn|A2|yanmak, yakmak
+appear|A2|görünmek, ortaya çıkmak
+act|A2|davranmak, rol yapmak
+allow|A2|izin vermek
+argue|A2|tartışmak
+attack|A2|saldırmak
+blow|A2|esmek, üflemek
+care|A2|önemsemek, ilgilenmek
+cause|A2|neden olmak
+connect|A2|bağlamak, bağlantı kurmak
+control|A2|kontrol etmek, denetlemek
+copy|A2|kopyalamak
+depend|A2|bağlı olmak, güvenmek
+design|A2|tasarlamak
+develop|A2|geliştirmek, gelişmek
+disagree|A2|aynı fikirde olmamak
+discover|A2|keşfetmek|invent,find out
+dress|A2|giyinmek, giydirmek|wear,put on
+fit|A2|uymak, sığmak
+increase|A2|artmak, artırmak
+invent|A2|icat etmek|create
+organise|A2|düzenlemek, organize etmek
+review|A2|gözden geçirmek|check
+set|A2|kurmak, ayarlamak
+support|A2|desteklemek|help
+surprise|A2|şaşırtmak
+score|A2|gol atmak, puan almak
+plant|A2|ekmek, dikmek
+dislike|A2|hoşlanmamak, sevmemek|hate
+chat|A2|sohbet etmek
+delete|A2|silmek
+turn on|A2|açmak, çalıştırmak
+turn off|A2|kapatmak
+put on|A2|giymek, takmak
+take off|A2|çıkarmak, havalanmak
+look for|A2|aramak
+look after|A2|bakmak, ilgilenmek
+find out|A2|öğrenmek, ortaya çıkarmak
+give up|A2|vazgeçmek, bırakmak
+grow up|A2|büyümek
+pick up|A2|almak, yerden kaldırmak
+go on|A2|devam etmek
+get on|A2|binmek
+get off|A2|inmek
+fill in|A2|doldurmak
+throw away|A2|atmak, çöpe atmak
+try on|A2|denemek, üstünde denemek
+write down|A2|not etmek, yazmak
+give back|A2|geri vermek|return,lend
+hold on|A2|beklemek
+slow down|A2|yavaşlamak
+underline|A2|altını çizmek
+achieve|B1|başarmak, elde etmek
+accept|B1|kabul etmek
+admit|B1|itiraf etmek, kabul etmek
+advise|B1|tavsiye etmek, öğüt vermek|suggest
+recommend|B1|tavsiye etmek, önermek
+advertise|B1|reklamını yapmak
+affect|B1|etkilemek
+afford|B1|parası yetmek, gücü yetmek
+aim|B1|amaçlamak, hedeflemek|intend
+analyse|B1|analiz etmek, çözümlemek|examine
+announce|B1|duyurmak, ilan etmek
+apologise|B1|özür dilemek
+apply|B1|başvurmak, uygulamak
+appreciate|B1|takdir etmek, değerini bilmek
+approach|B1|yaklaşmak
+approve|B1|onaylamak|confirm,accept
+arrange|B1|ayarlamak, düzenlemek
+arrest|B1|tutuklamak
+attach|B1|eklemek, iliştirmek
+attempt|B1|girişimde bulunmak, denemek
+attend|B1|katılmak, devam etmek
+attract|B1|çekmek, cezbetmek
+avoid|B1|kaçınmak, sakınmak
+ban|B1|yasaklamak
+beat|B1|yenmek, vurmak
+behave|B1|davranmak
+belong|B1|ait olmak
+bend|B1|eğmek, bükmek
+bite|B1|ısırmak
+blame|B1|suçlamak
+bother|B1|rahatsız etmek, zahmet etmek
+breathe|B1|nefes almak
+bury|B1|gömmek
+calculate|B1|hesaplamak|count
+cancel|B1|iptal etmek
+challenge|B1|meydan okumak
+charge|B1|ücret almak, şarj etmek
+cheat|B1|hile yapmak, kopya çekmek
+claim|B1|iddia etmek, talep etmek
+clap|B1|alkışlamak
+combine|B1|birleştirmek|mix
+comment|B1|yorum yapmak
+communicate|B1|iletişim kurmak|contact
+compete|B1|yarışmak, rekabet etmek
+concentrate|B1|konsantre olmak, yoğunlaşmak
+confirm|B1|doğrulamak, teyit etmek
+confuse|B1|kafasını karıştırmak, karıştırmak
+consider|B1|düşünmek, göz önünde bulundurmak
+consist|B1|oluşmak, ibaret olmak
+contact|B1|iletişime geçmek, temas kurmak
+contain|B1|içermek
+convince|B1|ikna etmek
+persuade|B1|ikna etmek
+cough|B1|öksürmek
+criticise|B1|eleştirmek|blame,judge
+cure|B1|tedavi etmek, iyileştirmek
+treat|B1|tedavi etmek, davranmak
+damage|B1|zarar vermek, hasar vermek
+harm|B1|zarar vermek
+decorate|B1|süslemek, dekore etmek
+decrease|B1|azalmak, azaltmak
+reduce|B1|azaltmak
+declare|B1|ilan etmek, beyan etmek
+defeat|B1|yenmek, mağlup etmek
+defend|B1|savunmak|protect
+define|B1|tanımlamak
+delay|B1|ertelemek, geciktirmek
+postpone|B1|ertelemek
+deliver|B1|teslim etmek, dağıtmak
+demand|B1|talep etmek
+deny|B1|inkâr etmek, reddetmek
+refuse|B1|reddetmek, geri çevirmek
+reject|B1|reddetmek
+deserve|B1|hak etmek
+destroy|B1|yok etmek, tahrip etmek|ruin,damage
+disappear|B1|ortadan kaybolmak, gözden kaybolmak
+disappoint|B1|hayal kırıklığına uğratmak
+display|B1|sergilemek
+disturb|B1|rahatsız etmek
+dive|B1|dalmak
+divide|B1|bölmek, ayırmak
+separate|B1|ayırmak, ayrılmak
+donate|B1|bağışlamak
+doubt|B1|şüphe duymak, şüphelenmek
+suspect|B1|şüphelenmek
+drag|B1|sürüklemek|pull
+educate|B1|eğitmek
+elect|B1|oyla seçmek, seçmek
+employ|B1|işe almak, istihdam etmek
+hire|B1|işe almak, kiralamak
+encourage|B1|cesaretlendirmek, teşvik etmek|motivate,support
+entertain|B1|eğlendirmek
+escape|B1|kaçmak, kurtulmak
+examine|B1|incelemek, muayene etmek
+exchange|B1|değiş tokuş etmek, değiştirmek
+exist|B1|var olmak
+experience|B1|deneyimlemek, yaşamak
+explode|B1|patlamak
+explore|B1|keşfetmek, araştırmak
+export|B1|ihraç etmek
+import|B1|ithal etmek
+express|B1|ifade etmek
+face|B1|yüzleşmek, karşı karşıya kalmak
+fear|B1|korkmak
+fold|B1|katlamak
+force|B1|zorlamak
+forgive|B1|affetmek, bağışlamak
+freeze|B1|donmak, dondurmak
+frighten|B1|korkutmak
+gain|B1|kazanmak, elde etmek
+gather|B1|toplamak, toplanmak
+grab|B1|kapmak, yakalamak
+greet|B1|selamlamak, karşılamak
+guarantee|B1|garanti etmek|promise
+guard|B1|korumak, nöbet tutmak
+guide|B1|rehberlik etmek, yol göstermek
+handle|B1|ele almak, başa çıkmak
+hang|B1|asmak, asılmak
+heal|B1|iyileşmek, iyileştirmek
+hesitate|B1|tereddüt etmek|doubt
+host|B1|ev sahipliği yapmak
+hunt|B1|avlamak, avlanmak
+identify|B1|tanımlamak, kimliğini belirlemek
+ignore|B1|görmezden gelmek, yok saymak
+impress|B1|etkilemek
+influence|B1|etkilemek
+inform|B1|bilgilendirmek, haber vermek
+injure|B1|yaralamak|hurt
+insist|B1|ısrar etmek
+inspire|B1|ilham vermek|motivate,encourage
+install|B1|kurmak, yüklemek
+intend|B1|niyet etmek, niyetinde olmak
+interrupt|B1|sözünü kesmek, kesintiye uğratmak
+interview|B1|mülakat yapmak, röportaj yapmak
+invest|B1|yatırım yapmak
+involve|B1|içermek, dahil etmek
+judge|B1|yargılamak, değerlendirmek
+lack|B1|yoksun olmak, eksik olmak
+launch|B1|başlatmak, piyasaya sürmek|start,begin
+lay|B1|yatırmak, sermek
+lean|B1|yaslanmak, eğilmek
+limit|B1|sınırlamak
+link|B1|bağlamak
+lower|B1|indirmek, düşürmek|reduce,decrease
+manage|B1|yönetmek, başarmak|lead,control
+measure|B1|ölçmek|weigh
+melt|B1|erimek, eritmek
+mention|B1|bahsetmek
+mind|B1|sakıncası olmak, aldırmak
+motivate|B1|motive etmek, harekete geçirmek
+note|B1|not etmek, belirtmek
+obey|B1|itaat etmek, uymak
+observe|B1|gözlemlemek|watch,examine
+occur|B1|meydana gelmek, olmak
+operate|B1|çalıştırmak, ameliyat etmek
+owe|B1|borçlu olmak
+pause|B1|duraklamak, ara vermek|stop
+perform|B1|sergilemek, yerine getirmek
+permit|B1|izin vermek
+point|B1|işaret etmek, göstermek
+pollute|B1|kirletmek
+praise|B1|övmek|appreciate
+pray|B1|dua etmek
+predict|B1|tahmin etmek, öngörmek
+press|B1|basmak, bastırmak|push
+pretend|B1|rol yapmak, -mış gibi yapmak
+prevent|B1|önlemek, engellemek|avoid,ban
+produce|B1|üretmek
+progress|B1|ilerlemek
+promote|B1|terfi ettirmek, tanıtmak|advertise
+protect|B1|korumak
+prove|B1|kanıtlamak|confirm
+provide|B1|sağlamak, temin etmek
+supply|B1|tedarik etmek, sağlamak
+publish|B1|yayımlamak|announce,print
+punish|B1|cezalandırmak
+qualify|B1|hak kazanmak, nitelik kazanmak|deserve
+quit|B1|bırakmak, vazgeçmek
+raise|B1|yükseltmek, yetiştirmek|increase,lift
+rise|B1|yükselmek, artmak
+react|B1|tepki vermek|respond
+respond|B1|karşılık vermek, cevap vermek
+realise|B1|farkına varmak, fark etmek
+recognise|B1|tanımak
+recover|B1|iyileşmek, geri kazanmak
+recycle|B1|geri dönüştürmek
+refer|B1|bahsetmek, atıfta bulunmak
+register|B1|kaydolmak, kaydetmek
+regret|B1|pişman olmak
+release|B1|serbest bırakmak, piyasaya sürmek
+rely|B1|güvenmek, bel bağlamak
+remain|B1|kalmak
+remind|B1|hatırlatmak
+remove|B1|kaldırmak, çıkarmak|delete
+renew|B1|yenilemek
+replace|B1|yerine koymak, değiştirmek
+report|B1|rapor etmek, bildirmek|inform,announce
+represent|B1|temsil etmek
+request|B1|rica etmek, talep etmek
+require|B1|gerektirmek|need
+rescue|B1|kurtarmak
+research|B1|araştırmak
+reserve|B1|ayırtmak, rezerve etmek
+resist|B1|direnmek, karşı koymak
+respect|B1|saygı duymak
+retire|B1|emekli olmak
+reveal|B1|ortaya çıkarmak, açığa vurmak
+revise|B1|gözden geçirmek, tekrar etmek|repeat
+reward|B1|ödüllendirmek
+risk|B1|riske atmak, tehlikeye atmak
+rob|B1|soymak|steal
+roll|B1|yuvarlamak, yuvarlanmak
+rub|B1|ovmak, sürtmek
+ruin|B1|mahvetmek, harap etmek
+rush|B1|acele etmek, koşuşturmak
+satisfy|B1|tatmin etmek, memnun etmek
+scratch|B1|kaşımak, çizmek
+scream|B1|çığlık atmak, bağırmak
+select|B1|seçmek
+sew|B1|dikiş dikmek, dikmek
+sink|B1|batmak
+slip|B1|kaymak
+sneeze|B1|hapşırmak
+spill|B1|dökmek
+spoil|B1|bozmak, şımartmak|ruin,break
+spread|B1|yaymak, yayılmak
+squeeze|B1|sıkmak|press
+stare|B1|dik dik bakmak|look
+stick|B1|yapıştırmak, yapışmak|attach
+store|B1|depolamak, saklamak
+stretch|B1|esnetmek, germek
+strike|B1|grev yapmak, vurmak
+struggle|B1|mücadele etmek, çabalamak|fight,try
+succeed|B1|başarılı olmak, başarmak
+suffer|B1|acı çekmek, muzdarip olmak
+suit|B1|yakışmak, uygun olmak|fit,match
+sunbathe|B1|güneşlenmek
+suppose|B1|sanmak, varsaymak|think,guess
+surround|B1|çevrelemek, etrafını sarmak
+survive|B1|hayatta kalmak
+swallow|B1|yutmak
+swap|B1|takas etmek, değiş tokuş etmek
+swear|B1|yemin etmek, küfretmek|promise
+sweat|B1|terlemek
+sweep|B1|süpürmek|clean,tidy
+switch|B1|değiştirmek, geçiş yapmak
+tear|B1|yırtmak
+tend|B1|eğiliminde olmak
+threaten|B1|tehdit etmek
+trade|B1|ticaret yapmak, takas etmek
+transfer|B1|aktarmak, nakletmek
+transport|B1|taşımak, nakletmek
+trust|B1|güvenmek
+update|B1|güncellemek|renew
+upset|B1|üzmek
+volunteer|B1|gönüllü olmak
+vote|B1|oy vermek
+wander|B1|dolaşmak, gezinmek
+warn|B1|uyarmak
+waste|B1|israf etmek, boşa harcamak
+wave|B1|el sallamak|shake
+weigh|B1|tartmak, ağırlığında olmak
+whisper|B1|fısıldamak
+wipe|B1|silmek
+wrap|B1|sarmak, paketlemek
+yawn|B1|esnemek
+break down|B1|bozulmak, arızalanmak
+bring up|B1|yetiştirmek, büyütmek
+calm down|B1|sakinleşmek, sakinleştirmek|relax
+carry on|B1|devam etmek
+carry out|B1|yürütmek, gerçekleştirmek|perform
+come across|B1|rastlamak, karşılaşmak|face,meet
+deal with|B1|ilgilenmek, başa çıkmak
+get on with|B1|iyi geçinmek
+get over|B1|atlatmak, üstesinden gelmek|recover
+look forward to|B1|dört gözle beklemek
+look up|B1|sözlükten bakmak, aramak
+make up|B1|uydurmak, barışmak
+point out|B1|belirtmek, işaret etmek
+put off|B1|ertelemek
+put up with|B1|katlanmak, tahammül etmek
+run out of|B1|tükenmek, bitmek
+set off|B1|yola çıkmak|leave
+set up|B1|kurmak
+show up|B1|ortaya çıkmak, gelmek
+sort out|B1|halletmek, çözmek
+take care of|B1|ilgilenmek, bakmak
+take part in|B1|katılmak
+take place|B1|gerçekleşmek, meydana gelmek
+turn down|B1|reddetmek, sesini kısmak
+work out|B1|çözmek, egzersiz yapmak

@@ -27,6 +27,12 @@ Sorular uygulamada onar soruluk üç teste bölünür; günün grameri, karış�
 293 kelimelik liste (B1 – alt B2, YDS metinlerinde sık geçen kelimeler), örnek cümleleri ve çevirileriyle birlikte bu proje
 için yazılmıştır (`data/kelimeler.txt`).
 
+## Fiil taraması
+
+`data/fiiller.txt`: A1'den B1'e 586 fiil (A1 120, A2 175, B1 291; 51'i öbek fiil), Türkçe karşılıklarıyla bu proje için
+yazılmıştır. Düzeyler yaklaşıktır; herhangi bir yayınevinin kelime listesi kopyalanmamıştır. Dördüncü alan, anlamı yakın
+olduğu için aynı soruda şık olarak yan yana gelmemesi gereken fiilleri tutar.
+
 ## Sesler
 
 Uygulamada ses dosyası yoktur. Ses efektlerinin hepsi (dokunma, doğru, yanlış, eşleşme, balon, kutlama) çalışma anında

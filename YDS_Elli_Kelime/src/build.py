@@ -3,7 +3,7 @@
 
 Kullanım:  python3 src/build.py [--kitap KLASÖR] [--eksik-olabilir]
 
-Şablondaki /*@@ART@@*/ ve /*@@GRAM@@*/ yer tutucuları veriyle, /*@@ARTLICENSE@@*/ lisans notuyla değiştirilir.
+Şablondaki /*@@ART@@*/, /*@@GRAM@@*/, /*@@BAG@@*/, /*@@WORDS@@*/ ve /*@@VERBS@@*/ yer tutucuları veriyle, /*@@ARTLICENSE@@*/ lisans notuyla değiştirilir.
 Gramer verisi iki kaynaktan birleşir: data/kitap/kNN.json (kitabın içindekiler sırasındaki 34 ünite) ve
 data/gramer.json (YDS düzeyi 18 konu).
 """
@@ -69,6 +69,26 @@ def load_words(path):
     return "\n".join(out)
 
 
+def load_verbs(path):
+    """data/fiiller.txt: fiil|düzey (A1, A2, B1)|Türkçe|aynı soruda şık olmaması gereken fiiller (isteğe bağlı)."""
+    rows, seen = [], {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        p = line.split("|")
+        assert len(p) in (3, 4) and p[1] in ("A1", "A2", "B1") and p[2].strip(), line
+        assert p[0] == p[0].strip().lower() and p[0] not in seen, line
+        avoid = [x.strip() for x in p[3].split(",")] if len(p) == 4 else []
+        seen[p[0]] = {"w": p[0], "lv": p[1], "tok": {t.strip() for t in p[2].split(",")}, "av": avoid}
+        rows.append("|".join(p))
+    for v in seen.values():
+        assert all(a in seen for a in v["av"]), ("bilinmeyen fiil", v["w"], v["av"])
+        free = [x for x in seen.values() if x["lv"] == v["lv"] and x is not v
+                and not (x["tok"] & v["tok"]) and x["w"] not in v["av"] and v["w"] not in x["av"]]
+        assert len(free) >= 12, ("yanlış şık için yeterli fiil yok", v["w"], len(free))
+    return "\n".join(rows), len(rows)
+
+
 def load_bag(d, allow_missing):
     """Bağlaç atölyesi: list.json (gruplar, yapılar) + kartlar.json + sec/iliski/anlam.json -> {groups, yapi, qs}."""
     if not (d / "list.json").exists():
@@ -111,6 +131,7 @@ def main():
     gram = load_grammar(pathlib.Path(args.kitap), args.eksik_olabilir)
     bag = load_bag(ROOT / "data" / "baglac", args.eksik_olabilir)
     words = load_words(ROOT / "data" / "kelimeler.txt")
+    verbs, n_verbs = load_verbs(ROOT / "data" / "fiiller.txt")
 
     for group in ("ui", "words"):
         for key, name in art[group].items():
@@ -127,13 +148,15 @@ def main():
         ("/*@@GRAM@@*/{t:[],q:{},pas:{}}", js(gram)),
         ("/*@@BAG@@*/{groups:[],yapi:{},qs:{}}", js(bag)),
         ("/*@@WORDS@@*/''", js(words)),
+        ("/*@@VERBS@@*/''", js(verbs)),
     ):
         assert out.count(mark) == 1, mark
         out = out.replace(mark, value)
     (ROOT / "index.html").write_text(out, encoding="utf-8")
     n_book = sum(1 for t in gram["t"] if t["grp"] == "k")
     print(f"index.html: {len(out.encode('utf-8')):,} bayt | {len(art['icons'])} çizim | "
-          f"{n_book} kitap ünitesi + {len(gram['t']) - n_book} YDS konusu | {sum(len(v) for v in gram['q'].values())} gramer sorusu")
+          f"{n_book} kitap ünitesi + {len(gram['t']) - n_book} YDS konusu | {sum(len(v) for v in gram['q'].values())} gramer sorusu | "
+          f"{n_verbs} fiil")
 
 
 if __name__ == "__main__":
