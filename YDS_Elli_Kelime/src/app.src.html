@@ -89,7 +89,7 @@ h2{font-size:.78rem;font-weight:700;letter-spacing:.07em;text-transform:uppercas
 .mark i:nth-child(5){background:var(--p-adv)}
 .bsub{font-size:.7rem;letter-spacing:.08em;background:var(--sun);color:var(--on-fill);border:2px solid var(--edge);border-radius:8px;padding:0 6px}
 .streak{margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-family:var(--display);font-weight:700;font-size:.85rem;
-  background:var(--p-adj);color:var(--on-fill);border:2px solid var(--edge);border-radius:999px;padding:3px 10px;font-variant-numeric:tabular-nums}
+  background:var(--p-adj);color:var(--on-fill);border:2px solid var(--edge);border-radius:999px;padding:3px 10px;font-variant-numeric:tabular-nums;white-space:nowrap}
 
 /* düğmeler: basınca çöken etiket */
 .btn{flex:1;min-height:56px;border-radius:var(--r);padding:8px 18px;font-family:var(--display);font-weight:700;font-size:1.08rem;
@@ -545,6 +545,7 @@ details.demo{border-style:dashed;border-color:var(--muted);background:transparen
 .stkname b{font-family:var(--display);font-weight:800;font-size:1.7rem;line-height:1.1}
 .stkname span{font-weight:600}
 
+@media (max-width:379px){.top .mark{display:none}}         /* dar telefonda seri hapı ve ses düğmesine yer açılır */
 @media (max-width:359px){
   .album{grid-template-columns:repeat(3,1fr)}
   .gbox{width:150px;height:150px}
@@ -1108,6 +1109,7 @@ function sfx(name,arg){
   sfxN++;
   if(window.__sfxLog)window.__sfxLog.push(name);           // testler hangi sesin çaldığını buradan okur
   if(!PREF.snd)return;
+  if(window.__sfxRec)window.__sfxRec.push([name,arg==null?null:arg,Date.now()]);   // tanıtım kaydı sesleri buradan yeniden üretir
   try{var f=SFX[name];if(f)f(arg)}catch(e){}
 }
 
@@ -1394,7 +1396,7 @@ function sndBtn(){
 function brand(streak){
   return '<header class="top"><div class="brand"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>'+
     '<span>'+APPNAME+'</span><span class="bsub">YDS</span></div><span class="topr">'+
-    (streak>0?'<span class="streak">'+ui('fire',18)+streak+' gün seri</span>':'')+sndBtn()+'</span></header>';
+    (streak>0?'<span class="streak" role="img" aria-label="'+streak+' gün seri">'+ui('fire',18)+streak+' gün</span>':'')+sndBtn()+'</span></header>';
 }
 /* günün dağılımı tek satırda: "5 tekrar + 15 yeni" */
 function mixline(r,k,n,mins){
@@ -2259,6 +2261,7 @@ var act={
     b.style.setProperty('--sa',[4,4,8,12][G.taps]+'deg');                             // her dokunuşta daha sert sallanır
     if(G.taps<3)b.style.setProperty('--gs',[1,1.06,1.12][G.taps]);                     // ve büyür
     b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');           // sallanma her dokunuşta baştan oynar
+    if(!b.__end){b.__end=1;b.addEventListener('animationend',function(e){if(e.animationName==='gshake')b.classList.remove('shake')})}   // bitince büyümüş boyutunda süzülmeye döner
     sfx('roll',G.taps);
     if(G.taps>=3){
       G.stage='opening';
