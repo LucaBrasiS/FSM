@@ -5,11 +5,19 @@
 - Sahibi: Microsoft Corporation, https://github.com/microsoft/fluentui-emoji
 - Lisans: MIT. Ticari kullanım dahil ücretsizdir; tek koşul telif ve lisans notunun kopyalarda yer almasıdır.
   Lisans metni `assets/FLUENT-EMOJI-LICENSE.txt` dosyasında ve derlenen `index.html` içinde yorum olarak bulunur.
-- Alındığı paket: npm `@iconify-json/fluent-emoji-flat` 1.2.6. Uygulamada 154 çizim kullanılır.
+- Alındığı paket: npm `@iconify-json/fluent-emoji-flat` 1.2.6. Uygulamada 238 çizim kullanılır.
 - `data/art-picks.json`: hangi ünite, arayüz yeri ya da kelime için hangi çizimin seçildiği (ilk bulunan aday kullanılır).
 - `data/art.json`: seçilen çizimlerin SVG gövdeleri; `src/build.py` bunları `index.html` içine gömer.
 
-Çizimler değiştirilmeden kullanılmıştır. Uygulama simgesi (`icon.svg` ve PNG türevleri) bu proje için çizilmiştir.
+Çizimler değiştirilmeden kullanılmıştır; çıkartmalarda yalnızca çevrelerine beyaz kenar, koyu dış çizgi ve gölge eklenir
+(kalıp kesim görünümü, SVG filtresiyle çalışma anında). Uygulama simgesi (`icon.svg` ve PNG türevleri) bu proje için çizilmiştir.
+
+## Bu proje için çizilenler
+
+- **Lokum** (maskot): pudra şekerli bir lokum küpü; altı poz ve altı tat (renk). `src/app.src.html` içinde `lok()`, düz SVG.
+- **Sürpriz kutusu**: mor kutu, sarı kurdele ve fiyonk; kapağı ayrı çizildiği için açılışta uçar. `giftArt()`.
+- **Parıltı, kalp ve konfeti parçaları**, dolu ve boş yıldızlar, damga kartı noktaları: kodla çizilir.
+- Öneri uygulama simgesi `sanat/oneri-ikon-lokum.svg` (henüz kullanılmıyor). Gemini istemleri `sanat/gemini-gorseller.md` içinde.
 
 ## Gramer üniteleri
 
@@ -46,6 +54,8 @@ Uygulamada ses dosyası yoktur. Ses efektlerinin hepsi çalışma anında WebAud
 - Sürpriz kutu: her dokunuşta uzayan trampet, kutu büyür ve daha sert sallanır; açılışta zil ve tada. Albüm dolduysa
   tekrar gelen çıkartmaya daha hafif bir kutlama.
 - Yeni kelime kartında kelime ve kazanılan çıkartmanın İngilizce adı kendiliğinden okunur (Ayarlar'dan kapatılır).
+- Lokum'a dokununca kıkırdar ("hi-hi-hi"); eşleşme oyununda doğru "eşleşiyor" zil, doğru "eşleşmiyor" kayan bir "fşş";
+  ödülde çıkartma yapışırken tada'nın içinde yumuşak bir "tap". Albümdeki çıkartmaya dokununca İngilizce adı okunur.
 
 Bu sesler, görsel yargıç ajanın (İlya) ses anları değerlendirmesine göre seçildi; arka plan müziği, boşta kalma uyarısı ve
 hafıza kartlarında konuma göre nota bilerek eklenmedi.
@@ -53,3 +63,4 @@ hafıza kartlarında konuma göre nota bilerek eklenmedi.
 ## Çıkartmalar
 
 Sürpriz kutudan çıkan 24 çıkartma da Fluent Emoji çizimleridir (`data/art-picks.json` içinde `stk-` ile başlayanlar).
+Kutudan sırayla üç oyundan biri çıkar: balon patlat, hafıza kartları, eşleşme mi?
