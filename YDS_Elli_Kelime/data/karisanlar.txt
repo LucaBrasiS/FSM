@@ -1,0 +1,115 @@
+# Aynı soruda yan yana şık olmaması gereken kelime çiftleri: biri ötekinin yerine de doğru sayılabilir.
+# Biçim: kelime a|kelime b|neden
+identify|determine|STRONG. 'Scientists hope to determine the cause of the disease' is fully natural and 'tespit etmek' translates determine in this sense; 'has
+claim|argue|STRONG. 'Some researchers claim that homework...' / 'Some companies argue that...' both fit; argue's 'ileri sürmek' is a standard translatio
+investigate|examine|STRONG. 'Researchers want to examine how music affects learning' is natural and 'incelemek' translates it just as well as 'araştırmak'; exam
+appear|occur|STRONG. 'The first symptoms usually occur two or three days after infection' is standard medical English and matches 'ortaya çıkar'; 'ortaya
+predict|expect|STRONG. 'Experts expect that electric cars will become cheaper soon' is natural with the same meaning; expect's synonym 'anticipate' is a ne
+predict|estimate|STRONG. 'tahmin etmek' is the everyday Turkish for predict ('ucuzlayacağını tahmin ediyor' is natural); en: learner shown 'tahmin etmek' cou
+improve|develop|STRONG. 'geliştirmek' is a standard translation of improve ('çalışma koşullarını geliştirebilir' is good Turkish); en: shown 'geliştirmek', 
+achieve|reach|STRONG. 'gerçek başarıya ulaşır' is a natural translation of 'achieve real success'; achieve's synonym 'attain' is a dictionary synonym of r
+continue|maintain|STRONG. maintain's 'sürdürmek' translates continue perfectly ('eğitimlerini sürdürür'); shown 'sürdürmek, muhafaza etmek', continue is defen
+ensure|provide|STRONG. 'Please ensure that all windows are closed' is most naturally 'pencerelerin kapalı olmasını sağlayın'; ensure is commonly glossed 's
+rise|increase|STRONG. 'Sea levels will increase if temperatures keep going up' is natural; 'deniz seviyeleri artacak' means the same as 'yükselecek', so t
+prove|confirm|'The new study may confirm that coffee is good for the heart' is natural; confirm's 'doğrulamak' is a plausible tr answer for prove; confirm
+recover|overcome|STRONG. overcome's synonym 'get over' is a textbook synonym of recover ('get over the flu'), so it is a correct answer for recover in syn fo
+improve|recover|improve's synonym 'better' vs recover's 'get better': in syn for recover/improve the distractor looks like the right answer; en: shown 'iyil
+combine|participate|STRONG. combine's synonym 'join' is a real synonym of participate in its sentence ('join sports activities after school').
+reveal|suggest|'The results of the survey suggest that young people read less' is the standard academic collocation; TR 'ortaya koyuyor' favours reveal but
+argue|suggest|'Some researchers suggest that homework is not very useful' fits; suggest's synonym 'put forward' is literally argue's 'ileri sürmek'.
+achieve|gain|achieve's 'elde etmek' translates gain well ('faydalı deneyim elde eder'); achieve's 'attain' vs gain's 'obtain' are near-synonyms.
+protect|maintain|maintain's 'muhafaza etmek' means preserve/protect in Turkish ('cildinizi güneşten muhafaza etmek' is understandable); maintain's synonym 'p
+identify|establish|'Scientists hope to establish the cause of the disease' is correct English, and establish in this sense = tespit etmek, matching the Turkish
+appear|develop|'The first symptoms usually develop two or three days after infection' is natural medical English; 'belirtiler gelişir/ortaya çıkar' fits th
+consider|compare|compare's synonym 'weigh' is a near-synonym of consider ('weigh the cost of living'); weigh is a weak synonym for compare anyway (see data).
+measure|confirm|confirm's synonym 'check' fits measure's sentence ('Nurses check your blood pressure at every visit').
+examine|confirm|confirm's synonym 'check' fits examine's sentence ('The teacher will check each project before giving the final grades').
+observe|examine|examine's synonym 'study' fits observe's sentence ('The students study the stars through a telescope'). Borderline in blank: 'examine the st
+attempt|struggle|struggle's synonym 'strive' (try hard) is a near-synonym of attempt/try ('Never strive to repair...').
+estimate|measure|measure's synonym 'gauge' also means estimate/judge in dictionaries.
+establish|create|create's synonym 'form' is close to establish/found ('form a school'); 'helped create the village school' fits English, though TR 'kurulması
+ensure|confirm|'Please confirm that all windows are closed before you leave' is natural English; TR 'emin olun' does not clearly rule it out.
+destroy|damage|destroy's synonym 'ruin' is often used for damage ('ruin your hearing'). Borderline in blank: 'storms can damage crops' fits English but TR 
+limit|manage|limit's synonym 'control' is close to manage in its sentence ('control a small team').
+investigate|analyse|BORDERLINE. 'Researchers want to analyse how music affects learning' fits; TR 'araştırmak' points to investigate.
+increase|improve|BORDERLINE. 'Regular exercise can improve your energy levels' fits English; TR 'artırabilir' points to increase, so this is fair only if the
+reduce|limit|BORDERLINE (both sentences). 'Parents should reduce the time...' / 'public transport can limit air pollution' fit English; TR (sınırlamalı /
+contain|provide|BORDERLINE. 'Fresh fruits provide many vitamins and minerals' is very natural; TR 'içerir' points to contain.
+determine|affect|BORDERLINE. 'Your genes partly affect your height' fits English; TR 'belirler' points to determine.
+perform|complete|BORDERLINE. 'Robots can complete simple tasks in hospitals' fits; TR 'yerine getirebilir' points to perform.
+support|accept|BORDERLINE. 'Most parents accept the new school rules' is very natural; TR 'destekliyor' points to support.
+expand|extend|BORDERLINE. 'extend into Asian markets' is possible English, and extend is often glossed 'genişletmek'; TR 'büyümeyi' points to expand.
+disease|condition|STRONG. 'protect you from heart condition' — 'heart condition' is standard English for heart disease and matches TR 'kalp hastalığından'.
+climate|condition|STRONG. climate's synonym 'conditions' is literally the word condition; in syn format for condition the learner sees 'conditions' and will p
+crop|product|STRONG. 'ürün' is the everyday Turkish for crop ('ürünlerinin çoğunu kaybetti'); crop's synonym 'produce' is close to product.
+treatment|solution|STRONG. solution's synonym 'remedy' is a standard synonym of treatment/cure.
+method|attitude|STRONG. attitude's synonym 'approach' fits method's sentence exactly ('This teaching approach helps students...').
+method|process|process's synonym 'procedure' is close to method.
+species|variety|'çeşit' and 'tür' are synonyms in Turkish ('birçok kuş çeşidi'); variety can also mean a kind/type.
+aspect|factor|factor's synonym 'element' fits aspect's sentence ('an important element of a healthy lifestyle'); 'an important factor in a healthy lifesty
+aspect|feature|feature's synonym 'characteristic' fits aspect's sentence; 'an important feature of a healthy lifestyle' fits English though TR 'yönü' favou
+aspect|stage|aspect's synonym 'part' fits stage's sentence ('The first part of the project will finish next month').
+community|population|'The local population worked together...' is natural English; population's synonym 'people' fits community's sentence ('the local people').
+amount|level|'The level of sugar in soft drinks is often surprisingly high' is natural; TR 'şeker miktarı' points to amount but 'şeker seviyesi' means mu
+issue|concern|'Climate change is an important concern for young people' is natural; TR 'mesele' favours issue but the meaning is very close.
+challenge|concern|BORDERLINE. 'Finding a job ... is a big concern for many young people' is natural; TR 'zorluk' points to challenge.
+behaviour|attitude|BORDERLINE. 'The children's attitude improved a lot' is natural; TR 'davranışları' points to behaviour.
+device|equipment|device's synonym 'machine' fits equipment's sentence ('The gym has modern machines').
+research|evidence|BORDERLINE. 'Recent evidence shows that...' is natural; TR 'araştırmalar' points to research.
+benefit|feature|BORDERLINE. 'The main feature of online courses is that students can study anywhere' fits English; TR 'faydası' points to benefit.
+necessary|essential|STRONG. 'It is essential to book tickets...' and 'Clean water is necessary for...' both fit; essential's 'zorunlu' is close to 'gerekli', so
+serious|severe|STRONG. 'Lack of sleep can lead to severe health problems' is natural; 'ağır sağlık sorunları' is equally good Turkish.
+negative|harmful|STRONG. 'Too much screen time may have harmful effects on children's sleep' is natural; harmful's synonym 'damaging' fits negative's sentenc
+beneficial|useful|STRONG. 'yararlı, faydalı' and 'kullanışlı, işe yarar' overlap ('çok faydalı' for useful); beneficial's synonym 'helpful' fits useful's sent
+current|available|STRONG. 'mevcut sistem' is the most natural Turkish for 'the current system', so available's meaning 'mevcut' is a correct tr answer for cur
+potential|likely|STRONG. 'olası müşteriler' is a natural translation of 'potential customers', so likely's 'olası' is defensible for potential.
+accurate|specific|STRONG. specific's synonym 'precise' is a standard synonym of accurate ('precise information').
+positive|beneficial|'a beneficial effect on your confidence' is natural; positive's synonym 'good' fits beneficial's sentence ('good for the brain').
+specific|certain|'The doctor gave her certain instructions...' — certain also means 'belirli', which is exactly the TR; en: shown 'belirli, özgül', certain i
+significant|major|'a major increase' fits significant's blank; 'önemli bir sorun' is a good translation of 'a major problem', so significant's 'önemli' is def
+severe|extreme|extreme's synonym 'intense' fits severe's sentence ('The intense storm...'); severe's 'harsh' fits 'harsh temperatures'.
+strict|severe|severe's synonym 'harsh' is close to strict ('harsh rules'); strict's 'tough' is close to severe.
+rare|unique|unique's synonym 'unusual' is a near-synonym of rare/uncommon; 'many unique birds that cannot be found anywhere else' fits English (TR 'nadi
+constant|gradual|gradual's synonym 'steady' can mean constant ('a steady noise').
+certain|obvious|'It is obvious that the meeting will start late...' fits English; obvious's synonym 'clear' ('it is clear that') is close to certain. TR 'ke
+crucial|significant|significant's synonym 'important' fits crucial's sentence ('Good communication is important for success').
+crucial|valuable|valuable's synonym 'important' fits crucial's sentence.
+essential|significant|significant's synonym 'important' fits essential's sentence ('Clean water is important for the health...').
+essential|valuable|valuable's synonym 'important' fits essential's sentence.
+appropriate|accurate|accurate's synonym 'correct' fits appropriate's sentence ('wear the correct clothes for the job interview').
+necessary|crucial|BORDERLINE. 'It is crucial to book tickets...' / 'Good communication is necessary for success' fit English; TR separates them.
+valuable|useful|BORDERLINE. 'gives students useful experience' is very natural; TR 'değerli' points to valuable.
+effective|efficient|BORDERLINE. 'an efficient way to reduce stress' is natural; TR 'etkili' separates them (a fair teaching contrast if explained).
+accurate|reliable|BORDERLINE. 'gives reliable information about the weather' is natural; TR 'doğru' points to accurate.
+nearly|approximately|STRONG. 'waited for approximately two hours' and 'will cost nearly ten million pounds' both fit; the Turkish difference (neredeyse vs yaklaş
+gradually|increasingly|increasingly's synonym 'progressively' is a synonym of gradually ('his health progressively improved'); 'yavaş yavaş daha popüler' is a poss
+widely|frequently|'English is frequently used in international business' is natural; TR 'yaygın olarak' favours widely but the meaning is close.
+mainly|especially|BORDERLINE. 'are especially interested in science' is natural; TR 'esas olarak' points to mainly.
+highly|increasingly|BORDERLINE (both sentences). 'increasingly popular with teenagers' / 'becoming highly popular' fit English; TR separates them.
+therefore|as a result|STRONG. 'Therefore, many roads were closed' and 'and as a result reduces the risk' both fit; 'bu nedenle' ≈ 'sonuç olarak'; as a result's sy
+in addition|moreover|STRONG. Interchangeable in both sentences; 'ek olarak, ayrıca' ≈ 'üstelik, dahası'; in addition's synonym 'besides' is a synonym of moreover
+although|despite|STRONG. 'Yağmur yağmasına rağmen' is a perfect translation of the although sentence, so '-e rağmen' is a correct tr answer; despite's synony
+whereas|on the other hand|'öte yandan' can translate whereas and 'oysa' can translate on the other hand; on the other hand's synonym 'in contrast' is a synonym of whe
+whereas|although|BORDERLINE. '..., although others work better at night' is acceptable English; TR 'oysa' points to whereas.
+warn|claim|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+warn|argue|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+warn|assume|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+warn|prove|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+prove|claim|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+prove|argue|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+prove|assume|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+assume|claim|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+assume|argue|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+predict|suggest|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+predict|claim|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+predict|argue|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+predict|assume|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+affect|damage|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+affect|improve|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+affect|increase|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+amount|rate|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+amount|cost|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+rate|cost|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
+depend|depend on|eşleştirmede "bağlı olmak" / "-e bağlı olmak" ayırt edilemez
+participate|take part in|eşleştirmede "katılmak" / "-e katılmak" ayırt edilemez
+sudden|rapid|eş anlamlılardan "quick" çıkınca ayrı tutan bağ koptu

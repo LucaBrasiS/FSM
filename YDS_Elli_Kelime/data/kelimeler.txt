@@ -15,9 +15,9 @@ include|v|kapsamak|cover, contain|The price of the tour / does not [include] / m
 contain|v|içermek|hold, include|Fresh fruits / [contain] / many vitamins / and minerals.|Taze meyveler birçok vitamin ve mineral içerir.|red-apple,jar
 involve|v|dahil etmek, içine almak|include, engage|Good projects / usually [involve] / every member / of the team.|İyi projeler genellikle ekibin her üyesini sürece dahil eder.|busts-in-silhouette,puzzle-piece
 consider|v|göz önünde bulundurmak|think about, weigh up|You should [consider] / the cost of living / in a new city / before moving there.|Oraya taşınmadan önce yeni bir şehirdeki yaşam maliyetini göz önünde bulundurmalısınız.|thinking-face,balance-scale
-determine|v|belirlemek|decide, fix|Your genes / partly [determine] / your height / and eye colour.|Genleriniz boyunuzu ve göz renginizi kısmen belirler.|dna,straight-ruler
+determine|v|belirlemek|decide, shape|Your genes / partly [determine] / your height / and eye colour.|Genleriniz boyunuzu ve göz renginizi kısmen belirler.|dna,straight-ruler
 identify|v|tespit etmek|recognise, find|Scientists hope / to [identify] / the cause of the disease / very soon.|Bilim insanları hastalığın nedenini çok yakında tespit etmeyi umuyor.|magnifying-glass-tilted-left,microscope
-compare|v|karşılaştırmak|contrast, weigh|Smart shoppers / always [compare] / prices / in several shops.|Akıllı alışverişçiler her zaman birkaç mağazadaki fiyatları karşılaştırır.|balance-scale,shopping-cart
+compare|v|karşılaştırmak|contrast, set side by side|Smart shoppers / always [compare] / prices / in several shops.|Akıllı alışverişçiler her zaman birkaç mağazadaki fiyatları karşılaştırır.|balance-scale,shopping-cart
 measure|v|ölçmek|assess, gauge|Nurses / [measure] / your blood pressure / at every visit.|Hemşireler her ziyarette tansiyonunuzu ölçer.|stethoscope,straight-ruler
 achieve|v|başarmak, elde etmek|accomplish, attain|Few people / [achieve] / real success / without hard work.|Çok az insan sıkı çalışmadan gerçek bir başarı elde eder.|trophy,bullseye
 maintain|v|sürdürmek, muhafaza etmek|keep, preserve|It is important / to [maintain] / a healthy weight / as you get older.|Yaşlandıkça sağlıklı bir kiloyu muhafaza etmek önemlidir.|balance-scale,green-heart
@@ -48,18 +48,18 @@ treat|v|tedavi etmek|cure, heal|Doctors / can now [treat] / this illness / with 
 examine|v|incelemek|inspect, study|The teacher will [examine] / each project / before giving / the final grades.|Öğretmen final notlarını vermeden önce her projeyi inceleyecek.|face-with-monocle,magnifying-glass-tilted-left
 investigate|v|araştırmak|look into, explore|Researchers / want to [investigate] / how music / affects learning.|Araştırmacılar müziğin öğrenmeyi nasıl etkilediğini araştırmak istiyor.|detective,magnifying-glass-tilted-right
 analyse|v|analiz etmek, çözümlemek|examine, break down|Computers / can [analyse] / huge amounts of data / in seconds.|Bilgisayarlar devasa miktarda veriyi saniyeler içinde analiz edebilir.|bar-chart,desktop-computer
-observe|v|gözlemlemek|watch, notice|The students / [observe] / the stars / through a telescope.|Öğrenciler yıldızları bir teleskopla gözlemliyor.|telescope,eyes
+observe|v|gözlemlemek|watch, look at|The students / [observe] / the stars / through a telescope.|Öğrenciler yıldızları bir teleskopla gözlemliyor.|telescope,eyes
 predict|v|öngörmek, önceden söylemek|forecast, foresee|Experts / [predict] / that electric cars / will become cheaper soon.|Uzmanlar elektrikli arabaların yakında ucuzlayacağını öngörüyor.|crystal-ball,automobile
 estimate|v|tahmin etmek|guess, calculate|Biologists / [estimate] / that the forest / is about five hundred years old.|Biyologlar ormanın yaklaşık beş yüz yaşında olduğunu tahmin ediyor.|evergreen-tree,thinking-face
-expect|v|beklemek|anticipate, await|We / [expect] / the train / to arrive on time.|Trenin zamanında gelmesini bekliyoruz.|train,hourglass-not-done
+expect|v|beklemek|anticipate, count on|We / [expect] / the train / to arrive on time.|Trenin zamanında gelmesini bekliyoruz.|train,hourglass-not-done
 assume|v|varsaymak|suppose, presume|Many people / wrongly [assume] / that all fat / is bad for you.|Birçok insan yanlışlıkla tüm yağların zararlı olduğunu varsayar.|thought-balloon,red-question-mark
 prove|v|kanıtlamak|show, demonstrate|The new study / may [prove] / that coffee / is good for the heart.|Yeni çalışma kahvenin kalp için yararlı olduğunu kanıtlayabilir.|check-mark-button,hot-beverage
-confirm|v|onaylamak, doğrulamak|verify, check|Please [confirm] / your booking / by email / before Friday.|Lütfen rezervasyonunuzu cumadan önce e-postayla onaylayın.|check-mark,e-mail
+confirm|v|onaylamak, doğrulamak|verify, finalise|Please [confirm] / your booking / by email / before Friday.|Lütfen rezervasyonunuzu cumadan önce e-postayla onaylayın.|check-mark,e-mail
 reject|v|reddetmek, geri çevirmek|turn down, dismiss|The manager / might [reject] / my idea / for the new project.|Yönetici yeni proje için fikrimi geri çevirebilir.|thumbs-down,cross-mark-button
 accept|v|kabul etmek|agree to, take|She decided / to [accept] / the job offer / in London.|Londra'daki iş teklifini kabul etmeye karar verdi.|handshake,check-mark-button
 complete|v|tamamlamak|finish, fill in|You must [complete] / the online form / before / the course starts.|Kurs başlamadan önce çevrimiçi formu tamamlamalısınız.|page-facing-up,check-box-with-check
 attempt|v|girişimde bulunmak, kalkışmak|try, venture|Never [attempt] / to repair / electrical devices / by yourself.|Elektrikli cihazları asla kendi başınıza tamir etmeye kalkışmayın.|warning,electric-plug
-lack|v|eksik olmak, yoksun olmak|miss, need|Many young workers / [lack] / the skills / needed for the job.|Birçok genç çalışan iş için gereken becerilerden yoksun.|empty-nest,minus
+lack|v|eksik olmak, yoksun olmak|be without, be short of|Many young workers / [lack] / the skills / needed for the job.|Birçok genç çalışan iş için gereken becerilerden yoksun.|empty-nest,minus
 gain|v|kazanmak|get, obtain|Volunteers / [gain] / useful experience / while helping others.|Gönüllüler başkalarına yardım ederken faydalı deneyim kazanır.|plus,chart-increasing
 waste|v|israf etmek, boşa harcamak|squander, throw away|Many families / [waste] / a lot of food / every week.|Birçok aile her hafta çok fazla yiyeceği israf ediyor.|wastebasket,money-with-wings
 consume|v|tüketmek|use, use up|Older cars / [consume] / more fuel / than new ones.|Eski arabalar yenilerden daha fazla yakıt tüketir.|fuel-pump,automobile
@@ -91,20 +91,20 @@ represent|v|temsil etmek|stand for, speak for|Three students / will [represent] 
 vary|v|değişiklik göstermek|differ, change|Prices / for hotel rooms / [vary] / from season to season.|Otel odası fiyatları mevsimden mevsime değişiklik gösterir.|level-slider,hotel
 transform|v|dönüştürmek|change, convert|Technology / will [transform] / the way / we learn languages.|Teknoloji dil öğrenme şeklimizi dönüştürecek.|butterfly,counterclockwise-arrows-button
 enable|v|olanak tanımak, mümkün kılmak|allow, let|Online courses / [enable] / people / to study anywhere.|Çevrimiçi kurslar insanların her yerde ders çalışmasına olanak tanır.|laptop,unlocked
-ensure|v|emin olmak, güvence altına almak|make sure, guarantee|Please [ensure] / that all windows / are closed / before you leave.|Lütfen ayrılmadan önce tüm pencerelerin kapalı olduğundan emin olun.|locked,check-mark-button
+ensure|v|sağlamak, güvence altına almak|make sure, guarantee|Please [ensure] / that all windows / are closed / before you leave.|Lütfen ayrılmadan önce tüm pencerelerin kapalı olmasını sağlayın.|locked,check-mark-button
 raise|v|para toplamak, yükseltmek|collect, gather|The students / held a concert / to [raise] / money for the library.|Öğrenciler kütüphane için para toplamak amacıyla bir konser düzenledi.|coin,musical-notes
 overcome|v|üstesinden gelmek|get over, conquer|Many people / work hard / to [overcome] / their fear of flying.|Birçok insan uçma korkusunun üstesinden gelmek için çok çalışır.|flexed-biceps,airplane
-struggle|v|zorlanmak, mücadele etmek|battle, strive|Many new students / [struggle] / with academic writing / at first.|Birçok yeni öğrenci ilk başta akademik yazmada zorlanır.|persevering-face,writing-hand
+struggle|v|zorlanmak, mücadele etmek|battle, have difficulty|Many new students / [struggle] / with academic writing / at first.|Birçok yeni öğrenci ilk başta akademik yazmada zorlanır.|persevering-face,writing-hand
 perform|v|yerine getirmek, yapmak|carry out, do|Robots / can [perform] / simple tasks / in hospitals.|Robotlar hastanelerde basit görevleri yerine getirebilir.|mechanical-arm,robot
 publish|v|yayımlamak|print, issue|The researchers / hope to [publish] / their findings / in a science journal.|Araştırmacılar bulgularını bir bilim dergisinde yayımlamayı umuyor.|newspaper,open-book
 manage|v|yönetmek|run, direct|She learnt / to [manage] / a small team / in her first job.|İlk işinde küçük bir ekibi yönetmeyi öğrendi.|office-worker,busts-in-silhouette
 amount|n|miktar|quantity, sum|The [amount] of sugar / in soft drinks / is often / surprisingly high.|Gazlı içeceklerdeki şeker miktarı çoğu zaman şaşırtıcı derecede yüksektir.|balance-scale,bar-chart
-rate|n|oran, hız|level, speed|The [rate] of unemployment / among young people / has risen / sharply.|Gençler arasındaki işsizlik oranı keskin bir şekilde yükseldi.|chart-increasing,bar-chart
+rate|n|oran, hız|level, percentage|The [rate] of unemployment / among young people / has risen / sharply.|Gençler arasındaki işsizlik oranı keskin bir şekilde yükseldi.|chart-increasing,bar-chart
 research|n|araştırma|study, investigation|Recent [research] / shows that / regular exercise / improves memory.|Son araştırmalar düzenli egzersizin hafızayı geliştirdiğini gösteriyor.|microscope,magnifying-glass-tilted-left
 evidence|n|kanıt|proof, sign|Scientists have found / no [evidence] / that the medicine / causes side effects.|Bilim insanları ilacın yan etkilere neden olduğuna dair hiçbir kanıt bulamadı.|magnifying-glass-tilted-left,detective
 benefit|n|fayda, yarar|advantage, gain|The main [benefit] / of online courses / is that students / can study anywhere.|Çevrimiçi derslerin temel faydası, öğrencilerin her yerde çalışabilmesidir.|thumbs-up,check-mark-button
 risk|n|risk|danger, chance|Wearing a helmet / reduces the [risk] / of head injuries / in accidents.|Kask takmak kazalarda kafa yaralanması riskini azaltır.|warning,rescue-workers-helmet
-result|n|sonuç|outcome, consequence|As a [result] / of heavy rain, / many roads / were closed.|Şiddetli yağmur sonucunda birçok yol kapatıldı.|check-mark-button,bar-chart
+result|n|sonuç|outcome, consequence|The [result] / of the experiment / surprised / the scientists.|Deneyin sonucu bilim insanlarını şaşırttı.|check-mark-button,bar-chart
 effect|n|etki|impact, influence|Too much screen time / can have / a negative [effect] / on children's sleep.|Ekran başında çok fazla zaman geçirmek çocukların uykusu üzerinde olumsuz bir etki yaratabilir.|collision,mobile-phone
 factor|n|etken, faktör|element, reason|Lack of sleep / is a major [factor] / in many / road accidents.|Uykusuzluk birçok trafik kazasında önemli bir etkendir.|puzzle-piece,gear
 level|n|seviye, düzey|degree, standard|The course is designed / for students with / an intermediate [level] / of English.|Bu kurs orta düzeyde İngilizcesi olan öğrenciler için tasarlanmıştır.|level-slider,bar-chart
@@ -117,11 +117,11 @@ population|n|nüfus|inhabitants, people|The [population] of the city / has doubl
 pollution|n|kirlilik|contamination, dirt|Air [pollution] / is a serious problem / in many / large cities.|Hava kirliliği birçok büyük şehirde ciddi bir sorundur.|factory,fog
 resource|n|doğal kaynak, varlık|supply, reserve|Water is / a valuable [resource] / that we should / not waste.|Su, israf etmememiz gereken değerli bir kaynaktır.|droplet,water-wave,oil-drum
 species|n|tür|type, kind|Many [species] of birds / are losing / their natural homes / because of farming.|Birçok kuş türü tarım nedeniyle doğal yaşam alanlarını kaybediyor.|bird,butterfly
-climate|n|iklim|weather, conditions|The [climate] in this region / is warm and dry / for most / of the year.|Bu bölgenin iklimi yılın büyük bölümünde sıcak ve kurudur.|sun-behind-cloud,thermometer
+climate|n|iklim|weather patterns, typical weather|The [climate] in this region / is warm and dry / for most / of the year.|Bu bölgenin iklimi yılın büyük bölümünde sıcak ve kurudur.|sun-behind-cloud,thermometer
 disease|n|hastalık|illness, sickness|A healthy diet / can protect you / from heart [disease] / in later life.|Sağlıklı beslenme sizi ileriki yaşlarda kalp hastalığından koruyabilir.|microbe,face-with-thermometer
 treatment|n|tedavi|therapy, cure|The doctor said / the new [treatment] / should work / within two weeks.|Doktor yeni tedavinin iki hafta içinde etki göstermesi gerektiğini söyledi.|pill,stethoscope
 symptom|n|belirti|sign, indication|A high temperature / is a common [symptom] / of the flu / in winter.|Yüksek ateş, kışın gribin yaygın bir belirtisidir.|face-with-thermometer,thermometer
-diet|n|beslenme düzeni|food, nutrition|A balanced [diet] / should include / fruit, vegetables / and whole grains.|Dengeli bir beslenme düzeni meyve, sebze ve tam tahılları içermelidir.|green-salad,red-apple
+diet|n|beslenme düzeni|nutrition, eating habits|A balanced [diet] / should include / fruit, vegetables / and whole grains.|Dengeli bir beslenme düzeni meyve, sebze ve tam tahılları içermelidir.|green-salad,red-apple
 habit|n|alışkanlık|routine, custom|Reading before bed / is a good [habit] / that helps / you relax.|Yatmadan önce kitap okumak rahatlamanıza yardımcı olan iyi bir alışkanlıktır.|open-book,repeat-button
 behaviour|n|davranış|conduct, actions|The children's [behaviour] / improved a lot / when the teacher / gave them rewards.|Öğretmen onlara ödül verdiğinde çocukların davranışları çok düzeldi.|child,thinking-face
 attitude|n|tutum|approach, outlook|A positive [attitude] / can help you / deal with / difficult situations.|Olumlu bir tutum zor durumlarla başa çıkmanıza yardımcı olabilir.|smiling-face-with-smiling-eyes,thumbs-up
@@ -161,7 +161,7 @@ aspect|n|yön, boyut|side, part|Sleep is / an important [aspect] / of a healthy 
 variety|n|çeşitlilik, çeşit|range, selection|The market offers / a wide [variety] / of fresh fruit / and vegetables.|Pazar çok çeşitli taze meyve ve sebze sunar.|basket,grapes
 average|n|ortalama|mean, norm|On [average], / people check / their phones / about fifty times a day.|İnsanlar ortalama olarak telefonlarını günde yaklaşık elli kez kontrol ediyor.|mobile-phone,bar-chart
 majority|n|çoğunluk|greater part, bulk|The [majority] of students / in the class / passed the exam / easily.|Sınıftaki öğrencilerin çoğunluğu sınavı kolayca geçti.|raising-hands,busts-in-silhouette
-access|n|erişim|entry, availability|Many villages / still do not have / [access] to / clean drinking water.|Birçok köyün hâlâ temiz içme suyuna erişimi yok.|potable-water,key
+access|n|erişim|availability, way of getting|Many villages / still do not have / [access] to / clean drinking water.|Birçok köyün hâlâ temiz içme suyuna erişimi yok.|potable-water,key
 demand|n|talep|need, request|There is / a growing [demand] / for electric cars / in Europe.|Avrupa'da elektrikli arabalara yönelik artan bir talep var.|shopping-cart,automobile
 attention|n|dikkat|focus, concentration|Students should pay / close [attention] / to the instructions / during the exam.|Öğrenciler sınav sırasında talimatlara çok dikkat etmelidir.|eyes,eye
 success|n|başarı|achievement, victory|Hard work / is the key / to [success] / in any career.|Çok çalışmak her meslekte başarının anahtarıdır.|trophy,1st-place-medal
@@ -170,7 +170,7 @@ device|n|cihaz|gadget, machine|This small [device] / measures / your heart rate 
 equipment|n|ekipman, donanım|gear, tools|The gym has / modern [equipment] / and friendly / trainers.|Spor salonunda modern ekipman ve güler yüzlü antrenörler var.|person-lifting-weights,toolbox
 discovery|n|keşif|finding, breakthrough|The [discovery] of penicillin / changed medicine / and saved / millions of lives.|Penisilinin keşfi tıbbı değiştirdi ve milyonlarca hayat kurtardı.|microscope,petri-dish
 experiment|n|deney|test, trial|In the [experiment], / students measured / how fast / water boils.|Deneyde öğrenciler suyun ne kadar hızlı kaynadığını ölçtü.|test-tube,alembic
-sample|n|numune, örneklem|specimen, example|The nurse took / a blood [sample] / to check / your iron levels.|Hemşire demir seviyenizi kontrol etmek için kan numunesi aldı.|drop-of-blood,syringe,test-tube
+sample|n|numune, örneklem|specimen, small amount|The nurse took / a blood [sample] / to check / your iron levels.|Hemşire demir seviyenizi kontrol etmek için kan numunesi aldı.|drop-of-blood,syringe,test-tube
 belief|n|inanç|opinion, view|There is / a common [belief] / that carrots / improve your eyesight.|Havucun görme yeteneğini geliştirdiğine dair yaygın bir inanç var.|carrot,thought-balloon
 concern|n|endişe, kaygı|worry, anxiety|There is / growing [concern] / about the amount / of plastic in the sea.|Denizdeki plastik miktarıyla ilgili artan bir endişe var.|worried-face,water-wave
 pressure|n|baskı|stress, strain|Many students feel / a lot of [pressure] / to get / high exam results.|Birçok öğrenci yüksek sınav sonuçları almak için çok baskı hissediyor.|face-exhaling,weary-face
@@ -196,11 +196,11 @@ various|adj|çeşitli|different, several|Students can choose / from [various] cl
 certain|adj|kesin, şüphesiz|sure, definite|It is [certain] / that the meeting / will start late / because of the traffic.|Trafik yüzünden toplantının geç başlayacağı kesin.|check-mark-button,hundred-points
 specific|adj|belirli, özgül|particular, precise|The doctor gave her / [specific] instructions / about when / to take the pills.|Doktor ona hapları ne zaman alacağı konusunda belirli talimatlar verdi.|pill,clipboard,bullseye
 major|adj|büyük, başlıca|main, key|Air pollution is / a [major] problem / in many / large cities.|Hava kirliliği birçok büyük şehirde başlıca sorunlardan biridir.|factory,cityscape
-sudden|adj|ani|unexpected, quick|A [sudden] change / in the weather / forced the climbers / to return.|Havadaki ani değişiklik dağcıları geri dönmeye zorladı.|high-voltage,cloud-with-lightning,person-climbing
+sudden|adj|ani|unexpected, abrupt|A [sudden] change / in the weather / forced the climbers / to return.|Havadaki ani değişiklik dağcıları geri dönmeye zorladı.|high-voltage,cloud-with-lightning,person-climbing
 local|adj|yerel|regional, nearby|Farmers sell / fresh vegetables / at the [local] market / every Saturday.|Çiftçiler her cumartesi yerel pazarda taze sebze satar.|basket,carrot,leafy-green
 global|adj|küresel|worldwide, international|Climate change is / a [global] issue / that affects / every country.|İklim değişikliği her ülkeyi etkileyen küresel bir sorundur.|globe-showing-europe-africa,globe-with-meridians
 natural|adj|doğal|organic, pure|This shampoo / is made from / [natural] ingredients / like honey and olive oil.|Bu şampuan bal ve zeytinyağı gibi doğal malzemelerden yapılır.|herb,leaf-fluttering-in-wind,honey-pot
-physical|adj|fiziksel, bedensel|bodily, material|Children need / at least one hour / of [physical] activity / every day.|Çocukların her gün en az bir saat fiziksel aktiviteye ihtiyacı vardır.|person-running,flexed-biceps
+physical|adj|fiziksel, bedensel|bodily, of the body|Children need / at least one hour / of [physical] activity / every day.|Çocukların her gün en az bir saat fiziksel aktiviteye ihtiyacı vardır.|person-running,flexed-biceps
 mental|adj|zihinsel, ruhsal|psychological, emotional|Spending time in nature / can improve / your [mental] health / and mood.|Doğada vakit geçirmek ruh sağlığınızı ve ruh halinizi iyileştirebilir.|brain,thought-balloon
 financial|adj|mali, maddi|economic, monetary|Many students / face [financial] problems / during their first year / at university.|Birçok öğrenci üniversitedeki ilk yılında maddi sorunlarla karşılaşır.|money-bag,coin
 environmental|adj|çevresel|ecological, green|Plastic waste / causes serious / [environmental] damage / to the oceans.|Plastik atık okyanuslara ciddi çevresel zarar verir.|recycling-symbol,globe-showing-americas,water-wave
@@ -220,14 +220,14 @@ beneficial|adj|yararlı, faydalı|helpful, advantageous|Learning a second langua
 useful|adj|kullanışlı, işe yarar|handy, practical|This app is / very [useful] / for checking / bus times.|Bu uygulama otobüs saatlerini kontrol etmek için çok kullanışlı.|mobile-phone,toolbox
 responsible|adj|sorumlu|in charge, accountable|Each student / is [responsible] / for keeping / the classroom tidy.|Her öğrenci sınıfı düzenli tutmaktan sorumludur.|clipboard,student
 aware|adj|farkında, bilinçli|conscious, informed|Most people / are now [aware] / of the dangers / of plastic waste.|Artık çoğu insan plastik atığın tehlikelerinin farkında.|eyes,light-bulb
-capable|adj|yetenekli, yapabilecek güçte|able, skilled|Young children / are [capable] / of learning / two languages at once.|Küçük çocuklar aynı anda iki dil öğrenme yeteneğine sahiptir.|flexed-biceps,child
+capable|adj|-ebilecek durumda, yapabilecek güçte|able, skilled|Young children / are [capable] / of learning / two languages at once.|Küçük çocuklar aynı anda iki dil öğrenebilecek durumdadır.|flexed-biceps,child
 obvious|adj|bariz, apaçık|clear, plain|It was [obvious] / from her smile / that she had / passed the exam.|Gülümsemesinden sınavı geçtiği apaçık belliydi.|eye,light-bulb
 accurate|adj|doğru, isabetli|correct, exact|The new app / gives [accurate] information / about the weather / in your area.|Yeni uygulama, bölgenizdeki hava durumu hakkında doğru bilgi veriyor.|bullseye,straight-ruler
 appropriate|adj|uygun|suitable, proper|Please wear / [appropriate] clothes / for the job interview / tomorrow morning.|Lütfen yarın sabahki iş görüşmesi için uygun kıyafetler giyin.|necktie,womans-clothes
 reliable|adj|güvenilir|dependable, trustworthy|Students should use / [reliable] sources / when they write / their essays.|Öğrenciler ödevlerini yazarken güvenilir kaynaklar kullanmalıdır.|handshake,books
 independent|adj|bağımsız|free, self-reliant|Living away from home / helps young people / become more [independent] / and confident.|Evden uzakta yaşamak, gençlerin daha bağımsız ve özgüvenli olmasına yardımcı olur.|person-walking,house
 familiar|adj|tanıdık, aşina|known, recognisable|The man's face / looked [familiar] / but I could not / remember his name.|Adamın yüzü tanıdık geliyordu ama adını hatırlayamadım.|face-with-monocle,thinking-face
-unique|adj|eşsiz, benzersiz|special, unusual|Every person / has a [unique] fingerprint / that nobody else / shares.|Her insanın, başka kimsede olmayan eşsiz bir parmak izi vardır.|glowing-star,raised-hand
+unique|adj|eşsiz, benzersiz|special, one of a kind|Every person / has a [unique] fingerprint / that nobody else / shares.|Her insanın, başka kimsede olmayan eşsiz bir parmak izi vardır.|glowing-star,raised-hand
 rare|adj|nadir, seyrek|uncommon, scarce|This forest is home / to many [rare] birds / that cannot be found / anywhere else.|Bu orman, başka hiçbir yerde bulunamayan pek çok nadir kuşa ev sahipliği yapar.|bird,gem-stone
 typical|adj|tipik|usual, standard|A [typical] day / for a nurse / starts / at seven o'clock.|Bir hemşire için tipik bir gün saat yedide başlar.|health-worker,seven-oclock
 complex|adj|karmaşık|complicated, difficult|The human brain / is a very [complex] organ / with billions / of cells.|İnsan beyni, milyarlarca hücreye sahip çok karmaşık bir organdır.|brain,puzzle-piece
@@ -245,16 +245,16 @@ extreme|adj|aşırı, uç|intense, excessive|Some animals / can survive / [extre
 strict|adj|katı, sıkı|firm, tough|Our school has / [strict] rules / about using / mobile phones in class.|Okulumuzun sınıfta cep telefonu kullanımı konusunda katı kuralları var.|no-mobile-phones,stop-sign
 flexible|adj|esnek|adaptable, adjustable|Many companies / now offer / [flexible] working hours / to their staff.|Birçok şirket artık çalışanlarına esnek çalışma saatleri sunuyor.|alarm-clock,office-worker
 relevant|adj|ilgili, alakalı|related, connected|Please include / only [relevant] information / in your answer / to the question.|Lütfen cevabınıza yalnızca soruyla ilgili bilgileri ekleyin.|link,memo
-scientific|adj|bilimsel|academic, technical|There is now / strong [scientific] evidence / that exercise / protects the heart.|Artık egzersizin kalbi koruduğuna dair güçlü bilimsel kanıtlar var.|microscope,test-tube
+scientific|adj|bilimsel|research-based, evidence-based|There is now / strong [scientific] evidence / that exercise / protects the heart.|Artık egzersizin kalbi koruduğuna dair güçlü bilimsel kanıtlar var.|microscope,test-tube
 urban|adj|kentsel|city, metropolitan|More than half / of the world's population / lives / in [urban] areas.|Dünya nüfusunun yarısından fazlası kentsel alanlarda yaşıyor.|cityscape,office-building
 rural|adj|kırsal|country, rustic|Life in [rural] areas / is often quieter / and cheaper / than in big cities.|Kırsal bölgelerde hayat genellikle büyük şehirlerden daha sakin ve ucuzdur.|tractor,house-with-garden,sheaf-of-rice
 wealthy|adj|zengin, varlıklı|rich, well-off|Even [wealthy] countries / are now facing / a shortage / of nurses.|Varlıklı ülkeler bile artık hemşire sıkıntısı yaşıyor.|money-bag,bank
 potential|adj|potansiyel|possible, prospective|The company / is looking for / [potential] customers / in other countries.|Şirket diğer ülkelerde potansiyel müşteriler arıyor.|magnifying-glass-tilted-left,busts-in-silhouette
 annual|adj|yıllık|yearly, once-yearly|The [annual] report / shows that / the company's profits / increased by ten percent.|Yıllık rapor, şirketin kârının yüzde on arttığını gösteriyor.|spiral-calendar,page-facing-up
-especially|adv|özellikle|particularly, specially|Sunscreen is important for everyone, / [especially] / for people / with fair skin.|Güneş kremi herkes için, özellikle açık tenli insanlar için önemlidir.|bullseye,glowing-star
+especially|adv|özellikle|particularly, in particular|Sunscreen is important for everyone, / [especially] / for people / with fair skin.|Güneş kremi herkes için, özellikle açık tenli insanlar için önemlidir.|bullseye,glowing-star
 nearly|adv|neredeyse|almost, practically|The train was late, / so we waited / for [nearly] two hours / at the station.|Tren gecikti, bu yüzden istasyonda neredeyse iki saat bekledik.|hourglass-not-done,pinching-hand
-recently|adv|son zamanlarda, yakın zamanda|lately, newly|Scientists have [recently] discovered / a new type of frog / in the rainforest / of South America.|Bilim insanları son zamanlarda Güney Amerika'nın yağmur ormanlarında yeni bir kurbağa türü keşfetti.|new-button,spiral-calendar
-instead|adv|bunun yerine|alternatively, rather|The lift was broken, / so we used / the stairs / [instead].|Asansör bozuktu, bu yüzden bunun yerine merdivenleri kullandık.|shuffle-tracks-button,left-right-arrow
+recently|adv|son zamanlarda, yakın zamanda|lately, not long ago|Scientists have [recently] discovered / a new type of frog / in the rainforest / of South America.|Bilim insanları son zamanlarda Güney Amerika'nın yağmur ormanlarında yeni bir kurbağa türü keşfetti.|new-button,spiral-calendar
+instead|adv|bunun yerine|in its place, as an alternative|The lift was broken, / so we used / the stairs / [instead].|Asansör bozuktu, bu yüzden bunun yerine merdivenleri kullandık.|shuffle-tracks-button,left-right-arrow
 mainly|adv|esas olarak, çoğunlukla|mostly, largely|The students in this class / are [mainly] interested / in science / and technology.|Bu sınıftaki öğrenciler esas olarak bilim ve teknolojiyle ilgileniyor.|bar-chart,bullseye
 rarely|adv|nadiren|seldom, hardly ever|My grandmother [rarely] watches television / because she prefers / reading books / in the garden.|Büyükannem nadiren televizyon izler çünkü bahçede kitap okumayı tercih eder.|television,snail
 gradually|adv|yavaş yavaş, aşamalı olarak|slowly, steadily|After the operation, / his health / [gradually] improved / over several months.|Ameliyattan sonra sağlığı birkaç ay içinde yavaş yavaş düzeldi.|snail,chart-increasing

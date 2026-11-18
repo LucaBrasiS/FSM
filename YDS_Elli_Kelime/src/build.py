@@ -89,6 +89,21 @@ def load_verbs(path):
     return "\n".join(rows), len(rows)
 
 
+def load_conf(path, words):
+    """data/karisanlar.txt: kelime a|kelime b|neden. Aynı soruda şık olarak yan yana gelmezler."""
+    names = {l.split("|")[0] for l in words.splitlines()}
+    pairs = []
+    if not path.exists():
+        return pairs
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip() or line.startswith("#"):
+            continue
+        p = line.split("|")
+        assert len(p) >= 2 and p[0] in names and p[1] in names and p[0] != p[1], ("karisanlar.txt", line)
+        pairs.append([p[0], p[1]])
+    return pairs
+
+
 def load_bag(d, allow_missing):
     """Bağlaç atölyesi: list.json (gruplar, yapılar) + kartlar.json + sec/iliski/anlam.json -> {groups, yapi, qs}."""
     if not (d / "list.json").exists():
@@ -132,6 +147,7 @@ def main():
     bag = load_bag(ROOT / "data" / "baglac", args.eksik_olabilir)
     words = load_words(ROOT / "data" / "kelimeler.txt")
     verbs, n_verbs = load_verbs(ROOT / "data" / "fiiller.txt")
+    conf = load_conf(ROOT / "data" / "karisanlar.txt", words)
 
     for group in ("ui", "words"):
         for key, name in art[group].items():
@@ -149,6 +165,7 @@ def main():
         ("/*@@BAG@@*/{groups:[],yapi:{},qs:{}}", js(bag)),
         ("/*@@WORDS@@*/''", js(words)),
         ("/*@@VERBS@@*/''", js(verbs)),
+        ("/*@@CONF@@*/[]", js(conf)),
     ):
         assert out.count(mark) == 1, mark
         out = out.replace(mark, value)
@@ -156,7 +173,7 @@ def main():
     n_book = sum(1 for t in gram["t"] if t["grp"] == "k")
     print(f"index.html: {len(out.encode('utf-8')):,} bayt | {len(art['icons'])} çizim | "
           f"{n_book} kitap ünitesi + {len(gram['t']) - n_book} YDS konusu | {sum(len(v) for v in gram['q'].values())} gramer sorusu | "
-          f"{n_verbs} fiil")
+          f"{n_verbs} fiil | {len(conf)} karışan çift")
 
 
 if __name__ == "__main__":

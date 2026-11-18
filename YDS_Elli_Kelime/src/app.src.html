@@ -601,11 +601,8 @@ var POS={v:'fiil',adj:'sıfat',n:'isim',adv:'zarf',bag:'bağlaç',phr:'öbek fii
 /* kelime|tür|Türkçe|eş anlamlılar|cümle ( / = parça sınırı, [ ] = hedef kelime)|cümlenin Türkçesi */
 var RAW=/*@@WORDS@@*/'';
 
-/* aynı soruda yan yana şık olmaması gereken, anlamı birbirine yakın çiftler */
-var CONF=[['emerge','reveal'],['sustain','persist'],['retain','sustain'],['ensure','enable'],['comprise','constitute'],
-  ['hinder','restrict'],['inhibit','restrict'],['alleviate','diminish'],['adverse','detrimental'],['notable','prominent'],
-  ['notable','considerable'],['rigid','severe'],['constraint','obstacle'],['extent','scope'],['approximately','virtually'],
-  ['hence','owing to'],['come up with','put forward']];
+/* aynı soruda yan yana şık olmaması gereken çiftler (data/karisanlar.txt): biri ötekinin yerine de doğru sayılabilecek kelimeler */
+var CONF=/*@@CONF@@*/[];
 
 var TIPS=[
   'Kelimeyi cümlesiyle öğren. Tek başına ezberlediğin kelimeyi sınavdaki cümlede tanımak zorlaşır.',
