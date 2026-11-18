@@ -476,14 +476,14 @@ details.demo{border-style:dashed;border-color:var(--muted);background:transparen
 .vlv .uicon b{font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--on-fill)}
 .vlv[disabled]{cursor:default;box-shadow:0 0 0 var(--edge);transform:translateY(var(--lift))}
 .vlv>svg,.vlv>.tstate{flex:none}
-.vmini{height:10px;border-radius:5px;background:var(--sunk);border:2px solid var(--edge);overflow:hidden;margin-top:5px}
-.vmini i{display:block;height:100%;background:var(--ok)}
+.vmini{display:flex;height:10px;border-radius:5px;background:var(--sunk);border:2px solid var(--edge);overflow:hidden;margin-top:5px}
+.vmini i{display:block;height:100%}
 .vbar{height:20px;border-radius:10px;background:var(--sunk);border:2px solid var(--edge);display:flex;overflow:hidden}
 .vbar i{display:block;height:100%}
 .vbar i+i{border-left:2px solid var(--edge)}
-.vbar .o,.vleg .o{background:var(--ok)}
-.vbar .m,.vleg .m{background:var(--sun)}
-.vbar .x,.vleg .x{background:var(--no)}
+.vo{background:var(--ok)}
+.vm{background:var(--sun)}
+.vx{background:var(--no)}
 .vleg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.9rem;font-weight:600;font-variant-numeric:tabular-nums}
 .vleg span{display:inline-flex;align-items:center;gap:6px}
 .vleg i{width:12px;height:12px;border-radius:50%;border:2px solid var(--edge)}
@@ -1367,15 +1367,16 @@ function vVHub(){
     }else{attr='disabled';tail='<span class="tstate ok">'+I.ok+'</span>';sub='Tamamlandı · hepsini biliyorsun'}
     cards+='<button class="ucard vlv" '+attr+' style="--pc:var('+VPC[lv]+')"><span class="uicon"><b>'+lv+'</b></span>'+
       '<span class="utxt"><b>'+VLVN[lv]+'</b><span class="usub">'+sub+'</span>'+
-      '<span class="vmini" role="img" aria-label="'+st.n+' fiilden '+st.seen+' tanesi tarandı"><i style="width:'+(st.seen/st.n*100)+'%"></i></span></span>'+tail+'</button>';
+      '<span class="vmini" role="img" aria-label="'+st.n+' fiilden '+st.ok+' biliyorsun, '+st.mix+' karıştırdın, '+st.idk+' bilmiyorsun, '+(st.n-st.seen)+' taranmadı">'+
+      [['vo',st.ok],['vm',st.mix],['vx',st.idk]].map(function(p){return p[1]?'<i class="'+p[0]+'" style="width:'+(p[1]/st.n*100)+'%"></i>':''}).join('')+'</span></span>'+tail+'</button>';
   });
   var res='',lists='',tools='';
   if(all.seen){
     var weakN=all.mix+all.idk,seg=function(c,v){return v?'<i class="'+c+'" style="width:'+(v/all.n*100)+'%"></i>':''};
     res='<section class="card"><div class="cardhead"><h2>Durumun</h2><span class="note">'+all.seen+' / '+all.n+' fiil tarandı</span></div>'+
       '<p class="h1u">Bildiğin fiil oranı: %'+Math.round(all.ok/all.seen*100)+'</p>'+
-      '<div class="vbar" role="img" aria-label="'+all.ok+' biliyorsun, '+all.mix+' karıştırdın, '+all.idk+' bilmiyorsun, '+(all.n-all.seen)+' taranmadı">'+seg('o',all.ok)+seg('m',all.mix)+seg('x',all.idk)+'</div>'+
-      '<p class="vleg"><span><i class="o"></i>'+all.ok+' biliyorum</span><span><i class="m"></i>'+all.mix+' karıştırdım</span><span><i class="x"></i>'+all.idk+' bilmiyorum</span></p>'+
+      '<div class="vbar" role="img" aria-label="'+all.ok+' biliyorsun, '+all.mix+' karıştırdın, '+all.idk+' bilmiyorsun, '+(all.n-all.seen)+' taranmadı">'+seg('vo',all.ok)+seg('vm',all.mix)+seg('vx',all.idk)+'</div>'+
+      '<p class="vleg"><span><i class="vo"></i>'+all.ok+' biliyorum</span><span><i class="vm"></i>'+all.mix+' karıştırdım</span><span><i class="vx"></i>'+all.idk+' bilmiyorum</span></p>'+
       (weakN?'<button class="btn pri" data-act="vredo">Eksiklerimi yeniden tara · '+weakN+I.go+'</button>':'')+'</section>';
     [[2,'Karıştırdıkların'],[3,'Bilmediklerin'],[1,'Bildiklerin']].forEach(function(g){
       var ws=VERBS.filter(function(v){return S.vs[v.w]===g[0]});
@@ -2106,9 +2107,11 @@ function vGRes(){
   if(GQ.mode==='test'&&id)extra=' En iyi sonucun: '+gBest(id,GQ.k)+' / '+TLEN+'.';
   else if(GQ.mode==='daily'&&id)extra=' Ünite testinden '+GQ.unitRight+' / '+GQ.unitN+' aldın.';
   else if(GQ.mode==='rev')extra=' En iyi sonucun: '+S.gr[GQ.key]+' / '+n+'.';
+  var one=GQ.items.every(function(it){return it[0]===GQ.items[0][0]});   // tek ünitenin testinde ünite adı her soruda tekrar edilmez
   var wrong=GQ.wrong.map(function(it){
-    var q=GRAM.q[it[0]][it[1]];
-    return '<div class="wq" style="--pc:var('+uColor(it[0])+')"><p class="unum">'+uLabel(it[0])+' · '+esc(uName(it[0])[0])+'</p><p class="gq" lang="en">'+gText(q,true)+'</p><p class="tr">'+esc(q[3])+'</p></div>';
+    var q=GRAM.q[it[0]][it[1]],nm=uName(it[0]);
+    return '<div class="wq" style="--pc:var('+uColor(it[0])+')">'+(one?'':'<p class="unum">'+uLabel(it[0])+' · <span'+(nm[2]?' lang="en"':'')+'>'+esc(nm[0])+'</span></p>')+
+      '<p class="gq" lang="en">'+gText(q,true)+'</p><p class="tr">'+esc(q[3])+'</p></div>';
   }).join('');
   var pri,nx=null;
   if(GQ.mode==='test'&&id){
