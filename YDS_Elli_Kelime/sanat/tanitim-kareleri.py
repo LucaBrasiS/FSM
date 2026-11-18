@@ -54,8 +54,9 @@ def strip(no, title, at, offs, crop=None):
     ims = []
     for o in offs:
         im = Image.open(frame(at + o)).convert('RGB')
-        if crop:
-            im = im.crop(crop)
+        if crop:                                  # kırpma oranla verilir: kare boyutundan bağımsız
+            W, H = im.size
+            im = im.crop((round(crop[0] * W), round(crop[1] * H), round(crop[2] * W), round(crop[3] * H)))
         im = im.resize((w, round(im.height * w / im.width)))
         ims.append((o, im))
     h = ims[0][1].height
@@ -72,13 +73,13 @@ def strip(no, title, at, offs, crop=None):
     print(name)
 
 
-TOP = (0, 0, 780, 700)     # ekranın üst yarısı: başlık, kart
+TOP = (0, 0, 1, 0.415)     # ekranın üst kısmı: başlık, kart (oran)
 FULL = None
 strip(1, 'tanıtım kartı okunuşu', speak(0), [-300, 0, 150, 300, 500, 800, 1100], TOP)
 strip(2, 'tanıtım kartı geçişi', nth('flip', 0), [-60, 0, 40, 80, 120, 180, 260])
 strip(3, 'doğru cevap', nth('ok', 0), [-80, 0, 80, 160, 300, 600])
 strip(4, 'Devam kayması', nth('slide', 1), [-60, 0, 40, 80, 120, 160, 220])
-strip(5, 'x3 rozeti', nth('combo', 0), [-80, 0, 100, 200, 300, 450], (0, 0, 780, 420))
+strip(5, 'x3 rozeti', nth('combo', 0), [-80, 0, 100, 200, 300, 450], (0, 0, 1, 0.25))
 strip(6, 'yanlış cevap', nth('no', 0), [-80, 0, 80, 160, 300, 600])
 strip(7, 'bölüm geçişi', nth('swish', 0), [-60, 0, 60, 120, 200, 400])
 strip(8, 'eşleştirme yanlış ve doğru', nth('miss', 0), [-100, 0, 150, 300, 450, 700])
@@ -90,7 +91,7 @@ strip(13, 'balon patlaması', nth('pop', 0), [-60, 0, 80, 160, 240, 400])
 strip(14, 'yanlış balon sönmesi', nth('fizz', 0), [0, 150, 300, 450, 650])
 strip(15, 'ödül anı', nth('tada', 1), [0, 200, 400, 800, 1200, 1800])
 strip(16, 'gün özeti kutlaması', nth('win', 0), [0, 300, 600, 900, 1300])
-strip(17, 'gün serisi alevi', nth('fire', 0), [-80, 0, 100, 200, 300, 450], (0, 0, 780, 300))
+strip(17, 'gün serisi alevi', nth('fire', 0), [-80, 0, 100, 200, 300, 450], (0, 0, 1, 0.18))
 strip(18, 'gramer doğru (zil)', nth('ok', 0, lambda a: isinstance(a, dict) and a.get('t') == 'bell'), [-80, 0, 100, 250, 500])
 strip(19, 'fiil taraması kendiliğinden geçiş', nth('okStep', 0), [-80, 0, 200, 450, 650, 700, 760, 850])
 strip(20, 'koyu tema', act('Koyu tema'), [0, 300, 700, 1500])
