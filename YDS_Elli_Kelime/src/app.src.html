@@ -494,6 +494,14 @@ details.demo{border-style:dashed;border-color:var(--muted);background:transparen
 .mk.mix{background:var(--sun)}
 .vlvtag{font-size:.7rem;font-weight:700;color:var(--muted);margin-left:6px}
 
+/* yanlış cevabın açıklaması ve karıştırılan kelime */
+.whyno{background:var(--surface);border:2px solid var(--edge);border-left:8px solid var(--no);border-radius:var(--r-s);padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+.whyno h2{color:var(--ink)}
+.whyno p{font-size:.96rem;line-height:1.45}
+.whyno b[lang="en"]{font-family:var(--display);font-weight:800}
+.cfx{font-size:.8rem;color:var(--muted)}
+.cfx b{color:var(--ink);font-weight:700}
+
 /* sürpriz kutu */
 .gift{background:var(--p-bag);color:var(--on-fill);border:2px solid var(--edge);border-radius:24px;padding:20px 18px 22px;display:flex;flex-direction:column;align-items:center;gap:14px;
   text-align:center;box-shadow:0 6px 0 var(--edge);margin-bottom:6px}
@@ -617,8 +625,8 @@ var WORDS=RAW.trim().split('\n').filter(Boolean).map(function(l){
   return {w:p[0],pos:p[1],tr:p[2],syn:p[3].split(',').map(function(s){return s.trim()}),en:p[4],trs:p[5],
           tok:p[2].split(',').map(function(s){return s.trim()})};
 });
-var BY=Object.create(null);
-WORDS.forEach(function(x){BY[x.w]=x});
+var BY=Object.create(null),BYTR=Object.create(null),SYNOF=Object.create(null);
+WORDS.forEach(function(x){BY[x.w]=x;BYTR[x.tr]=x;x.syn.forEach(function(s){if(!SYNOF[s])SYNOF[s]=x})});   // yanlış şıkkın hangi kelimeye ait olduğunu bulmak için
 
 /* fiil taramasının listesi: fiil|düzey|Türkçe|aynı soruda şık olmaması gereken fiiller */
 var VRAW=/*@@VERBS@@*/'';
@@ -626,8 +634,8 @@ var VERBS=VRAW.trim().split('\n').filter(Boolean).map(function(l){
   var p=l.split('|'),sp=function(t){return t?t.split(',').map(function(x){return x.trim()}):[]};
   return{w:p[0],lv:p[1],tr:p[2],tok:sp(p[2]),av:sp(p[3])};
 });
-var VBY=Object.create(null);
-VERBS.forEach(function(v){VBY[v.w]=v});
+var VBY=Object.create(null),VTR=Object.create(null);
+VERBS.forEach(function(v){VBY[v.w]=v;VTR[v.lv+'|'+v.tr]=v});
 
 /* ---- görseller: Microsoft Fluent Emoji (MIT lisansı, bkz. ASSETS.md). icons = çizimler, ui = arayüz yerleri, words = kelime imgeleri ---- */
 /*@@ARTLICENSE@@*/
@@ -680,7 +688,7 @@ var ORDER=shuffle(WORDS.map(function(x){return x.w}),rng(5060));
 /* ---- durum ----
    kelime: st 1 = yarın tekrar, 2 = öğrenildi (chk gününde pekiştirme), 3 = kalıcı; lv = geçilen pekiştirme sayısı */
 function dayNow(off){var n=new Date();return Math.floor((n.getTime()-n.getTimezoneOffset()*60000)/86400000)+(off|0)}
-function fresh(){return{v:1,rev:0,off:0,first:null,w:{},ses:null,streak:0,last:null,days:[],g:{},gw:{},gr:{},gd:null,bg:{},stk:[],vs:{},sk:0}}
+function fresh(){return{v:1,rev:0,off:0,first:null,w:{},ses:null,streak:0,last:null,days:[],g:{},gw:{},gr:{},gd:null,bg:{},stk:[],vs:{},vc:{},sk:0}}
 function sanitize(o){
   if(!Array.isArray(o.days))o.days=o.last!=null?[o.last]:[];
   if(!o.g||typeof o.g!=='object')o.g={};                 // gramer: ünite -> üç testin en iyi sonucu
@@ -689,6 +697,8 @@ function sanitize(o){
   if(!o.gd||typeof o.gd!=='object')o.gd=null;
   if(!o.vs||typeof o.vs!=='object')o.vs={};              // fiil taraması: fiil -> 1 bildi, 2 karıştırdı, 3 bilmiyor
   for(var vk in o.vs)if(!VBY[vk]||!(o.vs[vk]>=1&&o.vs[vk]<=3))delete o.vs[vk];
+  if(!o.vc||typeof o.vc!=='object')o.vc={};              // fiil taraması: fiil -> karıştırıldığı fiil
+  for(var ck in o.vc)if(!VBY[ck]||!VBY[o.vc[ck]])delete o.vc[ck];
   if(typeof o.sk!=='number')o.sk=o.streak|0;            // en son sesle kutlanan gün serisi
   if(!Array.isArray(o.stk))o.stk=[];                     // sürpriz oyunlarda kazanılan çıkartmalar
   if(!o.bg||typeof o.bg!=='object')o.bg={};              // bağlaç alıştırmaları: tür -> üç düzeyin en iyi sonucu            // günün grameri: {day, right, n}
@@ -696,6 +706,7 @@ function sanitize(o){
   for(var k in o.w){
     if(!BY[k]){delete o.w[k];continue}
     var w=o.w[k];
+    if(w.cf&&!BY[w.cf])delete w.cf;                        // kelimenin karıştırıldığı kelime
     if(w.lv==null)w.lv=0;
     if(w.st===2&&w.chk==null)w.chk=ref+IVL[0];
   }
@@ -880,8 +891,8 @@ function fmtFor(kind,w){
   if(kind==='r')return['blank','en','spell','tr'][Math.max(0,((w&&w.n)|0)-1)%4];  // her tekrarda başka bir tür
   return['syn','spell','en'][((w&&w.lv)|0)%3];                                    // pekiştirme seviyesine göre
 }
-function distract(t,n){
-  var pool=shuffle(WORDS.filter(function(x){return x.pos===t.pos&&x.w!==t.w&&!clash(t,x)})),ds=[];
+function distract(t,n,keep){
+  var pool=shuffle(WORDS.filter(function(x){return x.pos===t.pos&&x.w!==t.w&&x!==keep&&!clash(t,x)&&!(keep&&clash(keep,x))})),ds=[];
   pool.forEach(function(c){if(ds.length<n&&ds.every(function(o){return!clash(o,c)}))ds.push(c)});
   pool.forEach(function(c){if(ds.length<n&&ds.indexOf(c)<0)ds.push(c)});
   return ds;
@@ -899,8 +910,11 @@ function makeQ(id,kind,fmt){
     return q;
   }
   var text=function(o){return fmt==='tr'?o.tr:(fmt==='syn'?o.syn[Math.floor(Math.random()*o.syn.length)]:o.w)};
-  var right=text(t),opts=[right];
-  distract(t,4).forEach(function(o){var s=text(o);if(opts.indexOf(s)<0)opts.push(s)});
+  var right=text(t),opts=[right],sw=S.w[id],cf=sw&&sw.cf&&BY[sw.cf],ds;
+  if(cf&&(cf.pos!==t.pos||clash(t,cf)))cf=null;          // geçen sefer karıştırdığı kelime bu kez de şıklar arasında
+  ds=distract(t,cf?3:4,cf);
+  if(cf){ds.unshift(cf);q.cf0=cf.w}
+  ds.forEach(function(o){var s=text(o);if(opts.indexOf(s)<0)opts.push(s)});
   q.opts=shuffle(opts);q.correct=q.opts.indexOf(right);
   return q;
 }
@@ -1223,10 +1237,10 @@ function albumCard(){
     '<div class="album">'+cells+'</div></details>';
 }
 
-/* ---- fiil taraması: A1'den B1'e kadar fiillerin hangisi biliniyor? ----
+/* ---- fiil taraması: A1'den B2'ye fiillerin hangisi biliniyor? (A1–B1 Oxford 3000 düzeylerine göre, B2 YDS için köprü) ----
    Her fiil bir kez sorulur, 20'şerlik turlarla. S.vs[fiil]: 1 = bildi, 2 = karıştırdı (yanlış şık), 3 = bilmiyor (Bilmiyorum dedi).
    Yanlış şıklar aynı düzeyden gelir; anlamı çakışan fiiller aynı soruda yan yana gelmez. */
-var VLV=['A1','A2','B1'],VLVN={A1:'Temel fiiller',A2:'Günlük fiiller',B1:'B1 fiilleri'},VPC={A1:'--p-n',A2:'--p-v',B1:'--p-adv'},VROUND=20;
+var VLV=['A1','A2','B1','B2'],VLVN={A1:'Temel fiiller',A2:'Günlük fiiller',B1:'B1 fiilleri',B2:'B2\'ye köprü'},VPC={A1:'--p-n',A2:'--p-v',B1:'--p-adv',B2:'--p-adj'},VROUND=20;
 var VS=null,VCONF=false;
 function vclash(a,b){return a.av.indexOf(b.w)>=0||b.av.indexOf(a.w)>=0||a.tok.some(function(t){return b.tok.indexOf(t)>=0})}
 /* tarama sırası herkes için aynı: düzey içinde sabit tohumla karıştırılır */
@@ -1241,12 +1255,14 @@ function vStat(list){
 function vLeft(lv){return VORD[lv].filter(function(w){return!S.vs[w]})}
 function vWeak(lv){return VERBS.filter(function(v){return(!lv||v.lv===lv)&&S.vs[v.w]>1}).map(function(v){return v.w})}
 function vMake(w){
-  var t=VBY[w],ds=[];
-  shuffle(VERBS.filter(function(x){return x.lv===t.lv&&x!==t&&!vclash(t,x)})).forEach(function(c){
+  var t=VBY[w],ds=[],cf=S.vc[w]&&VBY[S.vc[w]];
+  if(cf&&(cf.lv!==t.lv||vclash(t,cf)))cf=null;          // geçen sefer karıştırdığı fiil bu kez de şıklar arasında
+  if(cf)ds.push(cf);
+  shuffle(VERBS.filter(function(x){return x.lv===t.lv&&x!==t&&x!==cf&&!vclash(t,x)})).forEach(function(c){
     if(ds.length<4&&ds.every(function(o){return!vclash(o,c)}))ds.push(c);
   });
   var opts=shuffle([t.tr].concat(ds.map(function(d){return d.tr})));
-  return{w:w,opts:opts,correct:opts.indexOf(t.tr),picked:null,done:false,ok:false};
+  return{w:w,opts:opts,correct:opts.indexOf(t.tr),picked:null,done:false,ok:false,cf0:cf?cf.w:null};
 }
 function vStart(lv,redo){
   if(lv&&!VORD[lv])return;
@@ -1261,6 +1277,8 @@ function vAnswer(k){
   var q=VS.q,code;
   q.picked=k;q.ok=k===q.correct;q.done=true;
   code=q.ok?1:(k<0?3:2);
+  var own=k>=0&&!q.ok?VTR[VBY[q.w].lv+'|'+q.opts[k]]:null;
+  if(own)S.vc[q.w]=own.w;else if(q.ok&&q.cf0&&S.vc[q.w]===q.cf0)delete S.vc[q.w];
   S.vs[q.w]=code;VS.res.push(code);save();
   VS.cb=q.ok?VS.cb+1:0;
   if(q.ok){sfx('okStep',[VS.i,VS.ids.length]);if(milestone(VS.cb)){sfx('combo',VS.cb);BUMP='combo'}}else sfx(k<0?'idk':'no',370);
@@ -1300,16 +1318,18 @@ function vVQ(){
   }
   var rows=optRow(q.opts[q.correct],q.correct,' ok'+(q.picked===q.correct?' picked':''),false,I.ok,'');
   if(q.picked>=0&&q.picked!==q.correct)rows+=optRow(q.opts[q.picked],q.picked,' no picked',false,I.no,'');
-  var title=q.picked===-1?'Cevap bu':(q.ok?'Doğru!':'Karıştırdın');
+  var title=q.picked===-1?'Cevap bu':(q.ok?'Doğru!':'Karıştırdın'),own=q.picked>=0&&!q.ok?VTR[t.lv+'|'+q.opts[q.picked]]:null;
+  var why=own?'<section class="whyno"><h2>Neden yanlış?</h2><p>Seçtiğin «'+esc(q.opts[q.picked])+'», <b lang="en">'+esc(own.w)+'</b> fiilinin anlamı. <b lang="en">'+esc(t.w)+'</b> ise «'+esc(t.tr)+'» demek.</p></section>':'';
   var sub=q.ok?'Bildiklerine eklendi.':(q.picked===-1?'Bilmediklerine eklendi.':'Karıştırdıklarına eklendi.')+(q.ok?'':' Sonra yeniden sorulacak.');
   return vHead()+'<div class="body">'+card+'<p class="res '+(q.ok?'ok':'no')+' fresh" role="status"><b>'+title+'</b><span>'+sub+'</span></p>'+
-    '<div class="opts">'+rows+'</div></div>'+
+    '<div class="opts">'+rows+'</div>'+why+'</div>'+
     '<footer class="foot"><button class="btn pri" data-act="vnext" data-focus>Devam'+I.go+'</button></footer>';
 }
 function vRow(w,c,lv){
   var t=VBY[w];
   return '<li class="row"><span class="mk '+(c===1?'ok':(c===2?'mix':'no'))+'">'+(c===1?I.ok:I.no)+'</span>'+
-    '<span class="rt"><b lang="en">'+esc(w)+(lv?'<span class="vlvtag" lang="tr">'+t.lv+'</span>':'')+'</b><span>'+esc(t.tr)+'</span></span>'+
+    '<span class="rt"><b lang="en">'+esc(w)+(lv?'<span class="vlvtag" lang="tr">'+t.lv+'</span>':'')+'</b><span>'+esc(t.tr)+'</span>'+
+    (c===2&&S.vc[w]?'<span class="cfx">karıştırdığın: <b lang="en">'+esc(S.vc[w])+'</b> ('+esc(VBY[S.vc[w]].tr)+')</span>':'')+'</span>'+
     (lv||c===1?'':'<span class="vtag'+(c===2?' mix':'')+'">'+(c===2?'karıştırdın':'bilmiyordun')+'</span>')+'</li>';
 }
 function vVRes(){
@@ -1336,6 +1356,7 @@ function vVHub(){
   var all=vStat(VALL),cards='';
   VLV.forEach(function(lv){
     var st=vStat(VORD[lv]),left=st.n-st.seen,weak=st.mix+st.idk,attr,sub,tail;
+    if(!st.n)return;                                       // listede fiili olmayan düzey gösterilmez
     if(left){
       attr='data-act="vgo" data-lv="'+lv+'"';tail='<span class="tstate">'+I.go+'</span>';
       sub=st.seen?st.seen+' / '+st.n+' tarandı · '+st.ok+' biliyorsun':st.n+' fiil · '+Math.ceil(st.n/VROUND)+' tur';
@@ -1368,7 +1389,7 @@ function vVHub(){
   }
   return '<header class="top"><button class="x" data-act="tab" data-v="words" aria-label="Kelime ekranına dön">'+I.back+'</button><div class="brand"><span>Fiil taraması</span></div>'+
     '<span class="topr">'+sndBtn()+'</span></header><div class="body">'+
-    '<section class="hero"><div class="herotop"><p class="eyebrow">A1 – B1 · '+all.n+' fiil</p>'+ui('scan',48,'heroart')+'</div><h1>Hangi fiilleri biliyorsun?</h1>'+
+    '<section class="hero"><div class="herotop"><p class="eyebrow">A1 – B2 · '+all.n+' fiil</p>'+ui('scan',48,'heroart')+'</div><h1>Hangi fiilleri biliyorsun?</h1>'+
     '<p class="hnote">Her turda '+VROUND+' fiil gelir; anlamını seçersin. Emin değilsen tahmin etme, Bilmiyorum de: sonuç o zaman doğru çıkar.</p></section>'+
     cards+res+lists+tools+'</div>';
 }
@@ -1493,7 +1514,7 @@ function vWords(){
     '<li><b>Bir günde en fazla '+CAP+' kelime.</b> Önce tekrarlar sorulur, sığmayan yeni kelimeler sonraki güne kalır.</li>'+
     '<li><b>Yer kalırsa pekiştirme.</b> Öğrendiğin kelimeler '+IVL.join(', ').replace(/, ([^,]*)$/,' ve $1')+' gün sonra yeniden sorulur; üçünü de geçen kelime kalıcı sayılır.</li>'+
     '<li><b>Her '+HALF+' kelimede bir ara görev.</b> Sırayla eşleştirme ve cümle gelir. Cümleyi ya parçalarını sıralayarak kurar ya da devamını seçerek tamamlarsın.</li>'+
-    '<li><b>Fiil taraması.</b> A1\'den B1\'e '+VERBS.length+' fiilin hangisini bildiğini ölçer; karıştırdıkların ve bilmediklerin ayrı listelenir, sonra yeniden sorulur.</li>'+
+    '<li><b>Fiil taraması.</b> A1\'den B2\'ye '+VERBS.length+' fiilin hangisini bildiğini ölçer; karıştırdıkların ve bilmediklerin ayrı listelenir, sonra karıştırdığın fiille yan yana yeniden sorulur.</li>'+
     '<li><b>Günde bir sürpriz kutu.</b> Yolun ortasında çıkar; içinden o günün kelimeleriyle kısa bir oyun ve bir çıkartma gelir. İstersen geçebilirsin.</li>'+
     '<li><b>'+UNITS.length+' gramer ünitesi.</b> Gramer sekmesinde her konunun özeti ve '+TLEN+' soruluk üç testi var; soruların hepsi beş şıklı.</li>'+
     '<li><b>Günün grameri.</b> Her gün sıradaki ünite testi ve önceki ünitelerden '+DAILY_REVIEW+' karışık tekrar sorusu gelir; yanlış yaptıkların öne alınır.</li>'+
@@ -1526,7 +1547,7 @@ function vWords(){
     '<p class="credit">Görseller: Microsoft Fluent Emoji, MIT lisansı</p></div></details>';
   var va=vStat(VALL);
   var scan='<button class="ucard" data-act="vhub" style="--pc:var(--p-adv)"><span class="uicon">'+ui('scan',40)+'</span><span class="utxt"><span class="unum">Seviye ölçümü</span>'+
-    '<b>Fiil taraması</b><span class="usub">'+(va.seen?va.seen+' / '+va.n+' fiil tarandı · '+va.ok+' biliyorsun':'B1\'e kadar '+va.n+' fiilden kaçını biliyorsun?')+'</span></span>'+I.go+'</button>';
+    '<b>Fiil taraması</b><span class="usub">'+(va.seen?va.seen+' / '+va.n+' fiil tarandı · '+va.ok+' biliyorsun':'A1\'den B2\'ye '+va.n+' fiilden kaçını biliyorsun?')+'</span></span>'+I.go+'</button>';
   return brand(streak)+'<div class="body">'+hero+journey+scan+albumCard()+how+more+'</div>'+tabs('words');
 }
 
@@ -1600,13 +1621,22 @@ function vWord(){
     rows=optRow(Q.opts[Q.correct],Q.correct,' ok'+(Q.picked===Q.correct?' picked':''),en,I.ok,'');
     if(Q.picked>=0&&Q.picked!==Q.correct)rows+=optRow(Q.opts[Q.picked],Q.picked,' no picked',en,I.no,'');
   }
+  var why='';
+  if(f!=='spell'&&Q.picked>=0&&!Q.ok){                     // neden yanlış: seçilen şıkkın asıl sahibi ve doğru cevabın anlamı
+    var po=Q.opts[Q.picked],ow=optOwner(f,po),wn='';
+    if(f==='tr')wn=ow?'Seçtiğin «'+esc(po)+'», <b lang="en">'+esc(ow.w)+'</b> kelimesinin anlamı. <b lang="en">'+esc(x.w)+'</b> ise «'+esc(x.tr)+'» demek.':'';
+    else if(f==='syn')wn=ow?'<b lang="en">'+esc(po)+'</b>, <b lang="en">'+esc(ow.w)+'</b> («'+esc(ow.tr)+'») kelimesinin eş anlamlısı. <b lang="en">'+esc(x.w)+'</b> kelimesininkiler: <span lang="en">'+esc(x.syn.join(', '))+'</span>.':'';
+    else if(f==='en')wn=ow?'<b lang="en">'+esc(po)+'</b> «'+esc(ow.tr)+'» demek. «'+esc(x.tr)+'» anlamındaki kelime <b lang="en">'+esc(x.w)+'</b>.':'';
+    else wn=ow?'<b lang="en">'+esc(po)+'</b> «'+esc(ow.tr)+'» demek; bu cümlede «'+esc(x.tr)+'» anlamı gerekiyor, yani <b lang="en">'+esc(x.w)+'</b>.':'';
+    if(wn)why='<section class="whyno"><h2>Neden yanlış?</h2><p>'+wn+(Q.solo?'':' İkisini bir dahaki soruda yan yana göreceksin.')+'</p></section>';
+  }
   var detail='<section class="wcard p'+x.pos+'">'+wband(x,w,Q.kind,x.w+'. '+plain(x.en))+'<div class="wbody">'+
     '<div class="hwline"><div class="hw" lang="en">'+esc(x.w)+'</div>'+(ART.words[x.w]?'<span class="wart">'+art(ART.words[x.w],40)+'</span>':'')+'</div><p class="mean">'+esc(x.tr)+'</p>'+
     '<p class="syn">Eş anlamlı: <span lang="en">'+esc(x.syn.join(' · '))+'</span></p><hr class="rule">'+
     '<p class="ex" lang="en">'+marked(x.en)+'</p><p class="tr">'+esc(x.trs)+'</p></div></section>';
   return (Q.solo?soloHead('Deneme sorusu'):(Q.kind==='f'?finalHead(ses,ses.fi):progHead(ses,ses.i)))+'<div class="body">'+
     '<p class="res '+(Q.ok?'ok':'no')+(Q.fresh?' fresh':'')+'" role="status"><b>'+title+'</b><span>'+sub+'</span></p>'+
-    '<div class="opts">'+rows+'</div>'+detail+'</div>'+
+    '<div class="opts">'+rows+'</div>'+why+detail+'</div>'+
     '<footer class="foot">'+(Q.solo?soloFoot('tryfmt',f)
       :'<button class="btn pinbtn" data-act="pin" data-id="'+esc(x.w)+'" aria-pressed="'+(w.pin?'true':'false')+'">'+I.pin+'<span>'+(w.pin?'Sabit':'Sabitle')+'</span></button>'+
        '<button class="btn pri" data-act="next" data-focus>Devam'+I.go+'</button>')+'</footer>';
@@ -2113,7 +2143,7 @@ function vGRes(){
 function wordRow(id,ses){
   var x=BY[id],w=S.w[id]||{},ok=ses.res[id]===1&&!(ses.fres&&ses.fres[id]===0);
   return '<li class="row"><span class="mk '+(ok?'ok':'no')+'" aria-label="'+(ok?'doğru':'yanlış')+'" role="img">'+(ok?I.ok:I.no)+'</span>'+
-    '<span class="rt"><b lang="en">'+esc(x.w)+'</b><span>'+esc(x.tr)+'</span></span>'+
+    '<span class="rt"><b lang="en">'+esc(x.w)+'</b><span>'+esc(x.tr)+'</span>'+(w.cf&&!ok?'<span class="cfx">karıştırdığın: <b lang="en">'+esc(w.cf)+'</b></span>':'')+'</span>'+
     '<button class="pinb" data-act="pin" data-id="'+esc(x.w)+'" aria-pressed="'+(w.pin?'true':'false')+'" aria-label="'+esc(x.w)+(w.pin?' sabit, kaldır':' kelimesini sabitle')+'">'+I.pin+'</button></li>';
 }
 function burst(){
@@ -2229,14 +2259,27 @@ function advance(snd){
   Q=makeQ(ses.q[ses.i],kindAt(ses,ses.i));ST=null;M=null;view='word';render();
 }
 function settle(){
-  if(!Q.solo){if(Q.kind==='f')finalMark(Q.id,Q.ok);else mark(Q.id,Q.ok);save()}
+  if(!Q.solo){
+    if(Q.kind==='f')finalMark(Q.id,Q.ok);else mark(Q.id,Q.ok);
+    var sw=S.w[Q.id];
+    if(sw){if(Q.cf)sw.cf=Q.cf;else if(Q.ok&&Q.cf0&&sw.cf===Q.cf0)delete sw.cf}   // karıştırdığı kelimenin yanında doğru bildiyse karışıklık çözüldü
+    save();
+  }
   var cb=Q.solo?1:S.ses.combo;
   if(Q.ok){sfx('ok',cb);if(!Q.solo&&milestone(cb)){sfx('combo',cb);BUMP='combo'}}else sfx(Q.picked===-1?'idk':'no');
   Q.fresh=true;render();Q.fresh=false;
 }
+function optOwner(fmt,o){                               // seçilen yanlış şık hangi kelimeye ait
+  if(fmt==='tr')return BYTR[o]||null;
+  if(fmt==='syn')return SYNOF[o]||null;
+  return BY[o]||null;
+}
 function answer(k){
   if(!Q||Q.done||Q.fmt==='spell')return;
-  Q.picked=k;Q.ok=k===Q.correct;Q.done=true;settle();
+  Q.picked=k;Q.ok=k===Q.correct;Q.done=true;
+  var own=k>=0&&!Q.ok?optOwner(Q.fmt,Q.opts[k]):null;
+  Q.cf=own&&own.w!==Q.id?own.w:null;
+  settle();
 }
 function answerSpell(giveUp){
   if(!Q||Q.done||!Q.b)return;
@@ -2293,7 +2336,7 @@ var act={
   vresetno:function(){VCONF=false;render(true)},
   vresetyes:function(){S.vs={};VCONF=false;save();render()},
   vauto:function(){
-    var p={A1:0.95,A2:0.8,B1:0.55};
+    var p={A1:0.95,A2:0.8,B1:0.55,B2:0.35};
     VERBS.forEach(function(v){if(!S.vs[v.w]){var r=Math.random();S.vs[v.w]=r<p[v.lv]?1:(r<p[v.lv]+(1-p[v.lv])*0.4?2:3)}});
     save();VS=null;view='vscan';render();
   },

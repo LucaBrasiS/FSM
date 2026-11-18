@@ -70,13 +70,13 @@ def load_words(path):
 
 
 def load_verbs(path):
-    """data/fiiller.txt: fiil|düzey (A1, A2, B1)|Türkçe|aynı soruda şık olmaması gereken fiiller (isteğe bağlı)."""
+    """data/fiiller.txt: fiil|düzey (A1, A2, B1, B2)|Türkçe|aynı soruda şık olmaması gereken fiiller (isteğe bağlı)."""
     rows, seen = [], {}
     for line in path.read_text(encoding="utf-8").splitlines():
         if not line.strip():
             continue
         p = line.split("|")
-        assert len(p) in (3, 4) and p[1] in ("A1", "A2", "B1") and p[2].strip(), line
+        assert len(p) in (3, 4) and p[1] in ("A1", "A2", "B1", "B2") and p[2].strip(), line
         assert p[0] == p[0].strip().lower() and p[0] not in seen, line
         avoid = [x.strip() for x in p[3].split(",")] if len(p) == 4 else []
         seen[p[0]] = {"w": p[0], "lv": p[1], "tok": {t.strip() for t in p[2].split(",")}, "av": avoid}
