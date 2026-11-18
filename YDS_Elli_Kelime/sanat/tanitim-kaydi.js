@@ -47,6 +47,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   await cdp.send('Page.startScreencast',{format:'jpeg',quality:88,maxWidth:780,maxHeight:1688,everyNthFrame:1});
   await sleep(400);
   bolum('Bugün ekranı'); adim('Uygulama açıldı: bugünün iki görevi'); await sleep(2600);
+  adim('Lokum\'a dokunuldu: kendini tanıtır'); await tap('.lokb'); await sleep(2300); adim('Lokum\'a yeniden dokunuldu: başka bir söz'); await tap('.lokb'); await sleep(2300);
 
   bolum('Kelime turu · tanıtım kartları'); adim('Kelime görevine dokunuldu'); await tap('[data-act=start]'); await p.waitForSelector('[data-act=inext]');
   for(let k=0;k<5;k++){
@@ -89,7 +90,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   await sleep(2200); await tap('[data-act=next]');
 
   bolum('Sürpriz kutu'); await p.waitForSelector('.gbox'); adim('Kutu çıktı'); await sleep(1800);
-  for(let k=1;k<=3;k++){adim('Kutuya dokunuş '+k);await tap('.gbox',{force:true});await sleep(k<3?1100:300)}
+  for(let k=1;k<=3;k++){adim(k<3?'Kutuya dokunuş '+k:'Kutuya dokunuş 3: kapak uçar, kutu açılır');await tap('.gbox',{force:true});await sleep(k<3?1100:300)}
   bolum('Sürpriz oyun · balon patlat'); await p.waitForSelector('.sky'); adim('Oyun açıldı'); await sleep(1300);
   for(let r=0;r<6;r++){
     await p.waitForSelector('.sky .bal:not(.pop)'); const x=BYTR[(await txt('.meanbig')).trim()]; adim('Balon '+(r+1)+' / 6'); await sleep(1100);
@@ -102,6 +103,22 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 
   bolum('Demo aracı · günün kalanı otomatik'); adim('Kelime ekranına dönüldü'); await tap('.top .x'); await p.waitForSelector('details.demo'); await sleep(1200);
   adim('Ayarlar ve deneme açıldı'); await tap('details.demo summary'); await sleep(1300);
+  bolum('Sürpriz oyun · Eşleşme mi? (deneme)'); adim('Üçüncü oyun denemesi açıldı'); await p.locator('[data-act=trygift][data-f=swp]').scrollIntoViewIfNeeded(); await sleep(500); await tap('[data-act=trygift][data-f=swp]'); await p.waitForSelector('.swc'); await sleep(1500);
+  { let seen=0;
+    for(let g=0;g<40&&!(await p.locator('.stkbig').count());g++){
+      if(await p.locator('.swb[disabled]').count()||!(await p.locator('.swc:not(.flyr):not(.flyl)').count())){await sleep(150);continue}
+      const w=(await txt('.swc .hw')).trim(), tr=(await txt('.swc .meanbig')).trim(), match=!!BYW[w]&&BYW[w].tr===tr; await sleep(1000);
+      if(seen===0){ // ilk kart sürüklenerek: damga belirir, kart uçar
+        adim('Kart sürüklendi: '+(match?'sağa (eşleşiyor)':'sola (eşleşmiyor)')); const bb=await p.locator('#swc').boundingBox(), d=match?1:-1, cx=bb.x+bb.width/2, cy=bb.y+bb.height/2;
+        await p.mouse.move(cx,cy); await p.mouse.down(); await p.mouse.move(cx+d*60,cy,{steps:10}); await sleep(450); await p.mouse.move(cx+d*150,cy,{steps:10}); await p.mouse.up();
+      }else if(seen===2){adim('Bilerek yanlış karar: doğrusu yazılır');await tap(match?'[data-act=swno]':'[data-act=swyes]');await sleep(2400)}
+      else{adim('Karar: '+(match?'eşleşiyor (kalbe dokunuldu)':'eşleşmiyor (çarpıya dokunuldu)'));await tap(match?'[data-act=swyes]':'[data-act=swno]')}
+      seen++;
+      await p.waitForFunction(n=>{const c=document.querySelector('.swc');const a=document.querySelector('.ask');return !c||document.querySelector('.stkbig')||(a&&+((a.textContent.match(/(\d+) \//)||[0,0])[1])>n)},seen,{timeout:7000});
+    }}
+  bolum('Deneme oyunu sonu'); await p.waitForSelector('.stkbig'); adim('Deneme oyunu bitti (albüme eklenmez)'); await sleep(3000);
+  adim('Ana sayfaya dönüldü'); await tap('[data-act=home]'); await sleep(900); await tap('[data-act=tab][data-v=words]'); await p.waitForSelector('details.demo'); await sleep(900);
+  bolum('Demo aracı · günün kalanı otomatik');
   await p.locator('[data-act=auto]').scrollIntoViewIfNeeded(); await sleep(700); adim('Bugünü otomatik bitir'); await tap('[data-act=auto]');
   bolum('Gün özeti'); await p.waitForSelector('.party'); adim('Gün bitti: özet ve kutlama'); await sleep(3600);
   bolum('Kelime ekranı · gün serisi'); adim('Ana sayfaya dönüldü: seri arttı'); await tap('.foot [data-act=home]'); await sleep(2600);

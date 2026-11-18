@@ -25,7 +25,7 @@ def frame(ms):
 
 
 def mm(ms):
-    s = ms / 1000
+    s = round(ms / 100) / 10                      # önce yuvarla: 119.96 "01:60.0" olmasın
     return '%02d:%04.1f' % (int(s // 60), s - 60 * int(s // 60))
 
 
@@ -86,7 +86,7 @@ strip(8, 'eşleştirme yanlış ve doğru', nth('miss', 0), [-100, 0, 150, 300, 
 strip(9, 'cümle parça yerleşmesi', nth('place', 0), [-60, 0, 60, 120, 200])
 strip(10, 'kutu 1. dokunuş', nth('roll', 0), [0, 100, 200, 300, 450])
 strip(11, 'kutu 2. dokunuş', nth('roll', 1), [0, 100, 200, 300, 450])
-strip(12, 'kutu 3. dokunuş ve açılış', nth('roll', 2), [0, 100, 200, 300, 450, 600, 900])
+strip(12, 'kutu 3. dokunuş ve açılış', nth('roll', 2), [0, 150, 300, 450, 600, 800, 1100])
 strip(13, 'balon patlaması', nth('pop', 0), [-60, 0, 80, 160, 240, 400])
 strip(14, 'yanlış balon sönmesi', nth('fizz', 0), [0, 150, 300, 450, 650])
 strip(15, 'ödül anı', nth('tada', 1), [0, 200, 400, 800, 1200, 1800])
@@ -95,3 +95,6 @@ strip(17, 'gün serisi alevi', nth('fire', 0), [-80, 0, 100, 200, 300, 450], (0,
 strip(18, 'gramer doğru (zil)', nth('ok', 0, lambda a: isinstance(a, dict) and a.get('t') == 'bell'), [-80, 0, 100, 250, 500])
 strip(19, 'fiil taraması kendiliğinden geçiş', nth('okStep', 0), [-80, 0, 200, 450, 650, 700, 760, 850])
 strip(20, 'koyu tema', act('Koyu tema'), [0, 300, 700, 1500])
+strip(21, 'Lokum dokunuşu', nth('giggle', 0), [-60, 0, 120, 250, 450, 900], TOP)
+strip(22, 'eşleşme kartı sürükleme', nth('yes', 0), [-800, -500, -250, 0, 150, 350])
+strip(23, 'eşleşme yanlış karar', nth('miss', 1), [-60, 0, 200, 600, 1400, 2000, 2300])

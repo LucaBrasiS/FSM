@@ -67,7 +67,7 @@ const tmp=path.join(DIR,'_birlestir'); fs.mkdirSync(tmp,{recursive:true});
     '-filter_complex_script',path.join(tmp,'suzgec.txt'),'-map','[v]','-map','1:a','-c:v','libx264','-preset','medium','-crf','21','-pix_fmt','yuv420p',
     '-c:a','aac','-b:a','160k','-t',DUR.toFixed(2),'-movflags','+faststart',OUTF],{stdio:'inherit'});
   // 5. döküm: hangi saniyede ne oldu, ne çaldı (değerlendirme için)
-  const mm=t=>{const m=Math.floor(t/60),s=t-m*60;return String(m).padStart(2,'0')+':'+s.toFixed(1).padStart(4,'0')};
+  const mm=t=>{t=Math.round(t*10)/10;const m=Math.floor(t/60),s=t-m*60;return String(m).padStart(2,'0')+':'+s.toFixed(1).padStart(4,'0')};   // önce yuvarla: 119.96 "01:60.0" olmasın
   const ev=[];
   R.acts.forEach(a=>ev.push([(a.t-T0)/1000,a.adim?'  '+a.adim:'## '+a.bolum]));
   R.sfx.forEach(([n,arg,t])=>ev.push([(t-T0)/1000,'    ses: '+n+(arg==null?'':' '+JSON.stringify(arg))]));
