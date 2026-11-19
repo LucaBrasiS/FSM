@@ -142,6 +142,15 @@ def main():
 
     src = (ROOT / "src" / "app.src.html").read_text(encoding="utf-8")
     art = json.loads((ROOT / "data" / "art.json").read_text(encoding="utf-8"))
+    # albümün 24 çıkartması bu proje için Lokum'un çizgisinde çizildi (sanat/cikartma-uret.py); albüm anahtarları aynı kalır
+    stk = json.loads((ROOT / "data" / "cikartmalar.json").read_text(encoding="utf-8"))
+    for name, body in stk.items():
+        art["icons"][name] = body
+        key = "stk-" + name[3:]
+        assert key in art["ui"], ("çıkartma anahtarı yok", key)
+        art["ui"][key] = name
+    used = set(art["ui"].values()) | set(art["words"].values())
+    art["icons"] = {k: v for k, v in art["icons"].items() if k in used}   # yalnız eski çıkartmada kullanılan emoji çizimleri dosyaya girmez
     lic = (ROOT / "assets" / "FLUENT-EMOJI-LICENSE.txt").read_text(encoding="utf-8").strip()
     gram = load_grammar(pathlib.Path(args.kitap), args.eksik_olabilir)
     bag = load_bag(ROOT / "data" / "baglac", args.eksik_olabilir)

@@ -200,7 +200,8 @@ button.opt:active{transform:translateY(var(--lift));box-shadow:0 0 0 var(--edge)
 .opt.no{background:var(--no);color:var(--on-fill)}
 .opt.ok .bub,.opt.no .bub{background:var(--on-brand);color:var(--on-fill)}
 .opt.picked .bub{background:var(--on-fill);color:var(--on-brand)}
-.opt .ic{flex:none;display:grid;place-items:center}
+.opt .ic{flex:none;display:grid;place-items:center;width:14px}
+.opt.dim{opacity:.42;box-shadow:0 var(--lift) 0 transparent}   /* sonuçta seçilmeyen şıklar geri çekilir, yerlerinden kıpırdamaz */
 
 /* cevap sonrası */
 .res{display:flex;align-items:center;gap:6px 10px;flex-wrap:wrap}
@@ -634,11 +635,13 @@ body.room .idots i.on{background:var(--sun);border-color:var(--edge)}
 .lokb .lok{transform-origin:50% 100%}
 .lokb.jump .lok{animation:ljump .55s cubic-bezier(.3,1.4,.5,1)}
 @keyframes ljump{0%{transform:none}25%{transform:scale(1.12,.86)}55%{transform:translateY(-16px) scale(.94,1.08)}80%{transform:translateY(0) scale(1.05,.95)}100%{transform:none}}
-.lsay{position:absolute;right:calc(100% + 6px);top:2px;z-index:4;width:max-content;max-width:min(200px,calc(100vw - 150px));padding:7px 11px;border-radius:14px;background:#fff;color:#17132B;
+.lsay{position:absolute;right:calc(100% + 6px);top:2px;z-index:4;width:max-content;max-width:min(236px,calc(100vw - 146px));padding:7px 11px;border-radius:14px;background:#fff;color:#17132B;
   border:2px solid var(--edge);box-shadow:0 3px 0 var(--edge);font-family:var(--ui);font-size:.84rem;font-weight:700;line-height:1.25;text-align:left;text-transform:none;letter-spacing:0;
   animation:saypop .3s cubic-bezier(.3,1.5,.5,1) both;pointer-events:none}
 .lsay::after{content:"";position:absolute;right:-8px;top:14px;width:12px;height:12px;background:#fff;border:2px solid var(--edge);border-left:0;border-bottom:0;transform:rotate(45deg)}
 .lsay.out{animation:sayout .2s ease-in forwards}
+.hero .eyebrow{transition:opacity .15s}
+.hero.talk .eyebrow{opacity:0}                              /* Lokum konuşurken balon tarih satırının yerine geçer, üstüne binmez */
 .lokrow .lok{margin:-8px -4px -10px 0}
 @keyframes saypop{from{transform:scale(.5) translateX(20px);opacity:0}to{transform:none;opacity:1}}
 @keyframes sayout{to{transform:scale(.8);opacity:0}}
@@ -703,6 +706,7 @@ button.chip:active{transform:translateY(3px);box-shadow:0 0 0 var(--edge)}
 .swb.yes{background:var(--ok)}
 .swb[disabled]{opacity:.55;cursor:default}
 .swfoot{position:relative}
+@media (max-height:620px){.swnote{display:none}}   /* kısa ekranda yardım yazısı yerine kalp ve çarpı yeter */
 .swbtns.off{visibility:hidden}
 .swfoot>.res{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);justify-content:center;text-align:center}
 
@@ -759,16 +763,16 @@ var RAW=/*@@WORDS@@*/'';
 var CONF=/*@@CONF@@*/[];
 
 var TIPS=[
-  'Kelimeyi cümlesiyle öğren. Tek başına ezberlediğin kelimeyi sınavdaki cümlede tanımak zorlaşır.',
-  'Az ama her gün. Aynı süreyi günlere bölmek, tek oturuşta çalışmaktan daha kalıcıdır.',
-  'Şıklara bakmadan önce cevabı aklından geçir. Hatırlamaya çalışmak, yeniden okumaktan daha çok öğretir.',
-  'Kelimeyi eş anlamlısıyla birlikte öğren. YDS kelime sorularında şıklar çoğu zaman yakın anlamlıdır.',
-  'Bağlaçlara dikkat et. although, despite, whereas gibi kelimeler cümlenin yönünü değiştirir.',
-  'Emin değilsen Bilmiyorum de. Şansla tutturduğun kelime öğrenilmiş sayılır ve günlerce karşına çıkmaz.',
-  'Kelimeyi sesli söyle. Duymak ve söylemek, yalnızca görmekten daha güçlü bir iz bırakır.',
-  'Yanlışların en değerli listen. Ertesi gün geri gelirler, çünkü unutma tam o sırada başlar.',
-  'Kelimenin türünü de öğren. Boşluktan önce to varsa fiil, the varsa isim ararsın.',
-  'Uyumadan önce kısa bir tur at. Uyku, gün içinde öğrendiklerini kalıcı belleğe taşır.'
+  'Kelimeyi cümlesiyle birlikte öğren. Sınavda karşına tek başına değil, bir cümlenin içinde çıkacak.',
+  'Her gün biraz, bir günde çok çalışmaktan iyidir. On dakika da sayılır.',
+  'Şıklara bakmadan önce cevabı bir aklından geçir. Önce kendin hatırlamaya çalışınca kelime daha iyi oturuyor.',
+  'Eş anlamlılarına da bir göz at. YDS\'de şıklar çoğu zaman birbirine çok yakın olur.',
+  'although, despite, whereas görünce bir dur. Cümle tam orada yön değiştiriyor.',
+  'Emin değilsen Bilmiyorum\'a bas. Şansla tutturduğun kelime öğrenilmiş sayılır, sonra günlerce sorulmaz.',
+  'Kelimeyi bir kere de sesli söyle. Kulağın alışınca daha zor unutursun.',
+  'Yanlış yaptığın kelimeye takılma. Yarın yine gelecek, ikinci seferde çoğu oturuyor.',
+  'Boşluktan önce to varsa fiil, the varsa isim ara. Çoğu soruda bu bile iki şıkkı eler.',
+  'Yatmadan önce kısa bir tur iyi gelir. Uyurken öğrendiklerin yerine oturuyor.'
 ];
 
 var WORDS=RAW.trim().split('\n').filter(Boolean).map(function(l){
@@ -1309,14 +1313,14 @@ var SFX={
   lift:function(){tone(400,0,0.06,{to:540,v:0.2,type:'triangle'})},
   ok:function(a){                                                                           // doğru: seri uzadıkça tizleşen iki vuruş
     var n=typeof a==='number'?a:((a&&a.n)|0),tim=(a&&a.t)||'mar',k=Math.min(6,Math.max(0,n-1));
-    note(tim,PENTA[k],0,0.3);note(tim,PENTA[k+2],0.09,0.3);                                 // günde ~36 kez çalar: günlük kutlamaların ~4 dB altında
+    note(tim,PENTA[k],0,0.5);note(tim,PENTA[k+2],0.09,0.5);                                 // Necip telefonda dinledi: önceki düzey geri geldi
   },
   okStep:function(a){                                                                       // fiil taraması: turun 20 adımında bir oktav tırmanır
     var f=392*Math.pow(2,(a[0]|0)/Math.max(1,(a[1]|0)-1));
-    kalimba(f,0,0.3);kalimba(f*1.5,0.08,0.27);
+    kalimba(f,0,0.5);kalimba(f*1.5,0.08,0.45);
   },
-  combo:function(n){                                                                        // seri kutlaması: x5 üç nota, x10 ve sonrası kısa fanfar (x3 yalnız rozet ve söz)
-    if(n<5)return;
+  combo:function(n){                                                                        // seri rozeti belirdi: x3 zil, x5 üç nota, x10 kısa fanfar
+    if(n===3){bell(1567.98,0.14,0.28);bell(2093,0.22,0.28);return}
     if(n===5){[1318.51,1567.98,2093].forEach(function(f,k){mallet(f,0.14+k*0.07,0.32)});sparkle(0.36);return}
     tone(520,0.12,0.16,{to:1250,v:0.2,type:'triangle'});
     mallet(1046.5,0.3,0.3);mallet(1318.51,0.3,0.25);mallet(1567.98,0.3,0.25);
@@ -1325,18 +1329,18 @@ var SFX={
   yay:function(){mallet(659.25,0,0.45);mallet(783.99,0.08,0.45);mallet(1046.5,0.16,0.5);sparkle(0.26)},
   no:function(base){                                                                        // yanlış: çizgi film yayı "boing", her seferinde perdesi biraz oynar
     var a=audio();if(!a)return;
-    var t0=a.currentTime,d=0.4,osc=a.createOscillator(),lfo=a.createOscillator(),lg=a.createGain(),g=a.createGain(),f0=(base||330)*1.8*(0.93+Math.random()*0.14);   // telefon hoparlörü 300 Hz altını vermez: perde bir oktava yakın yukarıda
+    var t0=a.currentTime,d=0.4,osc=a.createOscillator(),lfo=a.createOscillator(),lg=a.createGain(),g=a.createGain(),f0=(base||330)*(0.93+Math.random()*0.14);
     osc.type='triangle';
-    osc.frequency.setValueAtTime(f0,t0);osc.frequency.exponentialRampToValueAtTime(f0*0.45,t0+d);
+    osc.frequency.setValueAtTime(f0,t0);osc.frequency.exponentialRampToValueAtTime(f0*0.32,t0+d);
     lfo.frequency.setValueAtTime(19,t0);lfo.frequency.linearRampToValueAtTime(7,t0+d);
-    lg.gain.setValueAtTime(f0*0.21,t0);lg.gain.linearRampToValueAtTime(f0*0.024,t0+d);                   // titreşim perdeyle birlikte ölçeklenir: aynı "boing"
+    lg.gain.setValueAtTime(70,t0);lg.gain.linearRampToValueAtTime(8,t0+d);
     lfo.connect(lg);lg.connect(osc.frequency);
-    g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(0.3,t0+0.012);g.gain.exponentialRampToValueAtTime(0.0001,t0+d+0.04);
+    g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(0.5,t0+0.012);g.gain.exponentialRampToValueAtTime(0.0001,t0+d+0.04);
     osc.connect(g);g.connect(OUT);
     osc.start(t0);lfo.start(t0);osc.stop(t0+d+0.08);lfo.stop(t0+d+0.08);
   },
   idk:function(){mallet(440,0,0.32);mallet(349.23,0.11,0.32)},                              // bilmiyorum: iki nota aşağı, yargısız
-  match:function(n){var k=Math.min(7,Math.max(0,(n|0)+1));mallet(PENTA[k],0,0.26);mallet(PENTA[k+2],0.07,0.26)},
+  match:function(n){var k=Math.min(7,Math.max(0,(n|0)+1));mallet(PENTA[k],0,0.42);mallet(PENTA[k+2],0.07,0.42)},
   miss:function(){tone(392,0,0.11,{type:'triangle',v:0.3});tone(311.13,0.13,0.2,{type:'triangle',v:0.3,to:262})},   // "ı-ıh"
   roll:function(n){                                                                         // sürpriz kutu: her dokunuşta uzayan trampet rulosu
     var hits=n===1?6:(n===2?10:14),dur=n===1?0.32:(n===2?0.5:0.42),loud=n===3?1.2:1;
@@ -1374,7 +1378,7 @@ var STK=[['sloth','sloth','tembel hayvan'],['otter','otter','su samuru'],['pengu
   ['rainbow','rainbow','gökkuşağı'],['crown','crown','taç'],['cactus','cactus','kaktüs'],['avocado','avocado','avokado'],['mirror-ball','disco ball','disko topu'],
   ['flying-saucer','flying saucer','uçan daire'],['dragon','dragon','ejderha'],['jellyfish','jellyfish','denizanası']];
 var GAMEN=6;                                              // bir oyundaki kelime sayısı
-var GSAY=['Kutuyu açmak için 3 kez dokun.','İçinden ses geliyor… bir daha!','Az kaldı, son bir kez!','Açılıyor!'];
+var GSAY=['Açmak için kutuya üç kez dokun.','İçinden ses geliyor… bir daha!','Az kaldı, son bir kez!','Açılıyor!'];
 var G=null;
 function giftDue(ses){return!ses.sup&&ses.q.length>=HALF&&ses.i>=Math.min(BLOCK,ses.q.length)&&!(ses.fq&&ses.fi>0)}
 /* oyunun kelimeleri: önce bugün sorulanlar, yetmezse daha önce görülenler, o da yetmezse listeden */
@@ -1440,7 +1444,7 @@ function vGift(){
       '<div class="gstage"><button class="gbox" data-act="gtap" aria-label="Sürpriz kutu, açmak için dokun">'+giftArt(184)+'</button></div>'+
       '<p class="gdots" aria-hidden="true"><i></i><i></i><i></i></p>'+
       '<p class="gsay" role="status">'+GSAY[0]+'</p></section>'+
-      '<p class="note">İçinden bugünkü kelimelerinle kısa bir oyun çıkar. İlerlemeni etkilemez; bitirince albümüne bir çıkartma yapışır.</p></div>'+
+      '<p class="note">İçinde bugünkü kelimelerle kısa bir oyun var. Yanlış yapsan da bir şey olmaz, bitirince albümüne bir çıkartma yapışır.</p></div>'+
       '<footer class="foot">'+skip+'</footer>';
   }
   if(G.stage==='prize'){
@@ -1456,7 +1460,7 @@ function vGift(){
       '<p class="eyebrow">'+(G.solo?'Deneme oyunu':(G.isNew?'Yeni çıkartma':'Albüm tamam, bu da bonus'))+'</p><h1>Kazandın!</h1>'+
       '<div class="stkstage">'+spkSVG(26,'#fff','a')+spkSVG(20,'#FF8FC4','b')+spkSVG(16,'#fff','c')+'<div class="stkbig">'+ui('stk-'+p[0],150,'','l')+'</div></div>'+
       '<p class="stkname"><b lang="en">'+esc(p[1])+'</b><span>'+esc(p[2])+'</span></p>'+prog+
-      '<p class="pnote">'+(G.solo?'Deneme oyununda çıkartma albüme eklenmez.':'Albümünde '+n+' / '+N+' çıkartma var. Yarın yeni bir sürpriz seni bekliyor.')+'</p>'+
+      '<p class="pnote">'+(G.solo?'Deneme oyununda çıkartma albüme eklenmez.':'Albümünde '+n+' / '+N+' çıkartma oldu. Yarın kutuda yenisi var.')+'</p>'+
       '<p class="pnote">'+stat+'</p></section></div>'+
       '<footer class="foot">'+foot+'</footer>';
   }
@@ -1470,7 +1474,7 @@ function vGift(){
       '<p class="lbl">Bu ikisi eşleşiyor mu?</p><div class="hw" lang="en">'+esc(y.w)+'</div><span class="swamp">'+I.heart+'</span><div class="meanbig">'+esc(c.tr)+'</div></div></div>'+
       '<div class="swfoot"><div class="swbtns'+(fb?' off':'')+'"><button class="swb no" data-act="swno" aria-label="Eşleşmiyor"'+(sw.busy?' disabled':'')+'>'+I.xbig+'</button>'+
       '<button class="swb yes" data-act="swyes" aria-label="Eşleşiyor"'+(sw.busy?' disabled':'')+'>'+I.heartbig+'</button></div>'+fb+'</div>'+   // yanlışta doğrusu kapalı düğmelerin yerinde yazar: kart da düğmeler de kaymaz
-      '<p class="note">Kartı sağa kaydır ya da kalbe dokun: eşleşiyor. Sola ya da çarpıya: eşleşmiyor.</p></div>'+
+      '<p class="note swnote">Eşleşiyorsa sağa, eşleşmiyorsa sola kaydır. Alttaki düğmeler de olur.</p></div>'+
       '<footer class="foot">'+skip+'</footer>';
   }
   if(G.game==='bal'){
@@ -1493,7 +1497,7 @@ function vGift(){
   }
   return head+'<div class="body">'+
     '<section class="wcard pmatch"><div class="wband"><span>Hafıza kartları</span><span class="tag">'+m.moves+' hamle</span></div>'+
-    '<div class="wbody"><p class="trbig">İki kart aç: kelimeyi anlamıyla eşleştir.</p></div></section>'+
+    '<div class="wbody"><p class="trbig">İki kart aç, kelimeyi anlamıyla eşleştir.</p></div></section>'+
     '<div class="mem">'+cs+'</div></div><footer class="foot">'+skip+'</footer>';
 }
 /* albüm: kazanılan çıkartma kalıp kesim, kazanılmayanın yalnızca silüeti görünür (ne kaldığı merak edilsin) */
@@ -1524,14 +1528,15 @@ var lokMet=false;
 function lokTap(b){
   var list=b.hasAttribute('data-done')?LOKDONE:LOKSAY,k,line;
   do{k=Math.floor(Math.random()*list.length)}while(list.length>1&&k===lokLast);lokLast=k;line=list[k];
-  if(!lokMet&&!S.days.length)line='Merhaba, ben Lokum! Birlikte çalışalım mı?';   // ilk dokunuşta kendini tanıtır
+  if(!lokMet&&!S.days.length)line='Merhaba, ben Lokum! Her gün buradayım, sen gel yeter.';   // ilk dokunuşta kendini tanıtır
   lokMet=true;
   sfx('giggle');
   b.classList.remove('jump');void b.offsetWidth;b.classList.add('jump');
   var old=b.querySelector('.lsay');if(old)old.parentNode.removeChild(old);
   var t=document.createElement('span');t.className='lsay';t.setAttribute('role','status');t.textContent=line;b.appendChild(t);
+  var hero=b.closest('.hero');if(hero)hero.classList.add('talk');
   burstAt(b,'heart',5);
-  clearTimeout(b.__t);b.__t=setTimeout(function(){t.classList.add('out');setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t)},220)},2400);
+  clearTimeout(b.__t);b.__t=setTimeout(function(){t.classList.add('out');if(hero)hero.classList.remove('talk');setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t)},220)},2400);
 }
 function albumCard(){
   var n=S.stk.length;
@@ -1543,7 +1548,7 @@ function albumCard(){
   }).join('');
   var peek=S.stk.slice(-3).reverse().map(function(k){return ui('stk-'+k,28,'','s')}).join('');
   return '<details class="card"><summary>Çıkartma albümü<span class="sm">'+(peek?'<span class="albpeek" aria-hidden="true">'+peek+'</span>':'')+n+' / '+STK.length+'</span></summary>'+
-    '<p class="note albnote">'+(n>=STK.length?'Albüm tamam! Kutuda yine her gün bir sürpriz var.':'Her gün kelime turunun ortasında bir sürpriz kutu çıkar. İçindeki oyunu bitirince albümüne yeni bir çıkartma yapışır.')+'</p>'+
+    '<p class="note albnote">'+(n>=STK.length?'Albüm doldu! Kutu yine her gün geliyor.':'Kelime turunun ortasında her gün bir kutu çıkıyor. İçindeki oyunu bitir, çıkartma senin.')+'</p>'+
     '<div class="album">'+cells+'</div></details>';
 }
 /* ayarlarda Lokum'un tadı: dokundukça açık tatlar arasında döner */
@@ -1599,8 +1604,8 @@ function vAnswer(k){
   S.vs[q.w]=code;VS.res.push(code);save();
   VS.cb=q.ok?VS.cb+1:0;
   q.pr=q.ok?praise(VS.cb):'';
-  if(q.ok){sfx('okStep',[VS.i,VS.ids.length]);if(milestone(VS.cb))sfx('combo',VS.cb);if(VS.cb===3||milestone(VS.cb))BUMP='combo'}else sfx(k<0?'idk':'no',370);
-  render();
+  if(q.ok){sfx('okStep',[VS.i,VS.ids.length]);if(VS.cb===3||milestone(VS.cb)){sfx('combo',VS.cb);BUMP='combo'}}else sfx(k<0?'idk':'no',370);
+  render(true);showFb();
   if(q.ok)fxRight(milestone(VS.cb));
   if(q.ok){                                              // doğru cevapta beklemeden sıradaki fiile geçer; yanlışta doğrusunu okumak için durur
     var cur=VS,at=VS.i;
@@ -1635,14 +1640,12 @@ function vVQ(){
     return vHead()+'<div class="body">'+card+'<p class="ask">Türkçe karşılığı hangisi?</p><div class="opts">'+opts+'</div></div>'+
       '<footer class="foot"><button class="btn ghost" data-act="vidk">Bilmiyorum</button></footer>';
   }
-  var rows=optRow(q.opts[q.correct],q.correct,' ok'+(q.picked===q.correct?' picked':''),false,I.ok,'');
-  if(q.picked>=0&&q.picked!==q.correct)rows+=optRow(q.opts[q.picked],q.picked,' no picked',false,I.no,'');
   var title=q.picked===-1?'Cevap bu':(q.ok?(q.pr||'Doğru!'):'Karıştırdın'),own=q.picked>=0&&!q.ok?VTR[t.lv+'|'+q.opts[q.picked]]:null;
   var why=own?'<section class="whyno"><h2>Neden yanlış?</h2><p>Seçtiğin «'+esc(q.opts[q.picked])+'», <b lang="en">'+esc(own.w)+'</b> fiilinin anlamı. <b lang="en">'+esc(t.w)+'</b> ise «'+esc(t.tr)+'» demek.</p></section>':'';
   var sub=q.ok?'Bildiklerine eklendi.':(q.picked===-1?'Bilmediklerine eklendi.':'Karıştırdıklarına eklendi.')+(q.ok?'':' Sonra yeniden sorulacak.');
-  return vHead()+'<div class="body">'+card+resPill(q.ok?'ok':(q.picked===-1?'idk':'no'),title,sub,true)+
-    '<div class="opts">'+rows+'</div>'+why+'</div>'+
-    '<footer class="foot">'+(q.ok?'':'<button class="btn pri" data-act="vnext" data-focus>Devam'+I.go+'</button>')+'</footer>';   // doğruda kendiliğinden geçer: dokunulacak Devam yok
+  return vHead()+'<div class="body">'+card+'<p class="ask">Türkçe karşılığı hangisi?</p>'+optsDone(q.opts,q.correct,q.picked,false)+   // şıklar yerinde kalır
+    resPill(q.ok?'ok':(q.picked===-1?'idk':'no'),title,sub,true)+why+'</div>'+
+    '<footer class="foot">'+(q.ok?'<span class="btn pri" style="visibility:hidden" aria-hidden="true">Devam</span>':'<button class="btn pri" data-act="vnext" data-focus>Devam'+I.go+'</button>')+'</footer>';   // doğruda kendiliğinden geçer: dokunulacak Devam yok, altbilgi yine aynı boyda kalır ki şıklar kaymasın
 }
 function vRow(w,c,lv){
   var t=VBY[w];
@@ -1709,7 +1712,7 @@ function vVHub(){
   return '<header class="top"><button class="x" data-act="tab" data-v="words" aria-label="Kelime ekranına dön">'+I.back+'</button><div class="brand"><span>Fiil taraması</span></div>'+
     '<span class="topr">'+sndBtn()+'</span></header><div class="body">'+
     '<section class="hero"><div class="herotop"><p class="eyebrow">A1 – B2 · '+all.n+' fiil</p>'+ui('scan',48,'heroart')+'</div><h1>Hangi fiilleri biliyorsun?</h1>'+
-    '<p class="hnote">Her turda '+VROUND+' fiil gelir; anlamını seçersin. Emin değilsen tahmin etme, Bilmiyorum de: sonuç o zaman doğru çıkar.</p></section>'+
+    '<p class="hnote">Her turda '+VROUND+' fiil geliyor, sen anlamını seçiyorsun. Bilmediğinde tahmin etme, Bilmiyorum\'a bas. Sonuç ancak öyle doğru çıkar.</p></section>'+
     cards+res+lists+tools+'</div>';
 }
 
@@ -1768,7 +1771,7 @@ var COMBOP={3:'Üç üst üste!',5:'Beşte beş!',10:'On numara!'};
 var praiseLast=[];
 function praise(cb){
   if(COMBOP[cb])return COMBOP[cb];
-  if(cb>=15&&cb%5===0)return 'Durdurulamazsın!';
+  if(cb>=15&&cb%5===0)return 'Seni tutan yok!';
   var k;do{k=Math.floor(Math.random()*PRAISE.length)}while(praiseLast.indexOf(k)>=0);   // son iki övgü yeniden çıkmaz
   praiseLast=[k].concat(praiseLast).slice(0,2);
   return PRAISE[k];
@@ -1822,8 +1825,8 @@ function progHead(ses,num){
 var APPNAME='Basamak';
 function greet(){var h=new Date().getHours();return h<5||h>=22?'İyi geceler!':(h<11?'Günaydın!':(h<17?'Merhaba!':'İyi akşamlar!'))}
 /* Lokum'a dokunulunca zıplar, kıkırdar ve kısa bir şey söyler; görev bitmişse sözleri de değişir */
-var LOKSAY=['Hihi, gıdıklanıyorum!','Bugün de geldin, çok sevindim!','Küçük adımlar, büyük basamaklar.','Sen bunu yaparsın!','Kelimeler seni bekliyor.','Yanındayım!','Birlikte daha kolay.'];
-var LOKDONE=['Bugün harikaydın!','Gurur duyuyorum!','Yarın yine buradayım.','Dinlenmeyi de hak ettin.'];
+var LOKSAY=['Hihi, gıdıklanıyorum!','Geldin! Ben de seni bekliyordum.','Bir tur atalım mı? Kısa sürecek, söz.','Dün öğrendiklerin hâlâ aklında mı? Bakalım.','Dur, pudra şekerim döküldü.','Sen başla, ben buradan tezahürat yaparım.','Bugün hangi kelimeler gelecek, çok merak ediyorum.'];
+var LOKDONE=['Bugünlük bu kadar, eline sağlık!','Yarın yine buradayım.','Bir lokumu hak ettin. Beni değil ama!','Hadi git biraz dinlen.'];
 var lokLast=-1;
 function lokBtn(pose,size,done){
   return '<button class="lokb" data-act="lok"'+(done?' data-done="1"':'')+' aria-label="Lokum\'a dokun">'+lok(pose,size)+'</button>';
@@ -1879,22 +1882,22 @@ function vWords(){
       (ses.i>0?'<p class="hnote">Kaldığın yer: '+ses.i+' / '+ses.q.length+'</p>':'')+
       '<button class="btn pri" data-act="start">'+(ses.i>0?'Devam et':'Başla')+I.go+'</button></section>';
   }
-  var journey='<section class="card"><div class="cardhead"><h2>Kelime yolculuğun</h2><span class="note">'+WORDS.length+' kelime</span></div>'+
+  var journey='<section class="card"><div class="cardhead"><h2>Kelimelerin</h2><span class="note">'+WORDS.length+' kelime</span></div>'+
     '<p class="h1u">'+t.learned+' kelime öğrenildi</p>'+
     '<div class="gbar" role="img" aria-label="'+WORDS.length+' kelimeden '+t.learned+' tanesi öğrenildi"><i style="width:'+(t.learned/WORDS.length*100)+'%"></i></div>'+
     '<p class="note">'+(t.due?t.due+' kelime tekrar bekliyor'+(t.pin?', '+t.pin+' tanesi sabit':'')+'.':'Bilemediğin kelimeler ertesi gün yeniden sorulur.')+'</p></section>';
   var how='<details class="card"><summary>Nasıl işliyor</summary><ul class="how">'+
-    '<li><b>Günde '+BASE_NEW+' yeni kelime.</b> Her 5 yeni kelime önce kısa kartlarla tanıtılır, sonra sorulur. Emin değilsen Bilmiyorum de.</li>'+
+    '<li><b>Günde '+BASE_NEW+' yeni kelime.</b> Beşer beşer önce kartlarda görürsün, sonra sorulur. Emin değilsen Bilmiyorum\'a bas.</li>'+
     '<li><b>Bilemediğin ve sabitlediğin kelimeler</b> ertesi gün geri gelir. Her gelişte soru türü değişir: boşluk doldurma, İngilizcesini seçme, parçalardan kelimeyi kurma.</li>'+
-    '<li><b>Gün sonu kontrolü.</b> O gün doğru bildiğin yeni kelimeler günün sonunda bir kez de cümle içinde sorulur; ikisini de bilirsen kelime öğrenilmiş sayılır.</li>'+
+    '<li><b>Gün sonu kontrolü.</b> O gün bildiğin yeni kelimeler günün sonunda bir de cümle içinde sorulur. İkisinde de bilirsen kelime öğrenilmiş sayılır.</li>'+
     '<li><b>Bir günde en fazla '+CAP+' kelime.</b> Önce tekrarlar sorulur, sığmayan yeni kelimeler sonraki güne kalır.</li>'+
-    '<li><b>Yer kalırsa pekiştirme.</b> Öğrendiğin kelimeler '+IVL.join(', ').replace(/, ([^,]*)$/,' ve $1')+' gün sonra yeniden sorulur; üçünü de geçen kelime kalıcı sayılır.</li>'+
+    '<li><b>Yer kalırsa pekiştirme.</b> Öğrendiğin kelimeler '+IVL.join(', ').replace(/, ([^,]*)$/,' ve $1')+' gün sonra yeniden sorulur. Üçünü de geçen kelime kalıcı olur.</li>'+
     '<li><b>Her '+HALF+' kelimede bir ara görev.</b> Sırayla eşleştirme ve cümle gelir. Cümleyi ya parçalarını sıralayarak kurar ya da devamını seçerek tamamlarsın.</li>'+
-    '<li><b>Fiil taraması.</b> A1\'den B2\'ye '+VERBS.length+' fiilin hangisini bildiğini ölçer; karıştırdıkların ve bilmediklerin ayrı listelenir, sonra karıştırdığın fiille yan yana yeniden sorulur.</li>'+
-    '<li><b>Günde bir sürpriz kutu.</b> Yolun ortasında çıkar; içinden o günün kelimeleriyle kısa bir oyun (balon, hafıza ya da eşleşme) ve albümüne bir çıkartma gelir. İstersen geçebilirsin.</li>'+
-    '<li><b>Lokum.</b> Uygulamanın maskotu; dokununca bir şey söyler. Tadını ayarlardan seçersin, çalıştıkça yeni tatlar açılır.</li>'+
-    '<li><b>'+UNITS.length+' gramer ünitesi.</b> Gramer sekmesinde her konunun özeti ve '+TLEN+' soruluk üç testi var; soruların hepsi beş şıklı.</li>'+
-    '<li><b>Günün grameri.</b> Her gün sıradaki ünite testi ve önceki ünitelerden '+DAILY_REVIEW+' karışık tekrar sorusu gelir; yanlış yaptıkların öne alınır.</li>'+
+    '<li><b>Fiil taraması.</b> A1\'den B2\'ye '+VERBS.length+' fiilden hangilerini bildiğini gösterir. Karıştırdıkların ayrı bir listeye düşer, sonra karıştırdığın fiille yan yana sorulur.</li>'+
+    '<li><b>Günde bir sürpriz kutu.</b> Turun ortasında çıkar. İçinde o günün kelimeleriyle kısa bir oyun var (balon, hafıza ya da eşleşme), sonunda albümüne bir çıkartma yapışır. İstersen geçebilirsin.</li>'+
+    '<li><b>Lokum.</b> Dokununca bir şey söyler. Tadını Ayarlar\'dan seçersin, çalıştıkça yeni tatlar açılır.</li>'+
+    '<li><b>'+UNITS.length+' gramer ünitesi.</b> Gramer sekmesinde her konunun özeti ve '+TLEN+' soruluk üç testi var. Soruların hepsi beş şıklı.</li>'+
+    '<li><b>Günün grameri.</b> Her gün sıradaki ünite testi ve önceki ünitelerden '+DAILY_REVIEW+' karışık tekrar sorusu gelir. Yanlış yaptıkların öne alınır.</li>'+
     '<li><b>Karışık ve ara tekrar testleri.</b> İstediğin zaman ünitelerden rastgele 10 ya da 20 soru çözebilirsin.</li>'+
     '<li><b>Renkler kelime türüdür.</b> Fiil mavi, isim nane, sıfat turuncu, zarf lila, bağlaç pembe, öbek fiil limon.</li></ul></details>';
   var tools,types='';
@@ -1921,7 +1924,7 @@ function vWords(){
     '<span class="pill">'+(PREF.auto?'Açık':'Kapalı')+'</span></button>'+lokRow()+types+
     '<h2>Demo araçları</h2><p class="note">Günlerin akışını beklemeden görmek için. Gerçek uygulamada yer almaz.</p>'+tools+
     '<p class="note">'+(storeMode==='cloud'?'İlerlemen hesabına kaydediliyor.':'İlerlemen bu cihazda saklanıyor.')+'</p>'+
-    '<p class="credit">Görseller: Microsoft Fluent Emoji, MIT lisansı</p></div></details>';
+    '<p class="credit">Lokum ve çıkartmalar bu uygulama için çizildi. Öteki görseller: Microsoft Fluent Emoji, MIT lisansı</p></div></details>';
   var va=vStat(VALL);
   var scan='<button class="ucard" data-act="vhub" style="--pc:var(--p-adv)"><span class="uicon">'+ui('scan',40)+'</span><span class="utxt"><span class="unum">Seviye ölçümü</span>'+
     '<b>Fiil taraması</b><span class="usub">'+(va.seen?va.seen+' / '+va.n+' fiil tarandı · '+va.ok+' biliyorsun':'A1\'den B2\'ye '+va.n+' fiilden kaçını biliyorsun?')+'</span></span>'+I.go+'</button>';
@@ -1934,8 +1937,24 @@ var ASK={tr:'Türkçe karşılığı hangisi?',en:'İngilizcesi hangisi?',blank:
 /* k >= 0 ise A–E balonu çizilir; act verilirse dokunulabilir şık olur */
 function optRow(text,k,cls,en,icon,act){
   var inner=(k>=0?'<span class="bub">'+'ABCDE'.charAt(k)+'</span>':'')+
-    '<span class="otxt'+(en?' en':'')+'"'+(en?' lang="en"':'')+'>'+esc(text)+'</span>'+(icon?'<span class="ic">'+icon+'</span>':'');
+    '<span class="otxt'+(en?' en':'')+'"'+(en?' lang="en"':'')+'>'+esc(text)+'</span>'+'<span class="ic"'+(icon?'':' aria-hidden="true"')+'>'+(icon||'')+'</span>';   // ikonun yeri soru ekranında da ayrılır: yazı aynı yerden kırılır
   return act?'<button class="opt" data-act="'+act+'" data-k="'+k+'">'+inner+'</button>':'<div class="opt'+cls+'">'+inner+'</div>';
+}
+function optsDone(list,correct,picked,en){                 // sonuç: beş şık soru ekranındaki yerinde kalır; doğru yeşil, seçilen yanlış kırmızı, ötekiler soluk
+  var r='';
+  for(var k=0;k<list.length;k++)r+=optRow(list[k],k,k===correct?' ok'+(picked===k?' picked':''):(k===picked?' no picked':' dim'),en,k===correct?I.ok:(k===picked?I.no:''),'');
+  return '<div class="opts done">'+r+'</div>';
+}
+function showFb(){                                         // geri bildirim görünür alanın altında kaldıysa, renkler yerinde göründükten sonra gövde yumuşakça biraz kayar
+  var bd=app.querySelector('.body:not(.navghost)');if(!bd||reduced())return;   // hareketi azalt: kaydırma yok, gövde elle kaydırılır
+  setTimeout(function(){
+    if(!bd.isConnected)return;                             // bu arada Devam'a basıldıysa yeni soru kımıldamaz
+    var el=bd.querySelector('.whyno')||bd.querySelector('.res');if(!el)return;
+    var br=bd.getBoundingClientRect(),need=el.getBoundingClientRect().bottom+12-br.bottom;if(need<=0)return;
+    var ok=bd.querySelector('.opts.done .opt.ok'),pk=bd.querySelector('.opts.done .opt.picked'),top=Math.min(ok?ok.getBoundingClientRect().top:1e9,pk?pk.getBoundingClientRect().top:1e9);
+    need=Math.min(need,Math.max(0,top<1e9?top-br.top-8:need));if(need<=0)return;   // doğru ve seçilen şık ekranda kalır
+    try{bd.scrollTo({top:bd.scrollTop+need,behavior:'smooth'})}catch(e){bd.scrollTop+=need}
+  },320);
 }
 function wband(x,w,kind,sayText){
   return '<div class="wband"><span>'+POS[x.pos]+'</span><span class="tag">'+KIND[kind]+'</span>'+
@@ -1954,7 +1973,7 @@ function builderHTML(b,word,checked){
   var tile=function(i,m){return '<button class="tile'+c+(m||'')+'" data-i="'+i+'" lang="en"'+(checked?' disabled':'')+'>'+esc(b.ch[i])+'</button>'};
   var zone=b.ans.length
     ?b.ans.map(function(i,k){return tile(i,checked?(b.ch[i]===b.ch[k]?' ok':' no'):'')}).join('')
-    :'<span class="hint">Parçalara dokun ya da buraya sürükle</span>';
+    :'<span class="hint">'+(checked?'Boş bırakıldı':'Parçalara dokun ya da buraya sürükle')+'</span>';
   var bank=b.order.map(function(i){return b.ans.indexOf(i)>=0?'<span class="slot'+c+'" aria-hidden="true">'+esc(b.ch[i])+'</span>':tile(i)}).join('');
   return '<div class="zone'+(word?' word':'')+(checked?' '+checked:'')+'" id="zone" aria-label="Kurduğun cevap">'+zone+'</div>'+
     (checked?'':'<div class="bank'+(word?' word':'')+'" id="bank" aria-label="Kullanılabilir parçalar">'+bank+'</div>');
@@ -1963,49 +1982,46 @@ function builderHTML(b,word,checked){
 function vWord(){
   var ses=S.ses,x=BY[Q.id],f=Q.fmt,en=f!=='tr';
   var w=Q.solo?{pin:0,st:0,lv:0}:(S.w[Q.id]||{pin:0,st:0,lv:0});
+  var inner,sayText='';                                    // soru kartı ve soru cümlesi cevaptan sonra da aynı kalır: şıklar yerinden kıpırdamaz
+  if(f==='blank')inner='<p class="ex big" lang="en">'+blanked(x.en)+'</p><p class="tr">'+esc(x.trs)+'</p>';
+  else if(f==='en')inner='<p class="lbl">Türkçesi</p><div class="meanbig">'+esc(x.tr)+'</div>';
+  else if(f==='spell')inner='<p class="lbl">Türkçesi</p><div class="meanbig">'+esc(x.tr)+'</div><p class="ex" lang="en">'+blanked(x.en)+'</p>';
+  else{inner='<div class="hw" lang="en">'+esc(x.w)+'</div><p class="ex" lang="en">'+marked(x.en)+'</p>';sayText=x.w}
+  var card='<section class="wcard p'+x.pos+'">'+wband(x,w,Q.kind,sayText)+'<div class="wbody">'+inner+'</div></section>';
+  var ask='<p class="ask">'+(f==='spell'?(Q.extra?'Doğru kelimeleri seç ve sırala<span class="note">'+Q.extra+' parça fazla</span>':ASK.spell):ASK[f])+'</p>';
   if(!Q.done){
-    var inner,sayText='';
-    if(f==='blank')inner='<p class="ex big" lang="en">'+blanked(x.en)+'</p><p class="tr">'+esc(x.trs)+'</p>';
-    else if(f==='en')inner='<p class="lbl">Türkçesi</p><div class="meanbig">'+esc(x.tr)+'</div>';
-    else if(f==='spell')inner='<p class="lbl">Türkçesi</p><div class="meanbig">'+esc(x.tr)+'</div><p class="ex" lang="en">'+blanked(x.en)+'</p>';
-    else{inner='<div class="hw" lang="en">'+esc(x.w)+'</div><p class="ex" lang="en">'+marked(x.en)+'</p>';sayText=x.w}
     var head=Q.solo?soloHead('Deneme sorusu'):(Q.kind==='f'?finalHead(ses,ses.fi+1):progHead(ses,ses.i+1));
-    var card='<section class="wcard p'+x.pos+'">'+wband(x,w,Q.kind,sayText)+'<div class="wbody">'+inner+'</div></section>';
     if(f==='spell'){
       var b=Q.b;
-      return head+'<div class="body">'+card+
-        '<p class="ask">'+(Q.extra?'Doğru kelimeleri seç ve sırala<span class="note">'+Q.extra+' parça fazla</span>':ASK.spell)+'</p>'+
+      return head+'<div class="body">'+card+ask+
         builderHTML(b,Q.sep==='','')+'</div>'+
         '<footer class="foot"><button class="btn ghost narrow" data-act="idk">Bilmiyorum</button>'+
         '<button class="btn pri" data-act="check"'+(b.ans.length===b.need?'':' disabled')+'>Kontrol et</button></footer>';
     }
     var opts='';
     for(var k=0;k<Q.opts.length;k++)opts+=optRow(Q.opts[k],k,'',en,'','pick');
-    return head+'<div class="body">'+card+'<p class="ask">'+ASK[f]+'</p><div class="opts">'+opts+'</div></div>'+
+    return head+'<div class="body">'+card+ask+'<div class="opts">'+opts+'</div></div>'+
       '<footer class="foot"><button class="btn ghost" data-act="idk">Bilmiyorum</button></footer>';
   }
   var title=Q.picked===-1?'Cevap bu':(Q.ok?(Q.pr||'Doğru!'):OOPS),sub;
   if(Q.solo)sub='Deneme sorusu, ilerlemeni etkilemez.';
-  else if(Q.kind==='f')sub=Q.ok?'Kelimeyi cümlede de tanıdın: öğrenildi.':'Cümlede tanıyamadın; yarın yeniden karşına çıkacak.';
+  else if(Q.kind==='f')sub=Q.ok?'Cümlede de tanıdın, bu kelime artık senin.':'Cümlede tanıyamadın, yarın yeniden karşına çıkacak.';
   else if(!Q.ok)sub=GENTLE;
   else if(w.pin)sub='Sabitledin, yarın yine gelecek.';
   else if(w.st===3)sub='Kalıcı oldu, bir daha sorulmayacak.';
   else sub='Öğrenildi. '+IVL[w.lv|0]+' gün sonra pekiştirilecek.';
-  var rows;
-  if(f==='spell'){
-    rows=optRow(x.w,-1,' ok',true,I.ok,'');
-    if(Q.tried&&!Q.ok)rows+=optRow(Q.tried,-1,' no',true,I.no,'');
-  }else{
-    rows=optRow(Q.opts[Q.correct],Q.correct,' ok'+(Q.picked===Q.correct?' picked':''),en,I.ok,'');
-    if(Q.picked>=0&&Q.picked!==Q.correct)rows+=optRow(Q.opts[Q.picked],Q.picked,' no picked',en,I.no,'');
-  }
+  var area,fix='';
+  if(f==='spell'){                                         // kurulan cevap yerinde renklenir; yanlışsa doğrusu geri bildirimin altında
+    area=builderHTML(Q.b,Q.sep==='',Q.ok?'ok':'no');
+    if(!Q.ok)fix='<div class="opts">'+optRow(x.w,-1,' ok',true,I.ok,'')+'</div>';
+  }else area=optsDone(Q.opts,Q.correct,Q.picked,en);
   var why='';
   if(f!=='spell'&&Q.picked>=0&&!Q.ok){                     // neden yanlış: seçilen şıkkın asıl sahibi ve doğru cevabın anlamı
     var po=Q.opts[Q.picked],ow=optOwner(f,po),wn='';
     if(f==='tr')wn=ow?'Seçtiğin «'+esc(po)+'», <b lang="en">'+esc(ow.w)+'</b> kelimesinin anlamı. <b lang="en">'+esc(x.w)+'</b> ise «'+esc(x.tr)+'» demek.':'';
     else if(f==='syn')wn=ow?'<b lang="en">'+esc(po)+'</b>, <b lang="en">'+esc(ow.w)+'</b> («'+esc(ow.tr)+'») kelimesinin eş anlamlısı. <b lang="en">'+esc(x.w)+'</b> kelimesininkiler: <span lang="en">'+esc(x.syn.join(', '))+'</span>.':'';
     else if(f==='en')wn=ow?'<b lang="en">'+esc(po)+'</b> «'+esc(ow.tr)+'» demek. «'+esc(x.tr)+'» anlamındaki kelime <b lang="en">'+esc(x.w)+'</b>.':'';
-    else wn=ow?'<b lang="en">'+esc(po)+'</b> «'+esc(ow.tr)+'» demek; bu cümlede «'+esc(x.tr)+'» anlamı gerekiyor, yani <b lang="en">'+esc(x.w)+'</b>.':'';
+    else wn=ow?'<b lang="en">'+esc(po)+'</b> «'+esc(ow.tr)+'» demek. Bu cümlede «'+esc(x.tr)+'» anlamı lazım, yani <b lang="en">'+esc(x.w)+'</b>.':'';
     if(wn)why='<section class="whyno"><h2>Neden yanlış?</h2><p>'+wn+(Q.solo?'':' İkisini bir dahaki soruda yan yana göreceksin.')+'</p></section>';
   }
   var detail='<section class="wcard p'+x.pos+'">'+wband(x,w,Q.kind,x.w+'. '+plain(x.en))+'<div class="wbody">'+
@@ -2013,8 +2029,7 @@ function vWord(){
     '<p class="syn">Eş anlamlı: <span lang="en">'+esc(x.syn.join(' · '))+'</span></p><hr class="rule">'+
     '<p class="ex" lang="en">'+marked(x.en)+'</p><p class="tr">'+esc(x.trs)+'</p></div></section>';
   return (Q.solo?soloHead('Deneme sorusu'):(Q.kind==='f'?finalHead(ses,ses.fi):progHead(ses,ses.i)))+'<div class="body">'+
-    resPill(Q.ok?'ok':(Q.picked===-1?'idk':'no'),title,esc(sub),Q.fresh)+
-    '<div class="opts">'+rows+'</div>'+why+detail+'</div>'+
+    card+ask+area+resPill(Q.ok?'ok':(Q.picked===-1?'idk':'no'),title,esc(sub),Q.fresh)+fix+why+detail+'</div>'+
     '<footer class="foot">'+(Q.solo?soloFoot('tryfmt',f)
       :'<button class="btn pinbtn" data-act="pin" data-id="'+esc(x.w)+'" aria-pressed="'+(w.pin?'true':'false')+'">'+I.pin+'<span>'+(w.pin?'Sabit':'Sabitle')+'</span></button>'+
        '<button class="btn pri" data-act="next" data-focus>Devam'+I.go+'</button>')+'</footer>';
@@ -2048,18 +2063,13 @@ function vSent(){
   var after=ST.solo?soloFoot(comp?'trycomp':'trysent',''):'<button class="btn pri" data-act="next" data-focus>Devam'+I.go+'</button>';
   if(comp){
     var rows='';
-    if(!ST.checked){for(var k=0;k<ST.opts.length;k++)rows+=optRow(ST.opts[k],k,'',true,'','pickS')}
-    else{
-      rows=optRow(ST.opts[ST.correct],ST.correct,' ok'+(ST.picked===ST.correct?' picked':''),true,I.ok,'');
-      if(ST.picked>=0&&ST.picked!==ST.correct)rows+=optRow(ST.opts[ST.picked],ST.picked,' no picked',true,I.no,'');
-    }
+    if(!ST.checked){for(var k=0;k<ST.opts.length;k++)rows+=optRow(ST.opts[k],k,'',true,'','pickS');rows='<div class="opts">'+rows+'</div>'}
+    else rows=optsDone(ST.opts,ST.correct,ST.picked,true);   // şıklar yerinde kalır, sonuç altlarına gelir
     return head+'<div class="body">'+
       '<section class="wcard psent"><div class="wband"><span>Cümleyi tamamla</span>'+note+ui('t-sent',26)+'</div>'+
       '<div class="wbody"><p class="ex big" lang="en">'+marked(ST.head)+' …</p><p class="tr">'+esc(x.trs)+'</p></div></section>'+
-      (ST.checked
-        ?resPill(ST.ok?'ok':(ST.picked===-1?'idk':'no'),ST.picked===-1?'Cevap bu':(ST.ok?(ST.pr||'Doğru!'):OOPS),'Cümlenin tamamı aşağıda.',true)
-        :'<p class="ask">Cümlenin devamı hangisi?</p>')+
-      '<div class="opts">'+rows+'</div>'+(ST.checked?full:'')+'</div>'+
+      '<p class="ask">Cümlenin devamı hangisi?</p>'+rows+
+      (ST.checked?resPill(ST.ok?'ok':(ST.picked===-1?'idk':'no'),ST.picked===-1?'Cevap bu':(ST.ok?(ST.pr||'Doğru!'):OOPS),'Cümlenin tamamı aşağıda.',true)+full:'')+'</div>'+
       '<footer class="foot">'+(ST.checked?after:'<button class="btn ghost" data-act="idkS">Bilmiyorum</button>')+'</footer>';
   }
   var b=ST.b,result='';
@@ -2251,7 +2261,7 @@ function vUnits(){
     '<section class="card"><div class="hwline"><div><h2>Gramer</h2><p class="h1u">'+done+' / '+total+' test</p></div>'+ui('tab-units',48)+'</div>'+
     '<div class="gbar" role="img" aria-label="'+done+' / '+total+' test çözüldü"><i style="width:'+(done/total*100)+'%"></i></div>'+
     (nt?'<p class="note">Kaldığın yer</p>'+cont:'<p class="note">Bütün testleri çözdün.</p>')+'</section>'+
-    (bagReady()?'<button class="ucard bagcard" data-act="bag"><span class="uicon">'+ui('u-b-iliski',40)+'</span><span class="utxt"><span class="unum">Özel çalışma</span><b>Bağlaç atölyesi</b><span class="usub">Zor cümleleri çözmek için bağlaçlar · kartlar, 3 alıştırma, Ayır oyunu</span></span>'+I.go+'</button>':'')+
+    (bagReady()?'<button class="ucard bagcard" data-act="bag"><span class="uicon">'+ui('u-b-iliski',40)+'</span><span class="utxt"><span class="unum">Özel çalışma</span><b>Bağlaç atölyesi</b><span class="usub">Uzun cümleleri açan kelimeler · kartlar, 3 alıştırma, Ayır oyunu</span></span>'+I.go+'</button>':'')+
     body+
     '<section class="card mixcard"><h2>Karışık test</h2><div class="tools">'+
     '<button class="tool" data-act="gmix" data-n="10" data-s="mine"'+(solvedItems().length>=10?'':' disabled')+'><b>10 soru</b><span>Çalıştığım ünitelerden</span></button>'+
@@ -2310,7 +2320,7 @@ function vBag(){
   }).join('');
   var chips=BAG.groups.map(function(g){return '<button class="gchip" data-act="bcards" data-g="'+g.id+'" style="--pc:var('+BCOL[g.id]+')">'+g.ad+'<small>'+g.items.length+'</small></button>'}).join('');
   return '<header class="top"><button class="x" data-act="tab" data-v="units" aria-label="Gramere dön">'+I.x+'</button><div class="brand"><span>Bağlaçlar</span></div></header><div class="body">'+
-    '<section class="hero bhero"><div class="herotop"><p class="eyebrow">Zor cümleleri çözmenin anahtarı</p>'+ui('u-b-iliski',44,'heroart')+'</div>'+
+    '<section class="hero bhero"><div class="herotop"><p class="eyebrow">Uzun cümleleri bunlar açar</p>'+ui('u-b-iliski',44,'heroart')+'</div>'+
     '<h1>Bağlaç atölyesi</h1><p class="hnote">Uzun bir cümlede neyin neden, neyin zıtlık, neyin koşul olduğunu bağlaçlar söyler. Önce kartlara bak, sonra alıştırmalara geç.</p></section>'+
     '<h2>Kartlar</h2><div class="gchips">'+chips+'</div>'+
     '<h2>Alıştırmalar</h2>'+modes+
@@ -2368,9 +2378,9 @@ function vSort(){
   var left=r.tiles.map(function(t,i){return r.placed[i]==null?tile(t,i):''}).join('');
   var last=SR.round+1>=SR.rounds;
   return '<header class="top"><button class="x" data-act="bag" aria-label="Bağlaçlara dön">'+I.x+'</button><div class="brand"><span>Ayır · '+(SR.type==='yapi'?'yapıya göre':'anlama göre')+'</span></div><span class="count">'+(SR.round+1)+' / '+SR.rounds+'</span></header>'+
-    '<div class="body"><p class="ask">'+(done?'Tamam! Anlamlarıyla birlikte:':(SR.type==='yapi'?'Bağlacın ardından ne gelir? Kutusuna sürükle ya da dokunup kutuya dokun.':'Bağlaç hangi anlamı katar? Kutusuna sürükle ya da dokunup kutuya dokun.'))+'</p>'+
+    '<div class="body"><p class="ask">'+(done?'Tamam! Anlamlarıyla birlikte:':(SR.type==='yapi'?'Bağlacın ardından ne gelir? Kutusuna sürükle ya da önce bağlaca, sonra kutuya dokun.':'Bağlaç hangi anlamı katar? Kutusuna sürükle ya da önce bağlaca, sonra kutuya dokun.'))+'</p>'+
     '<div class="sbins">'+bins+'</div>'+(done?'':'<div class="stiles">'+left+'</div>')+
-    (done?resPill(r.miss?'no':'ok',r.miss?r.miss+' yanlış deneme':'Hepsi doğru!',r.miss?'Bu turda; yine de hepsini yerleştirdin.':'Bu turda',true):'')+'</div>'+
+    (done?resPill(r.miss?'no':'ok',r.miss?r.miss+' yanlış deneme':'Hepsi doğru!',r.miss?'Ama hepsini yerine koydun.':'İlk denemede hepsi yerinde.',true):'')+'</div>'+
     '<footer class="foot">'+(done?(last?'<button class="btn sec narrow" data-act="bag">Bağlaçlar</button><button class="btn pri" data-act="bsort" data-t="'+SR.type+'" data-focus>Yeniden oyna</button>'
       :'<button class="btn pri" data-act="snext" data-focus>Sonraki tur'+I.go+'</button>'):'<button class="btn pri" disabled>'+(r.tiles.length-Object.keys(r.placed).length)+' bağlaç kaldı</button>')+'</footer>';
 }
@@ -2454,7 +2464,7 @@ function gAnswer(pos){
   var isb=GQ.mode==='bag'||GQ.bag;
   GQ.pr=GQ.ok?praise(GQ.cb):'';
   if(GQ.ok)sfx('ok',{n:GQ.cb,t:isb?'plk':'bell'});else sfx(pos<0?'idk':'no',isb?300:290);
-  GQ.fresh=true;render();GQ.fresh=false;
+  GQ.fresh=true;render(true);GQ.fresh=false;showFb();
   if(GQ.ok)fxRight(false);
 }
 function gNext(){
@@ -2486,6 +2496,7 @@ function gText(q,fill){
   return out;
 }
 function gBack(){if(GQ.mode==='bag'||(GQ.mode==='retry'&&GQ.bag))return 'data-act="bag" aria-label="Bağlaçlara dön"';return GQ.id?'data-act="unit" data-id="'+GQ.id+'" aria-label="Üniteye dön"':'data-act="tab" data-v="units" aria-label="Ünitelere dön"'}
+function gAsk(q){return {okuma:'Parçaya göre cevabı işaretle',tamamla:'Cümleyi hangisi tamamlar?',iliski:'İşaretli bağlaç cümleye hangi anlamı katıyor?',anlam:'Bu cümlenin doğru Türkçesi hangisi?'}[q[4]]||'Boşluğa hangisi gelir?'}
 function vGQ(){
   var q=gCur(),n=GQ.items.length,id=gCurId(),segs='';
   for(var s=0;s<n;s++)segs+='<span class="seg" style="flex:1 1 0"><i style="width:'+(s<GQ.i+(GQ.done?1:0)?100:0)+'%"></i></span>';
@@ -2503,23 +2514,21 @@ function vGQ(){
     var opts='';
     var oen=q[4]!=='iliski'&&q[4]!=='anlam';
     for(var k=0;k<5;k++)opts+=optRow(q[1][GQ.order[k]],k,'',oen,'','gpick');
-    var ask={okuma:'Parçaya göre cevabı işaretle',tamamla:'Cümleyi hangisi tamamlar?',iliski:'İşaretli bağlaç cümleye hangi anlamı katıyor?',anlam:'Bu cümlenin doğru Türkçesi hangisi?'}[q[4]]||'Boşluğa hangisi gelir?';
-    return head+'<div class="body">'+pcard+card(false)+'<p class="ask">'+ask+'</p><div class="opts">'+opts+'</div></div>'+
+    return head+'<div class="body">'+pcard+card(false)+'<p class="ask">'+gAsk(q)+'</p><div class="opts">'+opts+'</div></div>'+
       '<footer class="foot"><button class="btn ghost" data-act="gidk">Bilmiyorum</button></footer>';
   }
   var cpos=GQ.order.indexOf(q[2]);
-  var ren=q[4]!=='iliski'&&q[4]!=='anlam';
-  var rows=optRow(q[1][q[2]],cpos,' ok'+(GQ.picked===cpos?' picked':''),ren,I.ok,'');
-  if(GQ.picked>=0&&GQ.picked!==cpos)rows+=optRow(q[1][GQ.order[GQ.picked]],GQ.picked,' no picked',ren,I.no,'');
-  return head+'<div class="body">'+
+  var ren=q[4]!=='iliski'&&q[4]!=='anlam',shown=[];
+  for(var j=0;j<5;j++)shown.push(q[1][GQ.order[j]]);
+  var filled=q[0].indexOf('----')>=0?'<p class="gq" lang="en">'+gText(q,true)+'</p>':'';   // boşluklu soruda cümlenin doğru hâli açıklamanın başında
+  return head+'<div class="body">'+pcard+card(false)+'<p class="ask">'+gAsk(q)+'</p>'+optsDone(shown,cpos,GQ.picked,ren)+
     resPill(GQ.ok?'ok':(GQ.picked===-1?'idk':'no'),GQ.picked===-1?'Cevap bu':(GQ.ok?(GQ.pr||'Doğru!'):OOPS),GQ.right+' doğru, '+GQ.wrong.length+' yanlış',GQ.fresh)+
-    card(true)+'<div class="opts">'+rows+'</div>'+
-    '<section class="why"><h2>Neden</h2><p>'+esc(q[3])+'</p></section>'+pcard+'</div>'+
+    '<section class="why"><h2>Neden</h2>'+filled+'<p>'+esc(q[3])+'</p></section></div>'+
     '<footer class="foot"><button class="btn pri" data-act="gnext" data-focus>'+(GQ.i+1<n?'Devam':'Sonucu gör')+I.go+'</button></footer>';
 }
 function vGRes(){
   var n=GQ.items.length,st=starCount(GQ.right,n),id=GQ.id;
-  var msg=GQ.right===n?'Hepsi doğru, kusursuz!':(st>=2?'Çok iyi gidiyorsun.':(st===1?'Fena değil! Konu özetine bir daha göz at.':'Olsun, önce konu özetini birlikte okuyalım, sonra yeniden dene.'));
+  var msg=GQ.right===n?'Hepsi doğru, tek hata yok!':(st>=2?'Çok iyi gidiyorsun.':(st===1?'Fena değil. Konu özetine bir daha göz at.':'Olsun. Konu özetine bir bak, sonra yeniden dene.'));
   var extra='';
   if(GQ.mode==='test'&&id)extra=' En iyi sonucun: '+gBest(id,GQ.k)+' / '+TLEN+'.';
   else if(GQ.mode==='daily'&&id)extra=' Ünite testinden '+GQ.unitRight+' / '+GQ.unitN+' aldın.';
@@ -2715,8 +2724,8 @@ function settle(){
     save();
   }
   var cb=Q.solo?1:S.ses.combo;
-  if(Q.ok){Q.pr=praise(Q.solo?0:cb);sfx('ok',cb);if(!Q.solo&&milestone(cb))sfx('combo',cb);if(!Q.solo&&(cb===3||milestone(cb)))BUMP='combo'}else sfx(Q.picked===-1?'idk':'no');
-  Q.fresh=true;render();Q.fresh=false;
+  if(Q.ok){Q.pr=praise(Q.solo?0:cb);sfx('ok',cb);if(!Q.solo&&(cb===3||milestone(cb))){sfx('combo',cb);BUMP='combo'}}else sfx(Q.picked===-1?'idk':'no');
+  Q.fresh=true;render(true);Q.fresh=false;showFb();
   if(Q.ok)fxRight(!Q.solo&&milestone(cb));
 }
 /* doğru cevap: seçilen şıktan parıltı; seri anında rozetten kalpler de fışkırır */
@@ -2745,7 +2754,7 @@ function sentDone(ok){
   ST.ok=ok;ST.checked=true;ST.pr=ok?praise(0):'';
   if(!ST.solo&&S.ses){var ses=S.ses;if(ses.sd.indexOf(ses.i)<0)ses.sd.push(ses.i);ses.sN++;if(ok)ses.sOk++;save()}
   sfx(ok?'yay':(ST.picked===-1?'idk':'no'));
-  render();
+  render(true);showFb();
   if(ok)burstAt(app.querySelector('.opt.ok.picked .ic')||app.querySelector('.res.ok>b svg'),'spark',9);
 }
 function rnd(){return ORDER[Math.floor(Math.random()*ORDER.length)]}

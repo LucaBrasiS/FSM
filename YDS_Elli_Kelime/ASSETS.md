@@ -62,5 +62,8 @@ hafıza kartlarında konuma göre nota bilerek eklenmedi.
 
 ## Çıkartmalar
 
-Sürpriz kutudan çıkan 24 çıkartma da Fluent Emoji çizimleridir (`data/art-picks.json` içinde `stk-` ile başlayanlar).
+Sürpriz kutudan çıkan 24 çıkartma bu proje için Lokum'un çizgisinde çizildi: düz renk, eşit kalınlıkta koyu dış çizgi,
+yuvarlak hatlar ve Lokum'un yüzü. Çizimler `sanat/cikartma-uret.py` ile üretilir, `data/cikartmalar.json` içinde durur;
+albüm anahtarları (`stk-sloth` gibi) eskisiyle aynıdır, kazanılmış albümler bozulmaz. Eski Fluent Emoji çıkartmaları
+artık dosyaya girmez.
 Kutudan sırayla üç oyundan biri çıkar: balon patlat, hafıza kartları, eşleşme mi?
