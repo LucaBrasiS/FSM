@@ -16,7 +16,7 @@ Necip seni şu iş için çağırdı, kendi sözleriyle: "Uygulamayı tanıtan b
 
 **Ne yapıldı:**
 
-- Senin tatlı tasarımının (Lokum, oyun odası, "Eşleşme mi?", kalıp kesim çıkartmalar) son hâli telefon boyunda baştan sona oynatıldı ve sesiyle birlikte kaydedildi: `<PAKET>\Basamak-tanitim.mp4`, 2 dk 51 sn.
+- Senin tatlı tasarımının (Lokum, oyun odası, "Eşleşme mi?", kalıp kesim çıkartmalar) son hâli telefon boyunda baştan sona oynatıldı ve sesiyle birlikte kaydedildi: `<PAKET>\Basamak-tanitim.mp4`, 2 dk 52 sn.
 - Videonun üstündeki koyu şerit uygulamanın parçası değil: bölüm adı, adım ve süre sayacı.
 - Hangi saniyede ne yapıldığı, hangi sesin (iç adıyla) çaldığı ve neyin okunduğu: `<PAKET>\Basamak-tanitim-dokum.txt`.
 - Bu video, aşağıdaki istemle Gemini'nin Pro modeline yüksek düşünme ayarında izletilip dinletildi: `<PAKET>\GEMINI-ISTEMI.md`.

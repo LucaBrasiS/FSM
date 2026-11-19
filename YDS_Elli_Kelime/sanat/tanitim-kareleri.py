@@ -79,7 +79,7 @@ strip(1, 'tanıtım kartı okunuşu', speak(0), [-300, 0, 150, 300, 500, 800, 11
 strip(2, 'tanıtım kartı geçişi', nth('flip', 0), [-60, 0, 40, 80, 120, 180, 260])
 strip(3, 'doğru cevap', nth('ok', 0), [-80, 0, 80, 160, 300, 600])
 strip(4, 'Devam kayması', nth('slide', 1), [-60, 0, 40, 80, 120, 160, 220])
-strip(5, 'x3 rozeti', nth('combo', 0), [-80, 0, 100, 200, 300, 450], (0, 0, 1, 0.25))
+strip(5, 'x3 rozeti', nth('ok', 0, lambda a: a == 3), [-80, 0, 100, 200, 300, 450], (0, 0, 1, 0.25))   # x3'te zil yok: an, üçüncü doğrunun sesidir
 strip(6, 'yanlış cevap', nth('no', 0), [-80, 0, 80, 160, 300, 600])
 strip(7, 'bölüm geçişi', nth('swish', 0), [-60, 0, 60, 120, 200, 400])
 strip(8, 'eşleştirme yanlış ve doğru', nth('miss', 0), [-100, 0, 150, 300, 450, 700])
