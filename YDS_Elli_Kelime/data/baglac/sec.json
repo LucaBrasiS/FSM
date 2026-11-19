@@ -79,7 +79,7 @@
    "unless"
   ],
   "a": 1,
-  "e": "Aramak, istasyona varma anında olacak: zaman ilişkisi, 'when' (-dığında). 'until' bir eylemin o ana kadar sürdüğünü anlatır; tek seferlik 'call' ile 'varana kadar ara' anlamsız olur.",
+  "e": "Aramak, istasyona varma anında olacak: zaman ilişkisi, 'when' (-dığında). 'until' bir eylemin o ana kadar sürdüğünü anlatır. Tek seferlik 'call' ile 'varana kadar ara' anlamsız olur.",
   "lvl": 1,
   "g": "zaman"
  },
@@ -107,7 +107,7 @@
    "unless"
   ],
   "a": 3,
-  "e": "Bekleme, yağmur dinene kadar sürdü: zaman ilişkisi, 'until' (-e kadar) + cümle. 'during' da zaman bildirir ama yalnızca isim alır (during the rain); 'because of' da cümle almaz.",
+  "e": "Bekleme, yağmur dinene kadar sürdü: zaman ilişkisi, 'until' (-e kadar) + cümle. 'during' da zaman bildirir ama yalnızca isim alır (during the rain). 'because of' da cümle almaz.",
   "lvl": 1,
   "g": "zaman"
  },
@@ -121,7 +121,7 @@
    "unless"
   ],
   "a": 2,
-  "e": "İngilizceye ek olarak Fransızca da konuşuyor: ekleme. 'as well as' (-in yanı sıra) isim alır. 'despite' ve 'because of' de isim alır ama zıtlık ve neden bildirir; iki dil arasında böyle bir ilişki yok.",
+  "e": "İngilizceye ek olarak Fransızca da konuşuyor: ekleme. 'as well as' (-in yanı sıra) isim alır. 'despite' ve 'because of' de isim alır ama zıtlık ve neden bildirir. İki dil arasında böyle bir ilişki yok.",
   "lvl": 1,
   "g": "ekleme"
  },
@@ -163,7 +163,7 @@
    "because of"
   ],
   "a": 4,
-  "e": "Kuvvetli rüzgâr iptalin nedeni. Ardından isim öbeği geldiği için 'because of' doğru; 'because' özne + fiil ister. 'despite' isim alır ama zıtlık kurar: rüzgâra rağmen iptal edildi, mantıksız.",
+  "e": "Kuvvetli rüzgâr iptalin nedeni. Ardından isim öbeği geldiği için 'because of' doğru. 'because' özne + fiil ister. 'despite' isim alır ama zıtlık kurar: rüzgâra rağmen iptal edildi, mantıksız.",
   "lvl": 2,
   "g": "neden"
  },
@@ -233,7 +233,7 @@
    "since"
   ],
   "a": 1,
-  "e": "Günün güzelliği, bahçede yemek yemenin nedeni; yapı 'such ... that' (öyle ... ki). Araya 'a + sıfat + isim' (a lovely day) girdiği için 'such' doğru; 'so' yalnızca sıfat alır (so lovely that).",
+  "e": "Günün güzelliği, bahçede yemek yemenin nedeni. Yapı 'such ... that' (öyle ... ki). Araya 'a + sıfat + isim' (a lovely day) girdiği için 'such' doğru. 'so' yalnızca sıfat alır (so lovely that).",
   "lvl": 2,
   "g": "sonuc"
  },
@@ -247,7 +247,7 @@
    "whereas"
   ],
   "a": 4,
-  "e": "İki kişi karşılaştırılıyor: kardeşim acıyı çok seviyor, bense hiç yiyemiyorum. Bu zıtlıktır, 'whereas' (-dığı halde, oysa) + cümle. 'because' aralarında mantıksız bir neden ilişkisi kurar; 'despite' cümle almaz.",
+  "e": "İki kişi karşılaştırılıyor: kardeşim acıyı çok seviyor, bense hiç yiyemiyorum. Bu zıtlıktır, 'whereas' (-dığı halde, oysa) + cümle. 'because' aralarında mantıksız bir neden ilişkisi kurar. 'despite' cümle almaz.",
   "lvl": 2,
   "g": "zitlik"
  },
@@ -261,7 +261,7 @@
    "Although"
   ],
   "a": 0,
-  "e": "Rötar neden, aktarmayı kaçırmak sonuç. Noktadan sonra gelip virgül alan bağlaç zarfı gerekir: 'As a result'. 'However' da bu yapıya uyar ama zıtlık bildirir; 'Because' ve 'Although' virgülle tek başına kullanılmaz.",
+  "e": "Rötar neden, aktarmayı kaçırmak sonuç. Noktadan sonra gelip virgül alan bağlaç zarfı gerekir: 'As a result'. 'However' da bu yapıya uyar ama zıtlık bildirir. 'Because' ve 'Although' virgülle tek başına kullanılmaz.",
   "lvl": 2,
   "g": "sonuc"
  },
@@ -275,7 +275,7 @@
    "Unless"
   ],
   "a": 2,
-  "e": "Dışarı çıkmamak için ikinci bir gerekçe ekleniyor: 'Besides' (üstelik, hem de). Soğuk ile ödev arasında zıtlık olmadığı için 'However' uymaz; 'Therefore' ödevi soğuğun sonucu gibi gösterir.",
+  "e": "Dışarı çıkmamak için ikinci bir gerekçe ekleniyor: 'Besides' (üstelik, hem de). Soğuk ile ödev arasında zıtlık olmadığı için 'However' uymaz. 'Therefore' ödevi soğuğun sonucu gibi gösterir.",
   "lvl": 2,
   "g": "ekleme"
  },
@@ -289,7 +289,7 @@
    "however"
   ],
   "a": 4,
-  "e": "Paneller ucuzladı ama birçok aile hâlâ karşılayamıyor: zıtlık. Noktalı virgülden sonra virgülle gelen bağlaç zarfı 'however' olmalı. 'although' zıtlık bildirir ama bu noktalamayla kullanılmaz; 'therefore' sonuç kurar.",
+  "e": "Paneller ucuzladı ama birçok aile hâlâ karşılayamıyor: zıtlık. Noktalı virgülden sonra virgülle gelen bağlaç zarfı 'however' olmalı. 'although' zıtlık bildirir ama bu noktalamayla kullanılmaz. 'therefore' sonuç kurar.",
   "lvl": 3,
   "g": "zitlik"
  },
@@ -303,7 +303,7 @@
    "as long as"
   ],
   "a": 3,
-  "e": "Ekipman ve personel eksikliği ertelemenin nedeni. Ardından isim öbeği (a sudden shortage) geldiği için 'owing to' doğru. 'because' cümle ister; 'despite' isim alır ama zıtlık kurar, mantıksız olur.",
+  "e": "Ekipman ve personel eksikliği ertelemenin nedeni. Ardından isim öbeği (a sudden shortage) geldiği için 'owing to' doğru. 'because' cümle ister. 'despite' isim alır ama zıtlık kurar, mantıksız olur.",
   "lvl": 3,
   "g": "neden"
  },
@@ -401,7 +401,7 @@
    "in case"
   ],
   "a": 1,
-  "e": "Sistemin iki faydası art arda sıralanıyor; cümledeki 'but also' ile birlikte 'not only ... but also' (yalnızca ... değil, aynı zamanda) ekleme yapısı kurulur. 'as well as' de ekleme bildirir ama fiilden önce bu yapıda kullanılmaz.",
+  "e": "Sistemin iki faydası art arda sıralanıyor. Cümledeki 'but also' ile birlikte 'not only ... but also' (yalnızca ... değil, aynı zamanda) ekleme yapısı kurulur. 'as well as' de ekleme bildirir ama fiilden önce bu yapıda kullanılmaz.",
   "lvl": 3,
   "g": "ekleme"
  },

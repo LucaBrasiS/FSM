@@ -25,7 +25,7 @@
   ],
   "a": 2,
   "lvl": 1,
-  "e": "While burada iki kişinin zevklerini karşılaştırır ve 'oysa' anlamındadır. Aynı anda olan iki olay yok, kalıcı tercihler var; bu yüzden Zaman değil Zıtlık."
+  "e": "While burada iki kişinin zevklerini karşılaştırır ve 'oysa' anlamındadır. Aynı anda olan iki olay yok, kalıcı tercihler var. Bu yüzden Zaman değil Zıtlık."
  },
  {
   "q": "[As] I don't have a car, I usually take the bus to work.",
@@ -53,7 +53,7 @@
   ],
   "a": 3,
   "lvl": 1,
-  "e": "Once burada '-ince, -dikten hemen sonra' anlamındadır ve geri dönüşün ne zaman olacağını söyler. Ödeme kesin yapılacaktır; bir şart değil, olayların sırası vardır."
+  "e": "Once burada '-ince, -dikten hemen sonra' anlamındadır ve geri dönüşün ne zaman olacağını söyler. Ödeme kesin yapılacaktır. Bir şart değil, olayların sırası vardır."
  },
  {
   "q": "Take some snacks with you [in case] you get hungry on the trip.",
@@ -67,7 +67,7 @@
   ],
   "a": 4,
   "lvl": 1,
-  "e": "In case 'acıkma ihtimaline karşı' demektir: olası bir duruma karşı önceden önlem alınır. 'Acıktığında' (when) anlamına gelmez; acıkıp acıkmayacağı belli değildir."
+  "e": "In case 'acıkma ihtimaline karşı' demektir: olası bir duruma karşı önceden önlem alınır. 'Acıktığında' (when) anlamına gelmez. Acıkıp acıkmayacağı belli değildir."
  },
  {
   "q": "The tea was too hot to drink, [so] I added some cold milk.",
@@ -123,7 +123,7 @@
   ],
   "a": 4,
   "lvl": 1,
-  "e": "Until '-e kadar' demektir ve kart oyununun ne zamana kadar sürdüğünü gösterir. Yağmurun durması oyunun bitiş anıdır; bir şart ya da neden değildir."
+  "e": "Until '-e kadar' demektir ve kart oyununun ne zamana kadar sürdüğünü gösterir. Yağmurun durması oyunun bitiş anıdır. Bir şart ya da neden değildir."
  },
  {
   "q": "You can use my laptop [as long as] you're careful with it.",
@@ -137,7 +137,7 @@
   ],
   "a": 3,
   "lvl": 1,
-  "e": "As long as burada 'dikkatli olman şartıyla' anlamındadır; izin bir koşula bağlanır. İçindeki 'long' kelimesi süre çağrıştırsa da cümle bir zaman aralığı anlatmaz."
+  "e": "As long as burada 'dikkatli olman şartıyla' anlamındadır. İzin bir koşula bağlanır. İçindeki 'long' kelimesi süre çağrıştırsa da cümle bir zaman aralığı anlatmaz."
  },
  {
   "q": "[Owing to] a problem with the engine, the ferry left two hours late.",
@@ -151,7 +151,7 @@
   ],
   "a": 2,
   "lvl": 2,
-  "e": "Owing to 'nedeniyle' demektir ve isimle kullanılır: motor arızası gecikmenin nedenidir. Bağlaç nedeni getirir; sonuç olan gecikme ana cümlededir, bu yüzden Sonuç değildir."
+  "e": "Owing to 'nedeniyle' demektir ve isimle kullanılır: motor arızası gecikmenin nedenidir. Bağlaç nedeni getirir. Sonuç olan gecikme ana cümlededir, bu yüzden Sonuç değildir."
  },
  {
   "q": "The instructions were confusing; [nevertheless], we managed to build the shelf.",
@@ -193,7 +193,7 @@
   ],
   "a": 1,
   "lvl": 2,
-  "e": "Meanwhile 'bu arada, o sırada' demektir: iki iş aynı anda yapılıyor. İki eylem birbirine karşıt değildir; bağlacın kattığı anlam eşzamanlılıktır."
+  "e": "Meanwhile 'bu arada, o sırada' demektir: iki iş aynı anda yapılıyor. İki eylem birbirine karşıt değildir. Bağlacın kattığı anlam eşzamanlılıktır."
  },
  {
   "q": "Leyla took off her coat, [for] the room was very warm.",
@@ -221,7 +221,7 @@
   ],
   "a": 4,
   "lvl": 2,
-  "e": "Whereas 'oysa' demektir ve iki grubun karşıt görüşlerini karşılaştırır. Bir görüş ötekinin nedeni ya da sonucu değildir; ilişki Zıtlıktır."
+  "e": "Whereas 'oysa' demektir ve iki grubun karşıt görüşlerini karşılaştırır. Bir görüş ötekinin nedeni ya da sonucu değildir. İlişki Zıtlıktır."
  },
  {
   "q": "You won't get a refund [unless] you keep the receipt.",
@@ -235,7 +235,7 @@
   ],
   "a": 2,
   "lvl": 2,
-  "e": "Unless 'if ... not' demektir: fişi saklamazsan para iadesi alamazsın. Fişi saklamak iadenin şartıdır; olumsuz anlam yüzünden Zıtlık sanılmamalıdır."
+  "e": "Unless 'if ... not' demektir: fişi saklamazsan para iadesi alamazsın. Fişi saklamak iadenin şartıdır. Olumsuz anlam yüzünden Zıtlık sanılmamalıdır."
  },
  {
   "q": "[Thanks to] the new lift, older residents can now reach the top floor easily.",
@@ -249,7 +249,7 @@
   ],
   "a": 0,
   "lvl": 2,
-  "e": "Thanks to 'sayesinde' demektir ve isim alır: yeni asansör kolay ulaşımın nedenidir. Sonuç ana cümlededir; bağlaç olumlu nedeni getirir."
+  "e": "Thanks to 'sayesinde' demektir ve isim alır: yeni asansör kolay ulaşımın nedenidir. Sonuç ana cümlededir. Bağlaç olumlu nedeni getirir."
  },
  {
   "q": "Always keep your phone charged [in case of] an emergency.",
@@ -277,7 +277,7 @@
   ],
   "a": 1,
   "lvl": 2,
-  "e": "As well as '-in yanı sıra' demektir ve müzedeki ikinci bir koleksiyonu ekler. Haritalar resimlerle karşılaştırılmaz, yalnızca listeye eklenir; ilişki Ekleme."
+  "e": "As well as '-in yanı sıra' demektir ve müzedeki ikinci bir koleksiyonu ekler. Haritalar resimlerle karşılaştırılmaz, yalnızca listeye eklenir. İlişki Ekleme."
  },
  {
   "q": "Regular exercise strengthens the heart and lowers blood pressure; [hence], doctors increasingly recommend at least thirty minutes of brisk walking a day.",
@@ -305,7 +305,7 @@
   ],
   "a": 0,
   "lvl": 3,
-  "e": "Yet burada 'ama, yine de' demektir: paneller ucuzlamış ama birçok aile hâlâ çekiniyor. Olumsuz cümle sonundaki 'henüz' anlamı burada yoktur; ilişki Zıtlık."
+  "e": "Yet burada 'ama, yine de' demektir: paneller ucuzlamış ama birçok aile hâlâ çekiniyor. Olumsuz cümle sonundaki 'henüz' anlamı burada yoktur. İlişki Zıtlık."
  },
  {
   "q": "Many employers now offer flexible working hours [so that] staff can balance their professional duties with family responsibilities and feel less stressed.",
@@ -319,7 +319,7 @@
   ],
   "a": 4,
   "lvl": 3,
-  "e": "So that + can 'yapabilsinler diye' demektir: esnek saatlerin amacı çalışanların iş ve aileyi dengelemesidir. Virgülsüz so that ve can amacı gösterir; Sonuç için virgüllü so gerekirdi."
+  "e": "So that + can 'yapabilsinler diye' demektir: esnek saatlerin amacı çalışanların iş ve aileyi dengelemesidir. Virgülsüz so that ve can amacı gösterir. Sonuç için virgüllü so gerekirdi."
  },
  {
   "q": "[By the time] the new hospital opens next spring, the city's population will have grown by nearly ten per cent, putting further pressure on health services.",
@@ -333,7 +333,7 @@
   ],
   "a": 1,
   "lvl": 3,
-  "e": "By the time '-dığında (çoktan)' demektir: hastane açıldığında nüfus artışı tamamlanmış olacak. Future perfect bir zaman noktasını gösterir; açılış bir şart değildir."
+  "e": "By the time '-dığında (çoktan)' demektir: hastane açıldığında nüfus artışı tamamlanmış olacak. Future perfect bir zaman noktasını gösterir. Açılış bir şart değildir."
  },
  {
   "q": "The research grant will be renewed next year [provided that] the team publishes its results and keeps its spending within the agreed budget.",
@@ -361,7 +361,7 @@
   ],
   "a": 4,
   "lvl": 3,
-  "e": "While burada 'oysa, -e karşın' demektir: bir grup uzman iyimser, diğeri karamsar. İki görüş karşılaştırılıyor; aynı anda olan iki olay anlatılmadığı için Zaman değildir."
+  "e": "While burada 'oysa, -e karşın' demektir: bir grup uzman iyimser, diğeri karamsar. İki görüş karşılaştırılıyor. Aynı anda olan iki olay anlatılmadığı için Zaman değildir."
  },
  {
   "q": "The new vaccine can be stored at room temperature; [moreover], it requires only a single dose, which makes it ideal for remote areas with few clinics.",
@@ -417,6 +417,6 @@
   ],
   "a": 1,
   "lvl": 3,
-  "e": "Not only ... but also 'sadece ... değil, aynı zamanda' demektir ve programın iki ayrı faydasını sıralar. 'Not' olumsuzluk gibi görünse de karşıtlık yoktur; ilişki Ekleme."
+  "e": "Not only ... but also 'sadece ... değil, aynı zamanda' demektir ve programın iki ayrı faydasını sıralar. 'Not' olumsuzluk gibi görünse de karşıtlık yoktur. İlişki Ekleme."
  }
 ]

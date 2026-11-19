@@ -16,7 +16,7 @@
     "in the time"
    ],
    "a": 1,
-   "e": "Trenlerin güvenilir olması tarifeye uymaları demektir; planlanan saatte kalkmak 'on time' ile anlatılır. 'In time' bir şeye yetişecek kadar erken demektir; burada yetişilecek bir şey yok.",
+   "e": "Trenlerin güvenilir olması tarifeye uymaları demektir. Planlanan saatte kalkmak 'on time' ile anlatılır. 'In time' bir şeye yetişecek kadar erken demektir. Burada yetişilecek bir şey yok.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -72,7 +72,7 @@
     "in the time"
    ],
    "a": 3,
-   "e": "'Punctual' dakik demektir; dakik insan her yere belirlenen saatte gelir: 'always on time'. 'In time' tek başına dakikliği değil, bir şeye yetişmeyi anlatır.",
+   "e": "'Punctual' dakik demektir. Dakik insan her yere belirlenen saatte gelir: 'always on time'. 'In time' tek başına dakikliği değil, bir şeye yetişmeyi anlatır.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -86,7 +86,7 @@
     "at the time"
    ],
    "a": 3,
-   "e": "'Just in time' son anda, kıl payı yetişmek demektir; ardından 'to + fiil' gelir. 'At the time' 'o sırada' anlamına gelir ve 'to take' ile kullanılmaz.",
+   "e": "'Just in time' son anda, kıl payı yetişmek demektir. Ardından 'to + fiil' gelir. 'At the time' 'o sırada' anlamına gelir ve 'to take' ile kullanılmaz.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -100,7 +100,7 @@
     "by the time"
    ],
    "a": 1,
-   "e": "'On the day she sets, not a day later' belirlenen teslim gününe uymayı anlatır; bu 'on time'dır. 'In time' için bir şeye yetişme amacı ('to …', 'for …') gerekir.",
+   "e": "'On the day she sets, not a day later' belirlenen teslim gününe uymayı anlatır. Bu 'on time'dır. 'In time' için bir şeye yetişme amacı ('to …', 'for …') gerekir.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -114,7 +114,7 @@
     "in time"
    ],
    "a": 4,
-   "e": "Oyun başlamadan yerimizi bulacak kadar erken gitmek gerekiyor: 'in time to + fiil'. 'On time' ardından 'to + fiil' almaz; 'at time' ve 'by time' bu anlamda yoktur.",
+   "e": "Oyun başlamadan yerimizi bulacak kadar erken gitmek gerekiyor: 'in time to + fiil'. 'On time' ardından 'to + fiil' almaz. 'at time' ve 'by time' bu anlamda yoktur.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -156,7 +156,7 @@
     "at time"
    ],
    "a": 3,
-   "e": "Maçın planlanan saatte başlayamaması 'didn't start on time' ile anlatılır. 'In the end' ve 'at last' 'sonunda' demektir; 'in time' için yetişilecek bir şey gerekir.",
+   "e": "Maçın planlanan saatte başlayamaması 'didn't start on time' ile anlatılır. 'In the end' ve 'at last' 'sonunda' demektir. 'in time' için yetişilecek bir şey gerekir.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -184,7 +184,7 @@
     "on the time"
    ],
    "a": 0,
-   "e": "Başvuru son gün gönderilmiş ve kıl payı yetişmiş: 'just in time to + fiil'. 'On time' ardından 'to + fiil' almaz; 'at last' ve 'in the end' 'sonunda' demektir.",
+   "e": "Başvuru son gün gönderilmiş ve kıl payı yetişmiş: 'just in time to + fiil'. 'On time' ardından 'to + fiil' almaz. 'at last' ve 'in the end' 'sonunda' demektir.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -212,7 +212,7 @@
     "in time to"
    ],
    "a": 4,
-   "e": "Ardından fiil ('see') geldiği için 'in time to' kullanılır. 'In time for' isimden önce gelir ('in time for the kick-off'); 'on time' ise 'to + fiil' almaz.",
+   "e": "Ardından fiil ('see') geldiği için 'in time to' kullanılır. 'In time for' isimden önce gelir ('in time for the kick-off'). 'on time' ise 'to + fiil' almaz.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -226,7 +226,7 @@
     "by time"
    ],
    "a": 1,
-   "e": "Ders tam belirlenen saatte başlıyor; beş dakika geç gelen bile içeri giremiyor. Dakiklik 'on time' ile anlatılır; 'in time' bir şeye yetişmeyi bildirir.",
+   "e": "Ders tam belirlenen saatte başlıyor. Beş dakika geç gelen bile içeri giremiyor. Dakiklik 'on time' ile anlatılır. 'in time' bir şeye yetişmeyi bildirir.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -240,7 +240,7 @@
     "in time for"
    ],
    "a": 4,
-   "e": "Kalorifer ilk soğuk geceden önce, ona yetişecek biçimde onarılmış. Ardından isim geldiği için 'in time for' kullanılır; 'in time to' fiil ister.",
+   "e": "Kalorifer ilk soğuk geceden önce, ona yetişecek biçimde onarılmış. Ardından isim geldiği için 'in time for' kullanılır. 'in time to' fiil ister.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -254,7 +254,7 @@
     "in the time of catching the early ferry"
    ],
    "a": 2,
-   "e": "Amaç sabah vapuruna yetişmek: 'in time to + yalın fiil'. 'For to catch' ve 'in time catching' dil bilgisi açısından yanlıştır; 'at time' bu anlamda yoktur.",
+   "e": "Amaç sabah vapuruna yetişmek: 'in time to + yalın fiil'. 'For to catch' ve 'in time catching' dil bilgisi açısından yanlıştır. 'at time' bu anlamda yoktur.",
    "lvl": 2,
    "tip": "tamamla"
   },
@@ -268,7 +268,7 @@
     "in time to"
    ],
    "a": 2,
-   "e": "'At exactly seven' tam dakikasında gelmeyi gösterir: 'right on time'. 'Right in time' yerleşik bir kalıp değildir; 'in time to' ardından fiil ister.",
+   "e": "'At exactly seven' tam dakikasında gelmeyi gösterir: 'right on time'. 'Right in time' yerleşik bir kalıp değildir. 'in time to' ardından fiil ister.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -296,7 +296,7 @@
     "until then"
    ],
    "a": 0,
-   "e": "'At precisely 6:40 as shown in the timetable' tarifeye uyulduğunu gösterir: 'on time'. 'In time' için yetişilecek bir şey gerekir; 'until then' ve 'at the time' süre ya da 'o sırada' bildirir.",
+   "e": "'At precisely 6:40 as shown in the timetable' tarifeye uyulduğunu gösterir: 'on time'. 'In time' için yetişilecek bir şey gerekir. 'until then' ve 'at the time' süre ya da 'o sırada' bildirir.",
    "lvl": 3,
    "tip": "bosluk"
   },
@@ -324,7 +324,7 @@
     "until"
    ],
    "a": 3,
-   "e": "'In time' ardından isim ('the opening ceremony') geldiğinde 'for' kullanılır: 'in time for the opening ceremony'. 'To' ancak fiille gelir; 'on' ve 'until' bu kalıba uymaz.",
+   "e": "'In time' ardından isim ('the opening ceremony') geldiğinde 'for' kullanılır: 'in time for the opening ceremony'. 'To' ancak fiille gelir. 'on' ve 'until' bu kalıba uymaz.",
    "lvl": 3,
    "tip": "bosluk"
   },
@@ -352,7 +352,7 @@
     "by time to bring them ashore before the storm hit"
    ],
    "a": 1,
-   "e": "Fırtınadan önce denizcileri kıyıya getirecek kadar erken, son anda varılmış: 'just in time to + fiil'. 'For bring' yanlıştır; 'during time' ve 'by time' bu anlamda yoktur.",
+   "e": "Fırtınadan önce denizcileri kıyıya getirecek kadar erken, son anda varılmış: 'just in time to + fiil'. 'For bring' yanlıştır. 'during time' ve 'by time' bu anlamda yoktur.",
    "lvl": 3,
    "tip": "tamamla"
   },
@@ -366,7 +366,7 @@
     "during time"
    ],
    "a": 2,
-   "e": "'At the same hour every day, as the doctor has instructed' belirlenmiş saate uymayı anlatır: 'on time'. 'In time' bir şeye yetişmeyi bildirir; diğer biçimler yanlıştır.",
+   "e": "'At the same hour every day, as the doctor has instructed' belirlenmiş saate uymayı anlatır: 'on time'. 'In time' bir şeye yetişmeyi bildirir. Diğer biçimler yanlıştır.",
    "lvl": 3,
    "tip": "bosluk"
   },
@@ -394,7 +394,7 @@
     "at the time"
    ],
    "a": 1,
-   "e": "'On the date agreed in the contract' sözleşmedeki tarihe uymayı gösterir; ceza da gecikme içindir. Bu 'on time'dır. 'At the time' 'o sırada' demektir.",
+   "e": "'On the date agreed in the contract' sözleşmedeki tarihe uymayı gösterir. Ceza da gecikme içindir. Bu 'on time'dır. 'At the time' 'o sırada' demektir.",
    "lvl": 3,
    "tip": "bosluk"
   },
@@ -422,7 +422,7 @@
     "begin in the time, as printed in the programme"
    ],
    "a": 0,
-   "e": "'As printed in the programme' programdaki saati gösterir; o saatte başlayamamak 'could not begin on time' ile anlatılır. Diğer kalıplar bu anlamda İngilizcede yoktur.",
+   "e": "'As printed in the programme' programdaki saati gösterir. O saatte başlayamamak 'could not begin on time' ile anlatılır. Diğer kalıplar bu anlamda İngilizcede yoktur.",
    "lvl": 3,
    "tip": "tamamla"
   }

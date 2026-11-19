@@ -16,7 +16,7 @@
     "until"
    ],
    "a": 0,
-   "e": "Evde kalmanın nedeni soğuk algınlığı: neden bildiren bağlaç 'because' olur. 'although' zıtlık, 'so that' amaç bildirir; ikisi de burada anlamı bozar.",
+   "e": "Evde kalmanın nedeni soğuk algınlığı: neden bildiren bağlaç 'because' olur. 'although' zıtlık, 'so that' amaç bildirir. İkisi de burada anlamı bozar.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -30,7 +30,7 @@
     "As soon as"
    ],
    "a": 1,
-   "e": "Yağmura rağmen yürüyüşe çıkılmış; beklenenin tersi olduğu için zıtlık bağlacı 'Although' gerekir. 'Because' ve 'Since' neden bildirir; yağmur yürüyüşün nedeni olamaz.",
+   "e": "Yağmura rağmen yürüyüşe çıkılmış. Beklenenin tersi olduğu için zıtlık bağlacı 'Although' gerekir. 'Because' ve 'Since' neden bildirir. Yağmur yürüyüşün nedeni olamaz.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -100,7 +100,7 @@
     "until"
    ],
    "a": 1,
-   "e": "'sanki' anlamı 'as if' ile verilir; gerçek olmayan durumu gösteren 'were' de bunu doğrular: Sanki şirketin patronuymuş gibi konuşuyor.",
+   "e": "'sanki' anlamı 'as if' ile verilir. Gerçek olmayan durumu gösteren 'were' de bunu doğrular: Sanki şirketin patronuymuş gibi konuşuyor.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -156,7 +156,7 @@
     "so that"
    ],
    "a": 0,
-   "e": "Boşluktan sonra cümle değil, isim öbeği ('the heavy rain') geliyor; neden anlamı için edat olan 'because of' gerekir. 'because' arkasından özne + fiil ister.",
+   "e": "Boşluktan sonra cümle değil, isim öbeği ('the heavy rain') geliyor. Neden anlamı için edat olan 'because of' gerekir. 'because' arkasından özne + fiil ister.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -170,7 +170,7 @@
     "So that"
    ],
    "a": 1,
-   "e": "Çok çalışmasına rağmen kalmış: zıtlık için 'Even though'. 'Despite' arkasından cümle almaz; 'As' ise neden bildirir ve anlamı bozar.",
+   "e": "Çok çalışmasına rağmen kalmış: zıtlık için 'Even though'. 'Despite' arkasından cümle almaz. 'As' ise neden bildirir ve anlamı bozar.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -226,7 +226,7 @@
     "Although / until"
    ],
    "a": 0,
-   "e": "Müzenin geç açılması kahvaltının nedeni ('As' = çünkü); beklerken kahvaltı yapılmış ('while'). 'Although' zıtlık bildirir, burada neden-sonuç ilişkisi var.",
+   "e": "Müzenin geç açılması kahvaltının nedeni ('As' = çünkü). Beklerken kahvaltı yapılmış ('while'). 'Although' zıtlık bildirir, burada neden-sonuç ilişkisi var.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -254,7 +254,7 @@
     "so that"
    ],
    "a": 2,
-   "e": "Annesi şarkıya başlar başlamaz bebek uyumuş: 'as soon as'. 'until' ile 'şarkıya başlayana kadar uyudu', 'unless' ile koşul anlamı çıkar; ikisi de olaya uymaz.",
+   "e": "Annesi şarkıya başlar başlamaz bebek uyumuş: 'as soon as'. 'until' ile 'şarkıya başlayana kadar uyudu', 'unless' ile koşul anlamı çıkar. İkisi de olaya uymaz.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -282,7 +282,7 @@
     "the rooms were small and rather dirty"
    ],
    "a": 4,
-   "e": "Pahalı olmasına rağmen odalar kötüymüş: zıtlık tamamlanıyor. 'Although' varken 'but' ya da 'so' kullanılmaz; 'couldn't afford' ise zıtlık değil sonuç bildirir.",
+   "e": "Pahalı olmasına rağmen odalar kötüymüş: zıtlık tamamlanıyor. 'Although' varken 'but' ya da 'so' kullanılmaz. 'couldn't afford' ise zıtlık değil sonuç bildirir.",
    "lvl": 2,
    "tip": "tamamla"
   },
@@ -366,7 +366,7 @@
     "despite"
    ],
    "a": 0,
-   "e": "Zorlanmanın nedeni bağımsız çalışmaya alışkın olmamak: 'because'. 'despite' arkasından cümle almaz; 'although' zıtlık bildirir ve anlamı bozar.",
+   "e": "Zorlanmanın nedeni bağımsız çalışmaya alışkın olmamak: 'because'. 'despite' arkasından cümle almaz. 'although' zıtlık bildirir ve anlamı bozar.",
    "lvl": 3,
    "tip": "bosluk"
   },
@@ -394,7 +394,7 @@
     "although"
    ],
    "a": 2,
-   "e": "'sanki herkesin kabul ettiği bir gerçekmiş gibi' anlamı 'as if' ile verilir; gerçek dışılığı gösteren 'were' de bunu doğrular.",
+   "e": "'sanki herkesin kabul ettiği bir gerçekmiş gibi' anlamı 'as if' ile verilir. Gerçek dışılığı gösteren 'were' de bunu doğrular.",
    "lvl": 3,
    "tip": "bosluk"
   },
@@ -408,7 +408,7 @@
     "so that the staff left the building calmly"
    ],
    "a": 3,
-   "e": "'As soon as' + Past Simple ile kurulan yan cümleye Past Simple bir ana cümle gerekir: 'the staff calmly left'. Bir saat önce çıkmak 'as soon as' ile çelişir; 'although' ve 'so that' ana cümle kurmaz.",
+   "e": "'As soon as' + Past Simple ile kurulan yan cümleye Past Simple bir ana cümle gerekir: 'the staff calmly left'. Bir saat önce çıkmak 'as soon as' ile çelişir. 'although' ve 'so that' ana cümle kurmaz.",
    "lvl": 3,
    "tip": "tamamla"
   },
@@ -422,7 +422,7 @@
     "so that an independent team can confirm the results"
    ],
    "a": 4,
-   "e": "Deneyin tekrarlanma amacı sonuçların doğrulanması: 'so that' + 'can'. 'because of' ve 'despite' arkasından cümle almaz; 'until' ile zaman uyumu bozuk.",
+   "e": "Deneyin tekrarlanma amacı sonuçların doğrulanması: 'so that' + 'can'. 'because of' ve 'despite' arkasından cümle almaz. 'until' ile zaman uyumu bozuk.",
    "lvl": 3,
    "tip": "tamamla"
   }

@@ -16,7 +16,7 @@
     "best"
    ],
    "a": 2,
-   "e": "'Smell' burada bağlama fiilidir ve ardından sıfat gelir: 'smells good'. 'Well' ve 'nicely' zarftır; kokunun nasıl olduğunu anlatmaz.",
+   "e": "'Smell' burada bağlama fiilidir ve ardından sıfat gelir: 'smells good'. 'Well' ve 'nicely' zarftır. Kokunun nasıl olduğunu anlatmaz.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -30,7 +30,7 @@
     "tiredness"
    ],
    "a": 1,
-   "e": "'Look' 'görünmek' anlamında sıfat alır: 'look tired' = yorgun görünmek. 'Tiredly' zarftır; 'tiring' ise 'yorucu' demektir ve kişiyi anlatmaz.",
+   "e": "'Look' 'görünmek' anlamında sıfat alır: 'look tired' = yorgun görünmek. 'Tiredly' zarftır. 'tiring' ise 'yorucu' demektir ve kişiyi anlatmaz.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -44,7 +44,7 @@
     "beautiful"
    ],
    "a": 4,
-   "e": "'Sound' 'kulağa … gelmek' anlamında sıfat alır: 'sounds beautiful'. Burada müzik bir eylem yapmıyor, bir izlenim veriyor; bu yüzden zarf kullanılmaz.",
+   "e": "'Sound' 'kulağa … gelmek' anlamında sıfat alır: 'sounds beautiful'. Burada müzik bir eylem yapmıyor, bir izlenim veriyor. Bu yüzden zarf kullanılmaz.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -100,7 +100,7 @@
     "soft"
    ],
    "a": 4,
-   "e": "'Feel' 'dokununca … gelmek' anlamında sıfat alır: 'feels very soft'. 'Softly' zarftır; 'very the softest' ise dil bilgisi açısından yanlıştır.",
+   "e": "'Feel' 'dokununca … gelmek' anlamında sıfat alır: 'feels very soft'. 'Softly' zarftır. 'very the softest' ise dil bilgisi açısından yanlıştır.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -128,7 +128,7 @@
     "cared"
    ],
    "a": 3,
-   "e": "Burada 'look at' bir eylemdir (bakmak) ve eylemi zarf niteler: 'look carefully at the map'. 'Careful' sıfattır; bakma eylemini niteleyemez.",
+   "e": "Burada 'look at' bir eylemdir (bakmak) ve eylemi zarf niteler: 'look carefully at the map'. 'Careful' sıfattır. Bakma eylemini niteleyemez.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -212,7 +212,7 @@
     "like"
    ],
    "a": 4,
-   "e": "'Feel like + isim' 'dokununca … gibi gelmek' demektir: 'feels like leather'. 'As if' ardından cümle ister; 'as' ve 'alike' bu yapıda kullanılmaz.",
+   "e": "'Feel like + isim' 'dokununca … gibi gelmek' demektir: 'feels like leather'. 'As if' ardından cümle ister. 'as' ve 'alike' bu yapıda kullanılmaz.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -226,7 +226,7 @@
     "sweeter as"
    ],
    "a": 3,
-   "e": "'Smell' kokunun niteliğini anlatırken sıfat alır: 'smell so sweet'. 'So' ardından üstünlük biçimi ('sweetest') gelmez; isim ve fiil biçimleri de yapıya uymaz.",
+   "e": "'Smell' kokunun niteliğini anlatırken sıfat alır: 'smell so sweet'. 'So' ardından üstünlük biçimi ('sweetest') gelmez. İsim ve fiil biçimleri de yapıya uymaz.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -254,7 +254,7 @@
     "is sounding like"
    ],
    "a": 1,
-   "e": "Bir fikir hakkında izlenim 'sound + sıfat' ile verilir: 'sounds good'. 'Sounds like' ardından isim ister; 'hear' ve 'listen' bu anlamda kullanılmaz.",
+   "e": "Bir fikir hakkında izlenim 'sound + sıfat' ile verilir: 'sounds good'. 'Sounds like' ardından isim ister. 'hear' ve 'listen' bu anlamda kullanılmaz.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -268,7 +268,7 @@
     "he looked relaxing and healthily"
    ],
    "a": 0,
-   "e": "'Look' 'görünmek' anlamında sıfat alır: 'looked relaxed and healthy'. 'Like' yalnızca isimden önce gelir; '-ly' zarflar bu yapıda yanlıştır.",
+   "e": "'Look' 'görünmek' anlamında sıfat alır: 'looked relaxed and healthy'. 'Like' yalnızca isimden önce gelir. '-ly' zarflar bu yapıda yanlıştır.",
    "lvl": 2,
    "tip": "tamamla"
   },
@@ -296,7 +296,7 @@
     "seemed that"
    ],
    "a": 1,
-   "e": "'Seem' ardından doğrudan sıfat alır: 'seemed reasonable'. 'Seemed like' isim ister; 'seemed to' fiil ister; 'seemed as' ve 'seemed that' bu yapıda yanlıştır.",
+   "e": "'Seem' ardından doğrudan sıfat alır: 'seemed reasonable'. 'Seemed like' isim ister. 'seemed to' fiil ister. 'seemed as' ve 'seemed that' bu yapıda yanlıştır.",
    "lvl": 3,
    "tip": "bosluk"
   },
@@ -324,7 +324,7 @@
     "as close"
    ],
    "a": 2,
-   "e": "'Look at' burada inceleme eylemidir ve zarf alır: 'looked closely at' = yakından, dikkatle baktı. 'Close' sıfattır; 'closer than' karşılaştırma ister.",
+   "e": "'Look at' burada inceleme eylemidir ve zarf alır: 'looked closely at' = yakından, dikkatle baktı. 'Close' sıfattır. 'closer than' karşılaştırma ister.",
    "lvl": 3,
    "tip": "bosluk"
   },
@@ -352,7 +352,7 @@
     "likely"
    ],
    "a": 3,
-   "e": "Ardından bir isim tamlaması geldiği için 'look like + isim' kullanılır. 'As if' cümle ister; 'alike' nesne almaz; 'likely' 'olası' demektir.",
+   "e": "Ardından bir isim tamlaması geldiği için 'look like + isim' kullanılır. 'As if' cümle ister. 'alike' nesne almaz. 'likely' 'olası' demektir.",
    "lvl": 3,
    "tip": "bosluk"
   },
@@ -366,7 +366,7 @@
     "weak"
    ],
    "a": 4,
-   "e": "'Sound' sesin nasıl geldiğini anlatır ve sıfat alır: 'sounded weak'. 'Weakly' zarftır; hasta burada bir eylem yapmıyor, bir izlenim veriyor.",
+   "e": "'Sound' sesin nasıl geldiğini anlatır ve sıfat alır: 'sounded weak'. 'Weakly' zarftır. Hasta burada bir eylem yapmıyor, bir izlenim veriyor.",
    "lvl": 3,
    "tip": "bosluk"
   },
@@ -380,7 +380,7 @@
     "like gentle"
    ],
    "a": 2,
-   "e": "'Feel' burada nesnesi olan bir eylemdir (dokunarak yoklamak); eylemi zarf niteler: 'felt the surface gently'. 'Gentle' sıfattır.",
+   "e": "'Feel' burada nesnesi olan bir eylemdir (dokunarak yoklamak). Eylemi zarf niteler: 'felt the surface gently'. 'Gentle' sıfattır.",
    "lvl": 3,
    "tip": "bosluk"
   },
@@ -408,7 +408,7 @@
     "but it tasted as surprisingly good"
    ],
    "a": 3,
-   "e": "'Taste' tadı anlatırken sıfat alır: 'tasted surprisingly good'. 'Well' zarftır; 'like' isim ister; bu anlamda 'taste' sürekli zamanda kullanılmaz.",
+   "e": "'Taste' tadı anlatırken sıfat alır: 'tasted surprisingly good'. 'Well' zarftır. 'like' isim ister. Bu anlamda 'taste' sürekli zamanda kullanılmaz.",
    "lvl": 3,
    "tip": "tamamla"
   },
@@ -422,7 +422,7 @@
     "of nobody living there for centuries"
    ],
    "a": 1,
-   "e": "'As though' ardından tam bir cümle gelir: 'nobody has lived in it for centuries'. 'For centuries' Present Perfect ister; 'live' fiili 'in' edatıyla kullanılır.",
+   "e": "'As though' ardından tam bir cümle gelir: 'nobody has lived in it for centuries'. 'For centuries' Present Perfect ister. 'live' fiili 'in' edatıyla kullanılır.",
    "lvl": 3,
    "tip": "tamamla"
   }

@@ -16,7 +16,7 @@
     "during"
    ],
    "a": 2,
-   "e": "'2018' bir başlangıç noktasıdır; başlangıç noktası 'since' ile verilir. 'For' süre (beş yıl gibi) için kullanılır.",
+   "e": "'2018' bir başlangıç noktasıdır. Başlangıç noktası 'since' ile verilir. 'For' süre (beş yıl gibi) için kullanılır.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -30,7 +30,7 @@
     "from"
    ],
    "a": 0,
-   "e": "'Six years' bir süredir; süre 'for' ile verilir: 'for six years'. 'Since' bir başlangıç noktası ister, 'ago' ise Present Perfect ile kullanılmaz.",
+   "e": "'Six years' bir süredir. Süre 'for' ile verilir: 'for six years'. 'Since' bir başlangıç noktası ister, 'ago' ise Present Perfect ile kullanılmaz.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -58,7 +58,7 @@
     "at"
    ],
    "a": 1,
-   "e": "'Three months' bir süre bildirir; Present Perfect ile süre 'for' ile verilir. 'Since' başlangıç noktası ister.",
+   "e": "'Three months' bir süre bildirir. Present Perfect ile süre 'for' ile verilir. 'Since' başlangıç noktası ister.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -72,7 +72,7 @@
     "have been"
    ],
    "a": 4,
-   "e": "On yıl önce başlayıp bugün de süren durum Present Perfect ile anlatılır. Özne çoğul olduğu için 'have been'; 'are married for ten years' yanlıştır.",
+   "e": "On yıl önce başlayıp bugün de süren durum Present Perfect ile anlatılır. Özne çoğul olduğu için 'have been'. 'are married for ten years' yanlıştır.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -100,7 +100,7 @@
     "in"
    ],
    "a": 3,
-   "e": "'Last Sunday' bir başlangıç noktasıdır; Present Perfect ile 'since' kullanılır: 'since last Sunday'. 'For' süre için kullanılır.",
+   "e": "'Last Sunday' bir başlangıç noktasıdır. Present Perfect ile 'since' kullanılır: 'since last Sunday'. 'For' süre için kullanılır.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -128,7 +128,7 @@
     "have lived"
    ],
    "a": 1,
-   "e": "'Since 2020' şimdiye kadar süren bir dönemi gösterir: Present Perfect. Aylin tekil olduğu için 'has lived'; 'lives since' yanlıştır.",
+   "e": "'Since 2020' şimdiye kadar süren bir dönemi gösterir: Present Perfect. Aylin tekil olduğu için 'has lived'. 'lives since' yanlıştır.",
    "lvl": 1,
    "tip": "bosluk"
   },
@@ -156,7 +156,7 @@
     "am meeting"
    ],
    "a": 1,
-   "e": "'Last year' bitmiş bir geçmiş zamandır ve Present Perfect ile kullanılmaz; Past Simple gerekir: 'met'. Cümlenin ikinci yarısı ise o andan bugüne uzanır.",
+   "e": "'Last year' bitmiş bir geçmiş zamandır ve Present Perfect ile kullanılmaz. Past Simple gerekir: 'met'. Cümlenin ikinci yarısı ise o andan bugüne uzanır.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -184,7 +184,7 @@
     "has / have"
    ],
    "a": 0,
-   "e": "'How long' ile bugüne kadar süren sahiplik sorulur: Present Perfect 'has + özne + had'. Nora tekil olduğu için 'have' olmaz; 'have' sahiplik anlamında -ing almaz.",
+   "e": "'How long' ile bugüne kadar süren sahiplik sorulur: Present Perfect 'has + özne + had'. Nora tekil olduğu için 'have' olmaz. 'have' sahiplik anlamında -ing almaz.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -198,7 +198,7 @@
     "has worked / since"
    ],
    "a": 4,
-   "e": "'She was twenty-two' bir başlangıç noktasıdır ve 'since' ile verilir; bugüne uzanan dönem Present Perfect ister: 'has worked / since'.",
+   "e": "'She was twenty-two' bir başlangıç noktasıdır ve 'since' ile verilir. Bugüne uzanan dönem Present Perfect ister: 'has worked / since'.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -212,7 +212,7 @@
     "will be"
    ],
    "a": 2,
-   "e": "'It has been + süre + since + Past Simple' kalıbı, bir olaydan bu yana geçen süreyi anlatır: 'It has been three weeks'. 'It' ile 'have' kullanılmaz; 'has' tek başına 'been' olmadan eksik kalır.",
+   "e": "'It has been + süre + since + Past Simple' kalıbı, bir olaydan bu yana geçen süreyi anlatır: 'It has been three weeks'. 'It' ile 'have' kullanılmaz. 'has' tek başına 'been' olmadan eksik kalır.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -226,7 +226,7 @@
     "For how long"
    ],
    "a": 0,
-   "e": "Cevap bitmiş bir zaman noktasıdır ('last month') ve soru Past Simple ile kurulmuştur; 'When' sorulur. 'How long' süreyi sorar, Present Perfect ile kullanılır.",
+   "e": "Cevap bitmiş bir zaman noktasıdır ('last month') ve soru Past Simple ile kurulmuştur. 'When' sorulur. 'How long' süreyi sorar, Present Perfect ile kullanılır.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -240,7 +240,7 @@
     "for since last year"
    ],
    "a": 3,
-   "e": "'Since' bir başlangıç noktası, burada da bir geçmiş cümle alabilir: 'since he was eleven'. 'Since five years' yanlıştır; süre 'for' ile verilir.",
+   "e": "'Since' bir başlangıç noktası, burada da bir geçmiş cümle alabilir: 'since he was eleven'. 'Since five years' yanlıştır. Süre 'for' ile verilir.",
    "lvl": 2,
    "tip": "tamamla"
   },
@@ -254,7 +254,7 @@
     "haven't seen"
    ],
    "a": 4,
-   "e": "'Since last summer' bugüne kadar uzanan bir dönemi gösterir; olumsuz Present Perfect gerekir: 'haven't seen'. 'Didn't see' ile 'since' bu anlamda kullanılmaz.",
+   "e": "'Since last summer' bugüne kadar uzanan bir dönemi gösterir. Olumsuz Present Perfect gerekir: 'haven't seen'. 'Didn't see' ile 'since' bu anlamda kullanılmaz.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -282,7 +282,7 @@
     "buy / ago"
    ],
    "a": 2,
-   "e": "'Ago' bitmiş bir zamanı gösterir ve Past Simple ile kullanılır: 'bought / ago'. 'Have bought ... ago' yanlıştır; satın almak tek seferlik olduğu için 'for' da uymaz.",
+   "e": "'Ago' bitmiş bir zamanı gösterir ve Past Simple ile kullanılır: 'bought / ago'. 'Have bought ... ago' yanlıştır. Satın almak tek seferlik olduğu için 'for' da uymaz.",
    "lvl": 2,
    "tip": "bosluk"
   },
@@ -296,7 +296,7 @@
     "has been"
    ],
    "a": 4,
-   "e": "'Since + geçmiş cümle' bugüne kadar süren bir durumu gösterir: Present Perfect. Özne tekil ('the museum') olduğu için 'has been'; 'was' ve 'is' 'since' ile bu anlamda kullanılmaz.",
+   "e": "'Since + geçmiş cümle' bugüne kadar süren bir durumu gösterir: Present Perfect. Özne tekil ('the museum') olduğu için 'has been'. 'was' ve 'is' 'since' ile bu anlamda kullanılmaz.",
    "lvl": 3,
    "tip": "bosluk"
   },
@@ -310,7 +310,7 @@
     "had fallen"
    ],
    "a": 0,
-   "e": "'Since the new law came into force' bugüne kadar uzanan bir dönemi verir; o dönemdeki değişim Present Perfect ile anlatılır: 'has fallen'. 'Had fallen' geçmişte bir referans ister.",
+   "e": "'Since the new law came into force' bugüne kadar uzanan bir dönemi verir. O dönemdeki değişim Present Perfect ile anlatılır: 'has fallen'. 'Had fallen' geçmişte bir referans ister.",
    "lvl": 3,
    "tip": "bosluk"
   },
@@ -324,7 +324,7 @@
     "until"
    ],
    "a": 2,
-   "e": "'The past decade' bir süredir; Present Perfect ile süre 'for' ile verilir. 'Since' bir başlangıç noktası ister, örneğin 'since 2015'.",
+   "e": "'The past decade' bir süredir. Present Perfect ile süre 'for' ile verilir. 'Since' bir başlangıç noktası ister, örneğin 'since 2015'.",
    "lvl": 3,
    "tip": "bosluk"
   },
@@ -338,7 +338,7 @@
     "has had"
    ],
    "a": 3,
-   "e": "'Since 1995' bugüne kadar süren bir durumu gösterir: Present Perfect. Özne çoğul olduğu için 'have had'; 'have' sahiplik anlamında -ing almaz.",
+   "e": "'Since 1995' bugüne kadar süren bir durumu gösterir: Present Perfect. Özne çoğul olduğu için 'have had'. 'have' sahiplik anlamında -ing almaz.",
    "lvl": 3,
    "tip": "bosluk"
   },
@@ -352,7 +352,7 @@
     "has / operate"
    ],
    "a": 1,
-   "e": "'How long' ile bugüne kadar süren faaliyet sorulur: Present Perfect 'has + özne + V3'. Şirket tekil olduğu için 'have' olmaz; 'has' ile yalın fiil kullanılmaz.",
+   "e": "'How long' ile bugüne kadar süren faaliyet sorulur: Present Perfect 'has + özne + V3'. Şirket tekil olduğu için 'have' olmaz. 'has' ile yalın fiil kullanılmaz.",
    "lvl": 3,
    "tip": "bosluk"
   },
@@ -380,7 +380,7 @@
     "works / started"
    ],
    "a": 0,
-   "e": "Çevirmenlik bitmiş bir dönemdir ve 'two years ago' bitmiş zamandır; ikisi de Past Simple olur: 'worked / started'. 'Ago' ile Present Perfect kullanılmaz.",
+   "e": "Çevirmenlik bitmiş bir dönemdir ve 'two years ago' bitmiş zamandır. İkisi de Past Simple olur: 'worked / started'. 'Ago' ile Present Perfect kullanılmaz.",
    "lvl": 3,
    "tip": "bosluk"
   },
@@ -408,7 +408,7 @@
     "by"
    ],
    "a": 3,
-   "e": "'Over twenty years' (yirmi yılı aşkın) bir süredir ve 'for' ile verilir. 'Since' başlangıç noktası ister; 'ago' Present Perfect ile kullanılmaz.",
+   "e": "'Over twenty years' (yirmi yılı aşkın) bir süredir ve 'for' ile verilir. 'Since' başlangıç noktası ister. 'ago' Present Perfect ile kullanılmaz.",
    "lvl": 3,
    "tip": "bosluk"
   },

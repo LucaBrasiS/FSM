@@ -797,13 +797,18 @@ VERBS.forEach(function(v){VBY[v.w]=v;VTR[v.lv+'|'+v.tr]=v});
 var ART=/*@@ART@@*/{icons:{},ui:{},words:{}};
 var artCache={};
 /* kalıp kesim çıkartma: beyaz kenar, koyu dış çizgi ve sert gölge SVG'nin içinde çizilir; s = küçük (albüm), l = büyük (ödül) */
-var CUT={s:{w:2.1,o:1.05,dy:1.5,b:.45,pad:5.2},l:{w:1.5,o:.65,dy:.9,b:.35,pad:3.6}};
+var CUT={s:{w:2.1,o:1.05,dy:1.5,b:.45,pad:5.2},l:{w:1.5,o:.65,dy:.9,b:.35,pad:3.6},o:{o:1.05,pad:1.6,line:1}};   // o: yalnız koyu dış çizgi (ünite simgeleri Lokum'un çizgisine yaklaşır)
 function art(name,size,cls,cut){
   var body=ART.icons[name],P=cut&&CUT[cut],key=name+(P?'|'+cut:'');
   if(!body)return'';
   var src=artCache[key];
   if(!src){
-    var svg=P
+    var svg=P&&P.line
+      ?'<svg xmlns="http://www.w3.org/2000/svg" viewBox="'+(-P.pad)+' '+(-P.pad)+' '+(32+2*P.pad)+' '+(32+2*P.pad)+'"><defs>'+
+        '<filter id="c" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">'+
+        '<feMorphology in="SourceAlpha" operator="dilate" radius="'+P.o+'" result="o"/><feFlood flood-color="#17132B"/><feComposite in2="o" operator="in" result="ol"/>'+
+        '<feMerge><feMergeNode in="ol"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g filter="url(#c)">'+body+'</g></svg>'
+      :P
       ?'<svg xmlns="http://www.w3.org/2000/svg" viewBox="'+(-P.pad)+' '+(-P.pad)+' '+(32+2*P.pad)+' '+(32+2*P.pad)+'"><defs>'+
         '<filter id="c" x="-30%" y="-30%" width="160%" height="170%" color-interpolation-filters="sRGB">'+
         '<feMorphology in="SourceAlpha" operator="dilate" radius="'+P.w+'" result="d"/><feGaussianBlur in="d" stdDeviation="'+P.b+'" result="db"/>'+
@@ -817,7 +822,7 @@ function art(name,size,cls,cut){
   }
   return '<img class="art'+(cls?' '+cls:'')+'" src="'+src+'" width="'+size+'" height="'+size+'" alt="" draggable="false">';
 }
-function ui(key,size,cls,cut){return art(ART.ui[key],size,cls,cut)}
+function ui(key,size,cls,cut){return art(ART.ui[key],size,cls,cut||(key.slice(0,2)==='u-'?'o':''))}   // ünite simgeleri hazır çizim: koyu dış çizgiyle
 
 /* ---- Lokum: uygulamanın maskotu, bu proje için çizildi (düz renk, eşit kalınlıkta koyu dış çizgi, yazısız).
    Pudra şekerli, yumuşak köşeli bir lokum küpü. Pozlar: hi el sallar, happy gülümser, cheer kollarını kaldırır,
@@ -1949,11 +1954,20 @@ function showFb(){                                         // geri bildirim gör
   var bd=app.querySelector('.body:not(.navghost)');if(!bd||reduced())return;   // hareketi azalt: kaydırma yok, gövde elle kaydırılır
   setTimeout(function(){
     if(!bd.isConnected)return;                             // bu arada Devam'a basıldıysa yeni soru kımıldamaz
-    var el=bd.querySelector('.whyno')||bd.querySelector('.res');if(!el)return;
+    var el=bd.querySelector('.whyno')||bd.querySelector('.res'),pill=bd.querySelector('.res');if(!el)return;
     var br=bd.getBoundingClientRect(),need=el.getBoundingClientRect().bottom+12-br.bottom;if(need<=0)return;
     var ok=bd.querySelector('.opts.done .opt.ok'),pk=bd.querySelector('.opts.done .opt.picked'),top=Math.min(ok?ok.getBoundingClientRect().top:1e9,pk?pk.getBoundingClientRect().top:1e9);
-    need=Math.min(need,Math.max(0,top<1e9?top-br.top-8:need));if(need<=0)return;   // doğru ve seçilen şık ekranda kalır
-    try{bd.scrollTo({top:bd.scrollTop+need,behavior:'smooth'})}catch(e){bd.scrollTop+=need}
+    var room=top<1e9?top-br.top-8:need;                    // doğru ve seçilen şık ekranda kalır
+    var card=bd.querySelector('.wcard'),past=card?card.getBoundingClientRect().bottom-br.top+6:0;   // soru kartının tamamını geçmek için gereken kayma
+    var pillIn=pill&&pill.getBoundingClientRect().bottom<=br.bottom;
+    var go=0;
+    if(past<=0)go=Math.min(need,room);                     // kart zaten ekranın üstünde kalmış
+    else if(past<=room)go=need>=past?Math.min(need,room):(pillIn?0:past);   // ya kartı bütünüyle geç ya hiç kayma: kart yarıdan kesilmez
+    // kart geçilemiyorsa hiç kaymaz: kart yarıdan kesilmez, renkler zaten sonucu gösteriyor, açıklamaya elle inilir
+    var maxS=bd.scrollHeight-bd.clientHeight-bd.scrollTop;   // içerik o kadar kaydırılamıyorsa kart yine yarıda kalırdı
+    if(go>maxS)go=past>0&&maxS<past?0:maxS;
+    if(go<=0)return;
+    try{bd.scrollTo({top:bd.scrollTop+go,behavior:'smooth'})}catch(e){bd.scrollTop+=go}
   },320);
 }
 function wband(x,w,kind,sayText){
@@ -2027,7 +2041,7 @@ function vWord(){
   var detail='<section class="wcard p'+x.pos+'">'+wband(x,w,Q.kind,x.w+'. '+plain(x.en))+'<div class="wbody">'+
     '<div class="hwline"><div class="hw" lang="en">'+esc(x.w)+'</div>'+(ART.words[x.w]?'<span class="wart">'+art(ART.words[x.w],40)+'</span>':'')+'</div><p class="mean">'+esc(x.tr)+'</p>'+
     '<p class="syn">Eş anlamlı: <span lang="en">'+esc(x.syn.join(' · '))+'</span></p><hr class="rule">'+
-    '<p class="ex" lang="en">'+marked(x.en)+'</p><p class="tr">'+esc(x.trs)+'</p></div></section>';
+    (f==='tr'?'':'<p class="ex" lang="en">'+marked(x.en)+'</p>')+'<p class="tr">'+esc(x.trs)+'</p></div></section>';   // anlam sorusunda cümle zaten üstteki kartta: yalnız Türkçesi kalır
   return (Q.solo?soloHead('Deneme sorusu'):(Q.kind==='f'?finalHead(ses,ses.fi):progHead(ses,ses.i)))+'<div class="body">'+
     card+ask+area+resPill(Q.ok?'ok':(Q.picked===-1?'idk':'no'),title,esc(sub),Q.fresh)+fix+why+detail+'</div>'+
     '<footer class="foot">'+(Q.solo?soloFoot('tryfmt',f)
@@ -2552,7 +2566,7 @@ function vGRes(){
   else pri='<button class="btn pri" data-act="tab" data-v="units" data-focus>Ünitelere dön</button>';
   return '<header class="top"><button class="x" '+gBack()+'>'+I.x+'</button><div class="brand"><span>'+esc(GQ.title)+'</span></div></header><div class="body">'+
     '<section class="party wl">'+(celebrate&&st>=2?burst():'')+lok(GQ.right===n?'love':(st>=2?'cheer':(st===1?'happy':'hi')),78,'partyart')+
-    '<p class="eyebrow">'+(id?esc(uName(id)[0]):esc(GMODE[GQ.mode]||GQ.title))+'</p><div class="score">'+GQ.right+' / '+n+'</div>'+starRow(st,30)+
+    '<p class="eyebrow"'+(id&&uName(id)[2]?' lang="en"':'')+'>'+(id?esc(uName(id)[0]):esc(GMODE[GQ.mode]||GQ.title))+'</p><div class="score">'+GQ.right+' / '+n+'</div>'+starRow(st,30)+
     '<p class="pnote">'+msg+extra+'</p>'+(GQ.pb!=null?'<div class="haul"><span class="chip new">'+ui('trophy',22)+'Kendi rekorunu geçtin: '+GQ.pb+' → '+GQ.pbn+'</span></div>':'')+'</section>'+
     (wrong?'<section class="card"><h2>Yanlışların · '+GQ.wrong.length+'</h2>'+wrong+'</section>':'')+'</div>'+
     '<footer class="foot">'+(id?'<button class="btn sec narrow" data-act="unit" data-id="'+id+'">Ünite</button>':(GQ.mode==='bag'||GQ.bag?'':'<button class="btn sec narrow" data-act="tab" data-v="units">Üniteler</button>'))+pri+'</footer>';

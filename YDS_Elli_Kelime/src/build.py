@@ -149,6 +149,12 @@ def main():
         key = "stk-" + name[3:]
         assert key in art["ui"], ("çıkartma anahtarı yok", key)
         art["ui"][key] = name
+    # arayüz simgeleri de aynı çizgide, yüzsüz (sanat/arayuz-uret.py)
+    for name, body in json.loads((ROOT / "data" / "arayuz.json").read_text(encoding="utf-8")).items():
+        key = name[3:]
+        assert key in art["ui"], ("arayüz anahtarı yok", key)
+        art["icons"][name] = body
+        art["ui"][key] = name
     used = set(art["ui"].values()) | set(art["words"].values())
     art["icons"] = {k: v for k, v in art["icons"].items() if k in used}   # yalnız eski çıkartmada kullanılan emoji çizimleri dosyaya girmez
     lic = (ROOT / "assets" / "FLUENT-EMOJI-LICENSE.txt").read_text(encoding="utf-8").strip()
