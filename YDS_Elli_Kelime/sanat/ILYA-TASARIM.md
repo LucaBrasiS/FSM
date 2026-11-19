@@ -215,3 +215,17 @@ Eski testlerde değişenler:
 2. Çıkartmalar hazır Fluent Emoji ve tek bir temaları yok. Gemini ile Lokum'un çizgisinde 24'lük bir set.
 3. Sesler gerçek telefonda dinlenmeli. Orta sınıf bir Android'de %50 seste şu sırayla: ok (seri 1 ve 7), no, idk, giggle, fire, kutu açılışı, tada. Kötü olanın tek satırı geri alınır.
 4. Küçükler, dokunulmadı: Lokum'un balonu 2,4 s tarih satırını örtüyor (isteğe bağlı dokunuşta); kart geçişinde 100 ms çift pozlama (zevk); 320×568'de Eşleşme mi?'nin yardım yazısı altbilginin altında kalıyor (önceden de böyleydi).
+
+
+## 9/10 turu (İlya'nın 8/10 raporundan sonra)
+
+Necip: "sen dene baklaım 9 için neler yapacaksın." Yapılanlar:
+
+1. **Şıklar cevapta yerinde.** Sonuç ekranında beş şık soru ekranındaki yerinde kalır; doğru yeşil ve tikli, seçilen yanlış kırmızı ve çarpılı, ötekiler soluk. Hap ve "Neden yanlış?" şıkların altında, kelime kartı en altta. Kelime turu, cümle tamamlama, gramer ve fiil taramasında 320–390 px'te 0 px kayma (`test/run15.js`).
+2. **Yumuşak kaydırma kartı kesmez.** Açıklama görünmüyorsa gövde ya hiç kaymaz ya soru kartının (ve soru cümlesinin) tamamını geçer.
+3. **Çıkartmalar ve arayüz simgeleri bizim çizgimizde.** 24 çıkartma Lokum'un yüzüyle (`sanat/cikartma-uret.py`), 12 arayüz simgesi yüzsüz (`sanat/arayuz-uret.py`). Gramer ünitesi simgeleri ve 238 kelime görseli 1,05 birimlik #17132B dış çizgiyle gösterilir; ince kalanlar `sanat/ince-kelime-gorselleri.md` içinde.
+4. **Sesler.** Necip telefonda dinledi ve cevap seslerinin (doğru, "boing", fiil adımı, eşleşme, x3 zili) öncekini istedi; geri alındı. Kutu açılışı, seri alevi ve Lokum'un kıkırdaması son düzeltmelerdeki değerlerde.
+5. **Yazılar.** "Yapay zekâ kokmasın": ipuçları, Lokum'un sözleri, Nasıl işliyor, kutu ve albüm notları sadeleşti; çeviri kokan sözler gitti ("Durdurulamazsın!" → "Seni tutan yok!"). Gramer ve bağlaç açıklamalarında 783 noktalı virgül noktaya çevrildi.
+6. **Küçükler.** Lokum konuşurken balon tarih satırının yerine geçer. Kısa ekranda eşleşme oyununun yardım yazısı gizlenir. Fiil taramasında altbilgi Devam olmasa da aynı boyda kalır. Gramer sonucunda İngilizce ünite adı Türkçe büyük harfe çevrilmez. Balon ipi 10 px, satır arası 36 px: ip alttaki balona girmez.
+
+İlya'nın sonucu: **9/10.** Kalan cila: 43 gramer ünitesi simgesinin düz renge yeniden çizilmesi (önce ilk 13), ince kelime görselleri için Gemini parçaları.

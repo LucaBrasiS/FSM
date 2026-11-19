@@ -568,13 +568,13 @@ body.room .idots i.on{background:var(--sun);border-color:var(--edge)}
 .gsay{font-weight:700;font-size:1.04rem}
 
 /* balon patlat */
-.sky{display:grid;grid-template-columns:1fr 1fr;gap:30px 10px;padding:8px 2px 26px;justify-items:center}
+.sky{display:grid;grid-template-columns:1fr 1fr;gap:36px 10px;padding:8px 2px 26px;justify-items:center}
 .bal{position:relative;width:min(100%,150px);aspect-ratio:1/1.08;border-radius:50%;background:var(--pc);color:var(--on-fill);border:2px solid var(--edge);
   box-shadow:inset -9px -11px 0 rgba(23,19,43,.13);display:grid;place-items:center;padding:12px;font-family:var(--display);font-weight:800;font-size:1.08rem;line-height:1.15;
   text-align:center;overflow-wrap:anywhere;animation:bob 2.6s ease-in-out infinite}
 .bal.long{font-size:.94rem}
 .bal::before{content:"";position:absolute;left:50%;bottom:-9px;width:14px;height:9px;margin-left:-7px;background:var(--pc);border:2px solid var(--edge);border-radius:2px 2px 7px 7px}
-.bal::after{content:"";position:absolute;left:50%;bottom:-25px;width:2px;height:16px;margin-left:-1px;background:var(--edge)}
+.bal::after{content:"";position:absolute;left:50%;bottom:-19px;width:2px;height:10px;margin-left:-1px;background:var(--edge)}   /* ip 19 px + sallanma 9 px + 8 px boşluk = satır arası 36 px */
 .bal:nth-child(2){animation-delay:-.6s}
 .bal:nth-child(3){animation-delay:-1.3s}
 .bal:nth-child(4){animation-delay:-1.9s}
@@ -1092,7 +1092,7 @@ function vIntro(){
   return progHead(ses,ses.i)+'<div class="body">'+
     '<p class="ask">Yeni kelimeler · '+(IN.k+1)+' / '+IN.ids.length+'<span class="idots" aria-hidden="true">'+dots+'</span></p>'+
     '<section class="wcard p'+x.pos+'">'+wband(x,{pin:0},'n',x.w+'. '+plain(x.en))+'<div class="wbody">'+
-    '<div class="hwline"><div class="hw" lang="en">'+esc(x.w)+'</div>'+(ART.words[x.w]?'<span class="wart">'+art(ART.words[x.w],40)+'</span>':'')+'</div>'+
+    '<div class="hwline"><div class="hw" lang="en">'+esc(x.w)+'</div>'+(ART.words[x.w]?'<span class="wart">'+art(ART.words[x.w],40,'','o')+'</span>':'')+'</div>'+
     '<p class="mean">'+esc(x.tr)+'</p><p class="syn">Eş anlamlı: <span lang="en">'+esc(x.syn.join(' · '))+'</span></p><hr class="rule">'+
     '<p class="ex" lang="en">'+marked(x.en)+'</p><p class="tr">'+esc(x.trs)+'</p></div></section>'+
     '<p class="note">Kelimeyi ve cümlesini oku, istersen dinle. Birazdan bu kelimeler sorulacak.</p></div>'+
@@ -1982,10 +1982,12 @@ function showFb(){                                         // geri bildirim gör
     var room=top<1e9?top-br.top-8:need;                    // doğru ve seçilen şık ekranda kalır
     var card=bd.querySelector('.wcard'),past=card?card.getBoundingClientRect().bottom-br.top+6:0;   // soru kartının tamamını geçmek için gereken kayma
     var pillIn=pill&&pill.getBoundingClientRect().bottom<=br.bottom;
+    var ask=card&&card.nextElementSibling&&card.nextElementSibling.classList.contains('ask')?card.nextElementSibling:null,askPast=ask?ask.getBoundingClientRect().bottom-br.top+4:0;
     var go=0;
     if(past<=0)go=Math.min(need,room);                     // kart zaten ekranın üstünde kalmış
     else if(past<=room)go=need>=past?Math.min(need,room):(pillIn?0:past);   // ya kartı bütünüyle geç ya hiç kayma: kart yarıdan kesilmez
     // kart geçilemiyorsa hiç kaymaz: kart yarıdan kesilmez, renkler zaten sonucu gösteriyor, açıklamaya elle inilir
+    if(ask&&go>past&&go<askPast)go=askPast<=room?askPast:past;   // soru cümlesinin satırı da yarıda kalmaz
     var maxS=bd.scrollHeight-bd.clientHeight-bd.scrollTop;   // içerik o kadar kaydırılamıyorsa kart yine yarıda kalırdı
     if(go>maxS)go=past>0&&maxS<past?0:maxS;
     if(go<=0)return;
@@ -2061,7 +2063,7 @@ function vWord(){
     if(wn)why='<section class="whyno"><h2>Neden yanlış?</h2><p>'+wn+(Q.solo?'':' İkisini bir dahaki soruda yan yana göreceksin.')+'</p></section>';
   }
   var detail='<section class="wcard p'+x.pos+'">'+wband(x,w,Q.kind,x.w+'. '+plain(x.en))+'<div class="wbody">'+
-    '<div class="hwline"><div class="hw" lang="en">'+esc(x.w)+'</div>'+(ART.words[x.w]?'<span class="wart">'+art(ART.words[x.w],40)+'</span>':'')+'</div><p class="mean">'+esc(x.tr)+'</p>'+
+    '<div class="hwline"><div class="hw" lang="en">'+esc(x.w)+'</div>'+(ART.words[x.w]?'<span class="wart">'+art(ART.words[x.w],40,'','o')+'</span>':'')+'</div><p class="mean">'+esc(x.tr)+'</p>'+
     '<p class="syn">Eş anlamlı: <span lang="en">'+esc(x.syn.join(' · '))+'</span></p><hr class="rule">'+
     (f==='tr'?'':'<p class="ex" lang="en">'+marked(x.en)+'</p>')+'<p class="tr">'+esc(x.trs)+'</p></div></section>';   // anlam sorusunda cümle zaten üstteki kartta: yalnız Türkçesi kalır
   return (Q.solo?soloHead('Deneme sorusu'):(Q.kind==='f'?finalHead(ses,ses.fi):progHead(ses,ses.i)))+'<div class="body">'+
