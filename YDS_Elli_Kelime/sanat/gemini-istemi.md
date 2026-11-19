@@ -66,7 +66,7 @@ Uygulamanın görsellerini, durağan ekran görüntülerinden yargılayan bir g�
   - ne sıklıkta okuduğunu.
 - **Demo aracı.** İki kez kullanıldı. Bu araç gerçek uygulamada yok; onu yargılama.
   - **01:40–01:43:** "Eşleşme mi?" oyunu bir deneme düğmesiyle açıldı. Gerçek uygulamada bu oyun üçüncü gün kutudan çıkar. Bu yüzden oyunun sonunda "Deneme oyunu" yazıyor ve çıkartma albüme eklenmiyor.
-  - **02:02–02:04:** Günün kalanı bir düğmeyle otomatik bitirildi.
+  - **02:01–02:03:** Günün kalanı bir düğmeyle otomatik bitirildi.
 - **Zaman dökümü.** Ekteki `Basamak-tanitim-dokum.txt`, hangi saniyede hangi adımın atıldığını, hangi sesin (iç adıyla) çaldığını ve neyin okunduğunu listeler.
   - Önce kendin izle ve dinle.
   - Dökümü yalnızca eşleştirmek için kullan, kanıt sayma.
