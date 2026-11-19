@@ -1,9 +1,10 @@
 // Basamak tanıtım kaydı, 2. adım: tanitim-kaydi.js çıktısından sesli MP4 üretir.
 //  - Efektler: kayıtta çalan her ses, uygulamanın kendi ses kodu (SFX) ile aynı anına yerleştirilip çevrimdışı yeniden üretilir.
-//  - İngilizce okuma: telefonda cihazın sesi okur; kayıtta yerine espeak-ng (en-gb) konur, okumanın kesildiği yerde kesilir.
+//  - İngilizce okuma: telefonda cihazın sesi okur. Kayıtta PIPER_MODEL verilmişse Piper'ın sinir ağı sesi (doğal), yoksa espeak-ng (en-gb)
+//    konur; okumanın kesildiği yerde kesilir. Ses modeli: npm'deki vowel-lab-voices-float (en_US-joe-medium, CC0), bkz. sanat/piper-ses-hazirla.py.
 //  - Üstte koyu bir şerit: bölüm adı, o anki adım ve süre sayacı. Uygulamanın ekranına dokunulmaz.
 // Kullanım: node tanitim-birlestir.js [kayıt klasörü] [Basamak.html] [çıktı.mp4]
-// Gerekenler: Node, Playwright'ın Chromium'u, ffmpeg (libx264, aac, drawtext), espeak-ng.
+// Gerekenler: Node, Playwright'ın Chromium'u, ffmpeg (libx264, aac, drawtext), espeak-ng; doğal okuma için piper ve PIPER_MODEL=<model.onnx>.
 const { chromium } = require('playwright'); const fs=require('fs'), path=require('path'), cp=require('child_process');
 const DIR=path.resolve(process.argv[2]||'tanitim');
 const HTML=[process.argv[3],path.join(__dirname,'..','index.html'),path.join(__dirname,'uygulama','Basamak.html')].filter(Boolean).find(f=>fs.existsSync(f));
@@ -20,7 +21,11 @@ const tmp=path.join(DIR,'_birlestir'); fs.mkdirSync(tmp,{recursive:true});
 (async()=>{
   // 1. okuma: her "speak" bir sonraki speak ya da stop anında kesilir
   const tts=[]; R.tts.forEach((e,i)=>{if(e.k!=='speak'||!e.s.trim())return;const nx=R.tts.slice(i+1).find(x=>x.t>e.t);tts.push({s:e.s,a:(e.t-T0)/1000,b:nx?(nx.t-T0)/1000:DUR})});
-  tts.forEach((e,i)=>{const f=path.join(tmp,'tts'+i+'.wav');cp.execFileSync('espeak-ng',['-v','en-gb','-s','145','-a','150','-w',f,e.s]);
+  const PM=process.env.PIPER_MODEL&&fs.existsSync(process.env.PIPER_MODEL)?process.env.PIPER_MODEL:null;
+  console.log('okuyan ses:',PM?'Piper ('+path.basename(PM)+')':'espeak-ng (yer tutucu)');
+  tts.forEach((e,i)=>{const f=path.join(tmp,'tts'+i+'.wav');
+    if(PM)cp.execFileSync('piper',['-m',PM,'-c',PM+'.json','--length-scale','1.1','-f',f],{input:e.s,stdio:['pipe','ignore','ignore']});   // öğrenen için biraz yavaş
+    else cp.execFileSync('espeak-ng',['-v','en-gb','-s','145','-a','150','-w',f,e.s]);
     const buf=fs.readFileSync(f);e.wav=buf.toString('base64');e.len=(buf.length-44)/(buf.readUInt32LE(28))});   // WAV başlığından süre
   // 2. efektler + okuma: çevrimdışı tek parça ses
   const b=await chromium.launch(); const p=await b.newPage(); await p.goto('about:blank');

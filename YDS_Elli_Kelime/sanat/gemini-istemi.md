@@ -60,13 +60,13 @@ Uygulamanın görsellerini, durağan ekran görüntülerinden yargılayan bir g�
   - Sayaç, oynatıcının zamanıyla aynıdır.
 - **Kayıt nasıl alındı.** Uygulama masaüstü tarayıcıda telefon boyunda (390×844) otomatik bir senaryoyla oynatıldı. Dokunuşlar bir insanınkinden daha düzenli ve biraz hızlı. Kullanıcının duraksamasını ya da kararsızlığını yargılama.
 - **Sesler gerçek.** Efektlerin hepsi uygulamanın kendi ürettiği seslerdir, kod içinde sentezlenir. Hoparlörden değil, doğrudan sayısal olarak alındılar. Telefon hoparlöründe tizler daha baskın, baslar daha zayıf duyulur.
-- **İngilizce okuyan ses bir yer tutucu.** Robotik İngilizce ses (espeak) yalnızca kayıt için kondu; telefonda cihazın kendi doğal sesi okur. Sesin kalitesini yargılama; şunları yargıla:
+- **İngilizce okuyan ses kayda sonradan kondu.** Kayıttaki ses Piper'ın yapay sinir ağı sesidir (en_US-joe-medium); telefonda kelimeyi cihazın kendi sesi okur. Sesin tınısını yargılama; şunları yargıla:
   - **ne zaman** okuduğunu,
   - neyle çakıştığını,
   - ne sıklıkta okuduğunu.
 - **Demo aracı.** İki kez kullanıldı. Bu araç gerçek uygulamada yok; onu yargılama.
-  - **01:39–01:42:** "Eşleşme mi?" oyunu bir deneme düğmesiyle açıldı. Gerçek uygulamada bu oyun üçüncü gün kutudan çıkar. Bu yüzden oyunun sonunda "Deneme oyunu" yazıyor ve çıkartma albüme eklenmiyor.
-  - **02:01–02:03:** Günün kalanı bir düğmeyle otomatik bitirildi.
+  - **01:40–01:43:** "Eşleşme mi?" oyunu bir deneme düğmesiyle açıldı. Gerçek uygulamada bu oyun üçüncü gün kutudan çıkar. Bu yüzden oyunun sonunda "Deneme oyunu" yazıyor ve çıkartma albüme eklenmiyor.
+  - **02:02–02:04:** Günün kalanı bir düğmeyle otomatik bitirildi.
 - **Zaman dökümü.** Ekteki `Basamak-tanitim-dokum.txt`, hangi saniyede hangi adımın atıldığını, hangi sesin (iç adıyla) çaldığını ve neyin okunduğunu listeler.
   - Önce kendin izle ve dinle.
   - Dökümü yalnızca eşleştirmek için kullan, kanıt sayma.
