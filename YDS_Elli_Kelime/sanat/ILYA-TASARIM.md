@@ -34,7 +34,7 @@ Dağınık süs eklemedim. Bütün değişiklikler beş kurala bağlı.
 
 ### Tanıtım kartı ve sorular
 `S/once-sonra/04-soru.png`, `05-dogru.png`, `06-yanlis.png`. Öğretim ekranları bilerek sakin kaldı.
-- **Doğru:** yeşil hap artık tik simgesi ve değişen bir övgüyle geliyor (Harika!, Süpersin!, Bildin!, Tam isabet!…). Seri anlarının kendi sözü var: üçte "Üç üst üste!", beşte "Beşte beş!", onda "On numara!". Tik işaretinden parıltı çıkar; seri anında x3, x5, x10 rozetinden kalpler de fışkırır. Ses değişmedi.
+- **Doğru:** yeşil hap artık tik simgesi ve değişen bir övgüyle geliyor (Harika!, Süpersin!, Bildin!, Tam isabet!…). Seri anlarının kendi sözü var: üçte "Üç üst üste!", beşte "Beşte beş!", onda "On numara!". Tik işaretinden parıltı çıkar; seri anında x3, x5, x10 rozetinden kalpler de fışkırır. Ses değişmedi. *(Sonra değişti: kalpler ve zil x5'ten başlıyor, doğru sesi 4 dB alçaldı; bkz. Son düzeltmeler, 2 ve 3.)*
 - **Yanlış:** "Yanlış" yerine "Bu sefer olmadı", altında "Sorun değil, yarın yeniden karşına çıkacak." Kırmızı renk, çarpı simgesi ve sallanma durduğu için durum açıkça okunuyor. Dürüstlük korunuyor, utandırma yok. "Neden yanlış?" kutusu aynen duruyor.
 - **Bilmiyorum:** artık yanlışın kırmızı hapı değil. Ampul simgeli sakin lila hap, sallanmadan. Bilmemek hata değil.
 - Gramer, bağlaç ve fiil taramasında da aynı hap ve aynı övgü dili var.
@@ -53,7 +53,7 @@ Dağınık süs eklemedim. Bütün değişiklikler beş kurala bağlı.
 Kutudan sırayla üç oyundan biri çıkar: balon, hafıza, eşleşme. Sürprizin gerçekten sürpriz olması için artık iki değil üç oyun var.
 - **Balon patlat** (`10-balon-patlat.png`): doğru balon kendi renginde parçalara ayrılır.
 - **Hafıza kartları** (`13-hafiza-kartlari.png`): kartların arkası pembe puantiyeli, ortasında kalp. Seçilmeyen 20 px başlık simgesi kaldırıldı. Eşleşen iki karttan kalpler çıkar.
-- **Eşleşme mi? (yeni)** `S/akis-eslesme-oyunu.png`: kartta bir İngilizce kelime ve bir Türkçe anlam var. Eşleşiyorsa sağa kaydırılır ya da kalbe dokunulur, eşleşmiyorsa sola ya da çarpıya. Sürüklerken "EŞLEŞME" ya da "DEĞİL" damgası belirir. Doğru karar kartı uçurur; doğru bir "eşleşiyor"dan kalpler çıkar. Yanlışta kart sallanır ve doğrusu yazılır ("observe aslında «gözlemlemek» demek."), 1,8 saniye sonra kart doğru yöne gider. Altı kart, yaklaşık 30 saniye. Bu yaş grubunun her gün kullandığı bir hareket, kelime öğretimine bağlandı. Eşleşen kartlar bugünkü kelimelerden, eşleşmeyenler aynı türden ve anlamı çakışmayan kelimelerden gelir.
+- **Eşleşme mi? (yeni)** `S/akis-eslesme-oyunu.png`: kartta bir İngilizce kelime ve bir Türkçe anlam var. Eşleşiyorsa sağa kaydırılır ya da kalbe dokunulur, eşleşmiyorsa sola ya da çarpıya. Sürüklerken "EŞLEŞME" ya da "DEĞİL" damgası belirir. Doğru karar kartı uçurur; doğru bir "eşleşiyor"dan kalpler çıkar. Yanlışta kart sallanır ve doğrusu yazılır ("observe aslında «gözlemlemek» demek."), 1,8 saniye sonra kart doğru yöne gider. *(Sonra değişti: yazı karakter sayısına göre 2,4–4,2 s kalıyor ve kapalı düğmelerin yerinde çıkıyor; bkz. Son düzeltmeler, 2.)* Altı kart, yaklaşık 30 saniye. Bu yaş grubunun her gün kullandığı bir hareket, kelime öğretimine bağlandı. Eşleşen kartlar bugünkü kelimelerden, eşleşmeyenler aynı türden ve anlamı çakışmayan kelimelerden gelir.
 
 ### Ödül
 `S/once-sonra/11-cikartma-odulu.png`, yavaş kareler `S/yavas/y1.png`. Önceki raporun 2. sorunu buydu: küçük ve boş.
@@ -70,7 +70,7 @@ Kutudan sırayla üç oyundan biri çıkar: balon, hafıza, eşleşme. Sürprizi
 - seri ("3 gün üst üste"),
 - bugünkü çıkartma,
 - "+N kelime öğrendin" (yalnız yeni öğrenilenler; pekiştirmeler sayılmaz),
-- toplam kelime eşiği aşıldıysa "Toplam 50 kelime oldu!" (10, 25, 50, 75, 100, 150, 200, 250 ve bütün liste),
+- toplam kelime eşiği aşıldıysa "Toplam 50 kelime oldu!" (10, 25, 50, 75, 100, 150, 200, 250 ve bütün liste), *(sonra: "50 kelimeye ulaştın!")*
 - yeni Lokum tadı açıldıysa "Yeni tat: Lavanta · dene" (dokununca Lokum o tada boyanır).
 
 Gün sonu kontrolü, en uzun seri ve eşleştirme notları sıkı tek bir blokta toplandı; eşik günlerinde de "Yarın" kartı ilk ekranda kalıyor.
@@ -85,7 +85,7 @@ Ayarlar'da "Lokum'un tadı" satırı. Her dokunuşta açık tatlar arasında dö
 - **Koyu tema** (`S/akis-koyu.png`, `29…34` çiftleri): zemin `#211A42`, yüzey `#30285F`. Kalın çizgi ve sert gölge koyu zeminde artık görünüyor (ön çalışmadaki 3. öneri, biraz daha sıcak tonla). Silüetler koyuda açık renkli.
 - **320 px:** bütün yeni ekranlar yatay kaydırma olmadan sığıyor (testte ölçülüyor).
 - **Hareketi azalt:** parçacıklar hiç çizilmez, kutu doğrudan açılır, eşleşme kartı uçmadan gelir.
-- **Sesler** tek düğmeyle kapanmaya devam ediyor. Yeni sesler: Lokum'un kıkırdaması, eşleşme oyununda "eşleşiyor" zili ve "eşleşmiyor" kayması, tada içinde çıkartmanın "tap"ı. Doğru, yanlış ve Bilmiyorum sesleri değişmedi.
+- **Sesler** tek düğmeyle kapanmaya devam ediyor. Yeni sesler: Lokum'un kıkırdaması, eşleşme oyununda "eşleşiyor" zili ve "eşleşmiyor" kayması, tada içinde çıkartmanın "tap"ı. Doğru, yanlış ve Bilmiyorum sesleri değişmedi. *(Sonra değişti; önce ve sonra ölçümleri Son düzeltmeler, 3'te.)*
 
 ## Kaldırılanlar
 - Kahraman ve kutlama kartlarındaki rastgele emojiler (hedef tahtası, kupa, konfeti, plaj şemsiyesi): yerlerinde Lokum var.
@@ -107,8 +107,111 @@ Hayır. Günlük akışa hiçbir adım eklenmedi. Kutu açılışı yaklaşık 0
 `scratchpad/test/run13.js` eklendi (55 denetim): Lokum, tat seçimi ve kilitli tat, övgü, yanlış ve Bilmiyorum hapları, parçacıkların kendini silmesi, oyun odası, kutu açılışı, eşleşme oyunu (düğme, sürükleme, yanlış), damga kartı, kalıp kesim albüm, gün özeti çipleri, bugünün kalbi, rekor, sessiz kip, hareketi azalt, koyu tema, 320 px. `hepsi.sh` bu paketi de çalıştırıyor (8 paket, 316 denetim; son çalıştırma: HEPSİ GEÇTİ). run6–run12 dosyalarına dokunulmadı; bilerek değiştirdiğim hiçbir davranış onları bozmadı.
 
 ## Kalan işler (Necip'in kararı)
-1. **Uygulama simgesi.** Bugünkü simge bir form satırı ve tik; mağazada ve ana ekranda bir karakter daha çok akılda kalır. Lokum'lu öneri hazır: `sanat/oneri-ikon-lokum.svg`, karşılaştırma `S/ikon/karsilastirma.png`. Onaylarsan `icon.svg`, `icon-*.png` ve `android/icons/*` bundan üretilmeli, sonra APK yeniden derlenmeli. Ben değiştirmedim; marka kararı senin.
+1. **Uygulama simgesi.** Bugünkü simge bir form satırı ve tik; mağazada ve ana ekranda bir karakter daha çok akılda kalır. Lokum'lu öneri hazır: `sanat/oneri-ikon-lokum.svg`, karşılaştırma `S/ikon/karsilastirma.png`. Onaylarsan `icon.svg`, `icon-*.png` ve `android/icons/*` bundan üretilmeli, sonra APK yeniden derlenmeli. Ben değiştirmedim; marka kararı senin. *(Güncelleme: Necip'in "yolu varsa yap" sözüyle yapıldı; bkz. Son düzeltmeler, 4. APK yeniden derlenmeli.)*
 2. **Gemini görselleri isteğe bağlı.** Mağaza öne çıkan görseli ve Lokum poz seti için istemler `sanat/gemini-gorseller.md` içinde. Uygulama bunlara muhtaç değil.
 3. **Gerçek telefonda deneme.** SVG filtreli çıkartmaların ve parçacıkların düşük güçlü Android'de akıcılığı ölçülmeli. Sesler telefon hoparlöründen dinlenmeli (özellikle kıkırdama ve "tap").
 4. **İleride:** temalı çıkartma setleri (set tamamlama anı), Lokum'a çalıştıkça açılan aksesuarlar (fiyonk, taç). İkisi de toplama döngüsünü uzatır ama şimdi gerekli değil.
 5. Ön çalışmadaki üç öneri (oyun odası, kalıp kesim albüm, açılmış koyu tema) uygulandı. `data/art.json` içinde daha önceden kalan, kullanılmayan birkaç çizim (madalya, not defteri, çerçeve…) ayrıca temizlenebilir.
+
+## Son düzeltmeler (gözlemci raporundan sonra)
+
+Gemini'ye ulaşılamadığı için tanıtım videosunu, tasarımda payı olmayan bir Claude gözlemcisi Gemini istemiyle (`sanat/gemini-istemi.md`) değerlendirdi. Sesi duyamadığı için ölçtü. Raporu ve ölçüm betikleri `scratchpad/gozlemci/` altında. Bu bölüm o rapordan sonra neyi neden değiştirdiğimi anlatır. Necip bilgisayar başında değildi ve "yolu varsa yap, sorma" dedi; simge kararını da bu yüzden ben verdim.
+
+Görseller `S6 = /tmp/claude-0/-home-user-FSM/5cd3a96b-661d-5662-80d5-279398c449c4/scratchpad/ilya6` altında:
+- 34 ekran: `S6/sonra/`
+- Yeni durumlar: `S6/ek/pafta-eslesme.png`, `S6/ek/pafta-fiil-seri.png`, `S6/ek/pafta-azalt-koyu.png`
+- Simge: `S6/ikon/kontrol-kucuk.png`, `S6/ikon/kontrol-buyuk.png`
+
+### 1. Dokunuş tuzağı (zorunlu, öğrenme verisi)
+**Hata.** Devam'a hızlı ya da geç ikinci bir dokunuş, sonraki soruyu "Bilmiyorum" diye kaydediyordu. Gözlemcinin betiğiyle yeniden üretildi: kelime turunda 120 ve 250 ms, fiil taramasında doğru cevaptan 700, 800 ve 1000 ms sonra.
+
+**Önce nerede ne durduğunu ölçtüm** (390, 360 ve 320 px; `S6/konum.js`, `S6/konum2.js`):
+- Devam'ın yerinde her soru ekranında Bilmiyorum çıkıyor. Bu kelime turu, gün sonu kontrolü, gramer, fiil taraması ve son tanıtım kartının "Soruları başlat" düğmesi için geçerli.
+- Bilmiyorum'un yerinde sonuç ekranında Sabitle ve Devam çıkıyor. Çift dokunuş kelimeyi sabitleyebiliyordu; bu da öğrenme verisi.
+- Gövdedeki başlat satırları ilk sorunun şıklarıyla üst üste biniyor. Bunlar ünite sayfasındaki test satırları ve fiil merkezindeki düzey satırları. Yani bu satırlara çift dokunuş ilk soruya rastgele bir şık yazabiliyordu.
+- Altbilgi ayrı bir bölge, gövde kaydırılıyor. Bu yüzden şıklar hiçbir zaman Devam'ın altına girmiyor.
+
+**Çözüm: konuma bağlı kapı.** Yeni bir soru ya da sonuç çizildikten sonraki 500 ms içinde, az önce dokunulan düğmenin dikdörtgenine (±8 px) düşen cevap ya da Sabitle dokunuşu yok sayılır. Kendiliğinden geçişte bu yer altbilgidir. Başka yere yapılan dokunuş hiç beklemez: Devam'dan hemen sonra bir şıkka dokunmak anında sayılır.
+- Gözlemci bütün cevap dokunuşlarını 400 ms yok saymayı önermişti. Benim kapım daha dar (yalnız tuzağın yeri), Sabitle'yi de kapsıyor ve 500 ms sürüyor (ölçülen en geç çift dokunuş 450 ms).
+- Kod: `GUARD`, `scrNow()`, `nearTap()`, tıklama dinleyicisi ve `render()` içindeki iki satır.
+
+**Fiil taraması.** Doğru cevapta Devam artık çizilmiyor; ekran 650 ms sonra kendiliğinden geçiyor (Quizlet Öğren gibi). Yanlış ve Bilmiyorum cevaplarında Devam durur ve bekler.
+
+**Kanıt.**
+- `test/run14.js` (37 denetim): çift ve geç dokunuş her yüzeyde; başlat satırları; Sabitle; kasıtlı dokunuşun yarım saniye sonra sayıldığı; şıkka hemen dokunmanın beklemediği.
+- Gözlemcinin betikleri, eski ve yeni sürümde aynı ölçüyle: eski sürümde "SAYILDI", yeni sürümde her denemede "etkilenmedi / sorun yok".
+
+### 2. Düzeltme listesi: kararlar
+| # | Karar | Neden |
+|---|---|---|
+| 3 | değiştirilerek | ok ve match önerildiği gibi −4 dB. Fiil taramasının okStep'i de aynı oranda, çünkü o turda da en sık ses oydu ve tur sonundaki kutlamadan yüksekti. |
+| 4 | değiştirilerek | Kutu açılışından tada kalktı, ama zil 0,5'te kaldı. 0,35'te telefonda x3 serideki bir doğru cevabın yalnız 1 dB üstündeydi. Açılışın bütün düzeyi neredeyse değişmedi; tada günde 2'den 1'e indi. |
+| 5 | değiştirilerek | Kıkırdama önerildiği gibi. Alev için önerilen değerler düz dBFS'te kutlama düzeyine çıkıyordu (−16,8) ama telefonda bir doğru cevap kadar kalıyordu (−22,3). Enerjiyi telefonun verdiği banda taşıdım (süzgeç 900→3200 Hz, ton 0,7). |
+| 6 | değiştirilerek | "Boing" ve çıkartmanın "tap"ı yukarı taşındı; "boing"in titreşim derinliği perdeyle birlikte ölçeklendi ki karakteri aynı kalsın. Trampet değişmedi: önerilen 260→180 Hz'in enerjisi yine %100 300 Hz altındaydı, telefonda −42 dB, ve zil 30 ms sonra başlıyor. |
+| 7 | değiştirilerek | x3 küçük ödül olarak kaldı: rozet belirip zıplar, "Üç üst üste!" der. Zil ve kalpler x5'ten başlar. Büyük kutlama günde 9,2'den 4,75'e iniyor (benzetim); Necip'in sık küçük ödül isteği korunuyor. |
+| 8 | değiştirilerek | Süre önerildiği gibi en az 2 s, 500 ms + karakter başına 60 ms. Boş 70 px'lik yuva yerine doğru anlam, karar sırasında zaten kapalı olan iki düğmenin yerinde yazar. 320×568'de yuva düğmeleri altbilginin arkasına iterdi. |
+| 9 | değiştirilerek | "N kelime eşiğini geçtin!" yerine "N kelimeye ulaştın!": toplam tam N olduğunda da doğru, "eşik" teknik bir söz. |
+| 10 | uygulandı | Son iki övgü yeniden çıkmaz; 30 doğruda tekrar yok, 8 övgünün hepsi görüldü. |
+
+### 3. Sesler: önce ve sonra
+Her ses tek başına, uygulamanın kendi koduyla, kayıt dışı çizildi (`S6/ses/uret.js`, `S6/ses/olc.py`; gözlemcinin yöntemi). Değerler 50 ms'lik en yüksek düzeydir, dB cinsinden: düz / A ağırlıklı / telefon modeli. Telefon modeli A ağırlığı ile 500 Hz yüksek geçiren süzgecin birlikte uygulanmasıdır; kaba bir taklittir.
+
+| Ses (günde) | Önce | Sonra |
+|---|---|---|
+| ok, seri 1 (~36) | −15,5 / −17,1 / −18,3 | −19,6 / −21,2 / −22,4 |
+| ok, seri 7+ | −15,5 / −14,6 / −14,6 | −19,6 / −18,7 / −18,7 |
+| gramer zili (≤10) | −14,9 / −16,6 / −17,8 | −19,0 / −20,7 / −22,0 |
+| match (~12) | −16,9 / −17,3 / −17,7 | −20,7 / −21,1 / −21,6 |
+| okStep, fiil turu (≤20) | −16,1 / −19,2 / −21,0 | −20,2 / −23,3 / −25,1 |
+| kutu açılışı (1) | zil+tada −12,6 / −16,2 / −16,5 | yalnız zil −13,3 / −16,5 / −16,6 |
+| tada, çıkartma (1) | −16,3 / −17,7 / −18,5 | −16,3 / −17,6 / −18,4 |
+| "tap" (tada içinde, tek başına) | telefon −36,3, merkez 245 Hz | telefon −29,4, merkez 581 Hz |
+| win, gün sonu (1) | −16,7 / −16,8 / −17,0 | değişmedi |
+| fire, seri alevi (1) | −25,1 / −26,2 / −26,2 | −13,8 / −16,7 / −18,9 |
+| giggle, Lokum (0–3) | −32,3 / −31,7 / −31,8 | −27,7 / −27,1 / −27,1 |
+| no, yanlış (~5) | −16,6 / −23,7 / −31,4 | −20,8 / −23,6 / −25,9 |
+| no 290, gramer | −16,6 / −24,9 / −33,5 | −20,8 / −24,3 / −27,6 |
+
+- "Boing"in ilk 250 ms'sindeki 300 Hz altı enerji %72'den %0'a indi. Perdesi ~340→220 Hz yerine ~640→430 Hz.
+- **Asıl bulgu.** Gözlemcinin değerleri düz dBFS'te istenen sırayı kuruyordu, ama A ağırlıklı ölçümde ve telefon modelinde kurmuyordu. Zil ve alev telefonda sıradan bir doğru cevaptan büyük duyulmuyordu. Kararları bu yüzden A ağırlıklı ve telefon modeli değerlerine göre verdim.
+- run14 bu sırayı da denetliyor: günde 20'den çok çalan ses her günlük kutlamanın en az 3 dB altında; yanlış ve Bilmiyorum doğru cevaptan alçak; kıkırdama duyulur ama doğru cevaptan alçak; "boing" 300 Hz'in üstünde.
+- Kimse dinlemedi. Her değişiklik tek satırdır, eski değeri bu tabloda ve `git diff` içinde durur.
+
+### 4. Uygulama simgesi: Lokum
+Kararı ben verdim, çünkü Necip "yolu varsa yap" dedi. Eski simge (üç satırlık form ve tik) 48 px'te üç ince çubuğa dönüşüyordu ve herhangi bir anket uygulaması gibiydi. Lokum aynı boyda bir yüz olarak okunuyor ve uygulamanın karakteri.
+
+Ana çizim `sanat/oneri-ikon-lokum.svg`. Tek değişiklik: parıltı başa yaklaştırıldı ve %15 küçüldü. Böylece maskelenebilir simgenin %80'lik güvenli dairesine giriyor; en uzak nokta 201 px, sınır 205 px.
+
+Üretilen dosyalar:
+- `icon.svg`
+- `icon-180.png`, `icon-192.png`, `icon-512.png`: RGB, tam dolu kare.
+- `android/icons/ic_launcher-*.png`: 48–192 px, bugünkü yuvarlak kare maskesiyle.
+- `android/icons/ic_launcher_fg-*.png`: 108–432 px, saydam ön plan. Arka plan uygulamanın morunu (#5B3DF5) veren renk kaynağı. En uzak nokta 128 px, 66 dp güvenli dairesi 132 px. Lokum tuvalin %57'si; eski çizim %46'ydı.
+
+Çizim Chromium ile yapıldı, maske ve renk tipi PIL ile; betik `S6/ikon/uret.js` ve `son.py`. Daire, yumuşak kare, damla ve yuvarlak kare maskelerinde 48, 72 ve 110 px'te açık ve koyu duvar kağıdında denetlendi. İmzasız deneme APK'sı yeni simgelerle üretildi. Hizmet çalışanı simgeleri "önce önbellek, arkada güncelle" düzeniyle verdiği için yeni simge web'de ikinci açılışta görünür.
+
+### 5. Çıkartma seti
+Değişmedi. Tek temalı bir set Gemini görseli istiyor, Gemini'ye buradan ulaşılamıyor.
+
+### 6. Gözlemcinin İLYA İÇİN tablosu
+On dört satırı kare dizileri, döküm ve yeni çekimlerle tek tek denetledim.
+- On iki satırı kendi gözümle doğruladım (kare dizileri ve döküm).
+- Ses düzeyi satırı karede denetlenemez; ölçümü kendim yeniden ürettim, gözlemcinin sayılarıyla birebir.
+- Hareketi azalt videoda yok; kendi çekimlerimle ve animasyon sayımıyla (0 animasyon, 0 parçacık) denetledim.
+- Bir satırda neden farklı çıktı: x3 rozetinin kendisi sayaca hiç binmiyor (iki sürümde de 0 kare). Sayacı örten, rozetten uçan kalplerdi: eski sürümde 154–604 ms arasında 28 kare, yeni sürümde x3'te 0 kare.
+- Bir satır yalnız kısmen doğru: seri hapının zıplaması 17. dizide +200–300 ms'de seçiliyor, ama çok küçük.
+
+### 7. Testler
+`test/run14.js` eklendi (37 denetim) ve `hepsi.sh` artık 9 paket, 353 denetim çalıştırıyor: HEPSİ GEÇTİ.
+
+Eski testlerde değişenler:
+- **Yalnız zamanlama.** run6 ve run7: setin ilk sorusundan önce 520 ms. run9 ve run13: Devam'ın yerindeki Bilmiyorum'dan önce 520 ms; run13 ayrıca test satırından sonraki ilk şıktan önce. run11: fiil düzey satırından sonra 520 ms. run10: sayfa saati kuruldu; doğru cevapta artık olmayan Devam'a basmak yerine 650 ms'lik geçiş ve 500 ms'lik kapı ileri sarılıyor. Hepsi insanın yapamayacağı kadar hızlı dokunuşlardı.
+- **Bilerek değiştirdiğim davranış, aynı sıkılıkta.** run11: x3'te ses kaydı "ok" (önce "ok,combo"), fiil x3'te "okStep,okStep", kutu açılışında "crash" (önce "crash,tada"). run13: "10 kelimeye ulaştın!".
+- Hiçbir denetim zayıflatılmadı; paketlerin denetim sayıları aynı.
+- run12 bu turdan önce de paralel yük altında arada bir kırılıyordu; tek başına art arda üç kez geçti.
+
+### 8. Kalanlar
+1. Cevap anında seçilen şık 300 px yukarı sıçrıyor (her cevapta; 03. kare dizisi). Sonuç ekranında şıklar yerinde kalıp renklenmeli, açıklama altta gelmeli. Bir sonraki tasarım turu.
+2. Çıkartmalar hazır Fluent Emoji ve tek bir temaları yok. Gemini ile Lokum'un çizgisinde 24'lük bir set.
+3. Sesler gerçek telefonda dinlenmeli. Orta sınıf bir Android'de %50 seste şu sırayla: ok (seri 1 ve 7), no, idk, giggle, fire, kutu açılışı, tada. Kötü olanın tek satırı geri alınır.
+4. Küçükler, dokunulmadı: Lokum'un balonu 2,4 s tarih satırını örtüyor (isteğe bağlı dokunuşta); kart geçişinde 100 ms çift pozlama (zevk); 320×568'de Eşleşme mi?'nin yardım yazısı altbilginin altında kalıyor (önceden de böyleydi).

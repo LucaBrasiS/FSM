@@ -702,6 +702,9 @@ button.chip:active{transform:translateY(3px);box-shadow:0 0 0 var(--edge)}
 .swb.no{background:var(--no)}
 .swb.yes{background:var(--ok)}
 .swb[disabled]{opacity:.55;cursor:default}
+.swfoot{position:relative}
+.swbtns.off{visibility:hidden}
+.swfoot>.res{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);justify-content:center;text-align:center}
 
 @media (max-width:379px){.top .mark{display:none}}         /* dar telefonda seri hapı ve ses düğmesine yer açılır */
 @media (max-width:359px){
@@ -1314,7 +1317,7 @@ function bell(f,t,v){tone(f,t,0.7,{v:v*0.8});tone(f*2.76,t,0.25,{v:v*0.2});tone(
 function kalimba(f,t,v){tone(f,t,0.3,{v:v,to:f*0.996});tone(f*3,t,0.05,{v:v*0.22,type:'triangle'});noise(t,0.012,{f:3200,v:v*0.3})}
 function pluck(f,t,v){tone(f,t,0.2,{v:v,type:'triangle'});tone(f*2,t,0.08,{v:v*0.3,type:'triangle'})}
 function note(tim,f,t,v){(tim==='bell'?bell:(tim==='kal'?kalimba:(tim==='plk'?pluck:mallet)))(f,t,v)}
-function milestone(n){return n===3||n===5||(n>=10&&n%5===0)}
+function milestone(n){return n===5||(n>=10&&n%5===0)}   // büyük seri kutlaması (ses ve kalpler); x3 yalnız rozetin belirişi ve sözüyle kutlanır
 var SFX={
   tap:function(){tone(600,0,0.07,{to:500,v:0.24})},                                          // nötr düğme: yumuşak "pıt"
   tapUp:function(){tone(520,0,0.08,{to:780,v:0.24})},                                        // ileri giden düğme: yukarı
@@ -1328,14 +1331,14 @@ var SFX={
   lift:function(){tone(400,0,0.06,{to:540,v:0.2,type:'triangle'})},
   ok:function(a){                                                                           // doğru: seri uzadıkça tizleşen iki vuruş
     var n=typeof a==='number'?a:((a&&a.n)|0),tim=(a&&a.t)||'mar',k=Math.min(6,Math.max(0,n-1));
-    note(tim,PENTA[k],0,0.5);note(tim,PENTA[k+2],0.09,0.5);
+    note(tim,PENTA[k],0,0.3);note(tim,PENTA[k+2],0.09,0.3);                                 // günde ~36 kez çalar: günlük kutlamaların ~4 dB altında
   },
   okStep:function(a){                                                                       // fiil taraması: turun 20 adımında bir oktav tırmanır
     var f=392*Math.pow(2,(a[0]|0)/Math.max(1,(a[1]|0)-1));
-    kalimba(f,0,0.5);kalimba(f*1.5,0.08,0.45);
+    kalimba(f,0,0.3);kalimba(f*1.5,0.08,0.27);
   },
-  combo:function(n){                                                                        // seri rozeti belirdi: x3 zil, x5 üç nota, x10 kısa fanfar
-    if(n===3){bell(1567.98,0.14,0.28);bell(2093,0.22,0.28);return}
+  combo:function(n){                                                                        // seri kutlaması: x5 üç nota, x10 ve sonrası kısa fanfar (x3 yalnız rozet ve söz)
+    if(n<5)return;
     if(n===5){[1318.51,1567.98,2093].forEach(function(f,k){mallet(f,0.14+k*0.07,0.32)});sparkle(0.36);return}
     tone(520,0.12,0.16,{to:1250,v:0.2,type:'triangle'});
     mallet(1046.5,0.3,0.3);mallet(1318.51,0.3,0.25);mallet(1567.98,0.3,0.25);
@@ -1344,18 +1347,18 @@ var SFX={
   yay:function(){mallet(659.25,0,0.45);mallet(783.99,0.08,0.45);mallet(1046.5,0.16,0.5);sparkle(0.26)},
   no:function(base){                                                                        // yanlış: çizgi film yayı "boing", her seferinde perdesi biraz oynar
     var a=audio();if(!a)return;
-    var t0=a.currentTime,d=0.4,osc=a.createOscillator(),lfo=a.createOscillator(),lg=a.createGain(),g=a.createGain(),f0=(base||330)*(0.93+Math.random()*0.14);
+    var t0=a.currentTime,d=0.4,osc=a.createOscillator(),lfo=a.createOscillator(),lg=a.createGain(),g=a.createGain(),f0=(base||330)*1.8*(0.93+Math.random()*0.14);   // telefon hoparlörü 300 Hz altını vermez: perde bir oktava yakın yukarıda
     osc.type='triangle';
-    osc.frequency.setValueAtTime(f0,t0);osc.frequency.exponentialRampToValueAtTime(f0*0.32,t0+d);
+    osc.frequency.setValueAtTime(f0,t0);osc.frequency.exponentialRampToValueAtTime(f0*0.45,t0+d);
     lfo.frequency.setValueAtTime(19,t0);lfo.frequency.linearRampToValueAtTime(7,t0+d);
-    lg.gain.setValueAtTime(70,t0);lg.gain.linearRampToValueAtTime(8,t0+d);
+    lg.gain.setValueAtTime(f0*0.21,t0);lg.gain.linearRampToValueAtTime(f0*0.024,t0+d);                   // titreşim perdeyle birlikte ölçeklenir: aynı "boing"
     lfo.connect(lg);lg.connect(osc.frequency);
-    g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(0.5,t0+0.012);g.gain.exponentialRampToValueAtTime(0.0001,t0+d+0.04);
+    g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(0.3,t0+0.012);g.gain.exponentialRampToValueAtTime(0.0001,t0+d+0.04);
     osc.connect(g);g.connect(OUT);
     osc.start(t0);lfo.start(t0);osc.stop(t0+d+0.08);lfo.stop(t0+d+0.08);
   },
   idk:function(){mallet(440,0,0.32);mallet(349.23,0.11,0.32)},                              // bilmiyorum: iki nota aşağı, yargısız
-  match:function(n){var k=Math.min(7,Math.max(0,(n|0)+1));mallet(PENTA[k],0,0.42);mallet(PENTA[k+2],0.07,0.42)},
+  match:function(n){var k=Math.min(7,Math.max(0,(n|0)+1));mallet(PENTA[k],0,0.26);mallet(PENTA[k+2],0.07,0.26)},
   miss:function(){tone(392,0,0.11,{type:'triangle',v:0.3});tone(311.13,0.13,0.2,{type:'triangle',v:0.3,to:262})},   // "ı-ıh"
   roll:function(n){                                                                         // sürpriz kutu: her dokunuşta uzayan trampet rulosu
     var hits=n===1?6:(n===2?10:14),dur=n===1?0.32:(n===2?0.5:0.42),loud=n===3?1.2:1;
@@ -1363,15 +1366,15 @@ var SFX={
     tone(150,0,0.12,{to:110,v:0.25});
     if(n===3)tone(130,dur,0.16,{to:90,v:0.32});
   },
-  crash:function(){noise(0,0.7,{type:'highpass',f:5200,q:0.5,v:0.5});tone(196,0,0.3,{v:0.18})},     // zil
+  crash:function(){noise(0,0.7,{type:'highpass',f:5200,q:0.5,v:0.5});tone(196,0,0.3,{v:0.18})},     // zil: kutu açılışının tek sesi
   bonus:function(){mallet(783.99,0,0.4);mallet(1046.5,0.1,0.4);sparkle(0.2)},                     // albüm dolu, tekrar gelen çıkartma
-  fire:function(){noise(0,0.45,{type:'lowpass',f:300,to:2600,q:1,v:0.5});tone(220,0.05,0.3,{to:520,v:0.14,type:'triangle'});sparkle(0.32)},   // gün serisi arttı
+  fire:function(){noise(0,0.45,{type:'lowpass',f:900,to:3200,q:1,v:1.0});tone(440,0.05,0.3,{to:1040,v:0.7,type:'triangle'});sparkle(0.32)},   // gün serisi arttı: telefonda da günlük kutlamalar kadar
   rattle:function(){[0,0.07,0.14,0.21].forEach(function(t){noise(t,0.045,{f:4200,q:3,v:0.4})});tone(220,0,0.12,{to:300,type:'triangle',v:0.2})},
   pop:function(n){noise(0,0.09,{type:'lowpass',f:1100,to:260,q:0.7,v:0.9});tone(880,0,0.08,{to:170,v:0.35});mallet(PENTA[Math.min(9,2+(n|0))],0.06,0.4)},
   fizz:function(){noise(0,0.38,{f:3200,to:380,q:2,v:0.4});tone(950,0,0.34,{to:210,type:'sawtooth',v:0.07})},     // kaçan balon "pfff"
-  tada:function(){tone(300,0,0.32,{to:1250,v:0.26});noise(0.33,0.05,{type:'lowpass',f:700,q:0.7,v:0.45});tone(170,0.33,0.12,{to:95,v:0.22});   // çıkartma yapışır "tap"
+  tada:function(){tone(300,0,0.32,{to:1250,v:0.26});noise(0.33,0.05,{type:'lowpass',f:1400,q:0.7,v:0.45});tone(340,0.33,0.12,{to:190,v:0.22});   // çıkartma yapışır "tap"
     [523.25,659.25,783.99,1046.5].forEach(function(f){mallet(f,0.34,0.2)});sparkle(0.5)},
-  giggle:function(){[0,0.085,0.17].forEach(function(t,k){tone(900+k*160,t,0.075,{to:1250+k*170,v:0.17,type:'triangle'})});tone(1567.98,0.27,0.12,{v:0.1})},   // Lokum kıkırdar "hi-hi-hi"
+  giggle:function(){[0,0.085,0.17].forEach(function(t,k){tone(900+k*160,t,0.075,{to:1250+k*170,v:0.3,type:'triangle'})});tone(1567.98,0.27,0.12,{v:0.18})},   // Lokum kıkırdar "hi-hi-hi"
   yes:function(){bell(1046.5,0,0.3);bell(1567.98,0.08,0.28);sparkle(0.15)},                      // eşleşme oyunu: doğru "eşleşiyor"
   nope:function(){noise(0,0.2,{f:1600,to:650,q:1.1,v:0.3});tone(560,0,0.12,{to:400,v:0.12,type:'triangle'})},   // doğru "eşleşmiyor": kart kayar gider
   win:function(){[523.25,659.25,783.99,1046.5].forEach(function(f,k){mallet(f,k*0.12,0.42)});[659.25,783.99,1046.5,1318.51].forEach(function(f){mallet(f,0.56,0.2)});sparkle(0.74)},
@@ -1481,15 +1484,14 @@ function vGift(){
   }
   if(G.game==='swp'){
     var sw=G.swp,c=sw.cards[sw.i],y=BY[c.id],N2=sw.cards.length,fb='';
-    if(sw.fb)fb=resPill('no',OOPS,sw.fb.ok?'Aslında eşleşiyor: <em lang="en">'+esc(y.w)+'</em> = '+esc(y.tr)+'.':'<em lang="en">'+esc(y.w)+'</em> aslında «'+esc(y.tr)+'» demek.',true);
+    if(sw.fb)fb=resPill('no',OOPS,sw.fb.ok?'Aslında eşleşiyor: <em lang="en">'+esc(y.w)+'</em> = '+esc(y.tr)+'.':'<em lang="en">'+esc(y.w)+'</em> aslında «'+esc(y.tr)+'» demek.',true);   // swRead() ile aynı cümle
     return head+'<div class="body mid">'+
       '<p class="ask">Eşleşme mi? · '+(sw.i+1)+' / '+N2+gameDots(N2,sw.i)+'</p>'+
       '<div class="swstage"><div class="swc" id="swc" role="group" aria-label="'+esc(y.w)+' ve '+esc(c.tr)+'">'+
       '<span class="stamp yes" aria-hidden="true">Eşleşme</span><span class="stamp no" aria-hidden="true">Değil</span>'+
       '<p class="lbl">Bu ikisi eşleşiyor mu?</p><div class="hw" lang="en">'+esc(y.w)+'</div><span class="swamp">'+I.heart+'</span><div class="meanbig">'+esc(c.tr)+'</div></div></div>'+
-      fb+
-      '<div class="swbtns"><button class="swb no" data-act="swno" aria-label="Eşleşmiyor"'+(sw.busy?' disabled':'')+'>'+I.xbig+'</button>'+
-      '<button class="swb yes" data-act="swyes" aria-label="Eşleşiyor"'+(sw.busy?' disabled':'')+'>'+I.heartbig+'</button></div>'+
+      '<div class="swfoot"><div class="swbtns'+(fb?' off':'')+'"><button class="swb no" data-act="swno" aria-label="Eşleşmiyor"'+(sw.busy?' disabled':'')+'>'+I.xbig+'</button>'+
+      '<button class="swb yes" data-act="swyes" aria-label="Eşleşiyor"'+(sw.busy?' disabled':'')+'>'+I.heartbig+'</button></div>'+fb+'</div>'+   // yanlışta doğrusu kapalı düğmelerin yerinde yazar: kart da düğmeler de kaymaz
       '<p class="note">Kartı sağa kaydır ya da kalbe dokun: eşleşiyor. Sola ya da çarpıya: eşleşmiyor.</p></div>'+
       '<footer class="foot">'+skip+'</footer>';
   }
@@ -1534,7 +1536,11 @@ function swDecide(yes){
   G.miss++;sfx('miss');
   sw.fb={ok:c.ok};render(true);
   var e=document.getElementById('swc');if(e&&!reduced())e.classList.add('nope');
-  setTimeout(function(){if(G===cur&&sw.i===at)fly(c.ok)},1800);
+  setTimeout(function(){if(G===cur&&sw.i===at)fly(c.ok)},swRead(c));
+}
+function swRead(c){                                       // doğrusu okunacak kadar kalır: en az 2 sn, 500 ms + karakter başına 60 ms
+  var y=BY[c.id],t=c.ok?'Aslında eşleşiyor: '+y.w+' = '+y.tr+'.':y.w+' aslında «'+y.tr+'» demek.';
+  return Math.max(2000,500+60*t.length);
 }
 var lokMet=false;
 function lokTap(b){
@@ -1615,12 +1621,12 @@ function vAnswer(k){
   S.vs[q.w]=code;VS.res.push(code);save();
   VS.cb=q.ok?VS.cb+1:0;
   q.pr=q.ok?praise(VS.cb):'';
-  if(q.ok){sfx('okStep',[VS.i,VS.ids.length]);if(milestone(VS.cb)){sfx('combo',VS.cb);BUMP='combo'}}else sfx(k<0?'idk':'no',370);
+  if(q.ok){sfx('okStep',[VS.i,VS.ids.length]);if(milestone(VS.cb))sfx('combo',VS.cb);if(VS.cb===3||milestone(VS.cb))BUMP='combo'}else sfx(k<0?'idk':'no',370);
   render();
   if(q.ok)fxRight(milestone(VS.cb));
   if(q.ok){                                              // doğru cevapta beklemeden sıradaki fiile geçer; yanlışta doğrusunu okumak için durur
     var cur=VS,at=VS.i;
-    VS.tm=setTimeout(function(){if(VS===cur&&VS.i===at&&view==='vq')vNext()},650);
+    VS.tm=setTimeout(function(){if(VS===cur&&VS.i===at&&view==='vq'){AUTO=true;vNext();AUTO=false}},650);
   }
 }
 function vNext(snd){
@@ -1658,7 +1664,7 @@ function vVQ(){
   var sub=q.ok?'Bildiklerine eklendi.':(q.picked===-1?'Bilmediklerine eklendi.':'Karıştırdıklarına eklendi.')+(q.ok?'':' Sonra yeniden sorulacak.');
   return vHead()+'<div class="body">'+card+resPill(q.ok?'ok':(q.picked===-1?'idk':'no'),title,sub,true)+
     '<div class="opts">'+rows+'</div>'+why+'</div>'+
-    '<footer class="foot"><button class="btn pri" data-act="vnext" data-focus>Devam'+I.go+'</button></footer>';
+    '<footer class="foot">'+(q.ok?'':'<button class="btn pri" data-act="vnext" data-focus>Devam'+I.go+'</button>')+'</footer>';   // doğruda kendiliğinden geçer: dokunulacak Devam yok
 }
 function vRow(w,c,lv){
   var t=VBY[w];
@@ -1781,10 +1787,13 @@ function burstSel(sel,kind,n,col,delay){                   // ekran çizildikten
 /* ---- sözler: doğru cevapta övgü her seferinde değişir, seri anlarının kendi sözü var; yanlışta yargılamayan bir dil ---- */
 var PRAISE=['Harika!','Süpersin!','Bildin!','Tam isabet!','Çok iyi!','Bravo!','İşte bu!','Müthiş!'];
 var COMBOP={3:'Üç üst üste!',5:'Beşte beş!',10:'On numara!'};
+var praiseLast=[];
 function praise(cb){
   if(COMBOP[cb])return COMBOP[cb];
   if(cb>=15&&cb%5===0)return 'Durdurulamazsın!';
-  return PRAISE[Math.floor(Math.random()*PRAISE.length)];
+  var k;do{k=Math.floor(Math.random()*PRAISE.length)}while(praiseLast.indexOf(k)>=0);   // son iki övgü yeniden çıkmaz
+  praiseLast=[k].concat(praiseLast).slice(0,2);
+  return PRAISE[k];
 }
 var OOPS='Bu sefer olmadı',GENTLE='Sorun değil, yarın yeniden karşına çıkacak.';
 /* sonuç hapı: kind ok / no / idk */
@@ -2605,7 +2614,7 @@ function vSum(){
   var newly=done.filter(function(id){return kindAt(ses,ses.q.indexOf(id))!=='k'}).length,all=totals().learned,mile=null;
   MILES.forEach(function(m){if(all-newly<m&&all>=m)mile=m});   // toplamda bir eşik bugün aşıldıysa kutlanır
   if(newly)haul.push('<span class="chip">'+I.heartp+'+'+newly+' kelime öğrendin</span>');
-  if(mile)haul.push('<span class="chip new">'+ui('party',22)+(mile>=WORDS.length?'Bütün kelimeler bitti!':'Toplam '+mile+' kelime oldu!')+'</span>');
+  if(mile)haul.push('<span class="chip new">'+ui('party',22)+(mile>=WORDS.length?'Bütün kelimeler bitti!':mile+' kelimeye ulaştın!')+'</span>');
   if(nf)haul.push('<button class="chip new" data-act="lokset" data-f="'+nf+'" aria-label="Yeni tat açıldı: '+LOKF[nf].ad+'. Lokum\'u bu tada boya">'+lok('happy',30,'',nf)+'Yeni tat: '+LOKF[nf].ad+(lokFlav()===nf?'':' · dene')+'</button>');
   return brand(streak)+'<div class="body">'+
     '<section class="party wl">'+(celebrate?burst():'')+lok(rate>=0.8?'love':'cheer',78,'partyart')+'<p class="eyebrow">Gün '+dayNo+' tamam · '+asked.length+' kelime</p><h1>'+head+'</h1>'+
@@ -2618,6 +2627,18 @@ function vSum(){
 }
 
 var SLIDE=null,BUMP=null,lastView=null,AUTO_T=0,popDay=null;
+/* Dokunuş tuzağı: ekran değişince parmak az önce dokunduğu yerde kalır. Yeni soru ya da sonuç çizildikten sonraki yarım saniye,
+   o yere gelen cevap ve Sabitle düğmeleri dokunuşu yok sayar: Devam'a hızlı ikinci dokunuş sonraki soruya "Bilmiyorum" yazmaz.
+   Kendiliğinden geçişte (fiil taraması) bu yer altbilgidir. Başka yere yapılan dokunuş hiç beklemez. */
+var GUARD={pick:1,idk:1,pickS:1,idkS:1,gpick:1,gidk:1,vpick:1,vidk:1,pin:1},GUARD_MS=500,TAP={t:-1e9,r:null},SCR={s:null,t:-1e9,r:null},AUTO=false;
+function scrNow(){                                       // soru ya da sonuç ekranının kimliği: hangi soru, cevaplandı mı
+  if(view==='word'&&Q)return [Q,0,Q.done];
+  if(view==='sent'&&ST)return [ST,0,ST.checked];
+  if(view==='gq'&&GQ)return [GQ,GQ.i,GQ.done];
+  if(view==='vq'&&VS)return [VS.q,0,VS.q.done];
+  return null;
+}
+function nearTap(e,r){return !!r&&e.clientX>=r.left-8&&e.clientX<=r.right+8&&e.clientY>=r.top-8&&e.clientY<=r.bottom+8}
 function reduced(){try{return window.matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}}
 function render(keepScroll){
   var body=app.querySelector('.body'),top=keepScroll&&body?body.scrollTop:0,h,from=lastView,slide=SLIDE,ghost=null,gr=null;
@@ -2645,6 +2666,12 @@ function render(keepScroll){
   app.innerHTML=h;
   lastView=view;
   celebrate=false;
+  var sc=scrNow(),so=SCR.s;
+  if(!sc||!so||sc[0]!==so[0]||sc[1]!==so[1]||sc[2]!==so[2]){   // yeni soru ya da sonuç: tuzağın yeri ve anı
+    var tnow=performance.now(),fe=AUTO?app.querySelector('.foot'):null;
+    SCR={s:sc,t:tnow,r:fe?fe.getBoundingClientRect():(tnow-TAP.t<150?TAP.r:null)};
+  }
+  AUTO=false;
   document.body.classList.toggle('room',view==='gift');      // sürpriz adımı: oyun odası zemini
   if(top){body=app.querySelector('.body');if(body)body.scrollTop=top}
   if(slide&&!reduced()){
@@ -2710,7 +2737,7 @@ function settle(){
     save();
   }
   var cb=Q.solo?1:S.ses.combo;
-  if(Q.ok){Q.pr=praise(Q.solo?0:cb);sfx('ok',cb);if(!Q.solo&&milestone(cb)){sfx('combo',cb);BUMP='combo'}}else sfx(Q.picked===-1?'idk':'no');
+  if(Q.ok){Q.pr=praise(Q.solo?0:cb);sfx('ok',cb);if(!Q.solo&&milestone(cb))sfx('combo',cb);if(!Q.solo&&(cb===3||milestone(cb)))BUMP='combo'}else sfx(Q.picked===-1?'idk':'no');
   Q.fresh=true;render();Q.fresh=false;
   if(Q.ok)fxRight(!Q.solo&&milestone(cb));
 }
@@ -2767,7 +2794,7 @@ var act={
       var cur=G;
       setTimeout(function(){                               // üçüncü sallanmanın sonunda kapak uçar, ışık fışkırır, ardından oyun gelir
         if(G!==cur||G.stage!=='opening')return;
-        sfx('crash');sfx('tada');
+        sfx('crash');                                      // tada çıkartma yapışırken çalar: o anın imzası
         var bx=app.querySelector('.gbox'),wait=reduced()||!bx?0:620;
         if(wait){bx.classList.remove('shake');bx.classList.add('open');burstAt(bx,'big',22)}
         setTimeout(function(){if(G!==cur||G.stage!=='opening')return;G.stage='game';gameInit();if(view==='gift'){SLIDE='sec';render()}},wait);
@@ -2926,8 +2953,11 @@ app.addEventListener('click',function(e){
   }
   var b=e.target.closest('[data-act]');
   if(!b||b.disabled)return;
-  var fn=act[b.getAttribute('data-act')];
+  var a=b.getAttribute('data-act'),fn=act[a];
   if(!fn)return;
+  var tnow=performance.now();
+  if(GUARD[a]&&tnow-SCR.t<GUARD_MS&&nearTap(e,SCR.r))return;   // ekran az önce değişti, parmak aynı yerde: ikinci dokunuş sayılmaz
+  TAP={t:tnow,r:b.getBoundingClientRect()};
   var n0=sfxN;
   fn(b);
   if(sfxN===n0)sfx(tapKind(b));
