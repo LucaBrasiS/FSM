@@ -263,7 +263,7 @@ body.room .res>span,body.room .res>span em{color:#fff}
 .wband>.art{margin-left:auto}
 .hwline{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .hwline>div{min-width:0}
-.wart{flex:none;display:grid;place-items:center;width:64px;height:64px;border-radius:18px;background:var(--pc);border:2px solid var(--edge);transform:rotate(4deg)}
+.wart{flex:none;display:grid;place-items:center;width:64px;height:64px;border-radius:18px;background:radial-gradient(circle at 50% 50%,#fff 0 25px,transparent 26px),var(--pc);border:2px solid var(--edge);transform:rotate(4deg)}   /* beyaz taban: görsel kutunun rengine karışmaz */
 .credit{font-size:.76rem;color:var(--muted);text-align:center}
 
 /* alt sekmeler */
@@ -285,7 +285,7 @@ body.room .res>span,body.room .res>span em{color:#fff}
 .utxt b{font-family:var(--display);font-size:1.08rem;font-weight:800;line-height:1.15;overflow-wrap:anywhere}
 .usub{font-size:.82rem;color:var(--muted);overflow-wrap:anywhere}
 .pips{flex:none;display:flex;gap:4px}
-.pips i{width:13px;height:13px;border-radius:50%;border:2px solid var(--edge);background:var(--sunk)}
+.pips i{width:13px;height:13px;border-radius:50%;border:2px solid var(--ink);background:var(--sunk)}   /* koyu temada da halka seçilir */
 .pips i.try{background:var(--sun)}
 .pips i.ok{background:var(--ok)}
 .gbar{height:14px;border-radius:7px;background:var(--sunk);border:2px solid var(--edge);overflow:hidden}
@@ -823,7 +823,7 @@ function art(name,size,cls,cut){
   }
   return '<img class="art'+(cls?' '+cls:'')+'" src="'+src+'" width="'+size+'" height="'+size+'" alt="" draggable="false">';
 }
-function wart(w){var n=ART.words[w];return art(n,40,'',n&&n.slice(0,3)==='kg-'?'':'o')}   // kelime görseli: hazır olana koyu dış çizgi, yeniden çizilen (kg-) zaten çizgili
+function wart(w){var n=ART.words[w];return art(n,50,'',n&&n.slice(0,3)==='kg-'?'':'o')}   // kelime görseli: hazır olana koyu dış çizgi, yeniden çizilen (kg-) zaten çizgili
 function ui(key,size,cls,cut){var n=ART.ui[key];return art(n,size,cls,cut||(key.slice(0,2)==='u-'&&n&&n.slice(0,3)!=='un-'?'o':''))}   // hazır ünite simgesi koyu dış çizgiyle; yeniden çizilenler (un-) zaten çizgili
 
 /* ---- Lokum: uygulamanın maskotu, bu proje için çizildi (düz renk, eşit kalınlıkta koyu dış çizgi, yazısız).
@@ -1404,9 +1404,9 @@ function balRound(){
 }
 /* üç oyun sırayla gelir: balon, hafıza, eşleşme (albümdeki çıkartma sayısına göre) */
 var BALSVG='<svg viewBox="0 0 100 128" aria-hidden="true" focusable="false">'+
-  '<path d="M50 104Q43 111 50 117Q57 123 50 127" fill="none" stroke="'+'#17132B'+'" stroke-width="2.4" stroke-linecap="round"/>'+
-  '<path d="M44.5 103.5L55.5 103.5L53.2 109.5Q50 111 46.8 109.5Z" fill="var(--pc)" stroke="#17132B" stroke-width="2.6" stroke-linejoin="round"/>'+
-  '<path d="M50 4C76 4 94 24 94 50C94 76 73 97 54 103L50 104L46 103C27 97 6 76 6 50C6 24 24 4 50 4Z" fill="var(--pc)" stroke="#17132B" stroke-width="3" stroke-linejoin="round"/>'+
+  '<path d="M50 104Q43 111 50 117Q57 123 50 127" fill="none" stroke="'+'#17132B'+'" stroke-width="1.8" stroke-linecap="round"/>'+
+  '<path d="M44.5 103.5L55.5 103.5L53.2 109.5Q50 111 46.8 109.5Z" fill="var(--pc)" stroke="#17132B" stroke-width="1.8" stroke-linejoin="round"/>'+
+  '<path d="M50 4C76 4 94 24 94 50C94 76 73 97 54 103L50 104L46 103C27 97 6 76 6 50C6 24 24 4 50 4Z" fill="var(--pc)" stroke="#17132B" stroke-width="1.9" stroke-linejoin="round"/>'+
   '<path d="M77 76C70 89 59 97 50 99" fill="none" stroke="#17132B" stroke-opacity=".14" stroke-width="7" stroke-linecap="round"/>'+
   '<ellipse cx="27" cy="23" rx="5.5" ry="10" transform="rotate(35 27 23)" fill="#fff" fill-opacity=".6"/></svg>';
 function fitSky(){                                        // balon boyu, kartla altbilgi arasındaki boşluğa göre (2 sıra, sallanma payıyla)
@@ -1415,6 +1415,7 @@ function fitSky(){                                        // balon boyu, kartla 
   var avail=f.getBoundingClientRect().top-sky.getBoundingClientRect().top-pad-16-9*rows,h=(avail-gap*(rows-1))/rows;
   var colw=(sky.clientWidth-10)/2,w=Math.max(62,Math.min(156,colw,Math.floor(h*100/128)));
   sky.style.setProperty('--bw',w+'px');
+  var used=rows*w*128/100+gap*(rows-1);sky.style.paddingTop=Math.max(0,Math.min(48,Math.floor((avail-used)/2)))+'px';   // grup boşluğun ortasında
 }
 var GAMES=['bal','mem','swp'],GNAME={bal:'Balon patlat',mem:'Hafıza kartları',swp:'Eşleşme mi?'};
 function gameInit(){

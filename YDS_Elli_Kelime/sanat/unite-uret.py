@@ -41,10 +41,14 @@ U['stop-sign'] = (L('M16 26L16 30.4', 2.2) + P(poly(8, 16, 14.8, 11.4, 22.5), '#
 U['stopwatch'] = (R(13.6, 3, 4.8, 3, 1, '#FFD43B', True, 1.0) + R(15, 5.6, 2, 2.4, .6, '#FFD43B', True, .9) + P('M23 8.6L25.2 6.4L26.8 8L24.6 10.2Z', '#FFD43B', True, .9) +
     C(16, 18, 10.2, '#6FE3C4') + C(16, 18, 7.4, W, True, 1.0) + P('M16 18L16 11.4A6.6 6.6 0 0 1 21.7 14.7Z', '#FFD43B', False) + L('M16 18L16 12.2', 1.5) + C(16, 18, 1.1, INK, False))
 U['compass'] = (C(16, 16, 12, '#FFD43B') + C(16, 16, 8.8, W, True, 1.0) +
-    P('M16 8.6L18.4 16L13.6 16Z', '#FF6B6B', True, .9) + P('M16 23.4L13.6 16L18.4 16Z', '#5DB7FF', True, .9) + C(16, 16, 1.2, INK, False) +
-    L('M16 4.6L16 6M27.4 16L26 16M16 27.4L16 26M4.6 16L6 16', 1.2))
+    ''.join(P(d, INK, False) for d in ('M16 3.6L17.6 6.8L14.4 6.8Z', 'M28.4 16L25.2 17.6L25.2 14.4Z', 'M16 28.4L14.4 25.2L17.6 25.2Z', 'M3.6 16L6.8 14.4L6.8 17.6Z')) +
+    P('M16 7.4L19.2 16L12.8 16Z', '#FF6B6B', True, 1.0) + P('M16 24.6L12.8 16L19.2 16Z', '#5DB7FF', True, 1.0) + C(16, 16, 1.4, INK, False))
 U['crystal-ball'] = (P('M8.4 24.4L23.6 24.4L25.6 29Q25.8 29.6 25.2 29.6L6.8 29.6Q6.2 29.6 6.4 29Z', '#FF9DCB') +
     C(16, 14.4, 10.6, '#BCA5FF') + E(11.4, 9.8, 2.2, 3.6, W, False, 35) + sparkle(19.6, 15.6, 3.4, W) + sparkle(13.6, 19.2, 1.8, '#FFD43B'))
+def chain(c1, c2):
+    ring = lambda cx, cy, col: tube('M%s %sL%s %sA3.6 3.6 0 0 1 %s %sL%s %sA3.6 3.6 0 0 1 %s %sZ' % (cx - 4, cy - 3.6, cx + 4, cy - 3.6, cx + 4, cy + 3.6, cx - 4, cy + 3.6, cx - 4, cy - 3.6), col, 2.4)
+    return ('<g transform="rotate(-35 16 16)">' + ring(10.6, 16, c1) + ring(21.4, 16, c2) + L('M17.4 12.4L17.4 13.8', 2.4 + 2 * SW * .85) + L('M17.4 12.4L17.4 13.8', 2.4, c1) + '</g>')
+U['link'] = chain('#BCA5FF', '#6FE3C4')   # bağlaç atölyesi ve bağlaç üniteleri: kelime görselindeki zincirle aynı
 U['red-heart'] = (P('M16 27.6Q4 20 4.2 11.8Q4.6 5.6 10.4 5.4Q14 5.4 16 9Q18 5.4 21.6 5.4Q27.4 5.6 27.8 11.8Q28 20 16 27.6Z', '#FF5C9D') +
     E(10.2, 10.6, 1.8, 2.8, W, False, 35))
 

@@ -233,4 +233,5 @@ Necip: "sen dene baklaım 9 için neler yapacaksın." Yapılanlar:
 - **İlk 13 gramer ünitesinin simgeleri** düz renkle yeniden çizildi (`sanat/unite-uret.py`; aynı çizimi kullanan 14 ünite).
 - **İnce kelime görselleri** (16 kelime) kalın biçimlerle yeniden çizildi (`sanat/kelime-gorsel-uret.py`).
 - **Tanıtım videosunda** İngilizce kelimeleri Piper'ın doğal sesi okur (`sanat/piper-ses-hazirla.py`).
+- **İlya'nın silüet turu** (balon ekranı 8/10, genel 9/10): ahtapot sekiz kıvrık kollu yeniden çizildi (denizanasından ayrılsın); kelime görseli kutunun %80'ini doldurur ve beyaz yuvarlak tabana oturur; teleskop mor (fiil mavisine karışmasın); ataş gerçek ataş; bağlaç atölyesi ve bağlaç üniteleri yeni zinciri kullanır; pusulaya dört yön çentiği; balon çizgisi kart çizgisine yakın, grup dikeyde ortalı; koyu temada test halkaları seçilir.
 - Kalan: öteki 29 ünite simgesi (çizgili hazır çizim).
