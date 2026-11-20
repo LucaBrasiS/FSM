@@ -7,14 +7,14 @@
 <meta name="theme-color" content="#5B3DF5">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Basamak">
+<meta name="apple-mobile-web-app-title" content="Nyeals">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
 </head>
 <body>
 <!-- APP:BEGIN -->
-<title>Basamak YDS</title>
+<title>Nyeals</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Sans:opsz,wght@9..40,400..700&display=swap">
 <style>
@@ -517,6 +517,32 @@ details.demo{border-style:dashed;border-color:var(--muted);background:transparen
 .stk.fresh i{animation:stick .5s cubic-bezier(.3,1.5,.5,1) .15s backwards}   /* bugün kazanılan çıkartma, albüm açılınca yeniden yapışır */
 button.stk{border-radius:12px;padding:2px 0;color:inherit}
 button.stk.hop i{animation:ljump .55s cubic-bezier(.3,1.4,.5,1)}
+/* sade ana menü: ortada Lokum ve selam, iki günlük görev, bölümlere kısayollar; arkada kazanılan çıkartmalar küçük ve eğik */
+.body.home{gap:14px}
+.hometop{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px 0 0;text-align:center}
+.hometop .lokb{margin:0;z-index:1}
+.hometop h1{font-family:var(--display);font-weight:800;font-size:2.3rem;line-height:1.05;letter-spacing:-.025em;margin-top:2px;text-wrap:balance;transition:opacity .15s}
+.hometop .eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);transition:opacity .15s}
+.hometop.talk h1,.hometop.talk .eyebrow{opacity:0}        /* Lokum konuşurken balon selamın yerine geçer */
+.hometop .lsay{right:auto;left:50%;top:calc(100% + 6px);width:236px;margin-left:-118px;text-align:center}
+.hometop .lsay::after{right:auto;left:50%;top:-8px;margin-left:-6px;transform:rotate(-45deg)}
+.tasks{display:flex;flex-direction:column;gap:11px;padding-bottom:3px}
+.shorts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding-bottom:3px}
+.short{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:76px;padding:8px 4px;border-radius:var(--r);background:var(--surface);color:var(--ink);
+  border:2px solid var(--edge);box-shadow:0 3px 0 var(--edge);font-family:var(--display);font-size:.88rem;transition:transform .06s ease,box-shadow .06s ease}
+.short b{font-weight:800}
+.short:active{transform:translateY(3px);box-shadow:0 0 0 var(--edge)}
+.wst{padding:0;border-radius:14px;line-height:0;-webkit-tap-highlight-color:transparent}
+.wst.hop img{animation:ljump .55s cubic-bezier(.3,1.4,.5,1)}
+.wst.fresh img{animation:stick .5s cubic-bezier(.3,1.5,.5,1) .25s backwards}
+.walltop{position:absolute;inset:0}
+.walltop .wst{position:absolute}
+.wst.t0{left:1%;top:6px;transform:rotate(-12deg)}.wst.t1{right:1%;top:2px;transform:rotate(10deg)}
+.wst.t2{left:17%;top:66px;transform:rotate(8deg)}.wst.t3{right:17%;top:72px;transform:rotate(-10deg)}
+.wst.t4{left:-1%;top:98px;transform:rotate(14deg)}.wst.t5{right:-1%;top:94px;transform:rotate(-8deg)}
+.body>.wall{flex:1 0 auto;display:flex;flex-wrap:wrap;justify-content:center;align-content:flex-start;gap:8px 14px;padding:2px 4px 8px}
+.wall .note{align-self:center;text-align:center;margin-top:10px}
+.wall .wst:nth-child(3n+1){transform:rotate(-8deg)}.wall .wst:nth-child(3n+2){transform:rotate(6deg) translateY(7px)}.wall .wst:nth-child(3n){transform:rotate(-3deg)}
 .albpeek{display:inline-flex;align-items:center;margin-right:8px}
 .albpeek .art{margin-left:-9px}
 .albpeek .art:first-child{margin-left:0}
@@ -1861,7 +1887,7 @@ function lokTap(b){
   b.classList.remove('jump');void b.offsetWidth;b.classList.add('jump');
   var old=b.querySelector('.lsay');if(old)old.parentNode.removeChild(old);
   var t=document.createElement('span');t.className='lsay';t.setAttribute('role','status');t.textContent=line;b.appendChild(t);
-  var hero=b.closest('.hero');if(hero)hero.classList.add('talk');
+  var hero=b.closest('.hero,.hometop');if(hero)hero.classList.add('talk');
   burstAt(b.querySelector('.lok')||b,'sugar',7);
   clearTimeout(b.__t);b.__t=setTimeout(function(){t.classList.add('out');if(hero)hero.classList.remove('talk');setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t)},220)},2400);
 }
@@ -1883,7 +1909,7 @@ function albumCard(){
     return '<div class="stk"><i>'+ui('stk-'+s[0],46)+'</i><small aria-label="henüz yok">?</small></div>';
   }).join('');
   var peek=S.stk.slice(-3).reverse().map(function(k){return ui('stk-'+k,28,'','s')}).join('');
-  return '<details class="card"><summary>Çıkartma albümü<span class="sm">'+(peek?'<span class="albpeek" aria-hidden="true">'+peek+'</span>':'')+n+' / '+STK.length+'</span></summary>'+
+  return '<details class="card albumcard"><summary>Çıkartma albümü<span class="sm">'+(peek?'<span class="albpeek" aria-hidden="true">'+peek+'</span>':'')+n+' / '+STK.length+'</span></summary>'+
     '<p class="note albnote">'+(n>=STK.length?'Albüm doldu! Kutu yine her gün geliyor.':'Kelime turunun ortasında her gün bir kutu çıkıyor. İçindeki oyunu bitir, çıkartma senin. '+accHint(n,''))+'</p>'+
     '<div class="album">'+cells+'</div></details>';
 }
@@ -2182,7 +2208,7 @@ function sndBtn(){
 }
 function brand(streak){
   return '<header class="top"><div class="brand"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>'+
-    '<span>'+APPNAME+'</span><span class="bsub">YDS</span></div><span class="topr">'+
+    '<span>'+APPNAME+'</span></div><span class="topr">'+
     (streak>0?'<span class="streak" role="img" aria-label="'+streak+' gün seri">'+ui('fire',18)+streak+' gün</span>':'')+sndBtn()+'</span></header>';
 }
 /* günün dağılımı tek satırda: "5 tekrar + 15 yeni" */
@@ -2217,7 +2243,7 @@ function progHead(ses,num){
 }
 
 /* ---- ana menü: bugünün iki görevi ve üç kısayol ---- */
-var APPNAME='Basamak';
+var APPNAME='Nyeals';
 function hourNow(){return new Date().getHours()}
 function isNight(){var h=hourNow();return h<5||h>=22}       // 22:00 – 05:00: Lokum gece takkesini takar
 function greet(){var h=hourNow();return h<5||h>=22?'İyi geceler!':(h<11?'Günaydın!':(h<17?'Merhaba!':'İyi akşamlar!'))}
@@ -2247,13 +2273,24 @@ function vMenu(){
   else if(dp.items.length)gSub=dp.items.length+' karışık tekrar sorusu';
   else{gSub='Çözülecek test kalmadı';gState='done';gAct='tab'}
   var allDone=wState==='done'&&gState==='done';
-  return brand(streakNow())+'<div class="body">'+
-    '<section class="hero today"><div class="herotop"><p class="eyebrow">Gün '+dayNo+' · '+esc(dateLabel())+'</p>'+lokBtn(allDone?'happy':'hi',76,allDone,isNight())+'</div>'+
+  var short=function(s,icon,label){return '<button class="short" data-act="sec" data-s="'+s+'">'+icon+'<b>'+label+'</b></button>'};
+  var lastStk=S.stk.length?'stk-'+S.stk[S.stk.length-1]:'stk-sloth';
+  /* çıkartma duvarı: ilk altısı Lokum'un çevresinde, kalanı menünün altında; dokununca adı okunur */
+  var wall=S.stk.length>6?S.stk.slice(6).map(function(k){return wallStk(k,'')}).join('')
+    :(S.stk.length?'':'<p class="note">Her gün kutudan bir çıkartma çıkar,<br>buraya yapışır.</p>');
+  return brand(streakNow())+'<div class="body home">'+
+    '<section class="hometop"><div class="walltop">'+S.stk.slice(0,6).map(function(k,i){return wallStk(k,' t'+i)}).join('')+'</div>'+
+    lokBtn(allDone?'happy':'hi',112,allDone,isNight())+
     '<h1>'+(allDone?'Bugün tamam!':(S.last!=null&&d-S.last>=2?'Tekrar hoş geldin!':greet()))+'</h1>'+
-    taskRow(ses&&!ses.done?'start':'tab','tab-words','Kelime',wSub,wState,ses&&!ses.done?'':' data-v="words"')+
+    '<p class="eyebrow">Gün '+dayNo+' · '+esc(dateLabel())+'</p></section>'+
+    '<section class="tasks">'+taskRow(ses&&!ses.done?'start':'tab','tab-words','Kelime',wSub,wState,ses&&!ses.done?'':' data-v="words"')+
     taskRow(gAct,'tab-units','Gramer',gSub,gState,gAct==='tab'?' data-v="units"':'')+'</section>'+
-    weekStrip(d)+
-    '<p class="tipline"><b>İpucu:</b> '+esc(TIPS[(dayNo-1)%TIPS.length])+'</p></div>'+tabs('home');
+    '<nav class="shorts" aria-label="Kısayollar">'+short('games',ui('g-bal',34),'Oyunlar')+short('album',ui(lastStk,34,'',S.stk.length?'s':''),'Albüm')+short('verbs',ui('scan',34),'Fiiller')+'</nav>'+
+    '<div class="wall">'+wall+'</div></div>'+tabs('home');
+}
+function wallStk(k,cls){
+  var s=STK.filter(function(x){return x[0]===k})[0];if(!s)return '';
+  return '<button class="wst'+cls+(S.ses&&S.ses.stk===k?' fresh':'')+'" data-act="stksay" data-w="'+esc(s[1])+'" aria-label="'+esc(s[1])+', '+esc(s[2])+'. Dinle">'+ui('stk-'+k,48,'','s')+'</button>';
 }
 
 function vWords(){
@@ -2326,7 +2363,7 @@ function vWords(){
   var va=vStat(VALL);
   var scan='<button class="ucard" data-act="vhub" style="--pc:var(--p-adv)"><span class="uicon">'+ui('scan',40)+'</span><span class="utxt"><span class="unum">Seviye ölçümü</span>'+
     '<b>Fiil taraması</b><span class="usub">'+(va.seen?va.seen+' / '+va.n+' fiil tarandı · '+va.ok+' biliyorsun':'A1\'den B2\'ye '+va.n+' fiilden kaçını biliyorsun?')+'</span></span>'+I.go+'</button>';
-  return brand(streak)+'<div class="body">'+hero+journey+scan+gameRoom()+albumCard()+how+more+'</div>'+tabs('words');
+  return brand(streak)+'<div class="body">'+hero+weekStrip(d)+journey+scan+gameRoom()+albumCard()+how+more+'</div>'+tabs('words');
 }
 
 var KIND={n:'Yeni kelime',r:'Tekrar',k:'Pekiştirme',d:'Deneme',f:'Gün sonu kontrolü'};
@@ -3110,7 +3147,7 @@ function render(keepScroll){
     if(stn>(S.sk|0)){S.sk=stn;sfx('fire');var se=app.querySelector('.streak');if(se)se.classList.add('bump')}
     else if(stn<(S.sk|0))S.sk=stn;
   }
-  if(view==='home'&&popDay!==today()&&S.days.indexOf(today())>=0){   // bugünün kalbi, Bugün ekranı ilk açıldığında bir kez zıplar
+  if(view==='words'&&popDay!==today()&&S.days.indexOf(today())>=0){   // bugünün kalbi, Kelime ekranı ilk açıldığında bir kez zıplar
     var td=app.querySelector('.wd.today.done');if(td){td.classList.add('pop');popDay=today()}
   }
   var f=app.querySelector('[data-focus]');
@@ -3232,6 +3269,13 @@ var act={
   },
   gdone:function(){if(!G)return;var solo=G.solo;G=null;if(solo){view='words';render()}else advance()},
   trygift:function(b){startGift(true,b.getAttribute('data-f'))},
+  sec:function(b){                                         // ana menü kısayolu: Oyunlar ve Albüm Kelime ekranındaki yerlerine götürür
+    var s=b.getAttribute('data-s');
+    if(s==='verbs'){act.vhub();return}
+    if(speaking())hush();Q=null;ST=null;M=null;GQ=null;G=null;VS=null;view='words';render();
+    var el=app.querySelector(s==='album'?'.albumcard':'.groom');
+    if(el){if(s==='album')el.open=true;var bd=el.closest('.body');if(bd)bd.scrollTop=Math.max(0,el.offsetTop-bd.offsetTop-8)}
+  },
   swyes:function(){swDecide(true)},
   hpick:function(b){
     if(!G||G.stage!=='game'||G.game!=='hiz'||G.hiz.cd>0||G.hiz.over||Date.now()-G.hiz.t0>=HIZ_MS)return;
@@ -3401,7 +3445,7 @@ app.addEventListener('click',function(e){
   if(sfxN===n0)sfx(tapKind(b));
 });
 /* kendi sesi olmayan düğme işine göre çalar: ileri giden yukarı, geri ve kapat aşağı, ötekiler nötr */
-var TAP_UP=['next','gnext','vnext','inext','start','gstart','gdaily','vgo','vredo','bstart','bmix','gmix','gwrong','grev','snext','unit','bag','vhub','bcards','bsort','sum',
+var TAP_UP=['sec','next','gnext','vnext','inext','start','gstart','gdaily','vgo','vredo','bstart','bmix','gmix','gwrong','grev','snext','unit','bag','vhub','bcards','bsort','sum',
   'trygift','tryfmt','trymatch','trysent','trycomp','gretry','gdone','check'];
 var TAP_DOWN=['iprev','resetno','vresetno','gskip'];
 function tapKind(b){

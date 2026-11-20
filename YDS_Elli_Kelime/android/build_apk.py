@@ -13,7 +13,7 @@ m = rd('AndroidManifest.xml')
 m, delta = respool.replace_pool(m, 8, {
     'com.nefata.kelime': 'com.nefata.basamak',
     '.MainActivity': 'com.nefata.kelime.MainActivity',
-    'KELİME': 'Basamak',
+    'KELİME': 'Nyeals',
     '0.4.0': '1.0.0',
 })
 m = m[:4] + struct.pack('<I', len(m)) + m[8:]
