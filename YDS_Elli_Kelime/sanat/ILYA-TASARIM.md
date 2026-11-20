@@ -235,3 +235,15 @@ Necip: "sen dene baklaım 9 için neler yapacaksın." Yapılanlar:
 - **Tanıtım videosunda** İngilizce kelimeleri Piper'ın doğal sesi okur (`sanat/piper-ses-hazirla.py`).
 - **İlya'nın silüet turu** (balon ekranı 8/10, genel 9/10): ahtapot sekiz kıvrık kollu yeniden çizildi (denizanasından ayrılsın); kelime görseli kutunun %80'ini doldurur ve beyaz yuvarlak tabana oturur; teleskop mor (fiil mavisine karışmasın); ataş gerçek ataş; bağlaç atölyesi ve bağlaç üniteleri yeni zinciri kullanır; pusulaya dört yön çentiği; balon çizgisi kart çizgisine yakın, grup dikeyde ortalı; koyu temada test halkaları seçilir.
 - Kalan: öteki 29 ünite simgesi (çizgili hazır çizim).
+
+
+## Günde 10 kelime, daha çok oyun
+
+Necip: "kelime sayısını 10 a indirelim ve uygulamaları oyunları arttıralım."
+
+- **Günde 10 yeni kelime**, bir günün üst sınırı 20 (tekrarlar önce).
+- **Ara görevler her 5 kelimede:** 5. kelimede eşleştirme, 10.'da cümle ve sürpriz kutu, 15.'te mola oyunu, 20.'de cümle. Gün sonu kontrolünden sonra, özetten önce **günün oyunu**. Mola ve günün oyunu çıkartmasız ve geçilebilir; kutu günde bir kalır.
+- **Hızlı tur:** 20 saniye, iki şık; doğru dokunuşta seri sesi tizleşir, yanlışta doğru anlam hemen yazar ve sıradaki kelimeye geçilir. Rekor saklanır.
+- **Hangi tür?:** fiil, isim, sıfat ya da zarf. Cevaptan önce kart renksizdir (renk türü ele verirdi); doğru bilince kart türün rengine boyanır. YDS'de türü bilmek şık eler.
+- **Oyun odası:** Kelime ekranında beş oyun, öğrenilen kelimelerle istendiği kadar; bitince kısa kutlama, "Bir daha" ve "Başka oyun". Çıkartma yalnız kutudan çıkar, "tada" da yalnız gerçek çıkartmada çalar.
+- Testler: `test/run16.js` (26 denetim) ve öteki paketlerin günde 10 kelimeye göre güncellenmesi.

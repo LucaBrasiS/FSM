@@ -11,7 +11,7 @@ const HTML=cands.find(f=>fs.existsSync(f)); if(!HTML){console.error('Basamak.htm
 const OUT=path.resolve(process.argv[3]||'tanitim'); fs.mkdirSync(path.join(OUT,'kareler'),{recursive:true});
 const src=fs.readFileSync(HTML,'utf8');
 const js=re=>{const m=src.match(re);if(!m)throw new Error('veri bulunamadı: '+re);return JSON.parse(m[1])};
-const W=js(/var RAW=("(?:[^"\\]|\\.)*");/).trim().split('\n').map(l=>{const p=l.split('|');return{w:p[0],tr:p[2],en:p[4],trs:p[5]}});
+const W=js(/var RAW=("(?:[^"\\]|\\.)*");/).trim().split('\n').map(l=>{const p=l.split('|');return{w:p[0],pos:p[1],tr:p[2],en:p[4],trs:p[5]}});
 const V=js(/var VRAW=("(?:[^"\\]|\\.)*");/).trim().split('\n').map(l=>{const p=l.split('|');return{w:p[0],tr:p[2]}});
 const GRAM=JSON.parse(src.match(/var GRAM=(\{[\s\S]*?\});\n/)[1]);
 const BYW=Object.fromEntries(W.map(x=>[x.w,x])),BYTR=Object.fromEntries(W.map(x=>[x.tr,x])),VBY=Object.fromEntries(V.map(v=>[v.w,v]));
@@ -103,7 +103,21 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 
   bolum('Demo aracı · günün kalanı otomatik'); adim('Kelime ekranına dönüldü'); await tap('.top .x'); await p.waitForSelector('details.demo'); await sleep(1200);
   adim('Ayarlar ve deneme açıldı'); await tap('details.demo summary'); await sleep(1300);
-  bolum('Sürpriz oyun · Eşleşme mi? (deneme)'); adim('Üçüncü oyun denemesi açıldı'); await p.locator('[data-act=trygift][data-f=swp]').scrollIntoViewIfNeeded(); await sleep(500); await tap('[data-act=trygift][data-f=swp]'); await p.waitForSelector('.swc'); await sleep(1500);
+  await tap('details.demo summary'); await sleep(300);   // ayarlar yeniden kapanır
+  bolum('Oyun odası'); adim('Oyun odası: beş oyun'); await p.locator('.groom').scrollIntoViewIfNeeded(); await sleep(1800);
+  bolum('Oyun odası · Hızlı tur'); adim('Hızlı tur açıldı: 20 saniye'); await tap('.groom [data-f=hiz]'); await p.waitForSelector('.hzb'); await sleep(900);
+  for(let k=0;k<40&&!(await p.locator('.gdone').count());k++){
+    const w=(await txt('.hzcard .hw').catch(()=>'')).trim(); if(!w||!BYW[w])break; const o=(await p.locator('.hzb').allInnerTexts()).map(t=>t.trim()); const i=o.indexOf(BYW[w].tr);
+    const wrong=k===3; adim(wrong?'Hızlı tur: bilerek yanlış, doğrusu yazar':'Hızlı tur: doğru'); await p.locator('.hzb').nth(wrong?1-i:i).click().catch(()=>{}); await sleep(wrong?1500:1100);
+  }
+  await p.waitForSelector('.gdone',{timeout:25000}); adim('Hızlı tur bitti: puan'); await sleep(2600);
+  bolum('Oyun odası · Hangi tür?'); adim('Başka oyun: Hangi tür?'); await tap('.foot .pri[data-act=trygift]'); await p.waitForSelector('.turb'); await sleep(1500);
+  for(let k=0;k<6&&!(await p.locator('.gdone').count());k++){
+    await p.waitForSelector('.turb:not([disabled])'); const w=(await txt('.turcard .hw')).trim(); const pos=BYW[w].pos; const wrong=k===2, pick=wrong?(pos==='v'?'n':'v'):pos;
+    adim(wrong?'Hangi tür: bilerek yanlış, doğru tür gösterilir':'Hangi tür: doğru, kart türün rengine boyanır'); await sleep(1200); await tap('.turb[data-p='+pick+']'); await sleep(wrong?2100:1150);
+  }
+  await p.waitForSelector('.gdone'); adim('Hangi tür bitti'); await sleep(2200);
+  bolum('Sürpriz oyun · Eşleşme mi? (deneme)'); adim('Üçüncü oyun: Eşleşme mi?'); await tap('[data-act=home]'); await p.waitForSelector('.groom'); await p.locator('.groom').scrollIntoViewIfNeeded(); await sleep(600); await tap('.groom [data-f=swp]'); await p.waitForSelector('.swc'); await sleep(1500);
   { let seen=0;
     for(let g=0;g<40&&!(await p.locator('.stkbig').count());g++){
       if(await p.locator('.swb[disabled]').count()||!(await p.locator('.swc:not(.flyr):not(.flyl)').count())){await sleep(150);continue}
@@ -116,9 +130,10 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
       seen++;
       await p.waitForFunction(n=>{const c=document.querySelector('.swc');const a=document.querySelector('.ask');return !c||document.querySelector('.stkbig')||(a&&+((a.textContent.match(/(\d+) \//)||[0,0])[1])>n)},seen,{timeout:7000});
     }}
-  bolum('Deneme oyunu sonu'); await p.waitForSelector('.stkbig'); adim('Deneme oyunu bitti (albüme eklenmez)'); await sleep(3000);
+  bolum('Deneme oyunu sonu'); await p.waitForSelector('.gdone'); adim('Oyun odasından oynanan oyun bitti: kısa kutlama, çıkartma yok'); await sleep(2600);
   adim('Ana sayfaya dönüldü'); await tap('[data-act=home]'); await sleep(900); await tap('[data-act=tab][data-v=words]'); await p.waitForSelector('details.demo'); await sleep(900);
   bolum('Demo aracı · günün kalanı otomatik');
+  if(!(await p.locator('details.demo').evaluate(d=>d.open))){await tap('details.demo summary');await sleep(500)}   // ayarlar ve deneme açılır
   await p.locator('[data-act=auto]').scrollIntoViewIfNeeded(); await sleep(700); adim('Bugünü otomatik bitir'); await tap('[data-act=auto]');
   bolum('Gün özeti'); await p.waitForSelector('.party'); adim('Gün bitti: özet ve kutlama'); await sleep(3600);
   bolum('Kelime ekranı · gün serisi'); adim('Ana sayfaya dönüldü: seri arttı'); await tap('.foot [data-act=home]'); await sleep(2600);

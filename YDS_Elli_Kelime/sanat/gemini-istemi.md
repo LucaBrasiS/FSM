@@ -28,7 +28,8 @@ Sen bağımsız bir değerlendiricisin: mobil uygulamaların hareketini, zamanla
 
 İçerik:
 
-- **Günlük kelime turu:** 20 yeni kelime. Tanıtım kartları, beş şıklı sorular, eşleştirme, cümle kurma, gün sonu kontrolü.
+- **Günlük kelime turu:** 10 yeni kelime. Tanıtım kartları, beş şıklı sorular; her 5 kelimede bir ara görev (eşleştirme, cümle ya da mola oyunu), 10. kelimeden sonra sürpriz kutu, gün sonu kontrolünden sonra günün oyunu.
+- **Oyun odası:** beş oyun (Balon patlat, Hafıza kartları, Eşleşme mi?, Hızlı tur, Hangi tür?) öğrenilen kelimelerle istendiği kadar; çıkartma kazandırmaz.
 - **Yanlış cevap:** doğrusu gösterilir. Kullanıcının seçtiği şık başka bir kelimenin anlamıysa, "Neden yanlış?" kutusu o şıkkın hangi kelimeye ait olduğunu söyler. Karıştırılan kelime sonraki sorularda bilerek yeniden şık olarak gelir.
 - **Sürpriz kutu:** günde bir kez, tur ortasında, puantiyeli mor bir "oyun odası" zemininde çıkar.
   - Kutu üç dokunuşla açılır.
@@ -65,8 +66,9 @@ Uygulamanın görsellerini, durağan ekran görüntülerinden yargılayan bir g�
   - neyle çakıştığını,
   - ne sıklıkta okuduğunu.
 - **Demo aracı.** İki kez kullanıldı. Bu araç gerçek uygulamada yok; onu yargılama.
-  - **01:40–01:43:** "Eşleşme mi?" oyunu bir deneme düğmesiyle açıldı. Gerçek uygulamada bu oyun üçüncü gün kutudan çıkar. Bu yüzden oyunun sonunda "Deneme oyunu" yazıyor ve çıkartma albüme eklenmiyor.
-  - **02:01–02:03:** Günün kalanı bir düğmeyle otomatik bitirildi.
+  - **01:39–01:42:** Kelime ekranına dönülüp ayarlar açıldı.
+  - **01:42–02:50:** Oyun odası: Hızlı tur, Hangi tür? ve Eşleşme mi? öğrenilen kelimelerle oynandı. Oyun odası gerçek uygulamada da var; burada çıkartma kazanılmaz, oyun kısa bir kutlamayla biter.
+  - **02:50–02:52:** Günün kalanı bir düğmeyle otomatik bitirildi; günün oyunu bu yüzden kayıtta yok.
 - **Zaman dökümü.** Ekteki `Basamak-tanitim-dokum.txt`, hangi saniyede hangi adımın atıldığını, hangi sesin (iç adıyla) çaldığını ve neyin okunduğunu listeler.
   - Önce kendin izle ve dinle.
   - Dökümü yalnızca eşleştirmek için kullan, kanıt sayma.

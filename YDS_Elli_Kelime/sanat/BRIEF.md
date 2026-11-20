@@ -12,7 +12,8 @@ Uygulamanın kaynağını değiştirmiyorsun. Önerileri geliştirme oturumu uyg
 
 - **Basamak**, YDS'ye hazırlanan ve A2–B1'den B2'ye çıkmak isteyen 16–30 yaş Türk öğrenciler için bir İngilizce uygulaması. Yalnızca dokunma ve sürükle-bırak kullanılır, klavye yoktur. Arayüz Türkçedir.
 - Bölümler:
-  - **Günlük kelime:** günde 20 yeni kelime. Tanıtım kartları, beş şıklı sorular, eşleştirme, cümle kurma ve gün sonu kontrolü.
+  - **Günlük kelime:** günde 10 yeni kelime (Necip: kelime az, oyun çok). Tanıtım kartları, beş şıklı sorular; her 5 kelimede bir ara görev (eşleştirme, cümle ya da mola oyunu), 10. kelimeden sonra sürpriz kutu, gün sonu kontrolünden sonra günün oyunu.
+  - **Oyunlar:** Balon patlat, Hafıza kartları, Eşleşme mi?, Hızlı tur (20 saniye), Hangi tür? (fiil, isim, sıfat, zarf). Kelime ekranındaki Oyun odasında istenildiği kadar oynanır.
   - **Sürpriz kutu:** günde bir kez, 10. kelimeden sonra çıkar. Üç dokunuşla açılır; içinden *Balon patlat* ya da *Hafıza kartları* oyunu çıkar. Oyun bitince albüme bir çıkartma eklenir.
   - **Gramer:** 52 ünite.
   - **Bağlaç atölyesi:** kartlar, üç alıştırma ve *Ayır* oyunu.

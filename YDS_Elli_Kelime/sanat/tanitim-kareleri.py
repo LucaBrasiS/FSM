@@ -39,6 +39,14 @@ def speak(k=0, pred=None):
     return hits[k] if len(hits) > k else None
 
 
+def step(text, k=0, after_ms=0):
+    """Adım metni bu sözle başlayan k'ıncı adımdan sonraki ilk sesin anı; ses yoksa adımın anı."""
+    hits = [a['t'] for a in R['acts'] if a.get('adim', '').startswith(text)]
+    if len(hits) <= k: return None
+    t0 = hits[k]; nxt = [t for n, a_, t in R['sfx'] if t >= t0 - 20]
+    return (min(nxt) if nxt else t0) - T0 + after_ms
+
+
 def act(text):
     for a in R['acts']:
         if a.get('bolum') == text and 'adim' not in a:
@@ -89,12 +97,14 @@ strip(11, 'kutu 2. dokunuş', nth('roll', 1), [0, 100, 200, 300, 450])
 strip(12, 'kutu 3. dokunuş ve açılış', nth('roll', 2), [0, 150, 300, 450, 600, 800, 1100])
 strip(13, 'balon patlaması', nth('pop', 0), [-60, 0, 80, 160, 240, 400])
 strip(14, 'yanlış balon sönmesi', nth('fizz', 0), [0, 150, 300, 450, 650])
-strip(15, 'ödül anı', nth('tada', 1), [0, 200, 400, 800, 1200, 1800])
+strip(15, 'ödül anı', nth('tada', 0), [0, 200, 400, 800, 1200, 1800])   # tada yalnız gerçek çıkartmada çalar
 strip(16, 'gün özeti kutlaması', nth('win', 0), [0, 300, 600, 900, 1300])
 strip(17, 'gün serisi alevi', nth('fire', 0), [-80, 0, 100, 200, 300, 450], (0, 0, 1, 0.18))
 strip(18, 'gramer doğru (zil)', nth('ok', 0, lambda a: isinstance(a, dict) and a.get('t') == 'bell'), [-80, 0, 100, 250, 500])
 strip(19, 'fiil taraması kendiliğinden geçiş', nth('okStep', 0), [-80, 0, 200, 450, 650, 700, 760, 850])
 strip(20, 'koyu tema', act('Koyu tema'), [0, 300, 700, 1500])
+strip(24, 'hızlı tur yanlış', step('Hızlı tur: bilerek yanlış'), [-200, 0, 150, 400, 800, 1200])
+strip(25, 'hangi tür doğru', step('Hangi tür: doğru'), [-200, 0, 120, 300, 600, 900])
 strip(21, 'Lokum dokunuşu', nth('giggle', 0), [-60, 0, 120, 250, 450, 900], TOP)
-strip(22, 'eşleşme kartı sürükleme', nth('yes', 0), [-800, -500, -250, 0, 150, 350])
-strip(23, 'eşleşme yanlış karar', nth('miss', 1), [-60, 0, 200, 600, 1400, 2000, 2300])
+strip(22, 'eşleşme kartı sürükleme', step('Kart sürüklendi'), [-800, -500, -250, 0, 150, 350])
+strip(23, 'eşleşme yanlış karar', step('Bilerek yanlış karar'), [-60, 0, 200, 600, 1400, 2000, 2300])
