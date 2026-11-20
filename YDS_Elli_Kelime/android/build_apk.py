@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Builds Basamak.apk from the earlier KELIME WebView wrapper and the current index.html.
+"""Builds Nyeals.apk from the earlier KELIME WebView wrapper and the current index.html.
 Usage: python3 -I build_apk.py <old_extract_dir> <index.html> <icons_dir> <out_unsigned.apk>"""
 import os, struct, sys, zipfile, zlib
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -11,13 +11,13 @@ def rd(p): return open(os.path.join(src, p), 'rb').read()
 # manifest: new package and label; the activity name becomes fully qualified because its class keeps the old package
 m = rd('AndroidManifest.xml')
 m, delta = respool.replace_pool(m, 8, {
-    'com.nefata.kelime': 'com.nefata.basamak',
+    'com.nefata.kelime': 'com.nefata.nyeals',
     '.MainActivity': 'com.nefata.kelime.MainActivity',
     'KELİME': 'Nyeals',
     '0.4.0': '1.0.0',
 })
 m = m[:4] + struct.pack('<I', len(m)) + m[8:]
-assert respool.read_pool(m, 8)['strings'].count('com.nefata.basamak') == 1
+assert respool.read_pool(m, 8)['strings'].count('com.nefata.nyeals') == 1
 
 def add_permission(m, name):
     """Adds <uses-permission android:name="..."/> after the existing one: the new string goes to the end of the pool
@@ -54,19 +54,25 @@ a = bytearray(rd('resources.arsc'))
 pool = respool.read_pool(bytes(a), 12)
 off = 12 + pool['size']
 assert struct.unpack_from('<H', a, off)[0] == 0x0200
-name = 'com.nefata.basamak'.encode('utf-16-le').ljust(256, b'\x00')
+name = 'com.nefata.nyeals'.encode('utf-16-le').ljust(256, b'\x00')
 a[off + 12: off + 12 + 256] = name
 for old, new in ((0xff2f6fed, 0xff5b3df5), (0xfff5f6fa, 0xfff1eeff), (0xff171e29, 0xff1f1a3d), (0xff0e131b, 0xff120f24)):
     ob, nb = struct.pack('<I', old), struct.pack('<I', new)
     assert a.count(ob) == 1, hex(old)
     i = a.index(ob); a[i:i + 4] = nb
 
+# the packaged page makes no network request: fonts are embedded, so the fallback Google Fonts link is dropped
+import re
+page = open(index, 'rb').read()
+page, n_link = re.subn(rb'<link rel="stylesheet" href="https://fonts\.googleapis\.com[^>]*>\n?', b'', page)
+assert n_link == 1 and b'fonts.googleapis.com' not in page and b'@font-face' in page
+
 files = {
     'AndroidManifest.xml': m,
     'resources.arsc': bytes(a),
     'classes.dex': rd('classes.dex'),
     'res/mipmap-anydpi-v26/ic_launcher.xml': rd('res/mipmap-anydpi-v26/ic_launcher.xml'),
-    'assets/www/index.html': open(index, 'rb').read(),
+    'assets/www/index.html': page,
 }
 for d in ('mdpi', 'hdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi'):
     for kind in ('ic_launcher', 'ic_launcher_fg'):

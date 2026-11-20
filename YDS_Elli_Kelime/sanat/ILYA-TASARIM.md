@@ -290,7 +290,8 @@ Testler: `test/run17.js` (40 denetim) ve öteki paketlerin yeni davranışa gör
 
 Necip: "YDS arayüzü çok karışık, sadeleşecek. Ana menüde arkada elde edilen stickerlar olacak, küçük halleriyle. Menü sade olacak ama diğer bölümler görülebilir olmalı, oyun gibi." Ad: **Nyeals** (learn + easy).
 
-- **Ad** her yerde Nyeals; YDS rozeti kalktı. Paket kimliği şimdilik `com.nefata.basamak` (kurulu sürümün üzerine güncellensin diye); Play'e ilk yüklemeden önce değiştirilmeli, sonra değişmez.
+- **Ad** her yerde Nyeals; YDS rozeti ve sınava özel yazılar kalktı (gramer notlarında "Testlerde nasıl sorulur", konu grubu "İleri konu testleri"). Paket kimliği `com.nefata.nyeals`: eski Basamak kurulumunun üzerine güncellenmez, ayrı uygulama olarak kurulur.
+- **Android sürümü internete bağlanmaz:** yazı tipleri gömülü, yedek Google Fonts bağlantısı pakete girmez. Gizlilik politikası taslağı `GIZLILIK.md`.
 - **Ana menü:** ortada Lokum (112 px) ve selam, altında günün iki görevi (Kelime, Gramer), sonra üç kısayol: Oyunlar, Albüm, Fiiller. Mor kart, haftalık şerit ve ipucu satırı kalktı; haftalık şerit Kelime ekranına taşındı.
 - **Çıkartma duvarı:** kazanılan çıkartmalar 48 px, eğik; ilk altısı Lokum'un çevresinde, kalanı menünün altında. Dokununca zıplar ve adı okunur. Hiç çıkartma yokken duvar nereye yapışacaklarını söyler.
 - Lokum konuşurken balon selamın yerine geçer.

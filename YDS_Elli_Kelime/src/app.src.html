@@ -903,10 +903,10 @@ var RAW=/*@@WORDS@@*/'';
 var CONF=/*@@CONF@@*/[];
 
 var TIPS=[
-  'Kelimeyi cümlesiyle birlikte öğren. Sınavda karşına tek başına değil, bir cümlenin içinde çıkacak.',
+  'Kelimeyi cümlesiyle birlikte öğren. Karşına hep bir cümlenin içinde çıkacak.',
   'Her gün biraz, bir günde çok çalışmaktan iyidir. On dakika da sayılır.',
   'Şıklara bakmadan önce cevabı bir aklından geçir. Önce kendin hatırlamaya çalışınca kelime daha iyi oturuyor.',
-  'Eş anlamlılarına da bir göz at. YDS\'de şıklar çoğu zaman birbirine çok yakın olur.',
+  'Eş anlamlılarına da bir göz at. Yakın anlamlı kelimeleri ayırmak işin ustalığı.',
   'although, despite, whereas görünce bir dur. Cümle tam orada yön değiştiriyor.',
   'Emin değilsen Bilmiyorum\'a bas. Şansla tutturduğun kelime öğrenilmiş sayılır, sonra günlerce sorulmaz.',
   'Kelimeyi bir kere de sesli söyle. Kulağın alışınca daha zor unutursun.',
@@ -1076,19 +1076,19 @@ function giftArt(size){
 }
 
 /* ---- gramer ----
-   t = üniteler: grp 'k' kitabın içindekiler sırasındaki 34 ünite (no, en = başlık, ad = Türkçe adı), grp 'y' YDS düzeyi konular.
+   t = üniteler: grp 'k' kitabın içindekiler sırasındaki 34 ünite (no, en = başlık, ad = Türkçe adı), grp 'y' ileri düzey konular.
    q = ünite başına zorluk sırasına dizilmiş 30 soru: [soru, şıklar, doğru, açıklama, tür, (okuma parçası)].  pas = okuma parçaları. */
 var GRAM=/*@@GRAM@@*/{t:[],q:{},pas:{}};
 var TESTS=['Temel','Orta','İleri'],TLEN=10,DAILY_REVIEW=5,REV_LEN=20;
 var TOPIC=Object.create(null),UNITS=[];
 GRAM.t.forEach(function(t){if(GRAM.q[t.id]&&GRAM.q[t.id].length){TOPIC[t.id]=t;UNITS.push(t.id)}});
 function kRange(a,b){return UNITS.filter(function(id){var t=TOPIC[id];return t.grp==='k'&&t.no>=a&&t.no<=b})}
-/* Kitaptaki gibi üç bölüm ve iki ara tekrar testi; ardından YDS düzeyi konu testleri */
+/* Kitaptaki gibi üç bölüm ve iki ara tekrar testi; ardından ileri düzey konu testleri */
 var PARTS=[
   {h:'Üniteler 1–13',ids:kRange(1,13),rev:'rev1',revName:'Revision Test 1'},
   {h:'Üniteler 14–28',ids:kRange(14,28),rev:'rev2',revName:'Revision Test 2'},
   {h:'Üniteler 29–34',ids:kRange(29,34)},
-  {h:'YDS düzeyi konu testleri',ids:UNITS.filter(function(id){return TOPIC[id].grp!=='k'})}
+  {h:'İleri konu testleri',ids:UNITS.filter(function(id){return TOPIC[id].grp!=='k'})}
 ].filter(function(p){return p.ids.length});
 
 /* ---- yardımcılar ---- */
@@ -1896,7 +1896,7 @@ function lokRow(){
     lok('happy',46,'',f)+'</button>';
 }
 
-/* ---- fiil taraması: A1'den B2'ye fiillerin hangisi biliniyor? (A1–B1 Oxford 3000 düzeylerine göre, B2 YDS için köprü) ----
+/* ---- fiil taraması: A1'den B2'ye fiillerin hangisi biliniyor? (düzeyler yaklaşıktır; hiçbir yayınevinin listesi kopyalanmadı) ----
    Her fiil bir kez sorulur, 20'şerlik turlarla. S.vs[fiil]: 1 = bildi, 2 = karıştırdı (yanlış şık), 3 = bilmiyor (Bilmiyorum dedi).
    Yanlış şıklar aynı düzeyden gelir; anlamı çakışan fiiller aynı soruda yan yana gelmez. */
 var VLV=['A1','A2','B1','B2'],VLVN={A1:'Temel fiiller',A2:'Günlük fiiller',B1:'B1 fiilleri',B2:'B2\'ye köprü'},VPC={A1:'--p-n',A2:'--p-v',B1:'--p-adv',B2:'--p-adj'},VROUND=10;   // turlar kısa: 10 fiil
@@ -2561,7 +2561,7 @@ function uLabel(id){
   var t=TOPIC[id];
   if(t.grp==='k')return 'Ünite '+t.no;
   if(t.grp==='b')return 'Bağlaç';
-  return 'YDS '+(UNITS.filter(function(x){return TOPIC[x].grp!=='k'}).indexOf(id)+1);
+  return 'İleri '+(UNITS.filter(function(x){return TOPIC[x].grp!=='k'}).indexOf(id)+1);
 }
 /* [ana başlık, alt başlık, ana başlık İngilizce mi] : kitap ünitelerinde başlık kitaptaki İngilizce ad, altında Türkçesi */
 function uName(id){
