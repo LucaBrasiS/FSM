@@ -12,11 +12,18 @@
 Çizimler değiştirilmeden kullanılmıştır; çıkartmalarda yalnızca çevrelerine beyaz kenar, koyu dış çizgi ve gölge eklenir
 (kalıp kesim görünümü, SVG filtresiyle çalışma anında). Uygulama simgesi (`icon.svg` ve PNG türevleri) bu proje için çizilmiştir.
 
+## Yazı tipleri
+
+Bricolage Grotesque (başlıklar) ve DM Sans (metin), ikisi de SIL Open Font License 1.1. Değişken woff2 dosyaları (latin ve latin-ext,
+opsz ve wght eksenli) `assets/fonts` içinde durur; `src/build.py` bunları `index.html` içine gömer, uygulama internetsiz de aynı
+görünür. Lisans metinleri aynı klasörde. Dosyalar npm `@fontsource-variable` paketlerinden (5.3.0) alındı.
+
 ## Bu proje için çizilenler
 
 - **Lokum** (maskot): pudra şekerli bir lokum küpü; altı poz ve altı tat (renk). `src/app.src.html` içinde `lok()`, düz SVG.
 - **Sürpriz kutusu**: mor kutu, sarı kurdele ve fiyonk; kapağı ayrı çizildiği için açılışta uçar. `giftArt()`.
-- **Parıltı, kalp ve konfeti parçaları**, dolu ve boş yıldızlar, damga kartı noktaları: kodla çizilir.
+- **Lokum'un aksesuarları**: fiyonk, kalp toka, çiçek taç, kiraz (albümde 5, 10, 17 ve 24 çıkartmada açılır) ve gece takkesi. `accSVG()`.
+- **Parıltı, kalp, konfeti ve pudra şekeri parçaları**, dolu ve boş yıldızlar, damga kartı noktaları: kodla çizilir.
 - Öneri uygulama simgesi `sanat/oneri-ikon-lokum.svg` (henüz kullanılmıyor). Gemini istemleri `sanat/gemini-gorseller.md` içinde.
 
 ## Gramer üniteleri

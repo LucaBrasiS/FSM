@@ -3,7 +3,8 @@
 
 Kullanım:  python3 src/build.py [--kitap KLASÖR] [--eksik-olabilir]
 
-Şablondaki /*@@ART@@*/, /*@@GRAM@@*/, /*@@BAG@@*/, /*@@WORDS@@*/ ve /*@@VERBS@@*/ yer tutucuları veriyle, /*@@ARTLICENSE@@*/ lisans notuyla değiştirilir.
+Şablondaki /*@@ART@@*/, /*@@GRAM@@*/, /*@@BAG@@*/, /*@@WORDS@@*/ ve /*@@VERBS@@*/ yer tutucuları veriyle, /*@@ARTLICENSE@@*/ lisans notuyla,
+/*@@FONTS@@*/ gömülü yazı tipleriyle (assets/fonts) değiştirilir.
 Gramer verisi iki kaynaktan birleşir: data/kitap/kNN.json (kitabın içindekiler sırasındaki 34 ünite) ve
 data/gramer.json (YDS düzeyi 18 konu).
 """
@@ -134,6 +135,26 @@ def load_bag(d, allow_missing):
     return {"groups": groups, "yapi": lst["yapi"], "qs": qs}
 
 
+FONT_RANGES = {
+    "latin-ext": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF",
+    "latin": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD",
+}
+FONTS = (("Bricolage Grotesque Yerel", "bricolage-grotesque", "500 800"), ("DM Sans Yerel", "dm-sans", "400 700"))
+
+
+def load_fonts(d):
+    """assets/fonts içindeki değişken yazı tiplerini (latin + latin-ext, opsz ve wght eksenli) @font-face olarak dosyaya gömer:
+    uygulama internetsiz açıldığında da aynı yazı tipleriyle görünür."""
+    import base64
+    rules = []
+    for family, stem, weight in FONTS:
+        for sub in ("latin-ext", "latin"):
+            data = base64.b64encode((d / f"{stem}-{sub}-opsz-normal.woff2").read_bytes()).decode("ascii")
+            rules.append("@font-face{font-family:\"%s\";font-style:normal;font-weight:%s;font-display:swap;"
+                         "src:url(data:font/woff2;base64,%s) format(\"woff2\");unicode-range:%s}" % (family, weight, data, FONT_RANGES[sub]))
+    return "\n".join(rules)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--kitap", default=str(ROOT / "data" / "kitap"))
@@ -190,6 +211,7 @@ def main():
     out = src
     for mark, value in (
         ("/*@@ARTLICENSE@@*/", notice),
+        ("/*@@FONTS@@*/", load_fonts(ROOT / "assets" / "fonts")),
         ("/*@@ART@@*/{icons:{},ui:{},words:{}}", js(art)),
         ("/*@@GRAM@@*/{t:[],q:{},pas:{}}", js(gram)),
         ("/*@@BAG@@*/{groups:[],yapi:{},qs:{}}", js(bag)),

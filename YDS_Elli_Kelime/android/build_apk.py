@@ -19,6 +19,36 @@ m, delta = respool.replace_pool(m, 8, {
 m = m[:4] + struct.pack('<I', len(m)) + m[8:]
 assert respool.read_pool(m, 8)['strings'].count('com.nefata.basamak') == 1
 
+def add_permission(m, name):
+    """Adds <uses-permission android:name="..."/> after the existing one: the new string goes to the end of the pool
+    (no index moves), and the existing element's start and end chunks are copied with the attribute pointing at it."""
+    info = respool.read_pool(m, 8)
+    strs = info['strings']
+    if name in strs: return m
+    assert not info['flags'] & 1, 'sorted string pool'
+    idx, up = len(strs), strs.index('uses-permission')
+    pool = respool.build_pool(dict(info, strings=strs + [name]))
+    body = m[8 + info['size']:]
+    off, start, end = 0, None, None
+    while off < len(body):
+        typ, hsz, size = struct.unpack_from('<HHI', body, off)
+        if typ == 0x0102 and start is None and struct.unpack_from('<i', body, off + 20)[0] == up: start = off
+        if typ == 0x0103 and start is not None and struct.unpack_from('<i', body, off + 20)[0] == up: end = off + size; break
+        off += size
+    assert start is not None and end is not None, 'uses-permission element not found'
+    chunk = bytearray(body[start:end])
+    astart, asize, acount = struct.unpack_from('<HHH', chunk, 24)
+    assert acount == 1 and asize == 20, (acount, asize)
+    a = 16 + astart
+    assert chunk[a + 15] == 0x03 and strs[struct.unpack_from('<i', chunk, a + 8)[0]].startswith('android.permission.')
+    struct.pack_into('<i', chunk, a + 8, idx)                # raw value: index of the new string
+    struct.pack_into('<I', chunk, a + 16, idx)               # typed value (string): same index
+    m = m[:8] + pool + body[:end] + bytes(chunk) + body[end:]
+    return m[:4] + struct.pack('<I', len(m)) + m[8:]
+
+# short haptic buzzes (navigator.vibrate) need this permission inside a WebView; it is a normal permission, granted at install
+m = add_permission(m, 'android.permission.VIBRATE')
+
 # resources: package name field and theme / icon colours
 a = bytearray(rd('resources.arsc'))
 pool = respool.read_pool(bytes(a), 12)

@@ -247,3 +247,41 @@ Necip: "kelime sayısını 10 a indirelim ve uygulamaları oyunları arttıralı
 - **Hangi tür?:** fiil, isim, sıfat ya da zarf. Cevaptan önce kart renksizdir (renk türü ele verirdi); doğru bilince kart türün rengine boyanır. YDS'de türü bilmek şık eler.
 - **Oyun odası:** Kelime ekranında beş oyun, öğrenilen kelimelerle istendiği kadar; bitince kısa kutlama, "Bir daha" ve "Başka oyun". Çıkartma yalnız kutudan çıkar, "tada" da yalnız gerçek çıkartmada çalar.
 - Testler: `test/run16.js` (26 denetim) ve öteki paketlerin günde 10 kelimeye göre güncellenmesi.
+
+
+## Tatlılık turu: Lev'in 10 maddesi, İlya'nın 5 maddesi
+
+Necip: "uygulamanın tatlılığı için sayfa yapıları, şıklar vs. Lev'in uygun bulduğu 10 madde eklenecek, ardından İlya da 5 madde kendi eklemeli."
+
+**Önce iki hata (Lev):**
+- **Hangi tür?** kartında Türkçe anlam cevaptan önce görünmez (Türkçe ek türü ele veriyordu: -mek fiil). Yeri baştan ayrılır, kart zıplamaz.
+- **Konfeti** kutlama kartında yazıların ve kutuların arkasından düşer.
+- Bir de eski hata: kutudan **Hızlı tur** ya da **Hangi tür?** çıkınca ödül ekranı hiç gelmiyordu (4. ve 5. gün). Düzeldi; `test/run17.js` ikisini de oynar.
+
+**Lev'in 10 maddesi:**
+1. **Sonuç anı sayarak dolar.** Gün özeti, gramer ve fiil sonucu, oyun sonu: sayılar 0'dan yükselir (`countUps`), yıldızlar tek tek dolar, çipler sırayla zıplar. Düğmeler baştan açık.
+2. **Seri, ilerleme çubuğunu şekere çevirir.** Üç doğruda dolgu pembe-beyaz çizgili olur, her doğruda iki tur akar; beşte çevresi parlar; yanlışta erir.
+3. **Dokunma hissi.** Doğru 12 ms, yanlış 20-60-20, balon 25, kutu 15/25/40, çıkartma 35 ms. Ses düğmesine bağlı ("Ses ve titreşim"). APK'ya `VIBRATE` izni eklendi (`android/build_apk.py`); telefonda denenmeli.
+4. **Duruma göre sözler.** Günün ilk doğrusu, yanlıştan sonraki doğru, günün son sorusu, üst üste iki yanlış. Her söz günde bir kez (`sayOnce`).
+5. **Lokum'un aksesuarları.** Albümde 5, 10, 17 ve 24 çıkartmada açılır; Lokum her yerde son açılanı takar. Albüm notu ve ödül ekranı sıradaki aksesuara kaç çıkartma kaldığını söyler.
+6. **Hızlı tur: 3, 2, 1, Başla!** Süre ancak geri sayımdan sonra işler. Son beş saniyede çubuk pembeleşir ve her saniye tık çalar; sonda "Süre!" damgası.
+7. **Oyun odası** beş renkli kutucuk, 3 + 2 dizilim boşluksuz.
+8. **Gün özetinde** kırmızı "Yanlış" kutusu yerine lila **"Yarın tekrar"**. Sayı, alttaki "Yarın tekrar gelecekler" listesinin sayısıdır (sabitlenen ve gün sonunda yanılınan kelimeler dahil), listeyle çelişmesin diye.
+9. **Gece Lokum'u.** 22:00 – 05:00 arasında Bugün ekranında gece takkesi takar, gece sözleri söyler.
+10. **Pudra şekeri.** Lokum'a dokununca, tat değişince ve gün özetinde üstünden beyaz taneler dökülür (kalplerin yerine).
+
+**İlya'nın bu maddelere görsel düzeltmeleri (uygulandı):** aksesuarlar yalnız başın üstünde durur, yüz ve kollar örtülmez: fiyonk, **kalp toka** (gözlük yerine), çiçek taç, **kiraz** (kulaklık yerine). Hızlı tur kutucuğu turuncu (sarı, Başla düğmesinin rengi); oyun simgeleri beyaz daire tabanda. Gece takkesi lacivert, sarı yıldızlı. Pudra tanelerinin kenarı öteki parçalar gibi tam koyu.
+
+**İlya'nın 5 maddesi:**
+1. **Yeni kelime bir çıkartma gibi gelir.** Tanıtım kartında görsel 104 px kalıp kesim; 700 px'ten kısa ekranda köşedeki küçük kutu kalır.
+2. **Deste geçişi.** Eski kart opak kalıp yana savrulur, yenisi altında bekler; iki kelimenin yazısı üst üste binmez. Savrulan kart gidene dek dokunuşu da tutar.
+3. **Kart bantlarının alt kenarı** Lokum'un pudrası gibi tırtıllı.
+4. **Bulunan çiftler** (Eşleştir, Hafıza) kelimenin tür rengini alır; kalpler de o renkte.
+5. **Gün özeti listesinde** tik ve çarpı yerine kelimenin resmi. Resmi olmayan kelimede aynı kutuda baş harfi durur (İlya tik ve çarpının kalmasını önermişti; yalnız bazı satırlarda çarpı kalınca ötekiler doğruymuş gibi okunuyordu).
+
+**İlya'nın üç sorunu:** yazı tipleri dosyaya gömüldü (`assets/fonts`, SIL OFL; internetsiz açılışta da aynı görünüm); Hangi tür?'de doğru düğme yeşile değil kendi tür rengine döner ve tik alır; kutlama başlığı dengeli kırılır. Ayrıca Eşleştir bandındaki yanlış "her 10 kelimede bir" etiketi kalktı, sonuç hapı ızgaranın altına indi, koyu temada tanıtım noktaları seçilir oldu.
+
+**Yapılmayanlar:** Lev'in "Lokum soru beklerken dursun" önerisi (Necip "daha hareketli olmalı" demişti); gerçek telefonda akıcılık ölçümü (Lev'in 3. bulgusu, hâlâ açık); 07, 08, 14 ve 24 numaralı ekranların boş alt yarısı.
+
+Testler: `test/run17.js` (40 denetim) ve öteki paketlerin yeni davranışa göre güncellenmesi.
+
