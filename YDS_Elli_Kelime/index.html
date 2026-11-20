@@ -707,6 +707,35 @@ button.chip:active{transform:translateY(3px);box-shadow:0 0 0 var(--edge)}
 .swb.yes{background:var(--ok)}
 .swb[disabled]{opacity:.55;cursor:default}
 .swfoot{position:relative}
+/* canlılık: Necip "uygulama çok sakin" dedi. Hepsi kısa ve 'hareketi azalt'ta kapalı */
+.askl{display:flex;align-items:center;gap:8px}.askl>span:first-child{flex:1;min-width:0}
+.lokmini{flex:none;display:block;margin:-14px -2px -14px 0;pointer-events:none}
+.lokmini .lok{transform-origin:50% 100%;animation:lbob 2.6s ease-in-out infinite}
+.lokmini.yay .lok{animation:ljump .6s cubic-bezier(.3,1.4,.5,1),lbob 2.6s ease-in-out .6s infinite}
+.lokmini.oops .lok{animation:shake .32s ease-out 2,lbob 2.6s ease-in-out .7s infinite}
+@keyframes lbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px) scale(1.02,.98)}}
+.lok{transform-origin:50% 100%;animation:lbreathe 3.4s ease-in-out infinite}
+@keyframes lbreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.03,.97)}}
+.opts.enter .opt{animation:optin .34s cubic-bezier(.3,1.3,.5,1) both}
+.opts.enter .opt:nth-child(2){animation-delay:.04s}.opts.enter .opt:nth-child(3){animation-delay:.08s}.opts.enter .opt:nth-child(4){animation-delay:.12s}.opts.enter .opt:nth-child(5){animation-delay:.16s}
+@keyframes optin{from{transform:translateY(14px) scale(.97);opacity:0}to{transform:none;opacity:1}}
+.opts.done.fresh .opt.ok .ic,.opts.done.fresh .opt.picked .bub{animation:pop .42s cubic-bezier(.3,1.5,.5,1)}
+.opts.done.fresh .opt.no.picked{animation:shake .32s ease-out}
+.opts.done.fresh .opt.ok:not(.picked){animation:okglow .9s ease-out 2}
+@keyframes okglow{0%{box-shadow:0 var(--lift) 0 var(--edge),0 0 0 0 var(--ok)}100%{box-shadow:0 var(--lift) 0 var(--edge),0 0 0 12px transparent}}
+.body.enter>*{animation:cardin .32s cubic-bezier(.3,1.25,.5,1) both}
+.body.enter>:nth-child(2){animation-delay:.04s}.body.enter>:nth-child(3){animation-delay:.08s}.body.enter>:nth-child(4){animation-delay:.12s}.body.enter>:nth-child(n+5){animation-delay:.16s}
+@keyframes cardin{from{transform:translateY(18px) scale(.98);opacity:0}to{transform:none;opacity:1}}
+.seg i{position:relative;overflow:hidden}
+.seg i::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.6) 50%,transparent 70%);transform:translateX(-110%);animation:shine 3s ease-in-out infinite}
+@keyframes shine{0%,62%{transform:translateX(-110%)}100%{transform:translateX(110%)}}
+.streak .art{transform-origin:50% 90%;animation:flick 1.7s ease-in-out infinite}
+@keyframes flick{0%,100%{transform:scale(1) rotate(-3deg)}50%{transform:scale(1.1,1.16) rotate(3deg)}}
+.task .tstate:not(.ok) svg{animation:nudge 2.4s ease-in-out infinite}
+@keyframes nudge{0%,70%,100%{transform:translateX(0)}80%{transform:translateX(4px)}90%{transform:translateX(-1px)}}
+.wart .art{animation:artpop .5s cubic-bezier(.3,1.5,.5,1) .12s both}
+@keyframes artpop{from{transform:scale(.4) rotate(-14deg);opacity:0}to{transform:none;opacity:1}}
+.gtile .art{transition:transform .15s ease}.gtile:active .art{transform:scale(1.15) rotate(-6deg)}
 /* hızlı tur ve hangi tür */
 .hzask{display:flex;align-items:center;gap:8px}.hzscore{margin-left:auto;font-family:var(--display);font-weight:800;background:var(--sun);color:var(--on-fill);border:2px solid var(--edge);border-radius:999px;padding:2px 12px}
 .hzbar{height:14px;border-radius:999px;border:2px solid var(--edge);background:var(--surface);overflow:hidden}
@@ -1045,7 +1074,7 @@ function plan(d){
 }
 function ensureSession(){
   var d=today();
-  if(S.ses&&S.ses.day===d)return S.ses;
+  if(S.ses&&S.ses.day===d){trimSes(S.ses);return S.ses}
   var p=plan(d);
   if(!p.rev.length&&!p.neu.length&&!p.chk.length){if(S.ses){S.ses=null;save()}return null}
   if(S.first==null)S.first=d;
@@ -1053,6 +1082,11 @@ function ensureSession(){
          sd:[],sN:0,sOk:0,md:[],mN:0,mMiss:0,combo:0,best:0,revLate:p.revLate,neuLate:p.neuLate,done:false};
   save();
   return S.ses;
+}
+function trimSes(ses){                                   // eski sınırla (günde 20) kurulmuş gün: sorulmamış fazla yeni kelimeler yarına kalır
+  if(ses.done)return;
+  var start=ses.nRev+ses.nChk,cut=Math.max(ses.i,start+Math.max(0,Math.min(BASE_NEW,CAP-start)));
+  if(cut<ses.q.length){ses.q=ses.q.slice(0,cut);save()}
 }
 function kindAt(ses,i){return i<ses.nRev?'r':(i<ses.nRev+ses.nChk?'k':'n')}
 /* Bugün sorulan kelimenin yarınını belirler; sabitleme değişince yeniden çağrılır, bu yüzden hep base üzerinden hesaplar */
@@ -1704,7 +1738,7 @@ function lokRow(){
 /* ---- fiil taraması: A1'den B2'ye fiillerin hangisi biliniyor? (A1–B1 Oxford 3000 düzeylerine göre, B2 YDS için köprü) ----
    Her fiil bir kez sorulur, 20'şerlik turlarla. S.vs[fiil]: 1 = bildi, 2 = karıştırdı (yanlış şık), 3 = bilmiyor (Bilmiyorum dedi).
    Yanlış şıklar aynı düzeyden gelir; anlamı çakışan fiiller aynı soruda yan yana gelmez. */
-var VLV=['A1','A2','B1','B2'],VLVN={A1:'Temel fiiller',A2:'Günlük fiiller',B1:'B1 fiilleri',B2:'B2\'ye köprü'},VPC={A1:'--p-n',A2:'--p-v',B1:'--p-adv',B2:'--p-adj'},VROUND=20;
+var VLV=['A1','A2','B1','B2'],VLVN={A1:'Temel fiiller',A2:'Günlük fiiller',B1:'B1 fiilleri',B2:'B2\'ye köprü'},VPC={A1:'--p-n',A2:'--p-v',B1:'--p-adv',B2:'--p-adj'},VROUND=10;   // turlar kısa: 10 fiil
 var VS=null,VCONF=false;
 function vclash(a,b){return a.av.indexOf(b.w)>=0||b.av.indexOf(a.w)>=0||a.tok.some(function(t){return b.tok.indexOf(t)>=0})}
 /* tarama sırası herkes için aynı: düzey içinde sabit tohumla karıştırılır */
@@ -1779,13 +1813,15 @@ function vVQ(){
   if(!q.done){
     var opts='';
     for(var k=0;k<q.opts.length;k++)opts+=optRow(q.opts[k],k,'',false,'','vpick');
-    return vHead()+'<div class="body">'+card+'<p class="ask">Türkçe karşılığı hangisi?</p><div class="opts">'+opts+'</div></div>'+
+    var vent=!q.seen;q.seen=1;
+    return vHead()+'<div class="body">'+card+'<p class="ask askl"><span>Türkçe karşılığı hangisi?</span>'+miniLok('q')+'</p><div class="opts'+(vent?' enter':'')+'">'+opts+'</div></div>'+
       '<footer class="foot"><button class="btn ghost" data-act="vidk">Bilmiyorum</button></footer>';
   }
   var title=q.picked===-1?'Cevap bu':(q.ok?(q.pr||'Doğru!'):'Karıştırdın'),own=q.picked>=0&&!q.ok?VTR[t.lv+'|'+q.opts[q.picked]]:null;
   var why=own?'<section class="whyno"><h2>Neden yanlış?</h2><p>Seçtiğin «'+esc(q.opts[q.picked])+'», <b lang="en">'+esc(own.w)+'</b> fiilinin anlamı. <b lang="en">'+esc(t.w)+'</b> ise «'+esc(t.tr)+'» demek.</p></section>':'';
   var sub=q.ok?'Bildiklerine eklendi.':(q.picked===-1?'Bilmediklerine eklendi.':'Karıştırdıklarına eklendi.')+(q.ok?'':' Sonra yeniden sorulacak.');
-  return vHead()+'<div class="body">'+card+'<p class="ask">Türkçe karşılığı hangisi?</p>'+optsDone(q.opts,q.correct,q.picked,false)+   // şıklar yerinde kalır
+  var vfr=!q.shownRes;q.shownRes=1;
+  return vHead()+'<div class="body">'+card+'<p class="ask askl"><span>Türkçe karşılığı hangisi?</span>'+miniLok(q.ok?'ok':(q.picked===-1?'idk':'no'),vfr,VS.cb|0)+'</p>'+optsDone(q.opts,q.correct,q.picked,false,vfr)+   // şıklar yerinde kalır
     resPill(q.ok?'ok':(q.picked===-1?'idk':'no'),title,sub,true)+why+'</div>'+
     '<footer class="foot">'+(q.ok?'<span class="btn pri" style="visibility:hidden" aria-hidden="true">Devam</span>':'<button class="btn pri" data-act="vnext" data-focus>Devam'+I.go+'</button>')+'</footer>';   // doğruda kendiliğinden geçer: dokunulacak Devam yok, altbilgi yine aynı boyda kalır ki şıklar kaymasın
 }
@@ -2082,10 +2118,14 @@ function optRow(text,k,cls,en,icon,act){
     '<span class="otxt'+(en?' en':'')+'"'+(en?' lang="en"':'')+'>'+esc(text)+'</span>'+'<span class="ic"'+(icon?'':' aria-hidden="true"')+'>'+(icon||'')+'</span>';   // ikonun yeri soru ekranında da ayrılır: yazı aynı yerden kırılır
   return act?'<button class="opt" data-act="'+act+'" data-k="'+k+'">'+inner+'</button>':'<div class="opt'+cls+'">'+inner+'</div>';
 }
-function optsDone(list,correct,picked,en){                 // sonuç: beş şık soru ekranındaki yerinde kalır; doğru yeşil, seçilen yanlış kırmızı, ötekiler soluk
+function miniLok(st,fresh,cb){                            // soru ekranında Lokum: soruda bekler, doğruda sevinip zıplar, yanlışta şaşırır
+  var pose={q:'happy',ok:(cb>=5?'love':'cheer'),no:'wow',idk:'hi'}[st]||'happy';
+  return '<span class="lokmini'+(fresh?(st==='ok'?' yay':(st==='no'||st==='idk'?' oops':'')):'')+'" aria-hidden="true">'+lok(pose,46)+'</span>';
+}
+function optsDone(list,correct,picked,en,fresh){                 // sonuç: beş şık soru ekranındaki yerinde kalır; doğru yeşil, seçilen yanlış kırmızı, ötekiler soluk
   var r='';
   for(var k=0;k<list.length;k++)r+=optRow(list[k],k,k===correct?' ok'+(picked===k?' picked':''):(k===picked?' no picked':' dim'),en,k===correct?I.ok:(k===picked?I.no:''),'');
-  return '<div class="opts done">'+r+'</div>';
+  return '<div class="opts done'+(fresh?' fresh':'')+'">'+r+'</div>';
 }
 function showFb(){                                         // geri bildirim görünür alanın altında kaldıysa, renkler yerinde göründükten sonra gövde yumuşakça biraz kayar
   var bd=app.querySelector('.body:not(.navghost)');if(!bd||reduced())return;   // hareketi azalt: kaydırma yok, gövde elle kaydırılır
@@ -2141,7 +2181,8 @@ function vWord(){
   else if(f==='spell')inner='<p class="lbl">Türkçesi</p><div class="meanbig">'+esc(x.tr)+'</div><p class="ex" lang="en">'+blanked(x.en)+'</p>';
   else{inner='<div class="hw" lang="en">'+esc(x.w)+'</div><p class="ex" lang="en">'+marked(x.en)+'</p>';sayText=x.w}
   var card='<section class="wcard p'+x.pos+'">'+wband(x,w,Q.kind,sayText)+'<div class="wbody">'+inner+'</div></section>';
-  var ask='<p class="ask">'+(f==='spell'?(Q.extra?'Doğru kelimeleri seç ve sırala<span class="note">'+Q.extra+' parça fazla</span>':ASK.spell):ASK[f])+'</p>';
+  var qst=!Q.done?'q':(Q.ok?'ok':(Q.picked===-1?'idk':'no'));
+  var ask='<p class="ask askl"><span>'+(f==='spell'?(Q.extra?'Doğru kelimeleri seç ve sırala<span class="note">'+Q.extra+' parça fazla</span>':ASK.spell):ASK[f])+'</span>'+miniLok(qst,Q.fresh,Q.solo?0:(S.ses?S.ses.combo:0))+'</p>';
   if(!Q.done){
     var head=Q.solo?soloHead('Deneme sorusu'):(Q.kind==='f'?finalHead(ses,ses.fi+1):progHead(ses,ses.i+1));
     if(f==='spell'){
@@ -2153,7 +2194,8 @@ function vWord(){
     }
     var opts='';
     for(var k=0;k<Q.opts.length;k++)opts+=optRow(Q.opts[k],k,'',en,'','pick');
-    return head+'<div class="body">'+card+ask+'<div class="opts">'+opts+'</div></div>'+
+    var ent=!Q.seen;Q.seen=1;                              // şıklar yalnız soru ilk açıldığında sırayla gelir
+    return head+'<div class="body">'+card+ask+'<div class="opts'+(ent?' enter':'')+'">'+opts+'</div></div>'+
       '<footer class="foot"><button class="btn ghost" data-act="idk">Bilmiyorum</button></footer>';
   }
   var title=Q.picked===-1?'Cevap bu':(Q.ok?(Q.pr||'Doğru!'):OOPS),sub;
@@ -2167,7 +2209,7 @@ function vWord(){
   if(f==='spell'){                                         // kurulan cevap yerinde renklenir; yanlışsa doğrusu geri bildirimin altında
     area=builderHTML(Q.b,Q.sep==='',Q.ok?'ok':'no');
     if(!Q.ok)fix='<div class="opts">'+optRow(x.w,-1,' ok',true,I.ok,'')+'</div>';
-  }else area=optsDone(Q.opts,Q.correct,Q.picked,en);
+  }else area=optsDone(Q.opts,Q.correct,Q.picked,en,Q.fresh);
   var why='';
   if(f!=='spell'&&Q.picked>=0&&!Q.ok){                     // neden yanlış: seçilen şıkkın asıl sahibi ve doğru cevabın anlamı
     var po=Q.opts[Q.picked],ow=optOwner(f,po),wn='';
@@ -2216,12 +2258,13 @@ function vSent(){
   var after=ST.solo?soloFoot(comp?'trycomp':'trysent',''):'<button class="btn pri" data-act="next" data-focus>Devam'+I.go+'</button>';
   if(comp){
     var rows='';
-    if(!ST.checked){for(var k=0;k<ST.opts.length;k++)rows+=optRow(ST.opts[k],k,'',true,'','pickS');rows='<div class="opts">'+rows+'</div>'}
-    else rows=optsDone(ST.opts,ST.correct,ST.picked,true);   // şıklar yerinde kalır, sonuç altlarına gelir
+    var sfr=ST.checked&&!ST.shownRes;if(ST.checked)ST.shownRes=1;
+    if(!ST.checked){var sent2=!ST.seen;ST.seen=1;for(var k=0;k<ST.opts.length;k++)rows+=optRow(ST.opts[k],k,'',true,'','pickS');rows='<div class="opts'+(sent2?' enter':'')+'">'+rows+'</div>'}
+    else rows=optsDone(ST.opts,ST.correct,ST.picked,true,sfr);   // şıklar yerinde kalır, sonuç altlarına gelir
     return head+'<div class="body">'+
       '<section class="wcard psent"><div class="wband"><span>Cümleyi tamamla</span>'+note+ui('t-sent',26)+'</div>'+
       '<div class="wbody"><p class="ex big" lang="en">'+marked(ST.head)+' …</p><p class="tr">'+esc(x.trs)+'</p></div></section>'+
-      '<p class="ask">Cümlenin devamı hangisi?</p>'+rows+
+      '<p class="ask askl"><span>Cümlenin devamı hangisi?</span>'+miniLok(!ST.checked?'q':(ST.ok?'ok':(ST.picked===-1?'idk':'no')),sfr,0)+'</p>'+rows+
       (ST.checked?resPill(ST.ok?'ok':(ST.picked===-1?'idk':'no'),ST.picked===-1?'Cevap bu':(ST.ok?(ST.pr||'Doğru!'):OOPS),'Cümlenin tamamı aşağıda.',true)+full:'')+'</div>'+
       '<footer class="foot">'+(ST.checked?after:'<button class="btn ghost" data-act="idkS">Bilmiyorum</button>')+'</footer>';
   }
@@ -2667,14 +2710,15 @@ function vGQ(){
     var opts='';
     var oen=q[4]!=='iliski'&&q[4]!=='anlam';
     for(var k=0;k<5;k++)opts+=optRow(q[1][GQ.order[k]],k,'',oen,'','gpick');
-    return head+'<div class="body">'+pcard+card(false)+'<p class="ask">'+gAsk(q)+'</p><div class="opts">'+opts+'</div></div>'+
+    var gent=GQ.seen!==GQ.i;GQ.seen=GQ.i;
+    return head+'<div class="body">'+pcard+card(false)+'<p class="ask askl"><span>'+gAsk(q)+'</span>'+miniLok('q')+'</p><div class="opts'+(gent?' enter':'')+'">'+opts+'</div></div>'+
       '<footer class="foot"><button class="btn ghost" data-act="gidk">Bilmiyorum</button></footer>';
   }
   var cpos=GQ.order.indexOf(q[2]);
   var ren=q[4]!=='iliski'&&q[4]!=='anlam',shown=[];
   for(var j=0;j<5;j++)shown.push(q[1][GQ.order[j]]);
   var filled=q[0].indexOf('----')>=0?'<p class="gq" lang="en">'+gText(q,true)+'</p>':'';   // boşluklu soruda cümlenin doğru hâli açıklamanın başında
-  return head+'<div class="body">'+pcard+card(false)+'<p class="ask">'+gAsk(q)+'</p>'+optsDone(shown,cpos,GQ.picked,ren)+
+  return head+'<div class="body">'+pcard+card(false)+'<p class="ask askl"><span>'+gAsk(q)+'</span>'+miniLok(GQ.ok?'ok':(GQ.picked===-1?'idk':'no'),GQ.fresh,GQ.cb|0)+'</p>'+optsDone(shown,cpos,GQ.picked,ren,GQ.fresh)+
     resPill(GQ.ok?'ok':(GQ.picked===-1?'idk':'no'),GQ.picked===-1?'Cevap bu':(GQ.ok?(GQ.pr||'Doğru!'):OOPS),GQ.right+' doğru, '+GQ.wrong.length+' yanlış',GQ.fresh)+
     '<section class="why"><h2>Neden</h2>'+filled+'<p>'+esc(q[3])+'</p></section></div>'+
     '<footer class="foot"><button class="btn pri" data-act="gnext" data-focus>'+(GQ.i+1<n?'Devam':'Sonucu gör')+I.go+'</button></footer>';
@@ -2804,6 +2848,7 @@ function render(keepScroll){
   else{view='home';h=vMenu()}
   if(gr&&from===view)ghost=body;                          // aynı türden ekranlar arasında eski kart kayıp gider
   app.innerHTML=h;
+  if(from!==view&&!slide&&!reduced()){var eb=app.querySelector('.body');if(eb)eb.classList.add('enter')}   // yeni ekran: kartlar sırayla belirir
   lastView=view;
   celebrate=false;
   var sc=scrNow(),so=SCR.s;
