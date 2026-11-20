@@ -155,6 +155,22 @@ def main():
         assert key in art["ui"], ("arayüz anahtarı yok", key)
         art["icons"][name] = body
         art["ui"][key] = name
+    # gramer ünitesi simgeleri aynı çizgide (sanat/unite-uret.py): yerini aldığı hazır çizimi kullanan her ünite yenisini alır
+    for name, body in json.loads((ROOT / "data" / "unite.json").read_text(encoding="utf-8")).items():
+        old = name[3:]
+        keys = [k for k, v in art["ui"].items() if k.startswith("u-") and v == old]
+        assert keys, ("bu çizimi kullanan ünite yok", old)
+        art["icons"][name] = body
+        for k in keys:
+            art["ui"][k] = name
+    # ince kalan kelime görselleri kalın biçimlerle (sanat/kelime-gorsel-uret.py): o çizimi kullanan her kelime yenisini alır
+    for name, body in json.loads((ROOT / "data" / "kelime-gorsel.json").read_text(encoding="utf-8")).items():
+        old = name[3:]
+        keys = [w for w, v in art["words"].items() if v == old]
+        assert keys, ("bu çizimi kullanan kelime yok", old)
+        art["icons"][name] = body
+        for w in keys:
+            art["words"][w] = name
     used = set(art["ui"].values()) | set(art["words"].values())
     art["icons"] = {k: v for k, v in art["icons"].items() if k in used}   # yalnız eski çıkartmada kullanılan emoji çizimleri dosyaya girmez
     lic = (ROOT / "assets" / "FLUENT-EMOJI-LICENSE.txt").read_text(encoding="utf-8").strip()

@@ -228,4 +228,9 @@ Necip: "sen dene baklaım 9 için neler yapacaksın." Yapılanlar:
 5. **Yazılar.** "Yapay zekâ kokmasın": ipuçları, Lokum'un sözleri, Nasıl işliyor, kutu ve albüm notları sadeleşti; çeviri kokan sözler gitti ("Durdurulamazsın!" → "Seni tutan yok!"). Gramer ve bağlaç açıklamalarında 783 noktalı virgül noktaya çevrildi.
 6. **Küçükler.** Lokum konuşurken balon tarih satırının yerine geçer. Kısa ekranda eşleşme oyununun yardım yazısı gizlenir. Fiil taramasında altbilgi Devam olmasa da aynı boyda kalır. Gramer sonucunda İngilizce ünite adı Türkçe büyük harfe çevrilmez. Balon ipi 10 px, satır arası 36 px: ip alttaki balona girmez.
 
-İlya'nın sonucu: **9/10.** Kalan cila: 43 gramer ünitesi simgesinin düz renge yeniden çizilmesi (önce ilk 13), ince kelime görselleri için Gemini parçaları.
+İlya'nın sonucu: **9/10.** Sonra:
+- **Balonlar** gerçek balon biçiminde çizildi (Necip: "balonların şekillerini hiç beğenmedim"); boyları ekrandaki boşluğa göre hesaplanır, patlama anlam kartının altında kalır.
+- **İlk 13 gramer ünitesinin simgeleri** düz renkle yeniden çizildi (`sanat/unite-uret.py`; aynı çizimi kullanan 14 ünite).
+- **İnce kelime görselleri** (16 kelime) kalın biçimlerle yeniden çizildi (`sanat/kelime-gorsel-uret.py`).
+- **Tanıtım videosunda** İngilizce kelimeleri Piper'ın doğal sesi okur (`sanat/piper-ses-hazirla.py`).
+- Kalan: öteki 29 ünite simgesi (çizgili hazır çizim).

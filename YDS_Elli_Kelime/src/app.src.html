@@ -823,7 +823,8 @@ function art(name,size,cls,cut){
   }
   return '<img class="art'+(cls?' '+cls:'')+'" src="'+src+'" width="'+size+'" height="'+size+'" alt="" draggable="false">';
 }
-function ui(key,size,cls,cut){return art(ART.ui[key],size,cls,cut||(key.slice(0,2)==='u-'?'o':''))}   // ünite simgeleri hazır çizim: koyu dış çizgiyle
+function wart(w){var n=ART.words[w];return art(n,40,'',n&&n.slice(0,3)==='kg-'?'':'o')}   // kelime görseli: hazır olana koyu dış çizgi, yeniden çizilen (kg-) zaten çizgili
+function ui(key,size,cls,cut){var n=ART.ui[key];return art(n,size,cls,cut||(key.slice(0,2)==='u-'&&n&&n.slice(0,3)!=='un-'?'o':''))}   // hazır ünite simgesi koyu dış çizgiyle; yeniden çizilenler (un-) zaten çizgili
 
 /* ---- Lokum: uygulamanın maskotu, bu proje için çizildi (düz renk, eşit kalınlıkta koyu dış çizgi, yazısız).
    Pudra şekerli, yumuşak köşeli bir lokum küpü. Pozlar: hi el sallar, happy gülümser, cheer kollarını kaldırır,
@@ -1071,7 +1072,7 @@ function vIntro(){
   return progHead(ses,ses.i)+'<div class="body">'+
     '<p class="ask">Yeni kelimeler · '+(IN.k+1)+' / '+IN.ids.length+'<span class="idots" aria-hidden="true">'+dots+'</span></p>'+
     '<section class="wcard p'+x.pos+'">'+wband(x,{pin:0},'n',x.w+'. '+plain(x.en))+'<div class="wbody">'+
-    '<div class="hwline"><div class="hw" lang="en">'+esc(x.w)+'</div>'+(ART.words[x.w]?'<span class="wart">'+art(ART.words[x.w],40,'','o')+'</span>':'')+'</div>'+
+    '<div class="hwline"><div class="hw" lang="en">'+esc(x.w)+'</div>'+(ART.words[x.w]?'<span class="wart">'+wart(x.w)+'</span>':'')+'</div>'+
     '<p class="mean">'+esc(x.tr)+'</p><p class="syn">Eş anlamlı: <span lang="en">'+esc(x.syn.join(' · '))+'</span></p><hr class="rule">'+
     '<p class="ex" lang="en">'+marked(x.en)+'</p><p class="tr">'+esc(x.trs)+'</p></div></section>'+
     '<p class="note">Kelimeyi ve cümlesini oku, istersen dinle. Birazdan bu kelimeler sorulacak.</p></div>'+
@@ -2055,7 +2056,7 @@ function vWord(){
     if(wn)why='<section class="whyno"><h2>Neden yanlış?</h2><p>'+wn+(Q.solo?'':' İkisini bir dahaki soruda yan yana göreceksin.')+'</p></section>';
   }
   var detail='<section class="wcard p'+x.pos+'">'+wband(x,w,Q.kind,x.w+'. '+plain(x.en))+'<div class="wbody">'+
-    '<div class="hwline"><div class="hw" lang="en">'+esc(x.w)+'</div>'+(ART.words[x.w]?'<span class="wart">'+art(ART.words[x.w],40,'','o')+'</span>':'')+'</div><p class="mean">'+esc(x.tr)+'</p>'+
+    '<div class="hwline"><div class="hw" lang="en">'+esc(x.w)+'</div>'+(ART.words[x.w]?'<span class="wart">'+wart(x.w)+'</span>':'')+'</div><p class="mean">'+esc(x.tr)+'</p>'+
     '<p class="syn">Eş anlamlı: <span lang="en">'+esc(x.syn.join(' · '))+'</span></p><hr class="rule">'+
     (f==='tr'?'':'<p class="ex" lang="en">'+marked(x.en)+'</p>')+'<p class="tr">'+esc(x.trs)+'</p></div></section>';   // anlam sorusunda cümle zaten üstteki kartta: yalnız Türkçesi kalır
   return (Q.solo?soloHead('Deneme sorusu'):(Q.kind==='f'?finalHead(ses,ses.fi):progHead(ses,ses.i)))+'<div class="body">'+
