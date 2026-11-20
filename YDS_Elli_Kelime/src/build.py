@@ -152,8 +152,7 @@ def main():
     # arayüz simgeleri de aynı çizgide, yüzsüz (sanat/arayuz-uret.py)
     for name, body in json.loads((ROOT / "data" / "arayuz.json").read_text(encoding="utf-8")).items():
         key = name[3:]
-        assert key in art["ui"], ("arayüz anahtarı yok", key)
-        art["icons"][name] = body
+        art["icons"][name] = body                         # var olan anahtarın yerine geçer ya da yeni anahtar (oyun odası: g-*) açar
         art["ui"][key] = name
     # gramer ünitesi simgeleri aynı çizgide (sanat/unite-uret.py): yerini aldığı hazır çizimi kullanan her ünite yenisini alır
     for name, body in json.loads((ROOT / "data" / "unite.json").read_text(encoding="utf-8")).items():

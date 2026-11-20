@@ -707,6 +707,26 @@ button.chip:active{transform:translateY(3px);box-shadow:0 0 0 var(--edge)}
 .swb.yes{background:var(--ok)}
 .swb[disabled]{opacity:.55;cursor:default}
 .swfoot{position:relative}
+/* hızlı tur ve hangi tür */
+.hzask{display:flex;align-items:center;gap:8px}.hzscore{margin-left:auto;font-family:var(--display);font-weight:800;background:var(--sun);color:var(--on-fill);border:2px solid var(--edge);border-radius:999px;padding:2px 12px}
+.hzbar{height:14px;border-radius:999px;border:2px solid var(--edge);background:var(--surface);overflow:hidden}
+.hzbar i{display:block;height:100%;background:var(--sun);transform-origin:left center;animation:hzt linear forwards}
+@keyframes hzt{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.hzcard .hw{font-size:2.1rem}
+.hzopts,.turopts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hzb,.turb{display:flex;align-items:center;justify-content:center;gap:8px;min-height:68px;padding:10px;border-radius:var(--r-s);border:2px solid var(--edge);background:var(--surface);color:var(--ink);
+  box-shadow:0 var(--lift) 0 var(--edge);font-family:var(--display);font-weight:800;font-size:1.04rem;line-height:1.2;text-align:center;transition:transform .06s ease,box-shadow .06s ease}
+.hzb:active,.turb:active{transform:translateY(var(--lift));box-shadow:0 0 0 var(--edge)}
+.turb{min-height:56px}.turb i{width:14px;height:14px;border-radius:50%;background:var(--pc);border:2px solid var(--edge);flex:none}
+.turb.ok{background:var(--ok);color:var(--on-fill)}.turb.no{background:var(--no);color:var(--on-fill)}.turb.dim{opacity:.42}
+.pnone{--pc:var(--sunk)}
+.hzfb{min-height:1.5em;text-align:center;font-weight:700;color:var(--on-brand)}.hzfb.ok,.hzfb.no{display:flex;align-items:center;justify-content:center;gap:6px}
+.party.gdone .partyart{margin:0 auto}
+/* oyun odası */
+.ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+.gtile{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px 10px;border:2px solid var(--edge);border-radius:var(--r-s);background:var(--surface);
+  box-shadow:0 var(--lift) 0 var(--edge);color:var(--ink);font-weight:800;font-size:.86rem;line-height:1.15;text-align:center;transition:transform .06s ease,box-shadow .06s ease}
+.gtile:active{transform:translateY(var(--lift));box-shadow:0 0 0 var(--edge)}
 @media (max-height:620px){.swnote{display:none}}   /* kısa ekranda yardım yazısı yerine kalp ve çarpı yeter */
 .swbtns.off{visibility:hidden}
 .swfoot>.res{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);justify-content:center;text-align:center}
@@ -748,8 +768,8 @@ button.chip:active{transform:translateY(3px);box-shadow:0 0 0 var(--edge)}
 'use strict';
 
 /* ---- Kurallar ---- */
-var BASE_NEW=20;     // günde sorulan yeni kelime
-var CAP=30;          // bir günde sorulabilecek en fazla kelime (tekrar + yeni)
+var BASE_NEW=10;     // günde sorulan yeni kelime (Necip: kelime az, oyun çok)
+var CAP=20;          // bir günde sorulabilecek en fazla kelime (tekrar + yeni)
 var BLOCK=10;        // kaç kelimede bir cümle kurulur
 var HALF=5;          // bloğun ortasında eşleştirme turu
 var IVL=[3,7,21];    // öğrenilen kelimenin pekiştirme aralıkları (gün); hepsini geçen kelime kalıcı sayılır
@@ -1047,8 +1067,10 @@ function sentWord(ses){
   var src=bad.length?bad:blk;
   return src[Math.floor(Math.random()*src.length)];
 }
-/* ara görevler: 5, 15, 25… kelimeden sonra eşleştirme; 10, 20, 30… kelimeden sonra cümle (sıralama ve tamamlama dönüşümlü) */
-function matchDue(ses){var i=ses.i;return i>0&&i%BLOCK===HALF&&ses.md.indexOf(i)<0}
+/* ara görevler: her 5 kelimede bir. 5, 25… eşleştirme; 15, 35… mola oyunu; 10, 20, 30… cümle (sıralama ve tamamlama dönüşümlü).
+   Sürpriz kutu günde bir, 10. kelimeden sonra; gün sonu kontrolünden sonra günün oyunu. */
+function matchDue(ses){var i=ses.i;return i>0&&i%(2*BLOCK)===HALF&&ses.md.indexOf(i)<0}
+function miniDue(ses){var i=ses.i;return i>0&&i%(2*BLOCK)===BLOCK+HALF&&(ses.mg||[]).indexOf(i)<0}
 function matchIds(ses){
   var out=[];
   ses.q.slice(ses.i-HALF,ses.i).forEach(function(id){if(out.every(function(o){return!clash(BY[o],BY[id])}))out.push(id)});
@@ -1417,9 +1439,37 @@ function fitSky(){                                        // balon boyu, kartla 
   sky.style.setProperty('--bw',w+'px');
   var used=rows*w*128/100+gap*(rows-1);sky.style.paddingTop=Math.max(0,Math.min(48,Math.floor((avail-used)/2)))+'px';   // grup boşluğun ortasında
 }
-var GAMES=['bal','mem','swp'],GNAME={bal:'Balon patlat',mem:'Hafıza kartları',swp:'Eşleşme mi?'};
+var GAMES=['bal','mem','swp','hiz','tur'],GNAME={bal:'Balon patlat',mem:'Hafıza kartları',swp:'Eşleşme mi?',hiz:'Hızlı tur',tur:'Hangi tür?'};
+var HIZ_MS=20000,TURP=['v','n','adj','adv'],TURL={v:'Fiil',n:'İsim',adj:'Sıfat',adv:'Zarf'};   // düğme yazısı Türkçe büyük harfle elle
+function gameWords(game,ses){                             // hızlı turda 12 kelime döner; tür oyununda yalnız fiil, isim, sıfat, zarf
+  if(game==='hiz')return giftWords(ses,12);
+  if(game==='tur'){
+    var pool=giftWords(ses,60).filter(function(id){return TURP.indexOf(BY[id].pos)>=0}),out=[],seen={};
+    pool.forEach(function(id){if(out.length<GAMEN&&!seen[BY[id].pos]){seen[BY[id].pos]=1;out.push(id)}});   // önce her türden birer
+    pool.forEach(function(id){if(out.length<GAMEN&&out.indexOf(id)<0)out.push(id)});
+    return shuffle(out);
+  }
+  return giftWords(ses,GAMEN);
+}
+function hizRound(){var h=G.hiz,id=G.ids[h.k%G.ids.length],x=BY[id],d=distract(x,1)[0],o=shuffle([x.tr,d?d.tr:'—']);h.cur={id:id,opts:o,right:o.indexOf(x.tr)}}
+function hizStart(){
+  var cur=G;G.hiz.t0=Date.now();clearTimeout(G.hiz.tm);
+  G.hiz.tm=setTimeout(function(){
+    if(G!==cur||G.stage!=='game')return;
+    var h=G.hiz;h.rec=S.hizBest|0;if(h.ok>h.rec){S.hizBest=h.ok;save()}
+    givePrize();
+  },HIZ_MS);
+}
+var MINI=['hiz','tur','swp','bal','mem'];
+function startMini(kind){                                  // mola ya da günün oyunu: çıkartmasız, bitince ders kaldığı yerden sürer
+  var game=MINI[(S.mgn|0)%MINI.length];S.mgn=(S.mgn|0)+1;save();
+  G={stage:'game',solo:false,mini:kind,taps:0,game:game,ids:gameWords(game,S.ses),r:0,miss:0,prize:null,isNew:false,bal:null,mem:null,swp:null};
+  Q=null;ST=null;M=null;view='gift';gameInit();render();
+}
 function gameInit(){
   if(G.game==='bal'){balRound();return}
+  if(G.game==='hiz'){G.hiz={k:0,ok:0,no:0,st:0,last:null,t0:0,tm:0};hizRound();hizStart();return}
+  if(G.game==='tur'){G.tur={i:0,fb:null,busy:false};return}
   if(G.game==='swp'){                                      // yarısı doğru eşleşme, yarısı yanlış (anlamı başka bir kelimenin)
     var half=Math.ceil(G.ids.length/2);
     var cards=G.ids.map(function(id,k){
@@ -1434,12 +1484,25 @@ function gameInit(){
   G.mem={cards:shuffle(cards),open:[],done:{},moves:0,lock:false,last:-1};
 }
 function startGift(solo,game){
-  G={stage:solo?'game':'box',solo:!!solo,taps:0,game:GAMES.indexOf(game)>=0?game:GAMES[S.stk.length%GAMES.length],ids:giftWords(solo?null:S.ses,GAMEN),r:0,miss:0,prize:null,isNew:false,bal:null,mem:null,swp:null};
+  var gm=GAMES.indexOf(game)>=0?game:GAMES[S.stk.length%GAMES.length];
+  G={stage:solo?'game':'box',solo:!!solo,taps:0,game:gm,ids:gameWords(gm,solo?null:S.ses),r:0,miss:0,prize:null,isNew:false,bal:null,mem:null,swp:null};
   Q=null;ST=null;M=null;view='gift';
   if(solo)gameInit();
   render();
 }
+function gameStat(){
+  if(G.game==='bal')return G.miss?G.miss+' balon kaçtı ama hepsini buldun.':'Bütün balonları ilk denemede patlattın!';
+  if(G.game==='swp')return G.miss?(G.ids.length-G.miss)+' / '+G.ids.length+' kartı doğru ayırdın.':'Bütün kartları doğru ayırdın!';
+  if(G.game==='hiz'){var h=G.hiz;return h.ok+' kelimeyi 20 saniyede bildin.'+(h.ok>h.rec&&h.rec?' Yeni rekor!':(h.rec?' Rekorun: '+Math.max(h.rec,h.ok)+'.':''))}
+  if(G.game==='tur')return (G.ids.length-G.miss)+' / '+G.ids.length+' kelimenin türünü bildin.';
+  return G.mem.moves+' hamlede bitirdin.';
+}
 function givePrize(){
+  if(G.mini||G.solo){                                      // mola, günün oyunu ve oyun odası: çıkartma yok, kısa bir kutlama
+    G.stage='done';celebrate=true;sfx('yay');clearTimeout(G.hiz&&G.hiz.tm);
+    if(view==='gift'){render();burstSel('.partyart','heart',8,null,200)}
+    return;
+  }
   var left=STK.filter(function(s){return S.stk.indexOf(s[0])<0}),pool=left.length?left:STK;
   G.prize=pool[Math.floor(Math.random()*pool.length)];G.isNew=left.length>0;
   if(!G.solo){
@@ -1457,7 +1520,7 @@ function givePrize(){
 }
 function gameDots(n,k){var s='';for(var j=0;j<n;j++)s+='<i class="'+(j<k?'on':'')+'"></i>';return '<span class="idots" aria-hidden="true">'+s+'</span>'}
 function vGift(){
-  var ses=S.ses,head=G.solo?soloHead('Sürpriz oyun'):progHead(ses,ses.i);
+  var ses=S.ses,head=G.solo?soloHead('Oyun odası'):progHead(ses,ses.i);
   var skip='<button class="btn ghost" data-act="gskip">'+(G.stage==='box'||G.stage==='opening'?'Şimdi değil, geç':'Oyunu geç')+'</button>';
   if(G.stage==='box'||G.stage==='opening'){
     return head+'<div class="body mid">'+
@@ -1468,10 +1531,41 @@ function vGift(){
       '<p class="note">İçinde bugünkü kelimelerle kısa bir oyun var. Yanlış yapsan da bir şey olmaz, bitirince albümüne bir çıkartma yapışır.</p></div>'+
       '<footer class="foot">'+skip+'</footer>';
   }
+  if(G.stage==='done'){
+    var gt=G.mini==='son'?'Günün oyunu':(G.mini?'Mola oyunu':'Oyun odası');
+    var gf=G.mini?'<button class="btn pri" data-act="gdone" data-focus>'+(G.mini==='son'?'Günün özeti':'Devam')+I.go+'</button>'
+      :'<button class="btn sec narrow" data-act="trygift" data-f="'+G.game+'">Bir daha</button><button class="btn pri" data-act="trygift" data-f="'+GAMES[(GAMES.indexOf(G.game)+1)%GAMES.length]+'" data-focus>Başka oyun</button>';
+    return head+'<div class="body mid"><section class="party gdone">'+(celebrate?burst():'')+lok(G.miss?'cheer':'love',88,'partyart')+
+      '<p class="eyebrow">'+gt+' · '+GNAME[G.game]+'</p><h1>'+(G.miss?'Bitti!':'Kusursuz!')+'</h1><p class="pnote">'+gameStat()+'</p>'+
+      (G.solo?'<p class="pnote">Çıkartma her gün kelime turundaki kutudan çıkar.</p>':'')+'</section></div>'+
+      '<footer class="foot">'+gf+'</footer>';
+  }
+  if(G.game==='hiz'){                                      // hızlı tur: 20 saniye, iki şık, her dokunuşta yeni kelime
+    var h=G.hiz,c=h.cur,hx=BY[c.id],gone=Math.min(HIZ_MS,Date.now()-h.t0);
+    var hfb=h.last?(h.last.ok?'<p class="hzfb ok">'+I.ok+' Doğru!</p>':'<p class="hzfb no"><b lang="en">'+esc(h.last.w)+'</b> = '+esc(h.last.tr)+'</p>'):'<p class="hzfb"></p>';
+    return head+'<div class="body mid">'+
+      '<p class="ask hzask">Hızlı tur<span class="hzscore">'+h.ok+' doğru</span></p>'+
+      '<div class="hzbar" role="img" aria-label="Kalan süre"><i style="animation-duration:'+HIZ_MS+'ms;animation-delay:-'+gone+'ms"></i></div>'+
+      '<section class="wcard p'+hx.pos+' hzcard"><div class="wbody"><p class="lbl">Bu kelimenin anlamı hangisi?</p><div class="hw" lang="en">'+esc(hx.w)+'</div></div></section>'+
+      '<div class="hzopts">'+c.opts.map(function(o,k){return '<button class="hzb" data-act="hpick" data-k="'+k+'">'+esc(o)+'</button>'}).join('')+'</div>'+hfb+
+      '<p class="note">Süre bitmeden olabildiğince çok kelime bil. Yanlış da olsa hemen sıradakine geçer.</p></div>'+
+      '<footer class="foot">'+skip+'</footer>';
+  }
+  if(G.game==='tur'){                                      // hangi tür: kelimenin türünü seç, doğru bilince kart türün rengine boyanır
+    var t=G.tur,tx=BY[G.ids[t.i]],N3=G.ids.length,tf=t.fb;
+    var tmsg=tf?(tf.ok?'<p class="hzfb ok">'+I.ok+' Doğru, bu bir '+POS[tx.pos]+'!</p>':'<p class="hzfb no"><b lang="en">'+esc(tx.w)+'</b> bir '+POS[tx.pos]+'.</p>'):'<p class="hzfb"></p>';
+    return head+'<div class="body mid">'+
+      '<p class="ask">Hangi tür? · '+(t.i+1)+' / '+N3+gameDots(N3,t.i)+'</p>'+
+      '<section class="wcard '+(tf?'p'+tx.pos:'pnone')+' turcard"><div class="wband"><span>'+(tf?POS[tx.pos]:'Bu kelime ne?')+'</span></div>'+
+      '<div class="wbody"><div class="hw" lang="en">'+esc(tx.w)+'</div><p class="mean">'+esc(tx.tr)+'</p><p class="ex" lang="en">'+marked(tx.en)+'</p></div></section>'+
+      '<div class="turopts">'+TURP.map(function(pp){var cl=tf?(pp===tx.pos?' ok':(pp===tf.p?' no':' dim')):'';
+        return '<button class="turb p'+pp+cl+'" data-act="tpick" data-p="'+pp+'"'+(t.busy?' disabled':'')+'><i aria-hidden="true"></i>'+TURL[pp]+'</button>'}).join('')+'</div>'+tmsg+
+      '<p class="note">Renkler türü gösterir: fiil mavi, isim nane, sıfat turuncu, zarf lila. Boşluktan önce <span lang="en">to</span> varsa fiil, <span lang="en">the</span> varsa isim ara.</p></div>'+
+      '<footer class="foot">'+skip+'</footer>';
+  }
   if(G.stage==='prize'){
     var p=G.prize,n=S.stk.length,N=STK.length;
-    var stat=G.game==='bal'?(G.miss?G.miss+' balon kaçtı ama hepsini buldun.':'Bütün balonları ilk denemede patlattın!')
-      :(G.game==='swp'?(G.miss?(G.ids.length-G.miss)+' / '+G.ids.length+' kartı doğru ayırdın.':'Bütün kartları doğru ayırdın!'):(G.mem.moves+' hamlede bitirdin.'));
+    var stat=gameStat();
     var foot=G.solo
       ?'<button class="btn sec narrow" data-act="home">Ana sayfa</button><button class="btn pri" data-act="trygift" data-f="'+GAMES[(GAMES.indexOf(G.game)+1)%GAMES.length]+'" data-focus>Öbür oyunu dene</button>'
       :'<button class="btn pri" data-act="gdone" data-focus>Kelimelere dön'+I.go+'</button>';
@@ -1558,6 +1652,11 @@ function lokTap(b){
   var hero=b.closest('.hero');if(hero)hero.classList.add('talk');
   burstAt(b,'heart',5);
   clearTimeout(b.__t);b.__t=setTimeout(function(){t.classList.add('out');if(hero)hero.classList.remove('talk');setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t)},220)},2400);
+}
+function gameRoom(){                                      // beş oyun, öğrenilen kelimelerle, istendiği kadar
+  return '<section class="card groom"><div class="cardhead"><h2>Oyun odası</h2><span class="note">'+GAMES.length+' oyun</span></div>'+
+    '<p class="note">Öğrendiğin kelimelerle istediğin kadar oyna.</p><div class="ggrid">'+
+    GAMES.map(function(g){return '<button class="gtile" data-act="trygift" data-f="'+g+'">'+ui('g-'+g,34)+'<b>'+GNAME[g]+'</b></button>'}).join('')+'</div></section>';
 }
 function albumCard(){
   var n=S.stk.length;
@@ -1913,9 +2012,9 @@ function vWords(){
     '<li><b>Gün sonu kontrolü.</b> O gün bildiğin yeni kelimeler günün sonunda bir de cümle içinde sorulur. İkisinde de bilirsen kelime öğrenilmiş sayılır.</li>'+
     '<li><b>Bir günde en fazla '+CAP+' kelime.</b> Önce tekrarlar sorulur, sığmayan yeni kelimeler sonraki güne kalır.</li>'+
     '<li><b>Yer kalırsa pekiştirme.</b> Öğrendiğin kelimeler '+IVL.join(', ').replace(/, ([^,]*)$/,' ve $1')+' gün sonra yeniden sorulur. Üçünü de geçen kelime kalıcı olur.</li>'+
-    '<li><b>Her '+HALF+' kelimede bir ara görev.</b> Sırayla eşleştirme ve cümle gelir. Cümleyi ya parçalarını sıralayarak kurar ya da devamını seçerek tamamlarsın.</li>'+
+    '<li><b>Her '+HALF+' kelimede bir ara görev.</b> Eşleştirme, cümle ya da kısa bir mola oyunu. Cümleyi ya parçalarını sıralayarak kurar ya da devamını seçerek tamamlarsın. Gün sonu kontrolünden sonra günün oyunu gelir.</li>'+
     '<li><b>Fiil taraması.</b> A1\'den B2\'ye '+VERBS.length+' fiilden hangilerini bildiğini gösterir. Karıştırdıkların ayrı bir listeye düşer, sonra karıştırdığın fiille yan yana sorulur.</li>'+
-    '<li><b>Günde bir sürpriz kutu.</b> Turun ortasında çıkar. İçinde o günün kelimeleriyle kısa bir oyun var (balon, hafıza ya da eşleşme), sonunda albümüne bir çıkartma yapışır. İstersen geçebilirsin.</li>'+
+    '<li><b>Günde bir sürpriz kutu.</b> Turun ortasında çıkar. İçinde o günün kelimeleriyle kısa bir oyun var (balon, hafıza, eşleşme, hızlı tur ya da hangi tür), sonunda albümüne bir çıkartma yapışır. İstersen geçebilirsin.</li><li><b>Oyun odası.</b> Kelime ekranında beş oyunu öğrendiğin kelimelerle istediğin kadar oynarsın.</li>'+
     '<li><b>Lokum.</b> Dokununca bir şey söyler. Tadını Ayarlar\'dan seçersin, çalıştıkça yeni tatlar açılır.</li>'+
     '<li><b>'+UNITS.length+' gramer ünitesi.</b> Gramer sekmesinde her konunun özeti ve '+TLEN+' soruluk üç testi var. Soruların hepsi beş şıklı.</li>'+
     '<li><b>Günün grameri.</b> Her gün sıradaki ünite testi ve önceki ünitelerden '+DAILY_REVIEW+' karışık tekrar sorusu gelir. Yanlış yaptıkların öne alınır.</li>'+
@@ -1934,7 +2033,7 @@ function vWords(){
     types='<h2>Soru türlerini dene</h2><div class="types">'+
       [['tryfmt','tr','Anlamını seç'],['tryfmt','en','İngilizcesini seç'],['tryfmt','blank','Boşluk doldur'],['tryfmt','syn','Eş anlam'],
        ['tryfmt','spell','Kelimeyi kur'],['trymatch','','Eşleştir'],['trysent','','Cümle sırala'],['trycomp','','Cümleyi tamamla'],
-       ['trygift','bal','Balon patlat'],['trygift','mem','Hafıza kartları'],['trygift','swp','Eşleşme mi?']]
+       ['trygift','bal','Balon patlat'],['trygift','mem','Hafıza kartları'],['trygift','swp','Eşleşme mi?'],['trygift','hiz','Hızlı tur'],['trygift','tur','Hangi tür?']]
       .map(function(t){return '<button class="type" data-act="'+t[0]+'"'+(t[1]?' data-f="'+t[1]+'"':'')+'>'+t[2]+'</button>'}).join('')+'</div>'+
       '<p class="note">Deneme soruları ve oyunları ilerlemeni etkilemez.</p>';
   }
@@ -1949,7 +2048,7 @@ function vWords(){
   var va=vStat(VALL);
   var scan='<button class="ucard" data-act="vhub" style="--pc:var(--p-adv)"><span class="uicon">'+ui('scan',40)+'</span><span class="utxt"><span class="unum">Seviye ölçümü</span>'+
     '<b>Fiil taraması</b><span class="usub">'+(va.seen?va.seen+' / '+va.n+' fiil tarandı · '+va.ok+' biliyorsun':'A1\'den B2\'ye '+va.n+' fiilden kaçını biliyorsun?')+'</span></span>'+I.go+'</button>';
-  return brand(streak)+'<div class="body">'+hero+journey+scan+albumCard()+how+more+'</div>'+tabs('words');
+  return brand(streak)+'<div class="body">'+hero+journey+scan+gameRoom()+albumCard()+how+more+'</div>'+tabs('words');
 }
 
 var KIND={n:'Yeni kelime',r:'Tekrar',k:'Pekiştirme',d:'Deneme',f:'Gün sonu kontrolü'};
@@ -2740,10 +2839,12 @@ function advance(snd){
   }
   if(sentDue(ses)){go('swish');SLIDE='sec';startSent(sentWord(ses),false,sentMode(ses));return}
   if(giftDue(ses)){go('swish');SLIDE='sec';startGift(false);return}
+  if(miniDue(ses)){(ses.mg||(ses.mg=[])).push(ses.i);save();go('swish');SLIDE='sec';startMini('mola');return}
   if(ses.i<ses.q.length&&kindAt(ses,ses.i)==='n'&&introDue(ses)){go('swish');SLIDE='sec';startIntro(ses);return}
   if(ses.i>=ses.q.length){
     if(!ses.fq){ses.fq=finalList(ses);ses.fi=0;ses.fres={};save()}
     if(ses.fi<ses.fq.length){if(ses.fi===0){go('swish');SLIDE='sec'}else{go('slide');SLIDE='fwd'}Q=makeQ(ses.fq[ses.fi],'f','blank');ST=null;M=null;view='word';render();return}
+    if(!ses.eg){ses.eg=1;save();go('swish');SLIDE='sec';startMini('son');return}   // gün sonu kontrolünden sonra günün oyunu
     finish();Q=null;ST=null;M=null;celebrate=true;sfx('win');view='sum';render();return;
   }
   go('slide');SLIDE='fwd';
@@ -2825,12 +2926,27 @@ var act={
   gskip:function(){
     if(!G)return;
     if(G.solo){G=null;view='words';render();return}
+    if(G.mini){advance();return}                         // mola ya da günün oyunu geçildi: kutu hakkı yanmaz
     if(S.ses){S.ses.sup=1;save()}
     advance();
   },
   gdone:function(){if(!G)return;var solo=G.solo;G=null;if(solo){view='words';render()}else advance()},
   trygift:function(b){startGift(true,b.getAttribute('data-f'))},
   swyes:function(){swDecide(true)},
+  hpick:function(b){
+    if(!G||G.stage!=='game'||G.game!=='hiz'||Date.now()-G.hiz.t0>=HIZ_MS)return;
+    var h=G.hiz,ok=+b.getAttribute('data-k')===h.cur.right,x=BY[h.cur.id];
+    if(ok){h.ok++;h.st++;sfx('ok',Math.min(7,h.st))}else{h.no++;h.st=0;G.miss++;sfx('miss')}
+    h.last={ok:ok,w:x.w,tr:x.tr};h.k++;hizRound();render(true);
+    if(ok)burstSel('.hzscore','spark',5);
+  },
+  tpick:function(b){
+    if(!G||G.stage!=='game'||G.game!=='tur'||G.tur.busy)return;
+    var t=G.tur,x=BY[G.ids[t.i]],pp=b.getAttribute('data-p'),ok=pp===x.pos,cur=G,at=t.i;
+    t.fb={p:pp,ok:ok};t.busy=true;if(ok)sfx('yes');else{G.miss++;sfx('miss')}
+    render(true);if(ok)burstSel('.turcard','spark',8);
+    setTimeout(function(){if(G!==cur||t.i!==at)return;t.i++;t.fb=null;t.busy=false;if(t.i>=G.ids.length){givePrize();return}if(view==='gift')render()},ok?850:1800);   // yanlışta doğrusu okunacak kadar kalır
+  },
   swno:function(){swDecide(false)},
   lok:function(b){lokTap(b)},
   lokflav:function(){
@@ -2948,6 +3064,7 @@ var act={
     while(ses.i<ses.q.length)mark(ses.q[ses.i],Math.random()<0.7);
     var n=ses.q.length,k;
     for(k=HALF;k<=n;k+=BLOCK)if(ses.md.indexOf(k)<0)ses.md.push(k);
+    ses.mg=ses.mg||[];for(k=BLOCK+HALF;k<=n;k+=2*BLOCK)if(ses.mg.indexOf(k)<0)ses.mg.push(k);ses.eg=1;
     for(k=BLOCK;k<=n;k+=BLOCK)if(ses.sd.indexOf(k)<0)ses.sd.push(k);
     if(ses.sd.indexOf(n)<0)ses.sd.push(n);
     ses.fq=finalList(ses);ses.fi=0;ses.fres={};
