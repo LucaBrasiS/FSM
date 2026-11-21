@@ -1,0 +1,67 @@
+holiday|n|tatil|vacation|We go / on [holiday] / to the seaside / every August.|Her ağustos deniz kenarına tatile gideriz.|beach-with-umbrella
+airport|n|havaalanı||The taxi / takes us / to the [airport] / at six.|Taksi bizi saat altıda havaalanına götürüyor.|airplane-departure
+hotel|n|otel||Our [hotel] / is near / the old town / and the sea.|Otelimiz eski şehre ve denize yakın.|hotel
+passport|n|pasaport||Don't forget / your [passport] / when you / go abroad.|Yurt dışına giderken pasaportunu unutma.|passport-control
+suitcase|n|bavul|luggage|My [suitcase] / is too heavy / for me / to carry.|Bavulum taşıyamayacağım kadar ağır.|luggage
+map|n|harita||We look at / the [map] / to find / the museum.|Müzeyi bulmak için haritaya bakıyoruz.|world-map
+museum|n|müze||The [museum] / is closed / on Mondays / in winter.|Müze kışın pazartesileri kapalı.|classical-building
+bridge|n|köprü||We walk / across the old [bridge] / to the other side / of the river.|Nehrin öbür yakasına eski köprüden yürüyerek geçiyoruz.|bridge-at-night
+island|n|ada||They live / on a small [island] / in the middle / of the sea.|Denizin ortasındaki küçük bir adada yaşıyorlar.|desert-island
+mountain|n|dağ||There is / snow / on the [mountain] / all year.|Dağda bütün yıl kar var.|snow-capped-mountain
+river|n|nehir||A long [river] / runs / through the middle / of the city.|Şehrin ortasından uzun bir nehir geçiyor.|national-park
+forest|n|orman|woods|Many animals / live / in the [forest] / near our village.|Köyümüzün yakınındaki ormanda birçok hayvan yaşıyor.|evergreen-tree
+village|n|köy||My grandparents / live / in a small [village] / in the mountains.|Büyükannemle büyükbabam dağlardaki küçük bir köyde yaşıyor.|houses
+neighbour|n|komşu||Our [neighbour] / brings us / fresh eggs / every week.|Komşumuz bize her hafta taze yumurta getiriyor.|house-with-garden
+guest|n|misafir|visitor|We have / a [guest] / for dinner / this evening.|Bu akşam yemeğe bir misafirimiz var.|bellhop-bell
+customer|n|müşteri|client|The [customer] / wants / a bigger size / in blue.|Müşteri mavinin bir büyük bedenini istiyor.|shopping-bags
+price|n|fiyat|cost|The [price] / of this jacket / is too high / for me.|Bu ceketin fiyatı bana göre çok yüksek.|label
+gift|n|hediye|present|I need / a [gift] / for my mother's / birthday.|Annemin doğum günü için bir hediye lazım.|wrapped-gift
+letter|n|mektup||My grandmother / still writes / a [letter] / to her sister.|Büyükannem hâlâ kız kardeşine mektup yazıyor.|envelope
+message|n|mesaj||Send me / a [message] / when you / get home.|Eve varınca bana mesaj at.|speech-balloon
+newspaper|n|gazete||My father / reads / the [newspaper] / at breakfast.|Babam kahvaltıda gazete okur.|newspaper
+vegetable|n|sebze||Carrot / is my favourite [vegetable] / in / the soup.|Çorbada en sevdiğim sebze havuçtur.|carrot
+fruit|n|meyve||I eat / some [fruit] / after lunch / every day.|Her gün öğle yemeğinden sonra biraz meyve yerim.|grapes
+chicken|n|tavuk||We are having / [chicken] / and rice / for dinner.|Akşam yemeğinde tavuk ve pilav yiyoruz.|poultry-leg
+salt|n|tuz||This soup / needs / a little more [salt] / and lemon.|Bu çorbaya biraz daha tuz ve limon lazım.|salt
+breakfast|n|kahvaltı||I have / [breakfast] / with my family / on Sundays.|Pazar günleri ailemle kahvaltı ederim.|pancakes
+umbrella|n|şemsiye||Take / an [umbrella] / with you, / it's raining.|Yanına şemsiye al, yağmur yağıyor.|umbrella-with-rain-drops
+jacket|n|ceket|coat|Put on / your [jacket], / it's cold / outside.|Ceketini giy, dışarısı soğuk.|coat
+glasses|n|gözlük||I can't read / the menu / without / my [glasses].|Gözlüğüm olmadan menüyü okuyamıyorum.|glasses
+wallet|n|cüzdan||I left / my [wallet] / at home / this morning.|Bu sabah cüzdanımı evde bıraktım.|purse
+medicine|n|ilaç||Take / this [medicine] / twice a day / after meals.|Bu ilacı günde iki kez yemeklerden sonra al.|pill
+travel|v|seyahat etmek||I want to / [travel] / around the world / one day.|Bir gün dünyayı dolaşmak istiyorum.|globe-showing-europe-africa
+visit|v|ziyaret etmek||We [visit] / my aunt / in Izmir / every summer.|Her yaz İzmir'deki teyzemi ziyaret ederiz.|house
+arrive|v|varmak|get to|The train / will [arrive] / at the station / at noon.|Tren öğlen istasyona varacak.|station
+stay|v|kalmak (bir yerde)||We [stay] / at a small hotel / near / the beach.|Plaja yakın küçük bir otelde kalıyoruz.|bed
+carry|v|taşımak||Can you / [carry] / this bag / for me?|Bu çantayı benim için taşıyabilir misin?|shopping-bags
+choose|v|seçmek|pick|You can / [choose] / any colour / you like.|İstediğin rengi seçebilirsin.|backhand-index-pointing-up
+forget|v|unutmak||Don't / [forget] / your keys / on the table.|Anahtarlarını masada unutma.|thought-balloon
+remember|v|hatırlamak||I can't / [remember] / the name / of that film.|O filmin adını hatırlayamıyorum.|brain
+invite|v|davet etmek||I want to / [invite] / all my friends / to the party.|Bütün arkadaşlarımı partiye davet etmek istiyorum.|envelope-with-arrow
+answer|v|cevaplamak|reply|Please / [answer] / the phone, / I'm busy.|Lütfen telefona cevap ver, meşgulüm.|telephone
+wait|v|beklemek (birini)||Please / [wait] / for me / at the bus stop.|Lütfen beni otobüs durağında bekle.|hourglass-done
+send|v|göndermek||I will / [send] / you the photos / tonight.|Fotoğrafları sana bu akşam gönderirim.|outbox-tray
+pay|v|ödemek||Can I / [pay] / by card / here?|Burada kartla ödeyebilir miyim?|credit-card
+win|v|kazanmak (maç, ödül)||I hope / we [win] / the match / on Saturday.|Umarım cumartesi günkü maçı kazanırız.|trophy
+lose|v|kaybetmek||Be careful, / don't / [lose] / your ticket.|Dikkat et, biletini kaybetme.|magnifying-glass-tilted-left
+try|v|denemek||You should / [try] / this cake, / it's delicious.|Bu pastayı denemelisin, çok lezzetli.|fork-and-knife-with-plate
+laugh|v|gülmek||We always / [laugh] / a lot / at his jokes.|Onun şakalarına hep çok güleriz.|face-with-tears-of-joy
+cheap|adj|ucuz||This shop / is very [cheap], / everything is / half price.|Bu dükkân çok ucuz, her şey yarı fiyatına.|coin
+expensive|adj|pahalı||That phone / is too [expensive] / for me / right now.|O telefon şu an benim için çok pahalı.|gem-stone
+heavy|adj|ağır||This box / is too [heavy], / can you / help me?|Bu kutu çok ağır, bana yardım eder misin?|person-lifting-weights
+quiet|adj|sessiz, sakin|silent|The library / is a [quiet] / place / to study.|Kütüphane ders çalışmak için sessiz bir yer.|shushing-face
+dangerous|adj|tehlikeli||It is / [dangerous] / to swim here / at night.|Burada gece yüzmek tehlikeli.|warning
+famous|adj|ünlü|well-known|She is / a [famous] / singer / in Turkey.|O, Türkiye'de ünlü bir şarkıcı.|star
+delicious|adj|lezzetli|tasty|Your mother's / soup / is really / [delicious].|Annenin çorbası gerçekten lezzetli.|face-savoring-food
+boring|adj|sıkıcı|dull|The film / was [boring], / so we left / early.|Film sıkıcıydı, o yüzden erken çıktık.|yawning-face
+angry|adj|kızgın|mad|My brother / is [angry] / because I broke / his phone.|Erkek kardeşim telefonunu kırdığım için kızgın.|angry-face
+healthy|adj|sağlıklı||Fruit and vegetables / are [healthy] / food / for everyone.|Meyve ve sebze herkes için sağlıklı yiyeceklerdir.|green-apple
+strong|adj|güçlü|powerful|My father / is very [strong], / he can / carry two bags.|Babam çok güçlü, iki çantayı taşıyabiliyor.|flexed-biceps
+usually|adv|genellikle|normally|I [usually] / get up / at seven / on weekdays.|Hafta içi genellikle yedide kalkarım.|alarm-clock
+sometimes|adv|bazen|occasionally|We [sometimes] / eat / at a restaurant / on Fridays.|Cuma günleri bazen restoranda yeriz.|game-die
+together|adv|birlikte||We do / our homework / [together] / after school.|Okuldan sonra ödevimizi birlikte yaparız.|handshake
+slowly|adv|yavaşça||Please speak / [slowly], / I am / learning English.|Lütfen yavaşça konuş, İngilizce öğreniyorum.|turtle
+carefully|adv|dikkatlice||Drive / [carefully], / the roads / are wet.|Dikkatlice sür, yollar ıslak.|construction
+yesterday|adv|dün||I saw / your sister / at the market / [yesterday].|Dün kız kardeşini pazarda gördüm.|left-arrow
+soon|adv|yakında, birazdan|shortly|Dinner / will be ready / [soon], / wash your hands.|Akşam yemeği birazdan hazır, ellerini yıka.|fast-forward-button
+again|adv|yeniden, bir daha||Can you / say that / [again], / please?|Onu bir daha söyler misin, lütfen?|repeat-button

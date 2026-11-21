@@ -41,6 +41,10 @@ Sorular uygulamada onar soruluk üç teste bölünür; günün grameri, karış�
 
 `data/kelimeler-a1.txt`: 129 A1 kelimesi (yiyecek, aile, hayvanlar, ev, okul, şehir, doğa, zaman, giysi, günlük fiiller, sıfatlar, renkler ve sık zarflar), örnek cümleleri ve çevirileriyle bu proje için yazılmıştır. Uygulama herkesi seviye testi yaptırmadan bu listeden, dosyadaki sırayla başlatır. Görselleri Fluent Emoji'dir.
 
+`data/kelimeler-a2.txt`: 67 A2 kelimesi (yolculuk, şehir ve doğa, yiyecek, eşyalar, günlük fiiller, sıfatlar, zaman zarfları), aynı biçimde bu proje için yazılmıştır. A2 ve B1 seviye ekranından açılır.
+
+`data/gramer-a1.json`: beş A1 gramer ünitesi (am / is / are; a / an ve çoğullar; this / that ve my / your; can / can't; geniş zamanın temelleri), ünite başına 30 soru. Kaynağı `sanat/gramer-a1-uret.py`.
+
 293 kelimelik liste (B1 – alt B2, YDS metinlerinde sık geçen kelimeler), örnek cümleleri ve çevirileriyle birlikte bu proje
 için yazılmıştır (`data/kelimeler.txt`).
 

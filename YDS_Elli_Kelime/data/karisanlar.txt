@@ -118,3 +118,7 @@ see|watch|A1: görmek / izlemek; film ve televizyon için ikisi de akla gelir.
 go|walk|A1: yürüyerek okula gitmek ikisiyle de söylenir.
 room|house|A1: aynı resimle karışmasın.
 hot|sun|A1: güneş ve sıcak aynı anı anlatır.
+stay|remain|A2: ikisi de kalmak.
+wait|expect|A2: ikisi de beklemek.
+win|gain|A2: ikisi de kazanmak.
+gift|provide|A2: hediye resmi ikisinde de var.

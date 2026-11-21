@@ -309,3 +309,16 @@ Necip: "A1 seviyesi testi yapacak olanlar için cazibeli olmalı, kolay başlama
 - **Gramer, A1 kelimeleri bitene kadar isteğe bağlı:** ünite testleri A2–B1 düzeyinden başlıyor (geniş zaman / şimdiki zaman). Ana menüde "İstersen" yazar, kelime turunu bitiren kişi "Bugün tamam!" görür. A1 için ayrı gramer üniteleri (to be, a/an, çoğullar, this/that, can) henüz yok.
 - Fiil taraması zaten isteğe bağlı; kimse teste zorlanmaz.
 
+## Seviyeler, A1 grameri, balonlar ve siyah tema
+
+Necip: "A1 gramer ünitelerini de yaz. Balon patlamaları daha çok efektli olmalı. Seviye seçmeli olacak, ekranda sadece A1 A2 ve B1 yazmalı; A2 ve B1 üzerine beş defa basılınca açılmalı, geliştirme aşamasında olduğu için. Temayı bir de erkeklere özgü, şık, sadece siyah gri tonları ve beyaz renklerle, stickersız yap. Sesler de buna göre değişmeli."
+
+- **A1 gramer üniteleri:** beş ünite, 150 soru, her birinin kısa konu özeti var. Gramer listesinin en başında "A1 · Başlangıç" bölümü; günün grameri de buradan başlar.
+- **Seviye ekranı:** ana menüdeki seviye düğmesinden açılır; ekranda yalnız A1, A2, B1 yazar. A1 açık. Kilitli seviyeye dokununca sallanır, beşinci dokunuşta açılır ve açık kalır. Seçilen seviyenin yeni kelimeleri gelir (A2: 67 kelime, B1: 293 kelime); tekrarlar her seviyeden sürer. Bugünün turu başlamışsa yeni seviye yarın başlar. Bir seviyenin kelimeleri bitince sonraki kendiliğinden açılmaz.
+- **Oyunlardaki kelimeler** önce görülen kelimelerden, yetmezse seçili seviyeden gelir.
+- **Balon patlaması:** balon önce ezilip büyür; iki halka açılır, 20 parça ve 7 parıltı saçılır, patlatılan kelime yeşil bir hapta yukarı uçar, komşu balonlar sarsılır, anlam kartı hafifçe vurur; sesin sonuna iki nota ve parıltı eklendi. Yanlış balonda küçük bir toz bulutu. Hepsi "hareketi azalt"ta kapalı.
+- **Siyah tema** (Ayarlar > Siyah tema): yalnız siyah, gri ve beyaz; sayfanın tamamı gri tona iner (resimler dahil), köşeler daha keskin, başlık büyük harf. Çıkartma yok: duvar, albüm, Albüm kısayolu, Lokum'un tatları ve aksesuarları gizli; sürpriz kutunun yerine çıkartmasız kısa bir oyun gelir. Lokum gri, kalp yerine tik ve parıltı.
+- **Siyah temanın sesleri:** bütün sesler bir oktav aşağı ve üçgen dalgayla (tok, tahta gibi); yanlışta yay yerine kısa çift vuruş, parıltı yerine iki "tık", Lokum kıkırdamaz "hm-hm" der, kutlamalar düz akor.
+
+Testler: `test/run17.js` 95 denetim.
+
