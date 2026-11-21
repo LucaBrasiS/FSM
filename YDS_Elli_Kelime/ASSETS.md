@@ -22,7 +22,7 @@ görünür. Lisans metinleri aynı klasörde. Dosyalar npm `@fontsource-variable
 
 - **Lokum** (maskot): pudra şekerli bir lokum küpü; altı poz ve altı tat (renk). `src/app.src.html` içinde `lok()`, düz SVG.
 - **Sürpriz kutusu**: mor kutu, sarı kurdele ve fiyonk; kapağı ayrı çizildiği için açılışta uçar. `giftArt()`.
-- **Lokum'un aksesuarları**: fiyonk, kalp toka, çiçek taç, kiraz (albümde 5, 10, 17 ve 24 çıkartmada açılır) ve gece takkesi. `accSVG()`.
+- **Lokum'un aksesuarları**: fiyonk, kalp toka, çiçek taç, kiraz, bere, parti şapkası, mücevherli taç (albümde 5, 10, 17, 24, 32, 40 ve 48 çıkartmada açılır) ve gece takkesi. `accSVG()`.
 - **Parıltı, kalp, konfeti ve pudra şekeri parçaları**, dolu ve boş yıldızlar, damga kartı noktaları: kodla çizilir.
 - Öneri uygulama simgesi `sanat/oneri-ikon-lokum.svg` (henüz kullanılmıyor). Gemini istemleri `sanat/gemini-gorseller.md` içinde.
 
