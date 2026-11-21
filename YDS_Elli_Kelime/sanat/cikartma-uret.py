@@ -1,4 +1,4 @@
-"""Lokum'un arkadaşları: albümün 24 çıkartması, Lokum'un çizgisinde (düz renk, eşit kalınlıkta koyu dış çizgi,
+"""Lokum'un arkadaşları: albümün 48 çıkartması, Lokum'un çizgisinde (düz renk, eşit kalınlıkta koyu dış çizgi,
 yuvarlak hatlar, Lokum'un yüzü: parıltılı göz, pembe yanak, küçük gülüş). Hepsi 32x32 çizim alanında.
 Kullanım: python3 uret.py <çıktı.json>"""
 import json, math, sys
@@ -204,8 +204,141 @@ S['jellyfish'] = (''.join(L(d, 3.0, INK) + L(d, 1.7, '#BCA5FF') for d in (
     E(10.8, 9.8, 1.6, .9, '#E3D9FF', False, -35) + C(21.6, 8.8, .7, '#E3D9FF', False) +
     face(16, 12.6, 1, 3.4, True, 5.4, 2.2))
 
+# ---- ikinci 24: Necip "etiketleri daha arttırabilir miyiz" dedi. Aynı çizgi: düz renk, eşit koyu kenar, Lokum'un yüzü ----
+def sleepy(cx, cy, s=1.0, dx=2.7):
+    """Kapalı, gülen gözler ve yanak (uyuyan ay için)."""
+    o = ''
+    for sx in (-1, 1):
+        x = cx + sx * dx * s
+        o += L('M%s %sQ%s %s %s %s' % (round(x - 1.0 * s, 2), round(cy, 2), round(x, 2), round(cy + 1.1 * s, 2), round(x + 1.0 * s, 2), round(cy, 2)), round(.85 * s, 2))
+        o += E(round(cx + sx * (dx + 1.7) * s, 2), round(cy + 1.5 * s, 2), round(1.1 * s, 2), round(.65 * s, 2), BL, False, op=.9)
+    return o + L('M%s %sQ%s %s %s %s' % (round(cx - .8 * s, 2), round(cy + 1.9 * s, 2), cx, round(cy + 2.7 * s, 2), round(cx + .8 * s, 2), round(cy + 1.9 * s, 2)), round(.8 * s, 2))
+def star_path(cx, cy, ro, ri, rot=-90):
+    pts = []
+    for k in range(10):
+        r_ = ro if k % 2 == 0 else ri
+        an = math.radians(rot + k * 36)
+        pts.append('%.2f %.2f' % (cx + r_ * math.cos(an), cy + r_ * math.sin(an)))
+    return 'M' + 'L'.join(pts) + 'Z'
+# 25 kedi
+S['cat'] = (P('M6.6 13L7.6 4.2L14 8.6Z', '#FFB86B') + P('M25.4 13L24.4 4.2L18 8.6Z', '#FFB86B') +
+    P('M8.4 10.6L8.9 6.6L11.6 8.6Z', '#FFC2D1', False) + P('M23.6 10.6L23.1 6.6L20.4 8.6Z', '#FFC2D1', False) +
+    E(16, 18, 11, 10, '#FFB86B') + L('M14.4 9.2L14.8 11.4M16 8.9L16 11.4M17.6 9.2L17.2 11.4', .8, '#E08A3C') +
+    E(16, 22.4, 5.6, 3.6, '#FFF1E0', False) + face(16, 16.6, 1, 4.0, True, 6.2, 2.4, None) +
+    P('M15 19.4L17 19.4L16 20.6Z', '#FF7FA8', True, .55) + L('M14.4 21.4Q15.2 22.3 16 21.4Q16.8 22.3 17.6 21.4', .75) +
+    L('M10.8 20.4L6.6 19.8M10.8 21.8L6.8 22.6M21.2 20.4L25.4 19.8M21.2 21.8L25.2 22.6', .5))
+# 26 tavşan
+S['bunny'] = (E(11.6, 7.6, 2.6, 6.4, W, True, -12) + E(20.4, 7.6, 2.6, 6.4, W, True, 12) +
+    E(11.6, 8, 1.1, 4.4, '#FFC2D1', False, -12) + E(20.4, 8, 1.1, 4.4, '#FFC2D1', False, 12) +
+    E(16, 19.6, 10.6, 9.4, W) + face(16, 18.4, 1, 3.8, True, 5.8, 2.3, None) +
+    P('M15 21.4L17 21.4L16 22.5Z', '#FF7FA8', True, .55) + R(15, 23.2, 2, 1.8, .4, W, True, .5) + L('M16 23.2L16 25', .4))
+# 27 panda
+S['panda'] = (C(8.4, 9.4, 3.4, INK, False) + C(23.6, 9.4, 3.4, INK, False) +
+    E(16, 18, 11, 10.2, W) + E(12, 17, 2.9, 3.6, '#4A4560', False, -28) + E(20, 17, 2.9, 3.6, '#4A4560', False, 28) +
+    face(16, 17, 1, 3.9, True, 6.4, 3.2, None) + E(16, 21.2, 1.4, .95, INK, False) + L('M14.8 22.6Q16 23.6 17.2 22.6', .8))
+# 28 koala
+S['koala'] = (C(6.6, 11.6, 4.8, '#A9ABC4') + C(25.4, 11.6, 4.8, '#A9ABC4') + C(6.6, 11.6, 2.6, '#EDE9F7', False) + C(25.4, 11.6, 2.6, '#EDE9F7', False) +
+    E(16, 18.4, 10.4, 9.8, '#A9ABC4') + face(16, 16.4, 1, 4.0, True, 6.0, 3.0, None) +
+    E(16, 20.6, 2.3, 3.1, INK, False) + E(15.4, 19.2, .7, .5, '#6E6A86', False) + L('M14.6 24.8Q16 25.6 17.4 24.8', .75))
+# 29 kurbağa
+S['frog'] = (C(10.4, 10.4, 4.2, '#7BD389') + C(21.6, 10.4, 4.2, '#7BD389') +
+    E(16, 19.6, 11.6, 8.8, '#7BD389') + E(16, 23.4, 7, 3.6, '#DFF6C8', False) +
+    face(16, 10.4, 1, 5.6, False, None, 1.35, None, 1.15) +
+    E(8.8, 18.4, 1.6, .95, BL, False, op=.9) + E(23.2, 18.4, 1.6, .95, BL, False, op=.9) + L('M11.6 19.2Q16 23 20.4 19.2', .9))
+# 30 ayı
+S['bear'] = (C(8.2, 9.2, 3.4, '#C08A5B') + C(23.8, 9.2, 3.4, '#C08A5B') + C(8.2, 9.2, 1.7, '#F2D2B0', False) + C(23.8, 9.2, 1.7, '#F2D2B0', False) +
+    E(16, 18, 10.8, 10.2, '#C08A5B') + E(16, 21, 4.8, 3.6, '#F2D2B0', False) +
+    face(16, 16, 1, 3.9, True, 6.1, 2.6, None) + E(16, 19.8, 1.4, .95, INK, False) + L('M14.8 21.4Q16 22.4 17.2 21.4', .8))
+# 31 ördek
+S['duck'] = (L('M15.4 6.4Q16 3.4 18.4 3.6', .9) + L('M16 6.2Q15.2 3.6 13.4 4.4', .9) +
+    C(16, 17, 11, '#FFE066') + E(24.2, 23.2, 2.2, 3.2, '#FFD02E', True, -40, .8) +
+    face(16, 14.6, 1, 4.0, True, 6.2, 2.4, None) + P('M12.6 18.4Q16 16.2 19.4 18.4Q16 22.6 12.6 18.4Z', '#FF9A4D', True, .8) + L('M13.4 18.6Q16 19.6 18.6 18.6', .5))
+# 32 arı
+S['bee'] = (E(10.4, 8.4, 3.6, 5.2, '#DDF1FF', True, -32, .9) + E(21.6, 8.4, 3.6, 5.2, '#DDF1FF', True, 32, .9) +
+    L('M13.4 9.6Q12.4 5.6 10.2 4.8', .8) + L('M18.6 9.6Q19.6 5.6 21.8 4.8', .8) + C(10, 4.6, 1.1, INK, False) + C(22, 4.6, 1.1, INK, False) +
+    E(16, 18.4, 11, 9.6, '#FFD43B') + L('M6.6 21.6Q16 24.6 25.4 21.6', 1.9) + L('M9.4 25.6Q16 27.8 22.6 25.6', 1.7) +
+    face(16, 15.4, 1, 3.9, True, 6.0, 2.2) + P('M26.4 18.4L29.6 19.4L26.6 20.4Z', INK, False))
+# 33 kelebek
+S['butterfly'] = (E(9.6, 11.4, 6.2, 5.6, '#FF9DCB', True, -22) + E(22.4, 11.4, 6.2, 5.6, '#FF9DCB', True, 22) +
+    E(10.6, 21.6, 4.6, 4.2, '#BCA5FF', True, 22) + E(21.4, 21.6, 4.6, 4.2, '#BCA5FF', True, -22) +
+    C(8.4, 10.6, 1.8, '#FFE58A', True, .6) + C(23.6, 10.6, 1.8, '#FFE58A', True, .6) + C(10.4, 22.4, 1.2, W, False) + C(21.6, 22.4, 1.2, W, False) +
+    L('M14.8 8.6Q13.6 4.4 11.4 3.6', .8) + L('M17.2 8.6Q18.4 4.4 20.6 3.6', .8) + C(11.2, 3.4, .9, INK, False) + C(20.8, 3.4, .9, INK, False) +
+    E(16, 17, 3.4, 9.4, '#7B66E0') + face(16, 13.4, .58, 1.6, False))
+# 34 salyangoz
+S['snail'] = (L('M26.4 9.4L25.2 5.2', .8) + L('M28.8 9.4L29.8 5.4', .8) + C(25.1, 5, 1, INK, False) + C(29.9, 5.2, 1, INK, False) +
+    P('M3.4 27.2Q3.4 24.2 6.6 24.2L22.4 24.2Q25.2 24.2 25.4 20.8L25.6 12.4Q25.8 9.4 27.6 9.4Q29.6 9.4 29.6 12.4L29.4 22.4Q29 27.6 23.4 27.6L4.6 27.6Q3.4 27.6 3.4 27.2Z', '#FFD9A8') +
+    C(14, 17, 8.6, '#FF9DCB') + L('M14 17.2Q14 15 16 15.4Q18.6 16 17.8 18.8Q16.8 21.6 13.6 21Q10 20 10.6 16.2Q11.4 12 16 12.2Q20.8 12.6 21.8 16.6', .9, '#E0679F') +
+    face(27.6, 13.6, .5, 1.25, False, mouth=None) + L('M27 15.4Q27.6 16 28.2 15.4', .5))
+# 35 balina
+S['whale'] = (C(12.6, 4.2, 1.1, '#8FD3FF', True, .6) + C(15.6, 3, 1.2, '#8FD3FF', True, .6) + C(18.4, 4.6, 1, '#8FD3FF', True, .6) +
+    P('M25.4 15.6Q28 11.6 30 10Q30.6 14 28.4 16.6Q30.8 17.6 31 21.2Q28 20.4 25.6 19.4Z', '#7FB8FF') +
+    P('M3.4 18Q3.4 8.4 14.6 8.4Q25.8 8.4 26.4 17.2Q26.6 22.6 21 25.6Q15.2 28.6 9.4 27.2Q3.4 25.6 3.4 18Z', '#7FB8FF') +
+    P('M5.6 22.2Q12 25.8 22.8 22.4Q20.4 26.2 15 27Q8.4 27.6 5.6 22.2Z', '#D7EBFF', False) + face(13, 16.6, 1, 3.4, True, 5.2, 2.2))
+# 36 kaplumbağa
+S['turtle'] = (E(7.6, 25.6, 2.4, 1.9, '#8BE0A0') + E(18.4, 26, 2.4, 1.9, '#8BE0A0') + P('M3.6 21.4L1.4 22.6L3.8 23.4Z', '#8BE0A0', True, .7) +
+    C(24.8, 15.4, 5.4, '#8BE0A0') + P('M2.8 22.4Q2.8 10.4 13 10.4Q23.2 10.4 23.2 22.4Z', '#5DBB72') + R(2.4, 21.2, 21.2, 3.2, 1.6, '#3E9E5E', True, .9) +
+    P('M10.4 13.4L15.6 13.4L17.6 17.4L15.6 21L10.4 21L8.4 17.4Z', '#7BD389', True, .7) + L('M8.4 17.4L4.4 18.4M17.6 17.4L21.6 18.4M10.4 13.4L8.2 11.6M15.6 13.4L17.8 11.6', .6, INK) +
+    face(25, 15, .82, 2.3, True, 3.7, 2.0))
+# 37 mantar
+S['mushroom'] = (R(10.2, 17.2, 11.6, 12, 4.6, '#FFF1DC') +
+    P('M3.4 16.6Q3.4 5.2 16 5.2Q28.6 5.2 28.6 16.6Q28.6 18.8 26.2 18.8L5.8 18.8Q3.4 18.8 3.4 16.6Z', '#FF6B6B') +
+    C(9.6, 12.4, 2.1, W, False) + C(17, 8.8, 1.7, W, False) + C(23.2, 13.4, 2.3, W, False) + C(14.6, 15.2, 1.1, W, False) +
+    face(16, 22.4, .85, 2.6, True, 4.2, 2.2))
+# 38 çilek
+S['strawberry'] = (P('M16 29.6Q5.8 26.4 5.4 15.8Q5.4 10.2 10.8 10.2Q13.6 10.2 16 11.6Q18.4 10.2 21.2 10.2Q26.6 10.2 26.6 15.8Q26.2 26.4 16 29.6Z', '#FF5C7A') +
+    ''.join(E(x, y, .42, .62, '#FFE58A', False) for x, y in ((9.4, 15.6), (22.6, 15.6), (8.8, 20.6), (23.2, 20.6), (12, 25.2), (20, 25.2), (16, 27))) +
+    P('M16 11.8L12.6 7.4L15 8.6L16 5.2L17 8.6L19.4 7.4Z', '#6FD38F', True, .8) + L('M16 5.4L16.4 3', .9) +
+    face(16, 17.6, 1, 3.5, True, 5.5, 2.3))
+# 39 kek
+S['cupcake'] = (P('M7.6 18.4L24.4 18.4L22.2 29.4L9.8 29.4Z', '#8FD3FF') + L('M11.6 19L12.4 29M16 19L16 29M20.4 19L19.6 29', .7, '#5FAEE6') +
+    cloud([(9.6, 16.4, 3.4), (13.2, 13.2, 3.8), (18.8, 13.2, 3.8), (22.4, 16.4, 3.4), (16, 16.2, 4.2), (16, 11, 3.4)], '#FFC2DD') +
+    C(16, 6.4, 2.2, '#FF5C7A') + L('M16.4 4.4Q17.4 2.6 19 2.4', .75) +
+    L('M10.6 13.6L11.4 12.8M20.6 12.6L21.6 13.2M14.6 10.6L15.4 10.2M18 16.8L18.8 17.4M12.6 17.2L13.4 16.6', 1.0, '#BCA5FF') +
+    face(16, 22.4, .8, 2.7, True, 4.3, 1.9))
+# 40 donut
+S['donut'] = (C(16, 17, 11, '#F2B272') +
+    P(''.join(('M' if k == 0 else 'L') + '%.2f %.2f' % (16 + (9.6 + .9 * math.sin(k * math.pi / 3)) * math.cos(k * math.pi / 18), 16.4 + (9.6 + .9 * math.sin(k * math.pi / 3)) * math.sin(k * math.pi / 18)) for k in range(36)) + 'Z', '#FF9DCB') +
+    C(16, 13.4, 2.8, '#F2B272') +
+    L('M9.2 12.4L10.4 11.6M21.4 11.2L22.6 12M8.6 17.6L9.8 18.2M23.2 17L22.2 18M12.2 8.6L13.4 8.8M19.2 8.4L20.4 9', 1.0, '#6FE3C4') +
+    L('M11 15L11.6 14M21 15.6L21.8 16.4', 1.0, '#FFD43B') + face(16, 20.2, .82, 3.0, True, 4.8, 2.0))
+# 41 dondurma
+S['ice-cream'] = (P('M9.6 17.8L22.4 17.8L16 30.6Z', '#F2B272') + L('M11.4 20L19.4 26.4M13.6 18.4L20.8 23.4M20.6 20L12.6 26.4M18.4 18.4L11.2 23.4', .55, '#C98A4C') +
+    cloud([(9.8, 16, 3.2), (13.4, 12.2, 4.2), (18.6, 12.2, 4.2), (22.2, 16, 3.2), (16, 15.4, 4.6)], '#FFC2DD') +
+    P('M19.6 17.8Q20.4 21 21.6 18.2Z', '#FFC2DD', True, .6) + C(16, 6.6, 2.1, '#FF5C7A') + L('M16.4 4.6Q17.2 3 18.8 2.8', .75) +
+    face(16, 13.8, .85, 2.9, True, 4.6, 2.0))
+# 42 balonlu çay
+S['bubble-tea'] = (R(17.2, 1.6, 2.8, 10, 1.1, '#FF9DCB', True, .9) +
+    P('M8 11.6L24 11.6L22 29.2Q21.9 30.2 20.9 30.2L11.1 30.2Q10.1 30.2 10 29.2Z', '#FFE3C4') +
+    P('M9.6 22.8L22.4 22.8L22 29.2Q21.9 30.2 20.9 30.2L11.1 30.2Q10.1 30.2 10 29.2Z', '#E9C39C', False) +
+    R(6.8, 9.4, 18.4, 3.2, 1.5, W) + ''.join(C(x, y, 1.15, '#4A3B5C', False) + C(x + .35, y - .4, .35, W, False) for x, y in ((12.4, 27.4), (15.4, 28.2), (18.6, 27.4), (13.8, 25.2), (17.2, 25.2), (20.2, 25.6))) +
+    face(16, 16.6, .9, 2.9, True, 4.6, 2.1))
+# 43 ayçiçeği
+S['sunflower'] = (L('M16 22L16 31', 1.8, INK) + L('M16 22L16 31', .9, '#5DBB72') + E(19.6, 27.4, 3, 1.5, '#7BD389', True, -30, .8) +
+    ''.join(E(round(16 + 8.4 * math.cos(k * math.pi / 6), 2), round(14.6 + 8.4 * math.sin(k * math.pi / 6), 2), 2.2, 3.8, '#FFD43B', True, round(90 + k * 30, 1), .85) for k in range(12)) +
+    C(16, 14.6, 6.4, '#B9805A') + face(16, 14.2, .78, 2.6, True, 4.2, 2.0))
+# 44 ay
+S['moon'] = (C(16, 16.6, 11, '#FFE27A') + C(10.6, 11.6, 1.8, '#F5CF52', False) + C(22.6, 22.6, 2.2, '#F5CF52', False) + C(22.4, 10.6, 1.2, '#F5CF52', False) +
+    sleepy(16, 15.8, 1, 3.6) + sparkle(28, 4.4, 2.0) + sparkle(4.2, 26, 1.5, W))
+# 45 yıldız
+S['star'] = (P(star_path(16, 17.4, 13.6, 6.4), '#FFD43B', True, 1.3) + face(16, 17.6, 1, 2.9, True, 4.7, 2.1) + sparkle(28, 5, 1.6, W))
+# 46 bulut
+S['cloud'] = (E(10.6, 28.6, 1.1, 1.5, '#8FD3FF', True, 0, .6) + E(21.4, 28.6, 1.1, 1.5, '#8FD3FF', True, 0, .6) +
+    cloud([(7.4, 19, 4.8), (12.6, 13.6, 6.2), (19.6, 13.2, 5.6), (24.8, 18.6, 4.8), (16, 19.8, 5.6)]) + face(16, 17.4, 1, 3.4, True, 5.4, 2.1))
+# 47 karpuz
+S['watermelon'] = (P('M2.8 12.4L29.2 12.4Q29.2 27.2 16 27.2Q2.8 27.2 2.8 12.4Z', '#5BAE5B') +
+    P('M4.8 12.4L27.2 12.4Q27.2 25 16 25Q4.8 25 4.8 12.4Z', '#F3FAD6', False) + P('M6.2 12.4L25.8 12.4Q25.8 23.6 16 23.6Q6.2 23.6 6.2 12.4Z', '#FF6B81', False) +
+    L('M2.8 12.4L29.2 12.4', SW) + ''.join(E(x, y, .5, .8, INK, False, 20) for x, y in ((9, 15.2), (23, 15.2), (11.4, 20), (20.6, 20), (16, 21.6))) +
+    face(16, 15.2, .9, 2.8, True, 4.4, 2.0))
+# 48 hamster
+S['hamster'] = (C(8.6, 9.6, 2.8, '#F5C58A') + C(23.4, 9.6, 2.8, '#F5C58A') + C(8.6, 9.6, 1.4, '#FFC2D1', False) + C(23.4, 9.6, 1.4, '#FFC2D1', False) +
+    E(16, 18.6, 11.4, 10, '#F5C58A') + E(16, 22.4, 7.4, 5.2, '#FFF6EA', False) + E(16, 11.6, 3, 2, '#FFF6EA', False) +
+    face(16, 16.6, 1, 4.0, True, 6.4, 2.6, None) + C(16, 19.6, .75, '#FF7FA8', True, .45) + L('M14.8 20.8Q15.4 21.6 16 20.8Q16.6 21.6 17.2 20.8', .7) +
+    E(12.4, 26.8, 1.6, 1, '#F2B272', True, 0, .7) + E(19.6, 26.8, 1.6, 1, '#F2B272', True, 0, .7))
+
 ORDER = ['sloth', 'otter', 'penguin', 'owl', 'fox', 'unicorn', 't-rex', 'octopus', 'parrot', 'hedgehog', 'llama', 'flamingo', 'robot', 'alien', 'ghost', 'rocket',
-         'rainbow', 'crown', 'cactus', 'avocado', 'mirror-ball', 'flying-saucer', 'dragon', 'jellyfish']
+         'rainbow', 'crown', 'cactus', 'avocado', 'mirror-ball', 'flying-saucer', 'dragon', 'jellyfish',
+         'cat', 'bunny', 'panda', 'koala', 'frog', 'bear', 'duck', 'bee', 'butterfly', 'snail', 'whale', 'turtle',
+         'mushroom', 'strawberry', 'cupcake', 'donut', 'ice-cream', 'bubble-tea', 'sunflower', 'moon', 'star', 'cloud', 'watermelon', 'hamster']
 assert sorted(ORDER) == sorted(S), set(ORDER) ^ set(S)
 json.dump({'lk-' + k: S[k] for k in ORDER}, open(sys.argv[1], 'w'), ensure_ascii=False, indent=0)
 print(len(S), 'çıkartma', sum(len(v) for v in S.values()), 'bayt')

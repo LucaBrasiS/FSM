@@ -537,6 +537,8 @@ button.stk.hop i{animation:ljump .55s cubic-bezier(.3,1.4,.5,1)}
 .wst.t0{left:1%;top:6px;transform:rotate(-12deg)}.wst.t1{right:1%;top:2px;transform:rotate(10deg)}
 .wst.t2{left:17%;top:66px;transform:rotate(8deg)}.wst.t3{right:17%;top:72px;transform:rotate(-10deg)}
 .wst.t4{left:-1%;top:98px;transform:rotate(14deg)}.wst.t5{right:-1%;top:94px;transform:rotate(-8deg)}
+.body.many .wall .wst img{width:38px;height:38px}
+.body.many>.wall{gap:6px 10px}
 .body>.wall{flex:1 0 auto;display:flex;flex-wrap:wrap;justify-content:center;align-content:flex-start;gap:8px 14px;padding:2px 4px 8px}
 .wall .note{align-self:center;text-align:center;margin-top:10px}
 .wall .wst:nth-child(3n+1){transform:rotate(-8deg)}.wall .wst:nth-child(3n+2){transform:rotate(6deg) translateY(7px)}.wall .wst:nth-child(3n){transform:rotate(-3deg)}
@@ -671,7 +673,7 @@ body.room .idots i.on{background:var(--sun);border-color:var(--edge)}
 .stkname b{font-family:var(--display);font-weight:800;font-size:1.9rem;line-height:1.1}
 .stkname span{font-weight:600}
 /* albüm damga kartı: her çıkartma bir yuva; bugünkü yuva yapışma anında dolar */
-.albdots{display:grid;grid-template-columns:repeat(12,10px);gap:5px 6px;justify-content:center;padding:4px 0 2px}
+.albdots{display:grid;grid-template-columns:repeat(16,10px);gap:5px 6px;justify-content:center;padding:4px 0 2px}
 .albdots i{width:10px;height:10px;border-radius:50%;border:2px solid var(--edge);background:var(--on-brand)}
 .albdots i.on{background:var(--p-bag)}
 .albdots i.new{background:var(--p-bag);animation:pop .5s cubic-bezier(.3,1.5,.5,1) .55s both;box-shadow:0 0 0 3px var(--on-brand)}
@@ -1586,7 +1588,11 @@ var STK=[['sloth','sloth','tembel hayvan'],['otter','otter','su samuru'],['pengu
   ['unicorn','unicorn','tek boynuzlu at'],['t-rex','dinosaur','dinozor'],['octopus','octopus','ahtapot'],['parrot','parrot','papağan'],['hedgehog','hedgehog','kirpi'],
   ['llama','llama','lama'],['flamingo','flamingo','flamingo'],['robot','robot','robot'],['alien','alien','uzaylı'],['ghost','ghost','hayalet'],['rocket','rocket','roket'],
   ['rainbow','rainbow','gökkuşağı'],['crown','crown','taç'],['cactus','cactus','kaktüs'],['avocado','avocado','avokado'],['mirror-ball','disco ball','disko topu'],
-  ['flying-saucer','flying saucer','uçan daire'],['dragon','dragon','ejderha'],['jellyfish','jellyfish','denizanası']];
+  ['flying-saucer','flying saucer','uçan daire'],['dragon','dragon','ejderha'],['jellyfish','jellyfish','denizanası'],
+  ['cat','cat','kedi'],['bunny','bunny','tavşan'],['panda','panda','panda'],['koala','koala','koala'],['frog','frog','kurbağa'],['bear','bear','ayı'],
+  ['duck','duck','ördek'],['bee','bee','arı'],['butterfly','butterfly','kelebek'],['snail','snail','salyangoz'],['whale','whale','balina'],['turtle','turtle','kaplumbağa'],
+  ['mushroom','mushroom','mantar'],['strawberry','strawberry','çilek'],['cupcake','cupcake','kek'],['donut','donut','donut'],['ice-cream','ice cream','dondurma'],['bubble-tea','bubble tea','balonlu çay'],
+  ['sunflower','sunflower','ayçiçeği'],['moon','moon','ay'],['star','star','yıldız'],['cloud','cloud','bulut'],['watermelon','watermelon','karpuz'],['hamster','hamster','hamster']];   // 48 çıkartma: Necip "etiketleri daha arttırabilir miyiz" dedi
 var GAMEN=6;                                              // bir oyundaki kelime sayısı
 var GSAY=['Açmak için kutuya üç kez dokun.','İçinden ses geliyor… bir daha!','Az kaldı, son bir kez!','Açılıyor!'];
 var G=null;
@@ -2253,7 +2259,7 @@ function vMenu(){
   /* çıkartma duvarı: ilk altısı Lokum'un çevresinde, kalanı menünün altında; dokununca adı okunur */
   var wall=S.stk.length>6?S.stk.slice(6).map(function(k){return wallStk(k,'')}).join('')
     :(S.stk.length?'':'<p class="note">Her gün kutudan bir çıkartma çıkar,<br>buraya yapışır.</p>');
-  return brand(streakNow())+'<div class="body home">'+
+  return brand(streakNow())+'<div class="body home'+(S.stk.length>24?' many':'')+'">'+
     '<section class="hometop"><div class="walltop">'+S.stk.slice(0,6).map(function(k,i){return wallStk(k,' t'+i)}).join('')+'</div>'+
     lokBtn(allDone?'happy':'hi',112,allDone,isNight())+
     '<h1>'+(allDone?'Bugün tamam!':(S.last!=null&&d-S.last>=2?'Tekrar hoş geldin!':greet()))+'</h1>'+

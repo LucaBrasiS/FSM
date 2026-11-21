@@ -167,9 +167,7 @@ def main():
     stk = json.loads((ROOT / "data" / "cikartmalar.json").read_text(encoding="utf-8"))
     for name, body in stk.items():
         art["icons"][name] = body
-        key = "stk-" + name[3:]
-        assert key in art["ui"], ("çıkartma anahtarı yok", key)
-        art["ui"][key] = name
+        art["ui"]["stk-" + name[3:]] = name              # ilk 24'ün anahtarı eskisiyle aynı (kazanılmış albümler bozulmaz), yeni 24 yeni anahtar açar
     # arayüz simgeleri de aynı çizgide, yüzsüz (sanat/arayuz-uret.py)
     for name, body in json.loads((ROOT / "data" / "arayuz.json").read_text(encoding="utf-8")).items():
         key = name[3:]

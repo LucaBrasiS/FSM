@@ -69,7 +69,7 @@ hafıza kartlarında konuma göre nota bilerek eklenmedi.
 
 ## Çıkartmalar
 
-Sürpriz kutudan çıkan 24 çıkartma bu proje için Lokum'un çizgisinde çizildi: düz renk, eşit kalınlıkta koyu dış çizgi,
+Sürpriz kutudan çıkan 48 çıkartma bu proje için Lokum'un çizgisinde çizildi (ilk 24: hayvanlar ve fantastik nesneler; ikinci 24: kedi, tavşan, panda, koala, kurbağa, ayı, ördek, arı, kelebek, salyangoz, balina, kaplumbağa, mantar, çilek, kek, donut, dondurma, balonlu çay, ayçiçeği, ay, yıldız, bulut, karpuz, hamster): düz renk, eşit kalınlıkta koyu dış çizgi,
 yuvarlak hatlar ve Lokum'un yüzü. Çizimler `sanat/cikartma-uret.py` ile üretilir, `data/cikartmalar.json` içinde durur;
 albüm anahtarları (`stk-sloth` gibi) eskisiyle aynıdır, kazanılmış albümler bozulmaz. Eski Fluent Emoji çıkartmaları
 artık dosyaya girmez.
