@@ -1,7 +1,7 @@
 {
   "name": "Nyeals",
   "short_name": "Nyeals",
-  "description": "YDS için günlük kelime, cümle ve gramer çalışması",
+  "description": "A1 seviyesinden başlayan günlük İngilizce kelime, cümle ve gramer oyunları",
   "lang": "tr",
   "start_url": "./index.html",
   "scope": "./",

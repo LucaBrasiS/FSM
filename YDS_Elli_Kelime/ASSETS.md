@@ -39,6 +39,8 @@ Sorular uygulamada onar soruluk üç teste bölünür; günün grameri, karış�
 
 ## Kelimeler
 
+`data/kelimeler-a1.txt`: 129 A1 kelimesi (yiyecek, aile, hayvanlar, ev, okul, şehir, doğa, zaman, giysi, günlük fiiller, sıfatlar, renkler ve sık zarflar), örnek cümleleri ve çevirileriyle bu proje için yazılmıştır. Uygulama herkesi seviye testi yaptırmadan bu listeden, dosyadaki sırayla başlatır. Görselleri Fluent Emoji'dir.
+
 293 kelimelik liste (B1 – alt B2, YDS metinlerinde sık geçen kelimeler), örnek cümleleri ve çevirileriyle birlikte bu proje
 için yazılmıştır (`data/kelimeler.txt`).
 

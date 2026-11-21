@@ -194,7 +194,12 @@ def main():
     lic = (ROOT / "assets" / "FLUENT-EMOJI-LICENSE.txt").read_text(encoding="utf-8").strip()
     gram = load_grammar(pathlib.Path(args.kitap), args.eksik_olabilir)
     bag = load_bag(ROOT / "data" / "baglac", args.eksik_olabilir)
-    words = load_words(ROOT / "data" / "kelimeler.txt")
+    words_a1 = load_words(ROOT / "data" / "kelimeler-a1.txt")     # A1: herkes buradan başlar, seviye testi yok
+    words_rest = load_words(ROOT / "data" / "kelimeler.txt")
+    a1_names = {l.split("|")[0] for l in words_a1.splitlines()}
+    assert not a1_names & {l.split("|")[0] for l in words_rest.splitlines()}, "A1 ile öteki listede aynı kelime"
+    n_a1 = len(words_a1.splitlines())
+    words = words_a1 + "\n" + words_rest
     verbs, n_verbs = load_verbs(ROOT / "data" / "fiiller.txt")
     conf = load_conf(ROOT / "data" / "karisanlar.txt", words)
 
@@ -214,6 +219,7 @@ def main():
         ("/*@@GRAM@@*/{t:[],q:{},pas:{}}", js(gram)),
         ("/*@@BAG@@*/{groups:[],yapi:{},qs:{}}", js(bag)),
         ("/*@@WORDS@@*/''", js(words)),
+        ("/*@@NA1@@*/0", str(n_a1)),
         ("/*@@VERBS@@*/''", js(verbs)),
         ("/*@@CONF@@*/[]", js(conf)),
     ):
@@ -223,7 +229,7 @@ def main():
     n_book = sum(1 for t in gram["t"] if t["grp"] == "k")
     print(f"index.html: {len(out.encode('utf-8')):,} bayt | {len(art['icons'])} çizim | "
           f"{n_book} kitap ünitesi + {len(gram['t']) - n_book} YDS konusu | {sum(len(v) for v in gram['q'].values())} gramer sorusu | "
-          f"{n_verbs} fiil | {len(conf)} karışan çift")
+          f"{n_verbs} fiil | {len(conf)} karışan çift | {n_a1} A1 kelimesi + {len(words.splitlines()) - n_a1}")
 
 
 if __name__ == "__main__":

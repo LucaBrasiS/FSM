@@ -299,3 +299,13 @@ Necip: "YDS arayüzü çok karışık, sadeleşecek. Ana menüde arkada elde edi
 Sırada (Necip'in kararıyla): A1'den başlayan seviye yolu ve yeni A1 kelime listesi; ikinci dil; YDS'ye özel metinlerin ve gramer başlıklarının genel İngilizceye çevrilmesi.
 - **48 çıkartma** (Necip: "etiketleri daha arttırabilir miyiz"). Yeni 24 aynı çizgide (`sanat/cikartma-uret.py`): kedi, tavşan, panda, koala, kurbağa, ayı, ördek, arı, kelebek, salyangoz, balina, kaplumbağa, mantar, çilek, kek, donut, dondurma, balonlu çay, ayçiçeği, ay, yıldız, bulut, karpuz, hamster. Kazanılmış albümler bozulmaz (ilk 24'ün anahtarları aynı). Ana menüde 24'ten fazla çıkartma olunca duvardakiler 38 px'e küçülür. Lokum'un aksesuarları 5, 10, 17, 24, 32, 40 ve 48'de açılır: fiyonk, kalp toka, çiçek taç, kiraz, **bere, parti şapkası, mücevherli taç** (son üçü Necip'in isteğiyle). Hepsi başın üstünde durur.
 
+## A1'den başlangıç
+
+Necip: "A1 seviyesi testi yapacak olanlar için cazibeli olmalı, kolay başlamalı, zorlamaya gerek yok. Kullanıcıya test yaptırmadan A1'den başlamalı."
+
+- **129 A1 kelimesi** (`data/kelimeler-a1.txt`), her biri resimli. Herkes seviye testi olmadan bunlarla başlar, konu konu: önce yiyecekler, sonra aile, hayvanlar, ev, okul, şehir, doğa, zaman, giysi; ardından günlük fiiller, sıfatlar ve zarflar. Yaklaşık 13 gün sürer, sonra eski 293 kelimelik liste (B1 – alt B2) eski sırasıyla gelir.
+- **Yanlış şıklar** önce aynı düzeyden seçilir: "apple" sorusunda "gerektirmek" çıkmaz, "muz, ekmek, at" çıkar.
+- **Eş anlamlısı olmayan kelimelerde** eş anlam sorusunun yerine İngilizcesini seçme sorusu gelir; kartta "Eş anlamlı" satırı görünmez.
+- **Gramer, A1 kelimeleri bitene kadar isteğe bağlı:** ünite testleri A2–B1 düzeyinden başlıyor (geniş zaman / şimdiki zaman). Ana menüde "İstersen" yazar, kelime turunu bitiren kişi "Bugün tamam!" görür. A1 için ayrı gramer üniteleri (to be, a/an, çoğullar, this/that, can) henüz yok.
+- Fiil taraması zaten isteğe bağlı; kimse teste zorlanmaz.
+

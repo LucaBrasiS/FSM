@@ -346,6 +346,7 @@ h2.sumh{color:var(--ink)}
 .ttxt span{font-size:.84rem;color:var(--muted);overflow-wrap:anywhere}
 .tstate{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--sun);color:var(--on-fill);border:2px solid var(--edge)}
 .tstate.ok{background:var(--ok)}
+.tstate.opt{background:var(--surface)}                       /* isteğe bağlı görev: sarı değil, beyaz ok */
 .tabs{grid-template-columns:repeat(3,1fr)}
 .tab{flex-direction:column;gap:2px;font-size:.84rem;min-height:58px}
 
@@ -801,7 +802,7 @@ button.chip:active{transform:translateY(3px);box-shadow:0 0 0 var(--edge)}
 @keyframes candyout{from{opacity:1}to{opacity:0}}
 .streak .art{transform-origin:50% 90%;animation:flick 1.7s ease-in-out infinite}
 @keyframes flick{0%,100%{transform:scale(1) rotate(-3deg)}50%{transform:scale(1.1,1.16) rotate(3deg)}}
-.task .tstate:not(.ok) svg{animation:nudge 2.4s ease-in-out infinite}
+.task .tstate:not(.ok):not(.opt) svg{animation:nudge 2.4s ease-in-out infinite}
 @keyframes nudge{0%,70%,100%{transform:translateX(0)}80%{transform:translateX(4px)}90%{transform:translateX(-1px)}}
 .wart .art{animation:artpop .5s cubic-bezier(.3,1.5,.5,1) .12s both}
 @keyframes artpop{from{transform:scale(.4) rotate(-14deg);opacity:0}to{transform:none;opacity:1}}
@@ -900,6 +901,7 @@ var POS={v:'fiil',adj:'sıfat',n:'isim',adv:'zarf',bag:'bağlaç',phr:'öbek fii
 
 /* kelime|tür|Türkçe|eş anlamlılar|cümle ( / = parça sınırı, [ ] = hedef kelime)|cümlenin Türkçesi */
 var RAW=/*@@WORDS@@*/'';
+var NA1=/*@@NA1@@*/0;      // listenin ilk NA1 kelimesi A1: herkes buradan başlar, seviye testi yok
 
 /* aynı soruda yan yana şık olmaması gereken çiftler (data/karisanlar.txt): biri ötekinin yerine de doğru sayılabilecek kelimeler */
 var CONF=/*@@CONF@@*/[];
@@ -919,7 +921,7 @@ var TIPS=[
 
 var WORDS=RAW.trim().split('\n').filter(Boolean).map(function(l){
   var p=l.split('|');
-  return {w:p[0],pos:p[1],tr:p[2],syn:p[3].split(',').map(function(s){return s.trim()}),en:p[4],trs:p[5],
+  return {w:p[0],pos:p[1],tr:p[2],syn:p[3].split(',').map(function(s){return s.trim()}).filter(Boolean),en:p[4],trs:p[5],
           tok:p[2].split(',').map(function(s){return s.trim()})};
 });
 var BY=Object.create(null),BYTR=Object.create(null),SYNOF=Object.create(null);
@@ -1123,7 +1125,9 @@ function clash(a,b){
 }
 
 /* Öğretim sırası herkes için aynı: sabit tohumla karıştırılmış kelime listesi */
-var ORDER=shuffle(WORDS.map(function(x){return x.w}),rng(5060));
+WORDS.forEach(function(x,i){x.a1=i<NA1});
+var ORDER=WORDS.filter(function(x){return x.a1}).map(function(x){return x.w})                       // önce A1, dosyadaki sırayla: yiyecek, aile, hayvanlar, ev... (konu konu, en kolaydan)
+  .concat(shuffle(WORDS.filter(function(x){return!x.a1}).map(function(x){return x.w}),rng(5060)));    // sonra öteki liste, eski sırasıyla
 
 /* ---- durum ----
    kelime: st 1 = yarın tekrar, 2 = öğrenildi (chk gününde pekiştirme), 3 = kalıcı; lv = geçilen pekiştirme sayısı */
@@ -1275,7 +1279,7 @@ function vIntro(){
     '<section class="wcard p'+x.pos+(ART.words[x.w]?' hasistk':'')+'">'+wband(x,{pin:0},'n',x.w+'. '+plain(x.en))+'<div class="wbody">'+
     (ART.words[x.w]?'<div class="istk">'+art(ART.words[x.w],104,'','l')+'</div>':'')+   // görsel kartın tepesinde kalıp kesim çıkartma; kısa ekranda köşedeki küçük kutu kalır
     '<div class="hwline"><div class="hw" lang="en">'+esc(x.w)+'</div>'+(ART.words[x.w]?'<span class="wart">'+wart(x.w)+'</span>':'')+'</div>'+
-    '<p class="mean">'+esc(x.tr)+'</p><p class="syn">Eş anlamlı: <span lang="en">'+esc(x.syn.join(' · '))+'</span></p><hr class="rule">'+
+    '<p class="mean">'+esc(x.tr)+'</p>'+(x.syn.length?'<p class="syn">Eş anlamlı: <span lang="en">'+esc(x.syn.join(' · '))+'</span></p>':'')+'<hr class="rule">'+
     '<p class="ex" lang="en">'+marked(x.en)+'</p><p class="tr">'+esc(x.trs)+'</p></div></section>'+
     '<p class="note">Kelimeyi ve cümlesini oku, istersen dinle. Birazdan bu kelimeler sorulacak.</p></div>'+
     '<footer class="foot">'+(IN.k?'<button class="btn sec unav" data-act="iprev" aria-label="Önceki kelime">'+I.back+'</button>':'')+
@@ -1340,8 +1344,9 @@ function fmtFor(kind,w){
   if(kind==='r')return['blank','en','spell','tr'][Math.max(0,((w&&w.n)|0)-1)%4];  // her tekrarda başka bir tür
   return['syn','spell','en'][((w&&w.lv)|0)%3];                                    // pekiştirme seviyesine göre
 }
-function distract(t,n,keep){
-  var pool=shuffle(WORDS.filter(function(x){return x.pos===t.pos&&x.w!==t.w&&x!==keep&&!clash(t,x)&&!(keep&&clash(keep,x))})),ds=[];
+function distract(t,n,keep,needSyn){
+  var ok=function(x){return x.pos===t.pos&&x.w!==t.w&&x!==keep&&!clash(t,x)&&!(keep&&clash(keep,x))&&(!needSyn||x.syn.length)};
+  var pool=shuffle(WORDS.filter(function(x){return ok(x)&&x.a1===t.a1})).concat(shuffle(WORDS.filter(function(x){return ok(x)&&x.a1!==t.a1}))),ds=[];   // yanlış şıklar önce aynı düzeyden
   pool.forEach(function(c){if(ds.length<n&&ds.every(function(o){return!clash(o,c)}))ds.push(c)});
   pool.forEach(function(c){if(ds.length<n&&ds.indexOf(c)<0)ds.push(c)});
   return ds;
@@ -1349,6 +1354,7 @@ function distract(t,n,keep){
 function makeQ(id,kind,fmt){
   var t=BY[id];
   fmt=fmt||fmtFor(kind,S.w[id]);
+  if(fmt==='syn'&&!t.syn.length)fmt='en';                  // eş anlamlısı olmayan (çoğu A1) kelimede İngilizcesini seç
   var q={id:id,kind:kind,fmt:fmt,opts:[],correct:-1,picked:null,ok:false,done:false,fresh:false,solo:false,b:null,sep:'',extra:0,tried:''};
   if(fmt==='spell'){
     var ws=t.w.split(' ');
@@ -1361,7 +1367,7 @@ function makeQ(id,kind,fmt){
   var text=function(o){return fmt==='tr'?o.tr:(fmt==='syn'?o.syn[Math.floor(Math.random()*o.syn.length)]:o.w)};
   var right=text(t),opts=[right],sw=S.w[id],cf=sw&&sw.cf&&BY[sw.cf],ds;
   if(cf&&(cf.pos!==t.pos||clash(t,cf)))cf=null;          // geçen sefer karıştırdığı kelime bu kez de şıklar arasında
-  ds=distract(t,cf?3:4,cf);
+  ds=distract(t,cf?3:4,cf,fmt==='syn');
   if(cf){ds.unshift(cf);q.cf0=cf.w}
   ds.forEach(function(o){var s=text(o);if(opts.indexOf(s)<0)opts.push(s)});
   q.opts=shuffle(opts);q.correct=q.opts.indexOf(right);
@@ -2248,9 +2254,10 @@ var lokLast=-1;
 function lokBtn(pose,size,done,night){
   return '<button class="lokb" data-act="lok"'+(done?' data-done="1"':'')+(night?' data-night="1"':'')+' aria-label="Lokum\'a dokun">'+lok(pose,size,'',null,night?{night:1}:null)+'</button>';
 }
+function a1Phase(){return ORDER.some(function(id){return BY[id].a1&&!(S.w[id]&&S.w[id].st>=2)})}   // öğrenilmemiş A1 kelimesi kaldı mı
 function streakNow(){var d=today();return(S.last!=null&&S.last>=d-1)?(S.streak|0):0}
 function taskRow(act,icon,title,sub,state,attr){
-  var mark=state==='done'?'<span class="tstate ok">'+I.ok+'</span>':(state==='part'?'<span class="tstate part">'+I.go+'</span>':'<span class="tstate">'+I.go+'</span>');
+  var mark=state==='done'?'<span class="tstate ok">'+I.ok+'</span>':(state==='part'?'<span class="tstate part">'+I.go+'</span>':(state==='opt'?'<span class="tstate opt">'+I.go+'</span>':'<span class="tstate">'+I.go+'</span>'));
   return '<button class="task" data-act="'+act+'"'+(attr||'')+'><span class="ticon">'+ui(icon,34)+'</span><span class="ttxt"><b>'+title+'</b><span>'+sub+'</span></span>'+mark+'</button>';
 }
 function vMenu(){
@@ -2265,7 +2272,9 @@ function vMenu(){
   else if(dp.nt)gSub=uLabel(dp.nt.id)+' · Test '+(dp.nt.k+1)+' · '+dp.items.length+' soru';
   else if(dp.items.length)gSub=dp.items.length+' karışık tekrar sorusu';
   else{gSub='Çözülecek test kalmadı';gState='done';gAct='tab'}
-  var allDone=wState==='done'&&gState==='done';
+  var a1=a1Phase();                                        // A1 kelimeleri bitene kadar gramer zorunlu değil: üniteler A2–B1'den başlıyor
+  if(a1&&gState!=='done'){gSub='İstersen · '+gSub;gState='opt'}
+  var allDone=wState==='done'&&(gState==='done'||a1);
   var short=function(s,icon,label){return '<button class="short" data-act="sec" data-s="'+s+'">'+icon+'<b>'+label+'</b></button>'};
   var lastStk=S.stk.length?'stk-'+S.stk[S.stk.length-1]:'stk-sloth';
   /* çıkartma duvarı: ilk altısı Lokum'un çevresinde, kalanı menünün altında; dokununca adı okunur */
@@ -2471,7 +2480,7 @@ function vWord(){
   }
   var detail='<section class="wcard p'+x.pos+'">'+wband(x,w,Q.kind,x.w+'. '+plain(x.en))+'<div class="wbody">'+
     '<div class="hwline"><div class="hw" lang="en">'+esc(x.w)+'</div>'+(ART.words[x.w]?'<span class="wart">'+wart(x.w)+'</span>':'')+'</div><p class="mean">'+esc(x.tr)+'</p>'+
-    '<p class="syn">Eş anlamlı: <span lang="en">'+esc(x.syn.join(' · '))+'</span></p><hr class="rule">'+
+    (x.syn.length?'<p class="syn">Eş anlamlı: <span lang="en">'+esc(x.syn.join(' · '))+'</span></p>':'')+'<hr class="rule">'+
     (f==='tr'?'':'<p class="ex" lang="en">'+marked(x.en)+'</p>')+'<p class="tr">'+esc(x.trs)+'</p></div></section>';   // anlam sorusunda cümle zaten üstteki kartta: yalnız Türkçesi kalır
   return (Q.solo?soloHead('Deneme sorusu'):(Q.kind==='f'?finalHead(ses,ses.fi):progHead(ses,ses.i)))+'<div class="body">'+
     card+ask+area+resPill(Q.ok?'ok':(Q.picked===-1?'idk':'no'),title,esc(sub),Q.fresh)+fix+why+detail+'</div>'+

@@ -113,3 +113,8 @@ rate|cost|cümle sonu öteki cümleyi de tamamlıyor (cümleyi tamamla)
 depend|depend on|eşleştirmede "bağlı olmak" / "-e bağlı olmak" ayırt edilemez
 participate|take part in|eşleştirmede "katılmak" / "-e katılmak" ayırt edilemez
 sudden|rapid|eş anlamlılardan "quick" çıkınca ayrı tutan bağ koptu
+like|love|A1: sevmek / çok sevmek; birbirinin yerine doğru sayılabilir.
+see|watch|A1: görmek / izlemek; film ve televizyon için ikisi de akla gelir.
+go|walk|A1: yürüyerek okula gitmek ikisiyle de söylenir.
+room|house|A1: aynı resimle karışmasın.
+hot|sun|A1: güneş ve sıcak aynı anı anlatır.

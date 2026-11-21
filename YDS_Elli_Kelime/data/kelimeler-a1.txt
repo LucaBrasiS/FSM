@@ -1,0 +1,129 @@
+apple|n|elma||I eat / an [apple] / every day / after lunch.|Her gün öğle yemeğinden sonra bir elma yerim.|red-apple
+banana|n|muz||My little brother / wants / a [banana] / for breakfast.|Küçük kardeşim kahvaltıda bir muz istiyor.|banana
+bread|n|ekmek||We buy / fresh [bread] / from the shop / every morning.|Her sabah dükkândan taze ekmek alırız.|bread
+water|n|su||Please give me / a glass of [water] / with ice, / thank you.|Lütfen bana buzlu bir bardak su ver, teşekkürler.|droplet
+milk|n|süt||The cat / drinks / warm [milk] / in the kitchen.|Kedi mutfakta ılık süt içiyor.|glass-of-milk
+coffee|n|kahve||My mother / has a cup of [coffee] / every morning / at seven.|Annem her sabah saat yedide bir fincan kahve içer.|hot-beverage
+tea|n|çay||In Turkey, / people drink / a lot of [tea] / every day.|Türkiye'de insanlar her gün çok çay içer.|teacup-without-handle
+egg|n|yumurta||I cook / an [egg] / for breakfast / on Sundays.|Pazar günleri kahvaltıda bir yumurta pişiririm.|egg
+cheese|n|peynir||This sandwich / has / white [cheese] / and tomato.|Bu sandviçte beyaz peynir ve domates var.|cheese-wedge
+cake|n|pasta, kek||We make / a chocolate [cake] / for her birthday / tonight.|Bu akşam onun doğum günü için çikolatalı bir pasta yapıyoruz.|shortcake
+soup|n|çorba||A bowl of / hot [soup] / is good / on a cold day.|Soğuk bir günde bir kâse sıcak çorba iyi gelir.|pot-of-food
+orange|n|portakal||I want / an [orange] / and a banana, / please.|Bir portakal ve bir muz istiyorum, lütfen.|tangerine
+mother|n|anne|mom|My [mother] / works / in a hospital / near our house.|Annem evimizin yakınındaki bir hastanede çalışıyor.|woman
+father|n|baba|dad|My [father] / drives / me to school / every morning.|Babam her sabah beni okula arabayla götürür.|man
+sister|n|kız kardeş, abla||My [sister] / is ten years old / and she loves / horses.|Kız kardeşim on yaşında ve atları çok seviyor.|girl
+brother|n|erkek kardeş, ağabey||My [brother] / plays football / with his friends / after school.|Erkek kardeşim okuldan sonra arkadaşlarıyla futbol oynar.|boy
+baby|n|bebek||The [baby] / is sleeping / in her bed / right now.|Bebek şu anda yatağında uyuyor.|baby
+friend|n|arkadaş|pal|My best [friend] / lives / in the same street / as me.|En iyi arkadaşım benimle aynı sokakta oturuyor.|people-hugging
+teacher|n|öğretmen||Our English [teacher] / is very kind / and she smiles / a lot.|İngilizce öğretmenimiz çok nazik ve çok gülümsüyor.|woman-teacher
+doctor|n|doktor||I feel sick, / so I want / to see / a [doctor].|Kendimi hasta hissediyorum, o yüzden bir doktora görünmek istiyorum.|health-worker
+student|n|öğrenci||She is / a university [student] / in Ankara / this year.|O bu yıl Ankara'da bir üniversite öğrencisi.|student
+family|n|aile||My [family] / has dinner / together / every evening.|Ailem her akşam birlikte akşam yemeği yer.|house-with-garden
+cat|n|kedi||Our [cat] / sleeps / on the sofa / all day.|Kedimiz bütün gün kanepede uyur.|cat-face
+dog|n|köpek||I walk / my [dog] / in the park / every evening.|Her akşam köpeğimi parkta yürüyüşe çıkarırım.|dog-face
+bird|n|kuş||A small [bird] / is singing / in the tree / outside my window.|Penceremin dışındaki ağaçta küçük bir kuş ötüyor.|bird
+fish|n|balık||There is / a red [fish] / in the glass bowl / on the table.|Masadaki cam kâsede kırmızı bir balık var.|fish
+horse|n|at||The white [horse] / runs / very fast / in the field.|Beyaz at tarlada çok hızlı koşuyor.|horse
+house|n|ev|home|Our [house] / has / a small garden / and two trees.|Evimizin küçük bir bahçesi ve iki ağacı var.|house
+room|n|oda||My [room] / is small / but it is / very bright.|Odam küçük ama çok aydınlık.|bed
+door|n|kapı||Please close / the [door] / when you / leave the room.|Lütfen odadan çıkarken kapıyı kapat.|door
+window|n|pencere||I can see / the sea / from my [window] / in the morning.|Sabahları penceremden denizi görebiliyorum.|window
+table|n|masa||The keys / are / on the kitchen [table] / next to the bread.|Anahtarlar mutfak masasında, ekmeğin yanında.|chair
+kitchen|n|mutfak||We cook / and eat / in the [kitchen] / every day.|Her gün mutfakta yemek pişirir ve yeriz.|cooking
+book|n|kitap||I am reading / a funny [book] / about a cat / and a dog.|Bir kedi ve bir köpek hakkında komik bir kitap okuyorum.|closed-book
+pen|n|kalem||Can I borrow / your [pen] / for a minute, / please?|Kalemini bir dakikalığına ödünç alabilir miyim, lütfen?|pen
+bag|n|çanta||My school [bag] / is blue / and very heavy / today.|Okul çantam mavi ve bugün çok ağır.|backpack
+school|n|okul||The children / walk / to [school] / every morning.|Çocuklar her sabah okula yürür.|school
+phone|n|telefon||My [phone] / is / on the table / in the kitchen.|Telefonum mutfaktaki masanın üstünde.|mobile-phone
+car|n|araba||My uncle / has / a new red [car] / this year.|Amcamın bu yıl yeni, kırmızı bir arabası var.|automobile
+bus|n|otobüs||I take / the [bus] / to work / every day.|Her gün işe otobüsle giderim.|bus
+train|n|tren||The [train] / to Izmir / leaves / at nine o'clock.|İzmir treni saat dokuzda kalkıyor.|high-speed-train
+bike|n|bisiklet|bicycle|I ride / my [bike] / to the park / on weekends.|Hafta sonları bisikletimle parka giderim.|bicycle
+clock|n|saat||The big [clock] / on the wall / says / half past two.|Duvardaki büyük saat iki buçuğu gösteriyor.|alarm-clock
+money|n|para||I don't have / enough [money] / for a new phone / now.|Şu an yeni bir telefon için yeterli param yok.|money-bag
+key|n|anahtar||I can't find / my [key] / and I can't / open the door.|Anahtarımı bulamıyorum ve kapıyı açamıyorum.|key
+ticket|n|bilet||I have / two [ticket]s / for the concert / on Friday.|Cuma günkü konser için iki biletim var.|ticket
+computer|n|bilgisayar|laptop|I do / my homework / on the [computer] / in the evening.|Akşamları ödevimi bilgisayarda yaparım.|laptop
+city|n|şehir|town|Istanbul is / a very big [city] / with many / bridges.|İstanbul birçok köprüsü olan çok büyük bir şehir.|cityscape
+park|n|park||Children / play / in the [park] / after school.|Çocuklar okuldan sonra parkta oynar.|national-park
+shop|n|dükkân, mağaza|store|The [shop] / on the corner / sells / fresh fruit.|Köşedeki dükkân taze meyve satıyor.|convenience-store
+beach|n|plaj, sahil||We swim / and play / on the [beach] / in summer.|Yazın plajda yüzer ve oynarız.|beach-with-umbrella
+street|n|sokak, cadde|road|There are / many small cafés / on this [street] / near the sea.|Denize yakın bu sokakta birçok küçük kafe var.|motorway
+hospital|n|hastane||My aunt / is a nurse / at the [hospital] / in our town.|Teyzem kasabamızdaki hastanede hemşire.|hospital
+restaurant|n|restoran, lokanta||We have dinner / at a fish [restaurant] / by the sea / tonight.|Bu akşam deniz kenarındaki bir balık restoranında akşam yemeği yiyoruz.|fork-and-knife-with-plate
+sun|n|güneş||The [sun] / is hot / and the sky / is blue.|Güneş sıcak ve gökyüzü mavi.|sun
+rain|n|yağmur||Take / your umbrella, / there is [rain] / today.|Şemsiyeni al, bugün yağmur var.|cloud-with-rain
+snow|n|kar||The children / love / playing in the [snow] / in winter.|Çocuklar kışın karda oynamayı çok sever.|snowflake
+tree|n|ağaç||There is / a big [tree] / in front of / our school.|Okulumuzun önünde büyük bir ağaç var.|deciduous-tree
+flower|n|çiçek||She gives / her mother / a beautiful [flower] / every Sunday.|Her pazar annesine güzel bir çiçek verir.|tulip
+sea|n|deniz||The [sea] / is warm / and very blue / in August.|Ağustosta deniz ılık ve çok mavi.|water-wave
+day|n|gün||Have / a nice [day] / at school, / sweetie!|Okulda iyi günler, tatlım!|sun-with-face
+night|n|gece||I can see / many stars / in the sky / at [night].|Geceleri gökyüzünde birçok yıldız görebiliyorum.|crescent-moon
+morning|n|sabah||I drink / a glass of water / every [morning] / before breakfast.|Her sabah kahvaltıdan önce bir bardak su içerim.|sunrise
+week|n|hafta||We have / English lessons / three times / a [week].|Haftada üç kez İngilizce dersimiz var.|spiral-calendar
+year|n|yıl, sene||My little sister / starts school / next [year] / in September.|Küçük kız kardeşim seneye eylülde okula başlıyor.|calendar
+hand|n|el||Please wash / your [hand]s / before / dinner.|Lütfen akşam yemeğinden önce ellerini yıka.|raised-hand
+eye|n|göz||She has / big brown [eye]s / and long / black hair.|İri kahverengi gözleri ve uzun siyah saçları var.|eye
+shirt|n|gömlek, tişört||I wear / a white [shirt] / to school / on Mondays.|Pazartesileri okula beyaz bir gömlek giyerim.|t-shirt
+shoe|n|ayakkabı||These new [shoe]s / are / very comfortable / for walking.|Bu yeni ayakkabılar yürümek için çok rahat.|running-shoe
+hat|n|şapka|cap|Wear / a [hat] / in the sun, / it's very hot.|Güneşte şapka tak, hava çok sıcak.|billed-cap
+dress|n|elbise||She is wearing / a long blue [dress] / at the party / tonight.|Bu akşam partide uzun mavi bir elbise giyiyor.|dress
+eat|v|yemek (yemek yemek)||We usually [eat] / dinner / at seven / in the evening.|Genellikle akşam yedide akşam yemeği yeriz.|fork-and-knife
+drink|v|içmek||You should [drink] / a lot of water / on hot / summer days.|Sıcak yaz günlerinde çok su içmelisin.|cup-with-straw
+sleep|v|uyumak||Babies / [sleep] / a lot / during the day.|Bebekler gün içinde çok uyur.|sleeping-face
+go|v|gitmek||We [go] / to the beach / every Sunday / in summer.|Yazın her pazar plaja gideriz.|person-walking
+come|v|gelmek||Can you [come] / to my birthday party / on Saturday / afternoon?|Cumartesi öğleden sonra doğum günü partime gelebilir misin?|waving-hand
+read|v|okumak||I [read] / a story / to my little sister / every night.|Her gece küçük kız kardeşime bir hikâye okurum.|open-book
+write|v|yazmak||Please [write] / your name / at the top / of the page.|Lütfen adını sayfanın en üstüne yaz.|writing-hand
+run|v|koşmak||I [run] / in the park / every morning / before work.|Her sabah işten önce parkta koşarım.|person-running
+walk|v|yürümek||We [walk] / to school / together / every day.|Her gün birlikte okula yürürüz.|person-walking
+swim|v|yüzmek||Can you [swim] / in the sea / or only / in a pool?|Denizde yüzebilir misin, yoksa yalnızca havuzda mı?|person-swimming
+play|v|oynamak||The children / [play] / games / in the garden.|Çocuklar bahçede oyun oynuyor.|video-game
+sing|v|şarkı söylemek||We [sing] / happy birthday / to my grandmother / today.|Bugün büyükanneme doğum günü şarkısı söylüyoruz.|microphone
+dance|v|dans etmek||They [dance] / together / at every / family wedding.|Her aile düğününde birlikte dans ederler.|woman-dancing
+cook|v|yemek pişirmek||My father / likes to [cook] / pasta / on Fridays.|Babam cuma günleri makarna pişirmeyi sever.|cooking
+open|v|açmak||Can you [open] / the window, / please? / It's hot.|Pencereyi açabilir misin, lütfen? Hava sıcak.|open-book
+close|v|kapatmak||Please [close] / your books / and listen / to me.|Lütfen kitaplarınızı kapatın ve beni dinleyin.|closed-book
+buy|v|satın almak||I want to [buy] / a present / for my best friend / today.|Bugün en iyi arkadaşıma bir hediye almak istiyorum.|shopping-cart
+like|v|sevmek, hoşlanmak||I really [like] / chocolate / and strawberry / ice cream.|Çikolatalı ve çilekli dondurmayı gerçekten severim.|thumbs-up
+love|v|çok sevmek||I [love] / my grandmother's / apple cake / so much.|Büyükannemin elmalı kekine bayılırım.|red-heart
+want|v|istemek||I [want] / a cup of tea / with lemon, / please.|Limonlu bir fincan çay istiyorum, lütfen.|folded-hands
+see|v|görmek||I can [see] / my school / from / my window.|Penceremden okulumu görebiliyorum.|eyes
+listen|v|dinlemek||I [listen] / to music / on the bus / every morning.|Her sabah otobüste müzik dinlerim.|headphone
+watch|v|izlemek||We [watch] / a film / together / on Friday nights.|Cuma akşamları birlikte film izleriz.|television
+speak|v|konuşmak||Can you [speak] / English / and a little / Spanish?|İngilizce ve biraz İspanyolca konuşabilir misin?|speaking-head
+help|v|yardım etmek||Can you [help] / me / with my homework, / please?|Ödevimde bana yardım edebilir misin, lütfen?|handshake
+sit|v|oturmak||Please [sit] / next to me / on the bus / today.|Bugün otobüste lütfen yanıma otur.|chair
+wash|v|yıkamak||I [wash] / the dishes / after dinner / every night.|Her akşam akşam yemeğinden sonra bulaşıkları yıkarım.|soap
+work|v|çalışmak||My parents / [work] / in the same office / in the city.|Annemle babam şehirde aynı ofiste çalışıyor.|briefcase
+learn|v|öğrenmek||I [learn] / ten new English words / every day / with Lokum.|Lokum'la her gün on yeni İngilizce kelime öğreniyorum.|graduation-cap
+call|v|aramak (telefonla)||I [call] / my grandmother / every Sunday / evening.|Her pazar akşamı büyükannemi ararım.|telephone-receiver
+big|adj|büyük|large|An elephant / is a very [big] / animal / with big ears.|Fil, büyük kulakları olan çok büyük bir hayvandır.|elephant
+small|adj|küçük|little|A mouse / is a [small] / animal / with a long tail.|Fare, uzun kuyruklu küçük bir hayvandır.|mouse-face
+hot|adj|sıcak||The soup / is very [hot], / so wait / a minute.|Çorba çok sıcak, o yüzden bir dakika bekle.|hot-face
+cold|adj|soğuk||It is / very [cold] / today, / wear your coat.|Bugün hava çok soğuk, montunu giy.|cold-face
+happy|adj|mutlu|glad|I am very [happy] / because / today is / my birthday.|Çok mutluyum çünkü bugün benim doğum günüm.|grinning-face
+sad|adj|üzgün||The little girl / is [sad] / because / she lost her toy.|Küçük kız oyuncağını kaybettiği için üzgün.|crying-face
+new|adj|yeni||I have / a [new] / phone / for my birthday.|Doğum günüm için yeni bir telefonum var.|sparkles
+old|adj|eski, yaşlı||My grandfather / has / a very [old] / car.|Dedemin çok eski bir arabası var.|older-person
+good|adj|iyi|great|This is / a really [good] / film, / you should watch it.|Bu gerçekten iyi bir film, izlemelisin.|thumbs-up
+bad|adj|kötü||The weather / is [bad] / today, / so we stay home.|Bugün hava kötü, o yüzden evde kalıyoruz.|thumbs-down
+fast|adj|hızlı|quick|This train / is very [fast], / it goes / to Ankara in four hours.|Bu tren çok hızlı, Ankara'ya dört saatte gidiyor.|rocket
+slow|adj|yavaş||The old bus / is very [slow] / in the morning / traffic.|Eski otobüs sabah trafiğinde çok yavaş.|snail
+beautiful|adj|güzel|pretty|What a [beautiful] / garden! / It has / so many flowers.|Ne güzel bir bahçe! Çok fazla çiçeği var.|rose
+tired|adj|yorgun||I am very [tired] / after / a long day / at school.|Okulda geçen uzun bir günden sonra çok yorgunum.|tired-face
+hungry|adj|aç||I am [hungry]. / Can we / have lunch / now?|Açım. Şimdi öğle yemeği yiyebilir miyiz?|face-savoring-food
+clean|adj|temiz||My room / is [clean] / and tidy / today.|Bugün odam temiz ve düzenli.|soap
+easy|adj|kolay|simple|This English game / is [easy] / and / a lot of fun.|Bu İngilizce oyunu kolay ve çok eğlenceli.|ok-hand
+red|adj|kırmızı||She has / a [red] / bike / with a little bell.|Küçük zilli kırmızı bir bisikleti var.|red-circle
+blue|adj|mavi||The sky / is [blue] / and there are / no clouds.|Gökyüzü mavi ve hiç bulut yok.|blue-circle
+green|adj|yeşil||The trees / are [green] / and beautiful / in spring.|İlkbaharda ağaçlar yeşil ve güzel.|green-circle
+today|adv|bugün||It's sunny / [today], / let's go / to the beach!|Bugün hava güneşli, hadi plaja gidelim!|tear-off-calendar
+tomorrow|adv|yarın||I have / an English exam / [tomorrow] / morning.|Yarın sabah İngilizce sınavım var.|spiral-calendar
+always|adv|her zaman||I [always] / drink / tea / with breakfast.|Kahvaltıda her zaman çay içerim.|repeat-button
+never|adv|asla, hiç||My brother / [never] / eats / fish.|Erkek kardeşim asla balık yemez.|prohibited
+here|adv|burada, buraya||Please / come [here] / and sit / next to me.|Lütfen buraya gel ve yanıma otur.|round-pushpin
+now|adv|şimdi|right now|I can't talk / [now], / I am / in a lesson.|Şimdi konuşamam, derstayım.|hourglass-not-done
+very|adv|çok||This cake / is [very] / good, / thank you!|Bu pasta çok güzel, teşekkürler!|hundred-points
+often|adv|çoğu zaman|frequently|We [often] / visit / our grandparents / on Sundays.|Pazar günleri sık sık büyükannemizle büyükbabamızı ziyaret ederiz.|counterclockwise-arrows-button
