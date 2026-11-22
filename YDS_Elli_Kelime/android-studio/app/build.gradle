@@ -1,0 +1,75 @@
+plugins {
+    id 'com.android.application'
+}
+
+// İmza bilgisi keystore.properties dosyasından okunur (depoda yok; örneği keystore.properties.example).
+def keys = new Properties()
+def keyFile = rootProject.file('keystore.properties')
+if (keyFile.exists()) keyFile.withInputStream { keys.load(it) }
+
+android {
+    namespace 'com.nefata.nyeals'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId 'com.nefata.nyeals'
+        minSdk 24
+        targetSdk 36
+        versionCode 1
+        versionName '1.0.0'
+    }
+
+    signingConfigs {
+        release {
+            if (keyFile.exists()) {
+                storeFile rootProject.file(keys['storeFile'])
+                storePassword keys['storePassword']
+                keyAlias keys['keyAlias']
+                keyPassword keys['keyPassword']
+                storeType 'pkcs12'
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            if (keyFile.exists()) signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    // Uygulamanın kendisi tek bir HTML dosyası: depodaki index.html derleme sırasında pakete kopyalanır.
+    sourceSets {
+        main {
+            assets.srcDirs += layout.buildDirectory.dir('generated/www-assets')
+        }
+    }
+
+    lint {
+        abortOnError false
+    }
+}
+
+// index.html'i assets/www altına koyar. Yazı tipleri dosyaya gömülü olduğu için yedek Google Fonts bağlantısı
+// pakete girmez: uygulama çalışırken internete bağlanmaz.
+def prepareWww = tasks.register('prepareWww') {
+    def src = rootProject.file('../index.html')
+    def out = layout.buildDirectory.dir('generated/www-assets/www')
+    inputs.file(src)
+    outputs.dir(out)
+    doLast {
+        def text = src.getText('UTF-8')
+        def clean = text.replaceAll(/<link rel="stylesheet" href="https:\/\/fonts\.googleapis\.com[^>]*>\n?/, '')
+        if (clean.contains('fonts.googleapis.com')) throw new GradleException('Google Fonts bağlantısı çıkarılamadı')
+        if (!clean.contains('@font-face')) throw new GradleException('index.html içinde gömülü yazı tipi yok; önce python3 src/build.py çalıştırın')
+        def dir = out.get().asFile
+        dir.mkdirs()
+        new File(dir, 'index.html').setText(clean, 'UTF-8')
+    }
+}
+tasks.named('preBuild') { dependsOn prepareWww }

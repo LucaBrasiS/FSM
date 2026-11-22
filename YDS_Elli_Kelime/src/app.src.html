@@ -1519,7 +1519,10 @@ function initVoice(){
 
 /* ---- cihaz tercihleri (ses efektleri açık mı, alt bölüm açık mı): ilerlemeden ayrı, yalnızca bu cihazda ---- */
 var PREFKEY=KEY+'-pref',PREF={snd:1,more:0,auto:1,lok:'gul',skin:''};     // lok = Lokum'un tadı (rengi); skin 'mono' = siyah tema
-function applySkin(){try{var r=document.documentElement;if(mono())r.setAttribute('data-skin','mono');else r.removeAttribute('data-skin')}catch(e){}}
+function applySkin(){
+  try{var r=document.documentElement;if(mono())r.setAttribute('data-skin','mono');else r.removeAttribute('data-skin')}catch(e){}
+  try{if(window.KelimeApp&&typeof window.KelimeApp.bar==='function')window.KelimeApp.bar(mono()?'#0E0E10':'')}catch(e){}   // Android kabuğu durum çubuğunun zeminini temaya uydurur
+}
 (function(){try{var o=JSON.parse(localStorage.getItem(PREFKEY)||'null');if(o&&typeof o==='object'){PREF.snd=o.snd===0?0:1;PREF.more=o.more?1:0;PREF.auto=o.auto===0?0:1;if(typeof o.lok==='string'&&LOKF[o.lok])PREF.lok=o.lok;if(o.skin==='mono')PREF.skin='mono'}}catch(e){}})();
 applySkin();
 function savePref(){try{localStorage.setItem(PREFKEY,JSON.stringify(PREF))}catch(e){}}
