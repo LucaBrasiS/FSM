@@ -1,6 +1,6 @@
-# Nyeals gizlilik politikası (taslak)
+# Nyeals gizlilik politikası
 
-Son güncelleme: 20 Kasım 2026. Bu metin mağaza sayfasına konmadan önce bir kez gözden geçirilmeli ve bir web adresinde yayımlanmalıdır.
+Son güncelleme: 22 Kasım 2026.
 
 ## Kısaca
 
@@ -14,12 +14,11 @@ Nyeals senden kişisel bilgi istemez ve hiçbir veriyi cihazından dışarı gö
 
 ## Veriler kiminle paylaşılır?
 
-Hiç kimseyle. Uygulamada reklam, analiz aracı ya da üçüncü taraf izleyici yoktur. Android sürümü çalışırken internete bağlanmaz.
+Hiç kimseyle. Uygulamada reklam, analiz aracı ya da üçüncü taraf izleyici yoktur. Android sürümünün internet izni yoktur; internete hiç bağlanmaz.
 
 ## İzinler
 
 - **Titreşim:** doğru ve yanlış cevapta kısa titreşim için. Ayarlardan sesle birlikte kapatılır.
-- **İnternet:** uygulamanın kabuğunda tanımlıdır; bugünkü sürüm bu izni kullanmaz.
 
 Kelimelerin sesli okunması cihazının kendi konuşma motoruyla yapılır; metin uygulamadan dışarı çıkmaz. Konuşma motorunun kendi
 gizlilik koşulları cihazının üreticisine ya da motorun sağlayıcısına aittir.
@@ -34,13 +33,13 @@ Uygulama 13 yaş ve üzeri için hazırlanmıştır ve çocuklardan bilerek veri
 
 ## İletişim
 
-Sorular için: (mağaza sayfasındaki geliştirici e-posta adresi buraya yazılacak)
+Sorular için Google Play'deki uygulama sayfasında yazan geliştirici iletişim adresine yazabilirsiniz.
 
 ---
 
 ## Short English version
 
 Nyeals collects no personal data and sends nothing off your device. Learning progress and settings are stored only on your device.
-There are no ads, analytics or third-party trackers, and no account. The Android app does not connect to the internet while running.
+There are no ads, analytics or third-party trackers, and no account. The Android app has no internet permission and does not connect to the internet.
 The vibrate permission is used for short haptic feedback. Text-to-speech uses your device's own speech engine.
 Uninstalling the app, or using "Baştan başlat" in the app, deletes all stored data.

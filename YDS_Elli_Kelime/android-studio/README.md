@@ -44,5 +44,5 @@ Elden kurmak için APK: `./gradlew assembleRelease` → `app/build/outputs/apk/r
 
 ## Bilinen durum
 
-Kabuk kodu Android 16 sınıflarına karşı derleme denetiminden geçti; gerçek AAB derlemesi ve telefonda deneme henüz yapılmadı.
-İlk derlemede bakılacaklar: sesli okuma, geri tuşu, titreşim, durum çubuğunun altında kalan içerik olmaması.
+İlk AAB (sürüm 1.0.0, kod 1) bu projeden derlendi ve imzası doğrulandı; telefonda denenmedi.
+İlk kurulumda bakılacaklar: sesli okuma, geri tuşu, titreşim, durum çubuğunun altında kalan içerik olmaması.
